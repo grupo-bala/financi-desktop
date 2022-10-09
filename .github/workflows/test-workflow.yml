@@ -1,0 +1,24 @@
+name: Tests Workflow
+on:
+  push:
+    branches:
+      - dev
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: sudo add-apt-repository ppa:openjdk-r/ppa
+      - run: sudo apt update
+      - run: sudo apt install openjdk-17-jdk maven -y
+      - run: mvn test
+  
+  build:
+    if: github.refs == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: sudo add-apt-repository ppa:openjdk-r/ppa
+      - run: sudo apt update
+      - run: sudo apt install openjdk-17-jdk maven -y
+      - run: mvn package
