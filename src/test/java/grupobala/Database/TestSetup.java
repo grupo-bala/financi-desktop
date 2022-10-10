@@ -5,45 +5,18 @@ import static org.junit.jupiter.api.Assertions.*;
 import grupobala.Database.Setup.Setup;
 import java.sql.*;
 import java.util.*;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
 public class TestSetup {
 
     @Test
-    @Order(1)
-    public void testDBCreation() throws Exception {
-        Statement statement = DriverManager
-            .getConnection(
-                "jdbc:postgresql://localhost:5432/?user=postgres&password=postgres"
-            )
-            .createStatement();
+    public void testDBCreation() throws SQLException {
+        TestSetup.removeDB();
 
-        TestSetup.removeDB(statement);
+        Statement statement = Setup.setup();
 
-        Setup.setup();
-
-        ArrayList<String> databases = new ArrayList<>();
-
-        String query = "SELECT datname FROM pg_database";
-
-        ResultSet queryResult = statement.executeQuery(query);
-
-        while (queryResult.next()) {
-            databases.add(queryResult.getString("datname"));
-        }
-
-        assertNotEquals(-1, databases.indexOf("financi"));
-    }
-
-    @Test
-    @Order(2)
-    public void testDBCreatedTables() throws Exception {
-        Statement statement = DriverManager
-            .getConnection(
-                "jdbc:postgresql://localhost:5432/financi?user=postgres&password=postgres"
-            )
-            .createStatement();
+        String query =
+            "SELECT tablename FROM pg_catalog.pg_tables WHERE schemaname != 'pg_catalog' AND schemaname != 'information_schema'";
 
         ArrayList<String> expectedTables = new ArrayList<>(
             Arrays.asList(
@@ -58,9 +31,6 @@ public class TestSetup {
 
         ArrayList<String> tables = new ArrayList<>();
 
-        String query =
-            "SELECT tablename FROM pg_catalog.pg_tables WHERE schemaname != 'pg_catalog' AND schemaname != 'information_schema'";
-
         ResultSet queryResult = statement.executeQuery(query);
 
         while (queryResult.next()) {
@@ -73,8 +43,14 @@ public class TestSetup {
         assertEquals(expectedTables, tables);
     }
 
-    private static void removeDB(Statement statement) {
+    private static void removeDB() {
         try {
+            Statement statement = DriverManager
+                .getConnection(
+                    "jdbc:postgresql://localhost:5432/?user=postgres&password=postgres"
+                )
+                .createStatement();
+
             String query = "DROP DATABASE financi";
 
             statement.executeUpdate(query);

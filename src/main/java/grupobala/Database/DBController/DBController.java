@@ -48,36 +48,20 @@ public class DBController implements IDBController {
         double wage
     ) throws SQLException {
         try {
-            String query =
-                String.format(
-                    Locale.US,
-                    "INSERT INTO usuario(nome, nomeusuario, senha, rendafixa) VALUES ('%s', '%s', '%s', %f)",
-                    name,
-                    username,
-                    password,
-                    wage
-                );
-            
+            String query = String.format(
+                Locale.US,
+                "INSERT INTO usuario(nome, nomeusuario, senha, rendafixa) VALUES ('%s', '%s', '%s', %f)",
+                name,
+                username,
+                password,
+                wage
+            );
+
             DBController.STATEMENT.executeUpdate(query);
         } catch (SQLException e) {
             return false;
         }
 
         return true;
-    }
-
-    public void dropEverything() throws SQLException {
-        String[] queries = {
-            "TRUNCATE TABLE usuario CASCADE",
-            "TRUNCATE TABLE meta CASCADE",
-            "TRUNCATE TABLE aulaassistida CASCADE",
-            "TRUNCATE TABLE aula CASCADE",
-            "TRUNCATE TABLE movimentacao CASCADE",
-            "TRUNCATE TABLE categoria CASCADE",
-        };
-
-        for (String query : queries) {
-            DBController.STATEMENT.executeUpdate(query);
-        }
     }
 }
