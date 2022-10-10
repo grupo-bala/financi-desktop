@@ -3,6 +3,7 @@ package grupobala.Database.DBController;
 import grupobala.Database.IDBController.IDBController;
 import grupobala.Database.Setup.Setup;
 import java.sql.*;
+import java.util.Locale;
 
 public class DBController implements IDBController {
 
@@ -28,6 +29,7 @@ public class DBController implements IDBController {
     @Override
     public boolean login(String username, String password) {
         String query = String.format(
+            Locale.US,
             "SELECT nome FROM usuario WHERE nomeusuario = '%s' AND senha = '%s'",
             username,
             password
@@ -53,6 +55,7 @@ public class DBController implements IDBController {
         double wage
     ) throws Exception {
         String query = String.format(
+            Locale.US,
             "SELECT nome FROM usuario WHERE nomeusuario = '%s'",
             username
         );
@@ -65,6 +68,7 @@ public class DBController implements IDBController {
         } catch (SQLException e) {
             query =
                 String.format(
+                    Locale.US,
                     "INSERT INTO usuario(nome, nomeusuario, senha, rendafixa) VALUES ('%s', '%s', '%s', %f)",
                     name,
                     username,
