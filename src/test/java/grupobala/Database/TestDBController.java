@@ -2,6 +2,9 @@ package grupobala.Database;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.sql.SQLException;
+
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
@@ -11,7 +14,7 @@ public class TestDBController {
 
     @Test
     @Order(1)
-    public void testRegistration() throws Exception {
+    public void testRegistration() throws SQLException {
         DBController db = new DBController();
 
         db.dropEverything();
@@ -22,11 +25,10 @@ public class TestDBController {
     }
 
     @Test
-    @Order(2)
     public void testLogin() throws Exception {
         DBController db = new DBController();
-
-        boolean result = db.login("financi", "1234");
+        db.signUp("testLogin", "1234", "Login", 0);
+        boolean result = db.login("testLogin", "1234");
 
         assertTrue(result);
     }
@@ -34,14 +36,14 @@ public class TestDBController {
     @Test
     public void testRegistrationShouldFail() throws Exception {
         DBController db = new DBController();
-
-        boolean result = db.signUp("financi", "1234", "Financi", 0);
+        db.signUp("testRegistrationShouldFail", "1234", "testRegistrationShouldFail", 0);
+        boolean result = db.signUp("testRegistrationShouldFail", "1234", "Financi", 0);
 
         assertTrue(!result);
     }
 
     @Test
-    public void testLoginShouldFail() {
+    public void testLoginShouldFail() throws SQLException {
         DBController db = new DBController();
 
         boolean result = db.login("usuarioNaoCadastrado", "1234");
