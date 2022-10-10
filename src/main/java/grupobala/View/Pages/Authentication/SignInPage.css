@@ -1,0 +1,35 @@
+.container {
+    -fx-background-color: #222622;
+    -fx-alignment: center;
+    -fx-spacing: 80px;
+}
+
+.logo-container {
+    -fx-alignment: center;
+}
+
+.title {
+    -fx-fill: #ffffff;
+    -fx-font-family: "Montserrat";
+    -fx-font-weight: bold;
+    -fx-font-size: 60px;
+    -fx-margin-bottom: 100px;
+}
+
+.login-container {
+    -fx-max-width: 300px;
+    -fx-spacing: 20px;
+    -fx-alignment: center;
+}
+
+.input {
+    -fx-min-height: 40px;
+    -fx-stroke: #49AD5A;
+    -fx-stroke-width: 5px;
+}
+
+.login-button {
+    -fx-background-color: #49AD5A;
+    -fx-padding: 10px 30px 10px 30px;
+    -fx-cursor: hand;
+}
