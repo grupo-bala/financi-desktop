@@ -13,6 +13,6 @@ jobs:
       - run: sudo add-apt-repository ppa:openjdk-r/ppa
       - run: sudo apt update
       - run: sudo apt install openjdk-17-jdk maven postgresql -y
-      - run: service postgresql start
+      - run: sudo service postgresql start
       - run: echo "ALTER USER postgres WITH PASSWORD 'postgres';" | sudo -u postgres psql
       - run: mvn test
