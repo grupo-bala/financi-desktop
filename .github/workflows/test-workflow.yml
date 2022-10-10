@@ -8,17 +8,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - run: sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+      - run: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
       - run: sudo add-apt-repository ppa:openjdk-r/ppa
       - run: sudo apt update
-      - run: sudo apt install openjdk-17-jdk maven -y
+      - run: sudo apt install openjdk-17-jdk maven postgresql -y
+      - run: echo "ALTER USER postgres WITH PASSWORD 'postgres';" | sudo -u postgres psql
       - run: mvn test
-  
-  build:
-    if: github.refs == 'refs/heads/main'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - run: sudo add-apt-repository ppa:openjdk-r/ppa
-      - run: sudo apt update
-      - run: sudo apt install openjdk-17-jdk maven -y
-      - run: mvn package
