@@ -1,0 +1,8 @@
+.financi-text-field {
+    -fx-background-color: #121212;
+    -fx-background-radius: 10px;
+    -fx-text-fill: #ffffff;
+    -fx-border-color: #49AD5A;
+    -fx-border-width: 1px;
+    -fx-border-radius: 10px;
+}

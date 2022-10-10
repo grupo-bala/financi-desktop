@@ -11,4 +11,8 @@ public class ColorFactory {
             a / 255.0
         );
     }
+
+    public static Color fromRGB(int r, int g, int b) {
+        return ColorFactory.fromRGBA(r, g, b, 255);
+    }
 }

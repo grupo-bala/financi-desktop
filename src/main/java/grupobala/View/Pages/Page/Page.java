@@ -1,4 +1,4 @@
-package grupobala.View.Page;
+package grupobala.View.Pages.Page;
 
 import javafx.scene.Scene;
 
