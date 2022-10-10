@@ -27,7 +27,7 @@ public class DBController implements IDBController {
     }
 
     @Override
-    public boolean login(String username, String password) {
+    public boolean login(String username, String password) throws SQLException {
         String query = String.format(
             Locale.US,
             "SELECT nome FROM usuario WHERE nomeusuario = '%s' AND senha = '%s'",
@@ -35,16 +35,9 @@ public class DBController implements IDBController {
             password
         );
 
-        try {
-            ResultSet result = DBController.STATEMENT.executeQuery(query);
+        ResultSet result = DBController.STATEMENT.executeQuery(query);
 
-            result.next();
-            result.getString("nome");
-        } catch (SQLException e) {
-            return false;
-        }
-
-        return true;
+        return result.isBeforeFirst();
     }
 
     @Override
@@ -53,20 +46,9 @@ public class DBController implements IDBController {
         String password,
         String name,
         double wage
-    ) throws Exception {
-        String query = String.format(
-            Locale.US,
-            "SELECT nome FROM usuario WHERE nomeusuario = '%s'",
-            username
-        );
-
+    ) throws SQLException {
         try {
-            ResultSet result = DBController.STATEMENT.executeQuery(query);
-
-            result.next();
-            result.getString("nome");
-        } catch (SQLException e) {
-            query =
+            String query =
                 String.format(
                     Locale.US,
                     "INSERT INTO usuario(nome, nomeusuario, senha, rendafixa) VALUES ('%s', '%s', '%s', %f)",
@@ -75,16 +57,16 @@ public class DBController implements IDBController {
                     password,
                     wage
                 );
-
+            
             DBController.STATEMENT.executeUpdate(query);
-
-            return true;
+        } catch (SQLException e) {
+            return false;
         }
 
-        return false;
+        return true;
     }
 
-    public void dropEverything() throws Exception {
+    public void dropEverything() throws SQLException {
         String[] queries = {
             "TRUNCATE TABLE usuario CASCADE",
             "TRUNCATE TABLE meta CASCADE",
