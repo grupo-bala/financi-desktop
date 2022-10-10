@@ -1,6 +1,6 @@
 package grupobala.View;
 
-import grupobala.View.Page.Page;
+import grupobala.View.Pages.Page.Page;
 import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
