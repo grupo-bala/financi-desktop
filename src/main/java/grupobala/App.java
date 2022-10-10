@@ -1,24 +1,22 @@
 package grupobala;
 
 import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class App extends Application {
+import grupobala.View.PageManager;
+import grupobala.View.Pages.Authentication.SignInPage;
 
-    private static Scene scene;
+public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(new StackPane(), 500, 500);
-        stage.setScene(scene);
-        stage.show();
+        PageManager pageManager = new PageManager(stage);
+        pageManager.setCurrentPage(new SignInPage());
     }
 
-    public static void main(String[] args) {
+    public static void uiMain(String[] args) {
         launch();
     }
 }
