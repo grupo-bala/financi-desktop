@@ -8,20 +8,18 @@ import java.util.Locale;
 public class DBController implements IDBController {
 
     private static boolean INSTANCIATED = false;
-    private static Statement STATEMENT = null;
+    private static Connection CONNECTION = null;
 
     public DBController() {
         if (!DBController.INSTANCIATED) {
             DBController.INSTANCIATED = true;
 
             try {
-                Connection connection = DriverManager.getConnection(
+                DBController.CONNECTION = DriverManager.getConnection(
                     "jdbc:postgresql://localhost:5432/financi?user=postgres&password=postgres"
                 );
-
-                DBController.STATEMENT = connection.createStatement();
             } catch (SQLException e) {
-                DBController.STATEMENT = Setup.setup();
+                DBController.CONNECTION = Setup.setup();
             }
         }
     }
@@ -35,9 +33,15 @@ public class DBController implements IDBController {
             password
         );
 
-        ResultSet result = DBController.STATEMENT.executeQuery(query);
+        Statement statement = DBController.CONNECTION.createStatement();
 
-        return result.isBeforeFirst();
+        ResultSet result = statement.executeQuery(query);
+
+        boolean loginResult = result.isBeforeFirst();
+
+        statement.close();
+
+        return loginResult;
     }
 
     @Override
@@ -57,7 +61,11 @@ public class DBController implements IDBController {
                 wage
             );
 
-            DBController.STATEMENT.executeUpdate(query);
+            Statement statement = DBController.CONNECTION.createStatement();
+
+            statement.executeUpdate(query);
+
+            statement.close();
         } catch (SQLException e) {
             return false;
         }
