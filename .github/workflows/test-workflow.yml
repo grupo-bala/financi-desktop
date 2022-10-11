@@ -1,4 +1,4 @@
-name: Tests Workflow
+name: Test and Prettier Workflow
 on:
   push:
     branches:
@@ -16,3 +16,16 @@ jobs:
       - run: sudo service postgresql start
       - run: echo "ALTER USER postgres WITH PASSWORD 'postgres';" | sudo -u postgres psql
       - run: mvn test
+  
+  prettier:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+      - run: source ~/.bashrc
+      - run: npm install -g prettier prettier-plugin-java
+      - run: prettier --write "**/*.java"
+      - uses: mikeal/publish-to-github-action@master
+        env: 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH_NAME: 'dev'
