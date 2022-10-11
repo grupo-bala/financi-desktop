@@ -4,11 +4,9 @@ import java.sql.*;
 
 public class Setup {
 
-    public static Statement setup() {
+    public static Connection setup() {
         try {
-            Statement statement = Setup.createDB();
-
-            return statement;
+            return Setup.createDB();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -16,25 +14,30 @@ public class Setup {
         return null;
     }
 
-    private static Statement createDB() throws SQLException {
+    private static Connection createDB() throws SQLException {
         String query = "CREATE DATABASE financi;";
 
-        DriverManager
+        Connection rootConection = DriverManager
             .getConnection(
                 "jdbc:postgresql://localhost:5432/?user=postgres&password=postgres"
-            )
-            .createStatement()
-            .executeUpdate(query);
+            );
 
-        Statement statement = DriverManager
+        rootConection.createStatement().executeUpdate(query);
+        
+        rootConection.close();
+
+        Connection connection = DriverManager
             .getConnection(
                 "jdbc:postgresql://localhost:5432/financi?user=postgres&password=postgres"
-            )
-            .createStatement();
+            );
+        
+        Statement statement = connection.createStatement();
 
         Setup.createTables(statement);
 
-        return statement;
+        statement.close();
+
+        return connection;
     }
 
     private static void createTables(Statement statement) throws SQLException {
