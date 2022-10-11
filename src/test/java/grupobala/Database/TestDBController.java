@@ -68,11 +68,13 @@ public class TestDBController {
     }
 
     private static void truncateTablesForTest() throws SQLException {
-        Statement statement = DriverManager
+        Connection rootConnection = DriverManager
             .getConnection(
                 "jdbc:postgresql://localhost:5432/financi?user=postgres&password=postgres"
-            )
-            .createStatement();
+            );
+
+        
+        Statement statement = rootConnection.createStatement();
 
         String[] queries = {
             "TRUNCATE TABLE usuario CASCADE",
@@ -86,5 +88,7 @@ public class TestDBController {
         for (String query : queries) {
             statement.executeUpdate(query);
         }
+
+        rootConnection.close();
     }
 }

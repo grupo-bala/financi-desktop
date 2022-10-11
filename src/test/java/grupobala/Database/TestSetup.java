@@ -5,15 +5,18 @@ import static org.junit.jupiter.api.Assertions.*;
 import grupobala.Database.Setup.Setup;
 import java.sql.*;
 import java.util.*;
+
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
+@Order(1)
 public class TestSetup {
 
     @Test
     public void testDBCreation() throws SQLException {
         TestSetup.removeDB();
 
-        Statement statement = Setup.setup();
+        Connection connection = Setup.setup();
 
         String query =
             "SELECT tablename FROM pg_catalog.pg_tables WHERE schemaname != 'pg_catalog' AND schemaname != 'information_schema'";
@@ -31,7 +34,11 @@ public class TestSetup {
 
         ArrayList<String> tables = new ArrayList<>();
 
+        Statement statement = connection.createStatement();
+
         ResultSet queryResult = statement.executeQuery(query);
+
+        connection.close();
 
         while (queryResult.next()) {
             tables.add(queryResult.getString("tablename"));
@@ -45,15 +52,16 @@ public class TestSetup {
 
     private static void removeDB() {
         try {
-            Statement statement = DriverManager
+            Connection rootConnection = DriverManager
                 .getConnection(
                     "jdbc:postgresql://localhost:5432/?user=postgres&password=postgres"
-                )
-                .createStatement();
+                );
 
             String query = "DROP DATABASE financi";
+            
+            rootConnection.createStatement().executeUpdate(query);
 
-            statement.executeUpdate(query);
+            rootConnection.close();
         } catch (Exception e) {
             System.out.println("Financi database already dropped");
         }
