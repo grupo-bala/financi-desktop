@@ -15,9 +15,10 @@ public class DBController implements IDBController {
             DBController.INSTANCIATED = true;
 
             try {
-                DBController.CONNECTION = DriverManager.getConnection(
-                    "jdbc:postgresql://localhost:5432/financi?user=postgres&password=postgres"
-                );
+                DBController.CONNECTION =
+                    DriverManager.getConnection(
+                        "jdbc:postgresql://localhost:5432/financi?user=postgres&password=postgres"
+                    );
             } catch (SQLException e) {
                 DBController.CONNECTION = Setup.setup();
             }

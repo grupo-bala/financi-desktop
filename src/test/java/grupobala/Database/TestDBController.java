@@ -68,12 +68,10 @@ public class TestDBController {
     }
 
     private static void truncateTablesForTest() throws SQLException {
-        Connection rootConnection = DriverManager
-            .getConnection(
-                "jdbc:postgresql://localhost:5432/financi?user=postgres&password=postgres"
-            );
+        Connection rootConnection = DriverManager.getConnection(
+            "jdbc:postgresql://localhost:5432/financi?user=postgres&password=postgres"
+        );
 
-        
         Statement statement = rootConnection.createStatement();
 
         String[] queries = {

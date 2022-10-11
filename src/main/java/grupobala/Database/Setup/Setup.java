@@ -17,20 +17,18 @@ public class Setup {
     private static Connection createDB() throws SQLException {
         String query = "CREATE DATABASE financi;";
 
-        Connection rootConection = DriverManager
-            .getConnection(
-                "jdbc:postgresql://localhost:5432/?user=postgres&password=postgres"
-            );
+        Connection rootConection = DriverManager.getConnection(
+            "jdbc:postgresql://localhost:5432/?user=postgres&password=postgres"
+        );
 
         rootConection.createStatement().executeUpdate(query);
-        
+
         rootConection.close();
 
-        Connection connection = DriverManager
-            .getConnection(
-                "jdbc:postgresql://localhost:5432/financi?user=postgres&password=postgres"
-            );
-        
+        Connection connection = DriverManager.getConnection(
+            "jdbc:postgresql://localhost:5432/financi?user=postgres&password=postgres"
+        );
+
         Statement statement = connection.createStatement();
 
         Setup.createTables(statement);

@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import grupobala.Database.Setup.Setup;
 import java.sql.*;
 import java.util.*;
-
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
@@ -52,13 +51,12 @@ public class TestSetup {
 
     private static void removeDB() {
         try {
-            Connection rootConnection = DriverManager
-                .getConnection(
-                    "jdbc:postgresql://localhost:5432/?user=postgres&password=postgres"
-                );
+            Connection rootConnection = DriverManager.getConnection(
+                "jdbc:postgresql://localhost:5432/?user=postgres&password=postgres"
+            );
 
             String query = "DROP DATABASE financi";
-            
+
             rootConnection.createStatement().executeUpdate(query);
 
             rootConnection.close();
