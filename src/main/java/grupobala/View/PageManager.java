@@ -6,6 +6,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class PageManager {
+
     private static boolean isInitialized;
     private static Page currentPage;
     private static Stage currentStage;

@@ -1,11 +1,11 @@
 package grupobala.Crypt;
 
+import grupobala.Crypt.Implementations.BlowFishEncryptor;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import grupobala.Crypt.Implementations.BlowFishEncryptor;
-
 public class TestBlowFishEncryptor {
+
     BlowFishEncryptor encryptor = new BlowFishEncryptor();
 
     @Test

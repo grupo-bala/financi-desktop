@@ -1,10 +1,10 @@
 package grupobala.Entities.Transaction;
 
+import grupobala.Entities.Transaction.ITransaction.ITransaction;
 import java.util.Date;
 
-import grupobala.Entities.Transaction.ITransaction.ITransaction;
+public class Transaction implements ITransaction {
 
-public class Transaction implements ITransaction{
     private int id;
     private double valor;
     private String description;
@@ -12,7 +12,14 @@ public class Transaction implements ITransaction{
     private String category;
     private Date date;
 
-    public Transaction(int id, double valor, String description, String title, String category, Date date) {
+    public Transaction(
+        int id,
+        double valor,
+        String description,
+        String title,
+        String category,
+        Date date
+    ) {
         this.id = id;
         this.valor = valor;
         this.description = description;

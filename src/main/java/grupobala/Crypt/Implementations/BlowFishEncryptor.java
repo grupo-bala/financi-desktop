@@ -1,11 +1,11 @@
 package grupobala.Crypt.Implementations;
 
+import grupobala.Crypt.Encryptor.Encryptor;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
-import grupobala.Crypt.Encryptor.Encryptor;
-
 public class BlowFishEncryptor implements Encryptor {
+
     static final String key = "grupobala";
     static final String algorithm = "Blowfish";
 

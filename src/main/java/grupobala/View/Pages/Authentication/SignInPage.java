@@ -12,37 +12,37 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 public class SignInPage implements Page {
+
     public Scene getScene() {
         VBox container = new VBox();
         Scene scene = new Scene(container);
         VBox logoVBox = getLogoVBox();
         VBox loginVBox = getLoginFormBox();
-        
-        container.getStyleClass().add("container");
-        container.getChildren().addAll(
-            logoVBox,
-            loginVBox
-        );
 
-        scene.getStylesheets()
-            .add("file:src/main/java/grupobala/View/Pages/Authentication/SignInPage.css");
+        container.getStyleClass().add("container");
+        container.getChildren().addAll(logoVBox, loginVBox);
+
+        scene
+            .getStylesheets()
+            .add(
+                "file:src/main/java/grupobala/View/Pages/Authentication/SignInPage.css"
+            );
 
         return scene;
     }
 
     private VBox getLogoVBox() {
         VBox logoVBox = new VBox();
-        Image logoImg = new Image("file:src/main/resources/grupobala/images/financi-logo.png");
+        Image logoImg = new Image(
+            "file:src/main/resources/grupobala/images/financi-logo.png"
+        );
         ImageView logo = new ImageView(logoImg);
         Text financiTitle = new Text("Financi");
 
         logoVBox.getStyleClass().add("logo-container");
         financiTitle.getStyleClass().add("title");
 
-        logoVBox.getChildren().addAll(
-            logo,
-            financiTitle
-        );
+        logoVBox.getChildren().addAll(logo, financiTitle);
 
         return logoVBox;
     }
@@ -61,11 +61,9 @@ public class SignInPage implements Page {
         loginButton.setText("Entrar");
         loginButton.getStyleClass().add("login-button");
 
-        loginFormVBox.getChildren().addAll(
-            usernameField,
-            passwordField,
-            loginButton
-        );
+        loginFormVBox
+            .getChildren()
+            .addAll(usernameField, passwordField, loginButton);
 
         return loginFormVBox;
     }
