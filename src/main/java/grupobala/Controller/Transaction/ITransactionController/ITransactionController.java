@@ -1,4 +1,4 @@
-package grupobala.EntityController.ITransactionController;
+package grupobala.Controller.Transaction.ITransactionController;
 
 import grupobala.Entities.Category.CategoryEnum;
 import grupobala.Entities.Transaction.ITransaction.ITransaction;
