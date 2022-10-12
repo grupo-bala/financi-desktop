@@ -245,7 +245,7 @@ public class TestDBTransaction {
         assertEquals(expected, result);
     }
 
-    private static void setupDBForTest() throws SQLException {
+    public static void setupDBForTest() throws SQLException {
         Connection connection = DriverManager.getConnection(
             "jdbc:postgresql://localhost:5432/financi?user=postgres&password=postgres"
         );
