@@ -105,8 +105,31 @@ public class DBTransaction implements IDBTransaction {
     }
 
     @Override
-    public void removeTransaction(String username, int transactionID)
-        throws SQLException {
-        // TODO
+    public void removeTransaction(String username, int transactionID) throws SQLException {
+        String query = String.format(
+            Locale.US,
+            "SELECT * FROM usuario WHERE nomeusuario = '%s'",
+            username
+        );
+
+        ResultSet result = this.databaseConnection.executeQuery(query);
+
+        if (!result.isBeforeFirst()) {
+            throw new SQLException("Usuário não existe");
+        }
+
+        result.close();
+
+        query = String.format(
+            Locale.US,
+            "DELETE FROM movimentacao WHERE id = %d",
+            transactionID
+        );
+
+        int howManyUpdates = this.databaseConnection.executeUpdate(query);
+
+        if (howManyUpdates == 0) {
+            throw new SQLException("ID de transação não existe");
+        }
     }
 }
