@@ -105,7 +105,8 @@ public class DBTransaction implements IDBTransaction {
     }
 
     @Override
-    public void removeTransaction(String username, int transactionID) throws SQLException {
+    public void removeTransaction(String username, int transactionID)
+        throws SQLException {
         String query = String.format(
             Locale.US,
             "SELECT * FROM usuario WHERE nomeusuario = '%s'",
@@ -120,11 +121,12 @@ public class DBTransaction implements IDBTransaction {
 
         result.close();
 
-        query = String.format(
-            Locale.US,
-            "DELETE FROM movimentacao WHERE id = %d",
-            transactionID
-        );
+        query =
+            String.format(
+                Locale.US,
+                "DELETE FROM movimentacao WHERE id = %d",
+                transactionID
+            );
 
         int howManyUpdates = this.databaseConnection.executeUpdate(query);
 

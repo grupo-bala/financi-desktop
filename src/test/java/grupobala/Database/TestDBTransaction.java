@@ -88,7 +88,14 @@ public class TestDBTransaction {
 
         Date transactionDate = calendar.getTime();
 
-        ITransaction transaction = this.databaseTransaction.addTransaction("financi", 100, "Testes", CategoryEnum.OTHERS, transactionDate);
+        ITransaction transaction =
+            this.databaseTransaction.addTransaction(
+                    "financi",
+                    100,
+                    "Testes",
+                    CategoryEnum.OTHERS,
+                    transactionDate
+                );
 
         int transactionID = transaction.getId();
 
@@ -96,12 +103,19 @@ public class TestDBTransaction {
     }
 
     @Test
-    public void testRemoveTransactionShouldFailNonexistentUser() throws SQLException {
+    public void testRemoveTransactionShouldFailNonexistentUser()
+        throws SQLException {
         TestDBTransaction.setupDBForTest();
 
-        Exception exception = assertThrows(SQLException.class, () -> {
-            this.databaseTransaction.removeTransaction("usuárioNãoExistente", 1);
-        });
+        Exception exception = assertThrows(
+            SQLException.class,
+            () -> {
+                this.databaseTransaction.removeTransaction(
+                        "usuárioNãoExistente",
+                        1
+                    );
+            }
+        );
 
         String expected = "Usuário não existe";
         String result = exception.getMessage();
@@ -110,12 +124,16 @@ public class TestDBTransaction {
     }
 
     @Test
-    public void testRemoveTransactionShouldFailNonexistentTransactionID() throws SQLException {
+    public void testRemoveTransactionShouldFailNonexistentTransactionID()
+        throws SQLException {
         TestDBTransaction.setupDBForTest();
 
-        Exception exception = assertThrows(SQLException.class, () -> {
-            this.databaseTransaction.removeTransaction("financi", -1);
-        });
+        Exception exception = assertThrows(
+            SQLException.class,
+            () -> {
+                this.databaseTransaction.removeTransaction("financi", -1);
+            }
+        );
 
         String expected = "ID de transação não existe";
         String result = exception.getMessage();
