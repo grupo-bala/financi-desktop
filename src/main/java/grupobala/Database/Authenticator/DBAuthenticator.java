@@ -1,12 +1,12 @@
 package grupobala.Database.Authenticator;
 
+import grupobala.Database.Authenticator.IDBAuthenticator.IDBAuthenticator;
+import grupobala.Database.Connection.IDBConnection.IDBConnection;
 import java.sql.*;
 import java.util.Locale;
 
-import grupobala.Database.Authenticator.IDBAuthenticator.IDBAuthenticator;
-import grupobala.Database.Connection.IDBConnection.IDBConnection;
-
 public class DBAuthenticator implements IDBAuthenticator {
+
     private IDBConnection databaseConnection;
 
     public DBAuthenticator(IDBConnection databaseConnection) {
@@ -52,5 +52,5 @@ public class DBAuthenticator implements IDBAuthenticator {
         }
 
         return true;
-    }    
+    }
 }

@@ -2,14 +2,13 @@ package grupobala.Database;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.sql.*;
-
-import org.junit.jupiter.api.Test;
-
 import grupobala.Database.Connection.DBConnection;
 import grupobala.Database.Connection.IDBConnection.IDBConnection;
+import java.sql.*;
+import org.junit.jupiter.api.Test;
 
 public class TestDBConnection {
+
     private static IDBConnection databaseConnection = new DBConnection();
 
     @Test
@@ -18,7 +17,9 @@ public class TestDBConnection {
 
         String query = "SELECT nome FROM usuario WHERE nomeusuario = 'financi'";
 
-        ResultSet result = TestDBConnection.databaseConnection.executeQuery(query);
+        ResultSet result = TestDBConnection.databaseConnection.executeQuery(
+            query
+        );
 
         boolean expected = true;
         boolean name = result.isBeforeFirst();
@@ -32,9 +33,12 @@ public class TestDBConnection {
     public void testDBConnectionExecuteQueryShouldFail() throws SQLException {
         TestDBConnection.setupDBForTest();
 
-        String query = "SELECT nome FROM usuario WHERE nomeusuario = 'nomeInexistente'";
+        String query =
+            "SELECT nome FROM usuario WHERE nomeusuario = 'nomeInexistente'";
 
-        ResultSet result = TestDBConnection.databaseConnection.executeQuery(query);
+        ResultSet result = TestDBConnection.databaseConnection.executeQuery(
+            query
+        );
 
         boolean expected = false;
         boolean queryResult = result.isBeforeFirst();
@@ -48,7 +52,8 @@ public class TestDBConnection {
     public void testDBConnectionExecuteUpdate() throws SQLException {
         TestDBConnection.setupDBForTest();
 
-        String query = "UPDATE usuario SET nome = 'financiatualizado' WHERE nomeusuario = 'financi'";
+        String query =
+            "UPDATE usuario SET nome = 'financiatualizado' WHERE nomeusuario = 'financi'";
 
         int expected = 1;
         int updates = TestDBConnection.databaseConnection.executeUpdate(query);
@@ -60,7 +65,8 @@ public class TestDBConnection {
     public void testDBConnectionExecuteUpdateShouldFail() throws SQLException {
         TestDBConnection.setupDBForTest();
 
-        String query = "UPDATE usuario SET nome = 'financiatualizado' WHERE nomeusuario = 'usuarioInexistente'";
+        String query =
+            "UPDATE usuario SET nome = 'financiatualizado' WHERE nomeusuario = 'usuarioInexistente'";
 
         int expected = 0;
         int updates = TestDBConnection.databaseConnection.executeUpdate(query);
@@ -88,7 +94,8 @@ public class TestDBConnection {
             statement.executeUpdate(query);
         }
 
-        String query = "INSERT INTO usuario(nome, nomeusuario, senha, rendafixa) VALUES ('Financi', 'financi', '1234', 1000)";
+        String query =
+            "INSERT INTO usuario(nome, nomeusuario, senha, rendafixa) VALUES ('Financi', 'financi', '1234', 1000)";
 
         statement.executeUpdate(query);
 

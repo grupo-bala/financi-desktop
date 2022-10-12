@@ -6,5 +6,5 @@ public enum CategoryEnum {
     SAUDE,
     ENTRETENIMENTO,
     PAGAMENTOS,
-    OUTROS
+    OUTROS,
 }

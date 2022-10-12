@@ -1,10 +1,9 @@
 package grupobala.Database.Transaction.IDBTransaction;
 
-import java.sql.SQLException;
-import java.util.Date;
-
 import grupobala.Entities.Category.CategoryEnum;
 import grupobala.Entities.Transaction.ITransaction.ITransaction;
+import java.sql.SQLException;
+import java.util.Date;
 
 public interface IDBTransaction {
     public ITransaction addTransaction(
@@ -16,8 +15,6 @@ public interface IDBTransaction {
         Date date
     ) throws SQLException;
 
-    public void removeTransaction(
-        String username,
-        int transactionID
-    ) throws SQLException;
+    public void removeTransaction(String username, int transactionID)
+        throws SQLException;
 }

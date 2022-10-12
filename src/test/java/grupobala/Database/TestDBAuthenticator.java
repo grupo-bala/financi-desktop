@@ -1,23 +1,29 @@
 package grupobala.Database;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import grupobala.Database.Authenticator.DBAuthenticator;
 import grupobala.Database.Authenticator.IDBAuthenticator.IDBAuthenticator;
 import grupobala.Database.Connection.DBConnection;
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.sql.*;
-
 import org.junit.jupiter.api.Test;
 
 public class TestDBAuthenticator {
-    private IDBAuthenticator databaseAuthenticator = new DBAuthenticator(new DBConnection());
+
+    private IDBAuthenticator databaseAuthenticator = new DBAuthenticator(
+        new DBConnection()
+    );
 
     @Test
     public void testRegistration() throws SQLException {
         TestDBAuthenticator.truncateTablesForTest();
 
-        boolean result = databaseAuthenticator.signUp("financi", "1234", "Financi", 0);
+        boolean result = databaseAuthenticator.signUp(
+            "financi",
+            "1234",
+            "Financi",
+            0
+        );
 
         assertTrue(result);
     }
@@ -58,7 +64,10 @@ public class TestDBAuthenticator {
     public void testLoginShouldFail() throws SQLException {
         TestDBAuthenticator.truncateTablesForTest();
 
-        boolean result = databaseAuthenticator.login("usuarioNaoCadastrado", "1234");
+        boolean result = databaseAuthenticator.login(
+            "usuarioNaoCadastrado",
+            "1234"
+        );
 
         assertTrue(!result);
     }
