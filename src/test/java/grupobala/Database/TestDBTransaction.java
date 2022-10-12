@@ -6,6 +6,7 @@ import grupobala.Database.Connection.DBConnection;
 import grupobala.Database.Transaction.DBTransaction;
 import grupobala.Database.Transaction.IDBTransaction.IDBTransaction;
 import grupobala.Entities.Category.CategoryEnum;
+import grupobala.Entities.Transaction.Transaction;
 import grupobala.Entities.Transaction.ITransaction.ITransaction;
 import java.sql.*;
 import java.util.Calendar;
@@ -135,7 +136,7 @@ public class TestDBTransaction {
             }
         );
 
-        String expected = "ID de transação não existe";
+        String expected = "Movimentação não existe";
         String result = exception.getMessage();
 
         assertEquals(expected, result);
@@ -144,13 +145,84 @@ public class TestDBTransaction {
     @Test
     public void testUpdateTransaction() throws SQLException {
         TestDBTransaction.setupDBForTest();
-        // TODO
+
+        Calendar calendar = Calendar.getInstance();
+
+        calendar.set(Calendar.YEAR, 2022);
+        calendar.set(Calendar.MONTH, Calendar.OCTOBER);
+        calendar.set(Calendar.DAY_OF_MONTH, 21);
+
+        Date transactionDate = calendar.getTime();
+
+        ITransaction transaction =
+            this.databaseTransaction.addTransaction(
+                    "financi",
+                    100,
+                    "Testes",
+                    CategoryEnum.OTHERS,
+                    transactionDate
+                );
+
+        transaction.setTitle("Testes Testes e mais Testes");
+
+        this.databaseTransaction.updateTransaction("financi", transaction);
     }
 
     @Test
-    public void testUpdateTransactionShouldFail() throws SQLException {
+    public void testUpdateTransactionShouldFailNonexistentUser() throws SQLException {
         TestDBTransaction.setupDBForTest();
-        // TODO
+
+        Calendar calendar = Calendar.getInstance();
+
+        calendar.set(Calendar.YEAR, 2022);
+        calendar.set(Calendar.MONTH, Calendar.OCTOBER);
+        calendar.set(Calendar.DAY_OF_MONTH, 21);
+
+        Date transactionDate = calendar.getTime();
+
+        ITransaction transaction =
+            this.databaseTransaction.addTransaction(
+                    "financi",
+                    100,
+                    "Testes",
+                    CategoryEnum.OTHERS,
+                    transactionDate
+                );
+
+        transaction.setTitle("Teste Teste");
+
+        Exception exception = assertThrows(SQLException.class, () -> {
+            this.databaseTransaction.updateTransaction("usuárioNãoExistente", transaction);
+        });
+
+        String expected = "Usuário não existe";
+        String result = exception.getMessage();
+
+        assertEquals(expected, result);
+    }
+
+    @Test
+    public void testUpdateTransactionShouldFailNonexistentTransactionID() throws SQLException {
+        TestDBTransaction.setupDBForTest();
+
+        Calendar calendar = Calendar.getInstance();
+
+        calendar.set(Calendar.YEAR, 2022);
+        calendar.set(Calendar.MONTH, Calendar.OCTOBER);
+        calendar.set(Calendar.DAY_OF_MONTH, 21);
+
+        Date transactionDate = calendar.getTime();
+
+        ITransaction transaction = new Transaction(-1, 1000, "Teste", CategoryEnum.OTHERS, transactionDate);
+
+        Exception exception = assertThrows(SQLException.class, () -> {
+            this.databaseTransaction.updateTransaction("financi", transaction);
+        });
+
+        String expected = "Movimentação não existe";
+        String result = exception.getMessage();
+
+        assertEquals(expected, result);
     }
 
     private static void setupDBForTest() throws SQLException {
