@@ -1,52 +1,50 @@
 package grupobala.Database;
 
+import grupobala.Database.Authenticator.DBAuthenticator;
+import grupobala.Database.Authenticator.IDBAuthenticator.IDBAuthenticator;
+import grupobala.Database.Connection.DBConnection;
+
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import grupobala.Database.DBController.DBController;
 import java.sql.*;
-import java.sql.SQLException;
+
 import org.junit.jupiter.api.Test;
 
-public class TestDBController {
+public class TestDBAuthenticator {
+    private IDBAuthenticator databaseAuthenticator = new DBAuthenticator(new DBConnection());
 
     @Test
     public void testRegistration() throws SQLException {
-        DBController db = new DBController();
+        TestDBAuthenticator.truncateTablesForTest();
 
-        TestDBController.truncateTablesForTest();
-
-        boolean result = db.signUp("financi", "1234", "Financi", 0);
+        boolean result = databaseAuthenticator.signUp("financi", "1234", "Financi", 0);
 
         assertTrue(result);
     }
 
     @Test
     public void testLogin() throws SQLException {
-        DBController db = new DBController();
+        TestDBAuthenticator.truncateTablesForTest();
 
-        TestDBController.truncateTablesForTest();
+        databaseAuthenticator.signUp("testLogin", "1234", "Login", 0);
 
-        db.signUp("testLogin", "1234", "Login", 0);
-
-        boolean result = db.login("testLogin", "1234");
+        boolean result = databaseAuthenticator.login("testLogin", "1234");
 
         assertTrue(result);
     }
 
     @Test
     public void testRegistrationShouldFail() throws SQLException {
-        DBController db = new DBController();
+        TestDBAuthenticator.truncateTablesForTest();
 
-        TestDBController.truncateTablesForTest();
-
-        db.signUp(
+        databaseAuthenticator.signUp(
             "testRegistrationShouldFail",
             "1234",
             "testRegistrationShouldFail",
             0
         );
 
-        boolean result = db.signUp(
+        boolean result = databaseAuthenticator.signUp(
             "testRegistrationShouldFail",
             "1234",
             "Financi",
@@ -58,11 +56,9 @@ public class TestDBController {
 
     @Test
     public void testLoginShouldFail() throws SQLException {
-        DBController db = new DBController();
+        TestDBAuthenticator.truncateTablesForTest();
 
-        TestDBController.truncateTablesForTest();
-
-        boolean result = db.login("usuarioNaoCadastrado", "1234");
+        boolean result = databaseAuthenticator.login("usuarioNaoCadastrado", "1234");
 
         assertTrue(!result);
     }
