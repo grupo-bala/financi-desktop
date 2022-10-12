@@ -1,7 +1,7 @@
 package grupobala.View.Pages.Page;
 
-import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 
 public interface Page {
-    public Scene getScene();
+    public Pane getMainPane();
 }

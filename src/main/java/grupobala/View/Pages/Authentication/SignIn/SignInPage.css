@@ -4,18 +4,6 @@
     -fx-spacing: 80px;
 }
 
-.logo-container {
-    -fx-alignment: center;
-}
-
-.title {
-    -fx-fill: #ffffff;
-    -fx-font-family: "Montserrat";
-    -fx-font-weight: bold;
-    -fx-font-size: 60px;
-    -fx-margin-bottom: 100px;
-}
-
 .login-container {
     -fx-max-width: 300px;
     -fx-spacing: 20px;
@@ -28,8 +16,27 @@
     -fx-stroke-width: 5px;
 }
 
+.button-vbox {
+    -fx-spacing: 10px;
+    -fx-alignment: center;
+}
+
+.label-wrong {
+    -fx-fill: #EF5350;
+}
+
+.label-hide {
+    -fx-fill: transparent;
+}
+
 .login-button {
     -fx-background-color: #49AD5A;
     -fx-padding: 10px 30px 10px 30px;
     -fx-cursor: hand;
+    -fx-min-width: 300px;
+}
+
+.signup-button {
+    -fx-text-fill: #49AD5A;
+    -fx-translate-y: 20px;
 }
