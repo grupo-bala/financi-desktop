@@ -1,8 +1,7 @@
 package grupobala.Entities.Transaction.ITransaction;
 
-import java.util.Date;
-
 import grupobala.Entities.Category.CategoryEnum;
+import java.util.Date;
 
 public interface ITransaction {
     public int getId();

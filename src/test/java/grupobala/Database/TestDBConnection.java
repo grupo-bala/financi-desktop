@@ -87,7 +87,7 @@ public class TestDBConnection {
             "TRUNCATE TABLE aulaassistida CASCADE",
             "TRUNCATE TABLE aula CASCADE",
             "TRUNCATE TABLE movimentacao CASCADE",
-            "INSERT INTO usuario(nome, nomeusuario, senha, rendafixa) VALUES ('Financi', 'financi', '1234', 1000)"
+            "INSERT INTO usuario(nome, nomeusuario, senha, rendafixa) VALUES ('Financi', 'financi', '1234', 1000)",
         };
 
         for (String query : queries) {

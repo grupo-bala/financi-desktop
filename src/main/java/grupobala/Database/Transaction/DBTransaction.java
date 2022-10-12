@@ -3,9 +3,8 @@ package grupobala.Database.Transaction;
 import grupobala.Database.Connection.IDBConnection.IDBConnection;
 import grupobala.Database.Transaction.IDBTransaction.IDBTransaction;
 import grupobala.Entities.Category.CategoryEnum;
-import grupobala.Entities.Transaction.Transaction;
 import grupobala.Entities.Transaction.ITransaction.ITransaction;
-
+import grupobala.Entities.Transaction.Transaction;
 import java.sql.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -46,11 +45,12 @@ public class DBTransaction implements IDBTransaction {
 
         result.close();
 
-        query = String.format(
-            Locale.US,
-            "SELECT id FROM categoria WHERE nome = '%s'",
-            category.databaseName
-        );
+        query =
+            String.format(
+                Locale.US,
+                "SELECT id FROM categoria WHERE nome = '%s'",
+                category.databaseName
+            );
 
         result = this.databaseConnection.executeQuery(query);
 
@@ -68,24 +68,26 @@ public class DBTransaction implements IDBTransaction {
 
         boolean isEntry = valor > 0.0;
 
-        query = String.format(
-            Locale.US,
-            "INSERT INTO movimentacao(idusuario, valor, data, idcategoria, titulo, entrada) VALUES (%d, %f, '%s', %d, '%s', '%s')",
-            userID,
-            valor,
-            formateDate.format(date),
-            categoryID,
-            title,
-            isEntry
-        );
+        query =
+            String.format(
+                Locale.US,
+                "INSERT INTO movimentacao(idusuario, valor, data, idcategoria, titulo, entrada) VALUES (%d, %f, '%s', %d, '%s', '%s')",
+                userID,
+                valor,
+                formateDate.format(date),
+                categoryID,
+                title,
+                isEntry
+            );
 
         this.databaseConnection.executeUpdate(query);
 
-        query = String.format(
-            Locale.US,
-            "SELECT id FROM movimentacao WHERE idusuario = %d ORDER BY id DESC",
-            userID
-        );
+        query =
+            String.format(
+                Locale.US,
+                "SELECT id FROM movimentacao WHERE idusuario = %d ORDER BY id DESC",
+                userID
+            );
 
         result = this.databaseConnection.executeQuery(query);
 
@@ -103,7 +105,8 @@ public class DBTransaction implements IDBTransaction {
     }
 
     @Override
-    public void removeTransaction(String username, int transactionID) throws SQLException {
+    public void removeTransaction(String username, int transactionID)
+        throws SQLException {
         // TODO
     }
 }

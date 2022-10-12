@@ -46,7 +46,7 @@ public class Setup {
             "CREATE TABLE aula (id SERIAL PRIMARY KEY , titulo TEXT NOT NULL UNIQUE, descricao TEXT NOT NULL, videourl TEXT NOT NULL, duracaosegundos INTEGER NOT NULL, thumbnailurl TEXT NOT NULL)",
             "CREATE TABLE aulaassistida (id SERIAL PRIMARY KEY, idusuario INTEGER NOT NULL, idaula INTEGER NOT NULL, UNIQUE(idusuario, idaula), FOREIGN KEY (idusuario) REFERENCES usuario(id), FOREIGN KEY (idaula) REFERENCES aula(id))",
             "CREATE TABLE movimentacao (id SERIAL PRIMARY KEY, idusuario INTEGER NOT NULL, valor FLOAT NOT NULL, data DATE NOT NULL, idcategoria INTEGER NOT NULL, titulo TEXT NOT NULL, entrada BOOLEAN NOT NULL, FOREIGN KEY (idusuario) REFERENCES usuario(id), FOREIGN KEY (idcategoria) REFERENCES categoria(id))",
-            "INSERT INTO categoria(nome) VALUES ('comida'), ('roupa'), ('saúde'), ('entretenimento'), ('pagamentos'), ('outros')"
+            "INSERT INTO categoria(nome) VALUES ('comida'), ('roupa'), ('saúde'), ('entretenimento'), ('pagamentos'), ('outros')",
         };
 
         for (String query : queries) {
