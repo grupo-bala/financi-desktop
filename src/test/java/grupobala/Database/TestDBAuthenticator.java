@@ -18,7 +18,7 @@ public class TestDBAuthenticator {
     public void testRegistration() throws SQLException {
         TestDBAuthenticator.truncateTablesForTest();
 
-        boolean result = databaseAuthenticator.signUp(
+        boolean result = this.databaseAuthenticator.signUp(
             "financi",
             "1234",
             "Financi",
@@ -32,9 +32,9 @@ public class TestDBAuthenticator {
     public void testLogin() throws SQLException {
         TestDBAuthenticator.truncateTablesForTest();
 
-        databaseAuthenticator.signUp("testLogin", "1234", "Login", 0);
+        this.databaseAuthenticator.signUp("testLogin", "1234", "Login", 0);
 
-        boolean result = databaseAuthenticator.login("testLogin", "1234");
+        boolean result = this.databaseAuthenticator.login("testLogin", "1234");
 
         assertTrue(result);
     }
@@ -43,14 +43,14 @@ public class TestDBAuthenticator {
     public void testRegistrationShouldFail() throws SQLException {
         TestDBAuthenticator.truncateTablesForTest();
 
-        databaseAuthenticator.signUp(
+        this.databaseAuthenticator.signUp(
             "testRegistrationShouldFail",
             "1234",
             "testRegistrationShouldFail",
             0
         );
 
-        boolean result = databaseAuthenticator.signUp(
+        boolean result = this.databaseAuthenticator.signUp(
             "testRegistrationShouldFail",
             "1234",
             "Financi",
@@ -64,7 +64,7 @@ public class TestDBAuthenticator {
     public void testLoginShouldFail() throws SQLException {
         TestDBAuthenticator.truncateTablesForTest();
 
-        boolean result = databaseAuthenticator.login(
+        boolean result = this.databaseAuthenticator.login(
             "usuarioNaoCadastrado",
             "1234"
         );
@@ -85,7 +85,6 @@ public class TestDBAuthenticator {
             "TRUNCATE TABLE aulaassistida CASCADE",
             "TRUNCATE TABLE aula CASCADE",
             "TRUNCATE TABLE movimentacao CASCADE",
-            "TRUNCATE TABLE categoria CASCADE",
         };
 
         for (String query : queries) {

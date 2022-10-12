@@ -9,7 +9,6 @@ public interface IDBTransaction {
     public ITransaction addTransaction(
         String username,
         double valor,
-        String description,
         String title,
         CategoryEnum category,
         Date date

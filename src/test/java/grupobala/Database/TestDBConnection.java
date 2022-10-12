@@ -87,17 +87,12 @@ public class TestDBConnection {
             "TRUNCATE TABLE aulaassistida CASCADE",
             "TRUNCATE TABLE aula CASCADE",
             "TRUNCATE TABLE movimentacao CASCADE",
-            "TRUNCATE TABLE categoria CASCADE",
+            "INSERT INTO usuario(nome, nomeusuario, senha, rendafixa) VALUES ('Financi', 'financi', '1234', 1000)"
         };
 
         for (String query : queries) {
             statement.executeUpdate(query);
         }
-
-        String query =
-            "INSERT INTO usuario(nome, nomeusuario, senha, rendafixa) VALUES ('Financi', 'financi', '1234', 1000)";
-
-        statement.executeUpdate(query);
 
         rootConnection.close();
     }
