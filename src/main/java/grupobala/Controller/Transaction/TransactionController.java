@@ -1,8 +1,9 @@
-package grupobala.EntityController;
+package grupobala.Controller.Transaction;
 
+import grupobala.Controller.Transaction.ITransactionController.ITransactionController;
 import grupobala.Entities.Category.CategoryEnum;
 import grupobala.Entities.Transaction.ITransaction.ITransaction;
-import grupobala.EntityController.ITransactionController.ITransactionController;
+
 import java.sql.Date;
 import java.sql.SQLException;
 
