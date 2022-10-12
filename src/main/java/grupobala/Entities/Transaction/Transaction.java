@@ -68,6 +68,6 @@ public class Transaction implements ITransaction {
 
     @Override
     public void setDate(Date date) {
-        this.date = date;        
+        this.date = date;
     }
 }

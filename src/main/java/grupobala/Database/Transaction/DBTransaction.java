@@ -141,7 +141,8 @@ public class DBTransaction implements IDBTransaction {
     }
 
     @Override
-    public void updateTransaction(String username, ITransaction transaction) throws SQLException {
+    public void updateTransaction(String username, ITransaction transaction)
+        throws SQLException {
         String query = String.format(
             Locale.US,
             "SELECT id FROM usuario WHERE nomeusuario = '%s'",
@@ -160,11 +161,12 @@ public class DBTransaction implements IDBTransaction {
 
         result.close();
 
-        query = String.format(
-            Locale.US,
-            "SELECT id FROM categoria WHERE nome = '%s'",
-            transaction.getCategory().databaseName
-        );
+        query =
+            String.format(
+                Locale.US,
+                "SELECT id FROM categoria WHERE nome = '%s'",
+                transaction.getCategory().databaseName
+            );
 
         result = this.databaseConnection.executeQuery(query);
 
@@ -177,22 +179,23 @@ public class DBTransaction implements IDBTransaction {
         int categoryID = Integer.valueOf(result.getString("id"));
 
         result.close();
-        
+
         boolean isEntry = transaction.getValue() > 0.0;
 
         DateFormat formateDate = new SimpleDateFormat("yyyy-MM-dd");
 
-        query = String.format(
-            Locale.US,
-            "UPDATE movimentacao SET valor = %f, data = '%s', idcategoria = '%s', titulo = '%s', entrada = '%s' WHERE idusuario = %d AND id = %d",
-            transaction.getValue(),
-            formateDate.format(transaction.getDate()),
-            categoryID,
-            transaction.getTitle(),
-            isEntry,
-            userID,
-            transaction.getId()
-        );
+        query =
+            String.format(
+                Locale.US,
+                "UPDATE movimentacao SET valor = %f, data = '%s', idcategoria = '%s', titulo = '%s', entrada = '%s' WHERE idusuario = %d AND id = %d",
+                transaction.getValue(),
+                formateDate.format(transaction.getDate()),
+                categoryID,
+                transaction.getTitle(),
+                isEntry,
+                userID,
+                transaction.getId()
+            );
 
         int howManyUpdates = this.databaseConnection.executeUpdate(query);
 

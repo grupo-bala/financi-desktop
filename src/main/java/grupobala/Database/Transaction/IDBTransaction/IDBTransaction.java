@@ -17,5 +17,6 @@ public interface IDBTransaction {
     public void removeTransaction(String username, int transactionID)
         throws SQLException;
 
-    public void updateTransaction(String username, ITransaction transaction) throws SQLException;
+    public void updateTransaction(String username, ITransaction transaction)
+        throws SQLException;
 }

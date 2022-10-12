@@ -6,8 +6,8 @@ import grupobala.Database.Connection.DBConnection;
 import grupobala.Database.Transaction.DBTransaction;
 import grupobala.Database.Transaction.IDBTransaction.IDBTransaction;
 import grupobala.Entities.Category.CategoryEnum;
-import grupobala.Entities.Transaction.Transaction;
 import grupobala.Entities.Transaction.ITransaction.ITransaction;
+import grupobala.Entities.Transaction.Transaction;
 import java.sql.*;
 import java.util.Calendar;
 import java.util.Date;
@@ -169,7 +169,8 @@ public class TestDBTransaction {
     }
 
     @Test
-    public void testUpdateTransactionShouldFailNonexistentUser() throws SQLException {
+    public void testUpdateTransactionShouldFailNonexistentUser()
+        throws SQLException {
         TestDBTransaction.setupDBForTest();
 
         Calendar calendar = Calendar.getInstance();
@@ -191,9 +192,15 @@ public class TestDBTransaction {
 
         transaction.setTitle("Teste Teste");
 
-        Exception exception = assertThrows(SQLException.class, () -> {
-            this.databaseTransaction.updateTransaction("usuárioNãoExistente", transaction);
-        });
+        Exception exception = assertThrows(
+            SQLException.class,
+            () -> {
+                this.databaseTransaction.updateTransaction(
+                        "usuárioNãoExistente",
+                        transaction
+                    );
+            }
+        );
 
         String expected = "Usuário não existe";
         String result = exception.getMessage();
@@ -202,7 +209,8 @@ public class TestDBTransaction {
     }
 
     @Test
-    public void testUpdateTransactionShouldFailNonexistentTransactionID() throws SQLException {
+    public void testUpdateTransactionShouldFailNonexistentTransactionID()
+        throws SQLException {
         TestDBTransaction.setupDBForTest();
 
         Calendar calendar = Calendar.getInstance();
@@ -213,11 +221,23 @@ public class TestDBTransaction {
 
         Date transactionDate = calendar.getTime();
 
-        ITransaction transaction = new Transaction(-1, 1000, "Teste", CategoryEnum.OTHERS, transactionDate);
+        ITransaction transaction = new Transaction(
+            -1,
+            1000,
+            "Teste",
+            CategoryEnum.OTHERS,
+            transactionDate
+        );
 
-        Exception exception = assertThrows(SQLException.class, () -> {
-            this.databaseTransaction.updateTransaction("financi", transaction);
-        });
+        Exception exception = assertThrows(
+            SQLException.class,
+            () -> {
+                this.databaseTransaction.updateTransaction(
+                        "financi",
+                        transaction
+                    );
+            }
+        );
 
         String expected = "Movimentação não existe";
         String result = exception.getMessage();
