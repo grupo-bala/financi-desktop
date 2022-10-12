@@ -22,7 +22,7 @@ public class DBTransaction implements IDBTransaction {
     @Override
     public ITransaction addTransaction(
         String username,
-        double valor,
+        double value,
         String title,
         CategoryEnum category,
         Date date
@@ -66,14 +66,14 @@ public class DBTransaction implements IDBTransaction {
 
         DateFormat formateDate = new SimpleDateFormat("yyyy-MM-dd");
 
-        boolean isEntry = valor > 0.0;
+        boolean isEntry = value > 0.0;
 
         query =
             String.format(
                 Locale.US,
                 "INSERT INTO movimentacao(idusuario, valor, data, idcategoria, titulo, entrada) VALUES (%d, %f, '%s', %d, '%s', '%s')",
                 userID,
-                valor,
+                value,
                 formateDate.format(date),
                 categoryID,
                 title,
@@ -101,7 +101,7 @@ public class DBTransaction implements IDBTransaction {
 
         result.close();
 
-        return new Transaction(newTransactionID, valor, title, category, date);
+        return new Transaction(newTransactionID, value, title, category, date);
     }
 
     @Override
@@ -109,7 +109,7 @@ public class DBTransaction implements IDBTransaction {
         throws SQLException {
         String query = String.format(
             Locale.US,
-            "SELECT * FROM usuario WHERE nomeusuario = '%s'",
+            "SELECT id FROM usuario WHERE nomeusuario = '%s'",
             username
         );
 
@@ -119,19 +119,85 @@ public class DBTransaction implements IDBTransaction {
             throw new SQLException("Usuário não existe");
         }
 
+        result.next();
+
+        int userID = Integer.valueOf(result.getString("id"));
+
         result.close();
 
         query =
             String.format(
                 Locale.US,
-                "DELETE FROM movimentacao WHERE id = %d",
-                transactionID
+                "DELETE FROM movimentacao WHERE id = %d AND idusuario = %d",
+                transactionID,
+                userID
             );
 
         int howManyUpdates = this.databaseConnection.executeUpdate(query);
 
         if (howManyUpdates == 0) {
-            throw new SQLException("ID de transação não existe");
+            throw new SQLException("Movimentação não existe");
+        }
+    }
+
+    @Override
+    public void updateTransaction(String username, ITransaction transaction) throws SQLException {
+        String query = String.format(
+            Locale.US,
+            "SELECT id FROM usuario WHERE nomeusuario = '%s'",
+            username
+        );
+
+        ResultSet result = this.databaseConnection.executeQuery(query);
+
+        if (!result.isBeforeFirst()) {
+            throw new SQLException("Usuário não existe");
+        }
+
+        result.next();
+
+        int userID = Integer.valueOf(result.getString("id"));
+
+        result.close();
+
+        query = String.format(
+            Locale.US,
+            "SELECT id FROM categoria WHERE nome = '%s'",
+            transaction.getCategory().databaseName
+        );
+
+        result = this.databaseConnection.executeQuery(query);
+
+        if (!result.isBeforeFirst()) {
+            throw new SQLException("Categoria não existe");
+        }
+
+        result.next();
+
+        int categoryID = Integer.valueOf(result.getString("id"));
+
+        result.close();
+        
+        boolean isEntry = transaction.getValue() > 0.0;
+
+        DateFormat formateDate = new SimpleDateFormat("yyyy-MM-dd");
+
+        query = String.format(
+            Locale.US,
+            "UPDATE movimentacao SET valor = %f, data = '%s', idcategoria = '%s', titulo = '%s', entrada = '%s' WHERE idusuario = %d AND id = %d",
+            transaction.getValue(),
+            formateDate.format(transaction.getDate()),
+            categoryID,
+            transaction.getTitle(),
+            isEntry,
+            userID,
+            transaction.getId()
+        );
+
+        int howManyUpdates = this.databaseConnection.executeUpdate(query);
+
+        if (howManyUpdates == 0) {
+            throw new SQLException("Movimentação não existe");
         }
     }
 }
