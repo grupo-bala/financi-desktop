@@ -136,11 +136,11 @@ public class TestDBTransaction {
     }
 
     private static void setupDBForTest() throws SQLException {
-        Connection rootConnection = DriverManager.getConnection(
+        Connection connection = DriverManager.getConnection(
             "jdbc:postgresql://localhost:5432/financi?user=postgres&password=postgres"
         );
 
-        Statement statement = rootConnection.createStatement();
+        Statement statement = connection.createStatement();
 
         String[] queries = {
             "TRUNCATE TABLE usuario CASCADE",
@@ -155,6 +155,6 @@ public class TestDBTransaction {
             statement.executeUpdate(query);
         }
 
-        rootConnection.close();
+        connection.close();
     }
 }
