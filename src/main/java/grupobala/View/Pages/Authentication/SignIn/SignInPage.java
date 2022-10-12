@@ -1,12 +1,12 @@
 package grupobala.View.Pages.Authentication.SignIn;
 
 import grupobala.Controller.Authentication.AuthenticationController;
-import grupobala.View.PageManager;
 import grupobala.View.Components.Button.ButtonComponent;
 import grupobala.View.Components.LinkButton.LinkButtonComponent;
 import grupobala.View.Components.Logo.LogoComponent;
 import grupobala.View.Components.TextField.PasswordFieldComponent;
 import grupobala.View.Components.TextField.TextFieldComponent;
+import grupobala.View.PageManager;
 import grupobala.View.Pages.Authentication.SignUp.SignUpPage;
 import grupobala.View.Pages.Page.Page;
 import javafx.scene.control.Button;
@@ -86,11 +86,7 @@ public class SignInPage implements Page {
         buttonVBox.getStyleClass().add("button-vbox");
         signUpButton.getStyleClass().add("signup-button");
 
-        buttonVBox.getChildren().addAll(
-            buttonLabel,
-            loginButton,
-            signUpButton
-        );
+        buttonVBox.getChildren().addAll(buttonLabel, loginButton, signUpButton);
 
         return buttonVBox;
     }

@@ -7,6 +7,7 @@ import grupobala.Database.Authenticator.DBAuthenticator;
 import grupobala.Database.Connection.DBConnection;
 
 public class AuthenticationController implements IAuthenticationController {
+
     DBAuthenticator dbAuthenticator;
     Encryptor encryptor;
 
@@ -24,7 +25,12 @@ public class AuthenticationController implements IAuthenticationController {
     }
 
     @Override
-    public void signUp(String username, String password, String name, float wage) throws Exception {
+    public void signUp(
+        String username,
+        String password,
+        String name,
+        float wage
+    ) throws Exception {
         String hashPassword = encryptor.encrypt(password);
         if (!dbAuthenticator.signUp(username, hashPassword, name, wage)) {
             throw new Exception("Nome de usuário já em uso");

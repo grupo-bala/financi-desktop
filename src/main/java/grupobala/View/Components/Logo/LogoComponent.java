@@ -17,9 +17,9 @@ public class LogoComponent implements Component {
         ImageView logo = new ImageView(logoImg);
         Text financiTitle = new Text("Financi");
 
-        logoVBox.getStylesheets().add(
-            "file:src/main/java/grupobala/View/Components/Logo/Logo.css"
-        );
+        logoVBox
+            .getStylesheets()
+            .add("file:src/main/java/grupobala/View/Components/Logo/Logo.css");
 
         logoVBox.getStyleClass().add("logo-container");
         financiTitle.getStyleClass().add("title");

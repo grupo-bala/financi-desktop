@@ -1,12 +1,12 @@
 package grupobala.View.Pages.Authentication.SignUp;
 
 import grupobala.Controller.Authentication.AuthenticationController;
-import grupobala.View.PageManager;
 import grupobala.View.Components.Button.ButtonComponent;
 import grupobala.View.Components.LinkButton.LinkButtonComponent;
 import grupobala.View.Components.Logo.LogoComponent;
 import grupobala.View.Components.TextField.PasswordFieldComponent;
 import grupobala.View.Components.TextField.TextFieldComponent;
+import grupobala.View.PageManager;
 import grupobala.View.Pages.Authentication.SignIn.SignInPage;
 import grupobala.View.Pages.Page.Page;
 import javafx.scene.control.Button;
@@ -32,14 +32,13 @@ public class SignUpPage implements Page {
         VBox signUpVBox = getSignUpVBox();
 
         container.getStyleClass().add("container");
-        container.getStylesheets().add(
-            "file:src/main/java/grupobala/View/Pages/Authentication/SignUp/SignUpPage.css"
-        );
+        container
+            .getStylesheets()
+            .add(
+                "file:src/main/java/grupobala/View/Pages/Authentication/SignUp/SignUpPage.css"
+            );
 
-        container.getChildren().addAll(
-            logoVBox,
-            signUpVBox
-        );
+        container.getChildren().addAll(logoVBox, signUpVBox);
 
         return container;
     }
@@ -64,13 +63,15 @@ public class SignUpPage implements Page {
         passwordField.getStyleClass().add("input");
         signUpVBox.getStyleClass().add("signup-vbox");
 
-        signUpVBox.getChildren().addAll(
-            nameField,
-            usernameField,
-            wageField,
-            passwordField,
-            buttonVBox
-        );
+        signUpVBox
+            .getChildren()
+            .addAll(
+                nameField,
+                usernameField,
+                wageField,
+                passwordField,
+                buttonVBox
+            );
 
         return signUpVBox;
     }
@@ -94,11 +95,9 @@ public class SignUpPage implements Page {
             pageManager.setCurrentPage(new SignInPage());
         });
 
-        buttonVBox.getChildren().addAll(
-            buttonLabel,
-            signUpButton,
-            signInButton
-        );
+        buttonVBox
+            .getChildren()
+            .addAll(buttonLabel, signUpButton, signInButton);
 
         return buttonVBox;
     }

@@ -1,10 +1,9 @@
 package grupobala.Controller;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-
 import grupobala.Controller.Authentication.AuthenticationController;
 import grupobala.Database.TestDBTransaction;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class TestAuthenticationController {
 
@@ -26,16 +25,22 @@ public class TestAuthenticationController {
     @Test
     public void testSignInShouldFail() throws Exception {
         TestDBTransaction.setupDBForTest();
-        Assertions.assertThrows(Exception.class, () -> {
-            authController.signIn("financi", "4321");
-        });
+        Assertions.assertThrows(
+            Exception.class,
+            () -> {
+                authController.signIn("financi", "4321");
+            }
+        );
     }
 
     @Test
     public void testSignUpShouldFail() throws Exception {
         TestDBTransaction.setupDBForTest();
-        Assertions.assertThrows(Exception.class, () -> {
-            authController.signUp("financi", "1234", "Financi", 0);
-        });
+        Assertions.assertThrows(
+            Exception.class,
+            () -> {
+                authController.signUp("financi", "1234", "Financi", 0);
+            }
+        );
     }
 }
