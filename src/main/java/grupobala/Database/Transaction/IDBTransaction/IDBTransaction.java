@@ -8,7 +8,7 @@ import java.util.Date;
 public interface IDBTransaction {
     public ITransaction addTransaction(
         String username,
-        double valor,
+        double value,
         String title,
         CategoryEnum category,
         Date date
@@ -16,4 +16,6 @@ public interface IDBTransaction {
 
     public void removeTransaction(String username, int transactionID)
         throws SQLException;
+
+    public void updateTransaction(String username, ITransaction transaction) throws SQLException;
 }
