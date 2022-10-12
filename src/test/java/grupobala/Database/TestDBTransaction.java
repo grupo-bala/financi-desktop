@@ -79,13 +79,48 @@ public class TestDBTransaction {
     @Test
     public void testRemoveTransaction() throws SQLException {
         TestDBTransaction.setupDBForTest();
-        // TODO
+
+        Calendar calendar = Calendar.getInstance();
+
+        calendar.set(Calendar.YEAR, 2022);
+        calendar.set(Calendar.MONTH, Calendar.OCTOBER);
+        calendar.set(Calendar.DAY_OF_MONTH, 21);
+
+        Date transactionDate = calendar.getTime();
+
+        ITransaction transaction = this.databaseTransaction.addTransaction("financi", 100, "Testes", CategoryEnum.OTHERS, transactionDate);
+
+        int transactionID = transaction.getId();
+
+        this.databaseTransaction.removeTransaction("financi", transactionID);
     }
 
     @Test
-    public void testRemoveTransactionShouldFail() throws SQLException {
+    public void testRemoveTransactionShouldFailNonexistentUser() throws SQLException {
         TestDBTransaction.setupDBForTest();
-        // TODO
+
+        Exception exception = assertThrows(SQLException.class, () -> {
+            this.databaseTransaction.removeTransaction("usuárioNãoExistente", 1);
+        });
+
+        String expected = "Usuário não existe";
+        String result = exception.getMessage();
+
+        assertEquals(expected, result);
+    }
+
+    @Test
+    public void testRemoveTransactionShouldFailNonexistentTransactionID() throws SQLException {
+        TestDBTransaction.setupDBForTest();
+
+        Exception exception = assertThrows(SQLException.class, () -> {
+            this.databaseTransaction.removeTransaction("financi", -1);
+        });
+
+        String expected = "ID de transação não existe";
+        String result = exception.getMessage();
+
+        assertEquals(expected, result);
     }
 
     @Test
@@ -101,11 +136,11 @@ public class TestDBTransaction {
     }
 
     private static void setupDBForTest() throws SQLException {
-        Connection rootConnection = DriverManager.getConnection(
+        Connection connection = DriverManager.getConnection(
             "jdbc:postgresql://localhost:5432/financi?user=postgres&password=postgres"
         );
 
-        Statement statement = rootConnection.createStatement();
+        Statement statement = connection.createStatement();
 
         String[] queries = {
             "TRUNCATE TABLE usuario CASCADE",
@@ -120,6 +155,6 @@ public class TestDBTransaction {
             statement.executeUpdate(query);
         }
 
-        rootConnection.close();
+        connection.close();
     }
 }
