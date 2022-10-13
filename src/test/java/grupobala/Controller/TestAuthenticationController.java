@@ -2,6 +2,8 @@ package grupobala.Controller;
 
 import grupobala.Controller.Authentication.AuthenticationController;
 import grupobala.Database.TestDBTransaction;
+import grupobala.SetupForTest.SetupForTest;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -11,20 +13,23 @@ public class TestAuthenticationController {
 
     @Test
     public void testSignInUser() throws Exception {
-        TestDBTransaction.setupDBForTest();
-        authController.signUp("financi2", "1234", "Financi", 0);
-        authController.signIn("financi2", "1234");
+        SetupForTest.truncateTables();
+        
+        authController.signUp("financi", "1234", "Financi", 0);
+        authController.signIn("financi", "1234");
     }
 
     @Test
     public void testSignUpUser() throws Exception {
-        TestDBTransaction.setupDBForTest();
-        authController.signUp("financi2", "1234", "Financi", 0);
+        SetupForTest.truncateTables();
+    
+        authController.signUp("financi", "1234", "Financi", 0);
     }
 
     @Test
     public void testSignInShouldFail() throws Exception {
-        TestDBTransaction.setupDBForTest();
+        SetupForTest.truncateTables();
+
         Assertions.assertThrows(
             Exception.class,
             () -> {
@@ -35,7 +40,10 @@ public class TestAuthenticationController {
 
     @Test
     public void testSignUpShouldFail() throws Exception {
-        TestDBTransaction.setupDBForTest();
+        SetupForTest.truncateTables();
+
+        authController.signUp("financi", "1234", "Financi", 0);
+
         Assertions.assertThrows(
             Exception.class,
             () -> {

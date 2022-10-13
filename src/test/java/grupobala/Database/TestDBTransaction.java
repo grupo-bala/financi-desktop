@@ -7,6 +7,7 @@ import grupobala.Database.Transaction.DBTransaction;
 import grupobala.Database.Transaction.IDBTransaction.IDBTransaction;
 import grupobala.Entities.Category.CategoryEnum;
 import grupobala.Entities.Transaction.ITransaction.ITransaction;
+import grupobala.SetupForTest.SetupForTest;
 import grupobala.Entities.Transaction.Transaction;
 import java.sql.*;
 import java.util.Calendar;
@@ -23,7 +24,8 @@ public class TestDBTransaction {
     @Test
     @Order(1)
     public void testAddTransaction() throws SQLException {
-        TestDBTransaction.setupDBForTest();
+        SetupForTest.truncateTables();
+        SetupForTest.addFinanciUser();
 
         Calendar calendar = Calendar.getInstance();
 
@@ -48,7 +50,8 @@ public class TestDBTransaction {
     @Test
     public void testAddTransactionShouldFailNonexistentUser()
         throws SQLException {
-        TestDBTransaction.setupDBForTest();
+        SetupForTest.truncateTables();
+        SetupForTest.addFinanciUser();
 
         Calendar calendar = Calendar.getInstance();
 
@@ -79,7 +82,8 @@ public class TestDBTransaction {
 
     @Test
     public void testRemoveTransaction() throws SQLException {
-        TestDBTransaction.setupDBForTest();
+        SetupForTest.truncateTables();
+        SetupForTest.addFinanciUser();
 
         Calendar calendar = Calendar.getInstance();
 
@@ -106,7 +110,8 @@ public class TestDBTransaction {
     @Test
     public void testRemoveTransactionShouldFailNonexistentUser()
         throws SQLException {
-        TestDBTransaction.setupDBForTest();
+        SetupForTest.truncateTables();
+        SetupForTest.addFinanciUser();
 
         Exception exception = assertThrows(
             SQLException.class,
@@ -127,7 +132,8 @@ public class TestDBTransaction {
     @Test
     public void testRemoveTransactionShouldFailNonexistentTransactionID()
         throws SQLException {
-        TestDBTransaction.setupDBForTest();
+        SetupForTest.truncateTables();
+        SetupForTest.addFinanciUser();
 
         Exception exception = assertThrows(
             SQLException.class,
@@ -144,7 +150,8 @@ public class TestDBTransaction {
 
     @Test
     public void testUpdateTransaction() throws SQLException {
-        TestDBTransaction.setupDBForTest();
+        SetupForTest.truncateTables();
+        SetupForTest.addFinanciUser();
 
         Calendar calendar = Calendar.getInstance();
 
@@ -171,7 +178,8 @@ public class TestDBTransaction {
     @Test
     public void testUpdateTransactionShouldFailNonexistentUser()
         throws SQLException {
-        TestDBTransaction.setupDBForTest();
+        SetupForTest.truncateTables();
+        SetupForTest.addFinanciUser();
 
         Calendar calendar = Calendar.getInstance();
 
@@ -211,7 +219,8 @@ public class TestDBTransaction {
     @Test
     public void testUpdateTransactionShouldFailNonexistentTransactionID()
         throws SQLException {
-        TestDBTransaction.setupDBForTest();
+        SetupForTest.truncateTables();
+        SetupForTest.addFinanciUser();
 
         Calendar calendar = Calendar.getInstance();
 
@@ -243,28 +252,5 @@ public class TestDBTransaction {
         String result = exception.getMessage();
 
         assertEquals(expected, result);
-    }
-
-    public static void setupDBForTest() throws SQLException {
-        Connection connection = DriverManager.getConnection(
-            "jdbc:postgresql://localhost:5432/financi?user=postgres&password=postgres"
-        );
-
-        Statement statement = connection.createStatement();
-
-        String[] queries = {
-            "TRUNCATE TABLE usuario CASCADE",
-            "TRUNCATE TABLE meta CASCADE",
-            "TRUNCATE TABLE aulaassistida CASCADE",
-            "TRUNCATE TABLE aula CASCADE",
-            "TRUNCATE TABLE movimentacao CASCADE",
-            "INSERT INTO usuario(nome, nomeusuario, senha, rendafixa) VALUES ('Financi', 'financi', '1234', 1000)",
-        };
-
-        for (String query : queries) {
-            statement.executeUpdate(query);
-        }
-
-        connection.close();
     }
 }

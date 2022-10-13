@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import grupobala.Database.Authenticator.DBAuthenticator;
 import grupobala.Database.Authenticator.IDBAuthenticator.IDBAuthenticator;
 import grupobala.Database.Connection.DBConnection;
+import grupobala.SetupForTest.SetupForTest;
+
 import java.sql.*;
 import org.junit.jupiter.api.Test;
 
@@ -16,7 +18,7 @@ public class TestDBAuthenticator {
 
     @Test
     public void testRegistration() throws SQLException {
-        TestDBAuthenticator.truncateTablesForTest();
+        SetupForTest.truncateTables();
 
         boolean result =
             this.databaseAuthenticator.signUp("financi", "1234", "Financi", 0);
@@ -26,7 +28,7 @@ public class TestDBAuthenticator {
 
     @Test
     public void testLogin() throws SQLException {
-        TestDBAuthenticator.truncateTablesForTest();
+        SetupForTest.truncateTables();
 
         this.databaseAuthenticator.signUp("testLogin", "1234", "Login", 0);
 
@@ -37,7 +39,7 @@ public class TestDBAuthenticator {
 
     @Test
     public void testRegistrationShouldFail() throws SQLException {
-        TestDBAuthenticator.truncateTablesForTest();
+        SetupForTest.truncateTables();
 
         this.databaseAuthenticator.signUp(
                 "testRegistrationShouldFail",
@@ -59,33 +61,11 @@ public class TestDBAuthenticator {
 
     @Test
     public void testLoginShouldFail() throws SQLException {
-        TestDBAuthenticator.truncateTablesForTest();
+        SetupForTest.truncateTables();
 
         boolean result =
             this.databaseAuthenticator.login("usuarioNaoCadastrado", "1234");
 
         assertTrue(!result);
-    }
-
-    private static void truncateTablesForTest() throws SQLException {
-        Connection connection = DriverManager.getConnection(
-            "jdbc:postgresql://localhost:5432/financi?user=postgres&password=postgres"
-        );
-
-        Statement statement = connection.createStatement();
-
-        String[] queries = {
-            "TRUNCATE TABLE usuario CASCADE",
-            "TRUNCATE TABLE meta CASCADE",
-            "TRUNCATE TABLE aulaassistida CASCADE",
-            "TRUNCATE TABLE aula CASCADE",
-            "TRUNCATE TABLE movimentacao CASCADE",
-        };
-
-        for (String query : queries) {
-            statement.executeUpdate(query);
-        }
-
-        connection.close();
     }
 }
