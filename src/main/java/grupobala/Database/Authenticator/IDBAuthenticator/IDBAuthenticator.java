@@ -2,8 +2,10 @@ package grupobala.Database.Authenticator.IDBAuthenticator;
 
 import java.sql.SQLException;
 
+import grupobala.Entities.User.IUser.IUser;
+
 public interface IDBAuthenticator {
-    public boolean login(String username, String password) throws SQLException;
+    public IUser login(String username, String password) throws SQLException;
 
     public boolean signUp(
         String username,

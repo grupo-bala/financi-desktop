@@ -2,6 +2,9 @@ package grupobala.Database.Authenticator;
 
 import grupobala.Database.Authenticator.IDBAuthenticator.IDBAuthenticator;
 import grupobala.Database.Connection.IDBConnection.IDBConnection;
+import grupobala.Entities.User.User;
+import grupobala.Entities.User.IUser.IUser;
+
 import java.sql.*;
 import java.util.Locale;
 
@@ -14,19 +17,31 @@ public class DBAuthenticator implements IDBAuthenticator {
     }
 
     @Override
-    public boolean login(String username, String password) throws SQLException {
+    public IUser login(String username, String password) throws SQLException {
         String query = String.format(
             Locale.US,
-            "SELECT nome FROM usuario WHERE nomeusuario = '%s' AND senha = '%s'",
+            "SELECT * FROM usuario WHERE nomeusuario = '%s' AND senha = '%s'",
             username,
             password
         );
 
         ResultSet result = this.databaseConnection.executeQuery(query);
 
-        boolean loginResult = result.isBeforeFirst();
+        if (!result.isBeforeFirst()) {
+            throw new SQLException("Usuário não existe");
+        }
 
-        return loginResult;
+        result.next();
+
+        String name = result.getString("nome");
+        double value = Double.valueOf(result.getString("rendafixa"));
+        int ID = Integer.valueOf(result.getString("id"));
+
+        IUser user = new User(username, name, value, ID);
+
+        result.close();
+
+        return user;
     }
 
     @Override
