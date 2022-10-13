@@ -1,12 +1,11 @@
 package grupobala.Controller.Authentication;
 
-import java.sql.SQLException;
-
 import grupobala.Controller.Authentication.IAuthenticationController.IAuthenticationController;
 import grupobala.Crypt.Encryptor.Encryptor;
 import grupobala.Crypt.Implementations.SHA256Encryptor;
 import grupobala.Database.Authenticator.DBAuthenticator;
 import grupobala.Database.Connection.DBConnection;
+import java.sql.SQLException;
 
 public class AuthenticationController implements IAuthenticationController {
 
@@ -24,7 +23,7 @@ public class AuthenticationController implements IAuthenticationController {
 
         try {
             dbAuthenticator.login(username, hashPassword);
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             throw new Exception("Usuário ou senha inválidos");
         }
     }

@@ -1,7 +1,6 @@
 package grupobala.Entities.User.IUser;
 
 public interface IUser {
-    
     public int getID();
 
     public double getValue();

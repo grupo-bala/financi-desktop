@@ -2,9 +2,8 @@ package grupobala.Database.Authenticator;
 
 import grupobala.Database.Authenticator.IDBAuthenticator.IDBAuthenticator;
 import grupobala.Database.Connection.IDBConnection.IDBConnection;
-import grupobala.Entities.User.User;
 import grupobala.Entities.User.IUser.IUser;
-
+import grupobala.Entities.User.User;
 import java.sql.*;
 import java.util.Locale;
 

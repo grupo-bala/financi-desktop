@@ -66,10 +66,16 @@ public class TestDBAuthenticator {
     public void testLoginShouldFail() throws SQLException {
         SetupForTest.truncateTables();
 
-        Exception exception = assertThrows(SQLException.class, () -> {
-            this.databaseAuthenticator.login("usuarioNaoCadastrado", "1234");
-        });
-        
+        Exception exception = assertThrows(
+            SQLException.class,
+            () -> {
+                this.databaseAuthenticator.login(
+                        "usuarioNaoCadastrado",
+                        "1234"
+                    );
+            }
+        );
+
         String expected = "Usuário não existe";
         String result = exception.getMessage();
 
