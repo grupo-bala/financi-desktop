@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import grupobala.Database.Connection.DBConnection;
 import grupobala.Database.Connection.IDBConnection.IDBConnection;
 import grupobala.SetupForTest.SetupForTest;
-
 import java.sql.*;
 import org.junit.jupiter.api.Test;
 

@@ -6,7 +6,6 @@ import grupobala.Database.Authenticator.DBAuthenticator;
 import grupobala.Database.Authenticator.IDBAuthenticator.IDBAuthenticator;
 import grupobala.Database.Connection.DBConnection;
 import grupobala.SetupForTest.SetupForTest;
-
 import java.sql.*;
 import org.junit.jupiter.api.Test;
 

@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import grupobala.Database.Setup.Setup;
 import grupobala.SetupForTest.SetupForTest;
-
 import java.sql.*;
 import java.util.*;
 import org.junit.jupiter.api.Order;

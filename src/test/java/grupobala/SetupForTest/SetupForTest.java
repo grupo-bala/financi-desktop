@@ -3,6 +3,7 @@ package grupobala.SetupForTest;
 import java.sql.*;
 
 public class SetupForTest {
+
     public static void truncateTables() throws SQLException {
         Connection connection = DriverManager.getConnection(
             "jdbc:postgresql://localhost:5432/financi?user=postgres&password=postgres"
@@ -48,7 +49,8 @@ public class SetupForTest {
 
         Statement statement = connection.createStatement();
 
-        String query = "INSERT INTO usuario(nome, nomeusuario, senha, rendafixa) VALUES ('Financi', 'financi', '1234', 1000)";
+        String query =
+            "INSERT INTO usuario(nome, nomeusuario, senha, rendafixa) VALUES ('Financi', 'financi', '1234', 1000)";
 
         statement.executeUpdate(query);
 
