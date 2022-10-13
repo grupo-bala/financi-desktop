@@ -1,10 +1,13 @@
 package grupobala.Database;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import grupobala.Database.Authenticator.DBAuthenticator;
 import grupobala.Database.Authenticator.IDBAuthenticator.IDBAuthenticator;
 import grupobala.Database.Connection.DBConnection;
+import grupobala.Entities.User.IUser.IUser;
 import grupobala.SetupForTest.SetupForTest;
 import java.sql.*;
 import org.junit.jupiter.api.Test;
@@ -31,9 +34,10 @@ public class TestDBAuthenticator {
 
         this.databaseAuthenticator.signUp("testLogin", "1234", "Login", 0);
 
-        boolean result = this.databaseAuthenticator.login("testLogin", "1234");
+        String expectedName = "Login";
+        IUser result = this.databaseAuthenticator.login("testLogin", "1234");
 
-        assertTrue(result);
+        assertEquals(expectedName, result.getName());
     }
 
     @Test
@@ -62,9 +66,13 @@ public class TestDBAuthenticator {
     public void testLoginShouldFail() throws SQLException {
         SetupForTest.truncateTables();
 
-        boolean result =
+        Exception exception = assertThrows(SQLException.class, () -> {
             this.databaseAuthenticator.login("usuarioNaoCadastrado", "1234");
+        });
+        
+        String expected = "Usuário não existe";
+        String result = exception.getMessage();
 
-        assertTrue(!result);
+        assertEquals(expected, result);
     }
 }

@@ -1,7 +1,6 @@
 package grupobala.Controller;
 
 import grupobala.Controller.Authentication.AuthenticationController;
-import grupobala.Database.TestDBTransaction;
 import grupobala.SetupForTest.SetupForTest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
