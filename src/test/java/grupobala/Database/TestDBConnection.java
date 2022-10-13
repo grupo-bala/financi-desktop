@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import grupobala.Database.Connection.DBConnection;
 import grupobala.Database.Connection.IDBConnection.IDBConnection;
+import grupobala.SetupForTest.SetupForTest;
+
 import java.sql.*;
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +15,8 @@ public class TestDBConnection {
 
     @Test
     public void testDBConnectionExecuteQuery() throws SQLException {
-        TestDBConnection.setupDBForTest();
+        SetupForTest.truncateTables();
+        SetupForTest.addFinanciUser();
 
         String query = "SELECT nome FROM usuario WHERE nomeusuario = 'financi'";
 
@@ -31,7 +34,8 @@ public class TestDBConnection {
 
     @Test
     public void testDBConnectionExecuteQueryShouldFail() throws SQLException {
-        TestDBConnection.setupDBForTest();
+        SetupForTest.truncateTables();
+        SetupForTest.addFinanciUser();
 
         String query =
             "SELECT nome FROM usuario WHERE nomeusuario = 'nomeInexistente'";
@@ -50,7 +54,8 @@ public class TestDBConnection {
 
     @Test
     public void testDBConnectionExecuteUpdate() throws SQLException {
-        TestDBConnection.setupDBForTest();
+        SetupForTest.truncateTables();
+        SetupForTest.addFinanciUser();
 
         String query =
             "UPDATE usuario SET nome = 'financiatualizado' WHERE nomeusuario = 'financi'";
@@ -63,7 +68,8 @@ public class TestDBConnection {
 
     @Test
     public void testDBConnectionExecuteUpdateShouldFail() throws SQLException {
-        TestDBConnection.setupDBForTest();
+        SetupForTest.truncateTables();
+        SetupForTest.addFinanciUser();
 
         String query =
             "UPDATE usuario SET nome = 'financiatualizado' WHERE nomeusuario = 'usuarioInexistente'";
@@ -72,28 +78,5 @@ public class TestDBConnection {
         int updates = TestDBConnection.databaseConnection.executeUpdate(query);
 
         assertEquals(expected, updates);
-    }
-
-    private static void setupDBForTest() throws SQLException {
-        Connection connection = DriverManager.getConnection(
-            "jdbc:postgresql://localhost:5432/financi?user=postgres&password=postgres"
-        );
-
-        Statement statement = connection.createStatement();
-
-        String[] queries = {
-            "TRUNCATE TABLE usuario CASCADE",
-            "TRUNCATE TABLE meta CASCADE",
-            "TRUNCATE TABLE aulaassistida CASCADE",
-            "TRUNCATE TABLE aula CASCADE",
-            "TRUNCATE TABLE movimentacao CASCADE",
-            "INSERT INTO usuario(nome, nomeusuario, senha, rendafixa) VALUES ('Financi', 'financi', '1234', 1000)",
-        };
-
-        for (String query : queries) {
-            statement.executeUpdate(query);
-        }
-
-        connection.close();
     }
 }

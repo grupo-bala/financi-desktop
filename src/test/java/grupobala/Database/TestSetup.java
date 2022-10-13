@@ -3,6 +3,8 @@ package grupobala.Database;
 import static org.junit.jupiter.api.Assertions.*;
 
 import grupobala.Database.Setup.Setup;
+import grupobala.SetupForTest.SetupForTest;
+
 import java.sql.*;
 import java.util.*;
 import org.junit.jupiter.api.Order;
@@ -13,7 +15,7 @@ public class TestSetup {
 
     @Test
     public void testDBCreation() throws SQLException {
-        TestSetup.removeDB();
+        SetupForTest.removeFinanciDB();
 
         Connection connection = Setup.setup();
 
@@ -47,21 +49,5 @@ public class TestSetup {
         tables.sort(Comparator.naturalOrder());
 
         assertEquals(expectedTables, tables);
-    }
-
-    private static void removeDB() {
-        try {
-            Connection rootConnection = DriverManager.getConnection(
-                "jdbc:postgresql://localhost:5432/?user=postgres&password=postgres"
-            );
-
-            String query = "DROP DATABASE financi";
-
-            rootConnection.createStatement().executeUpdate(query);
-
-            rootConnection.close();
-        } catch (Exception e) {
-            System.out.println("Financi database already dropped");
-        }
     }
 }
