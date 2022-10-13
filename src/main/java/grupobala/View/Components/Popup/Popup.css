@@ -1,0 +1,11 @@
+.financi-popup-container {
+    -fx-alignment: center;
+}
+
+.financi-popup-rect {
+    -fx-background-color: #00000070;
+}
+
+.financi-popup-disabled {
+    -fx-visibility: hidden;
+}
