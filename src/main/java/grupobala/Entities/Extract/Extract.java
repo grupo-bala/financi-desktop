@@ -17,9 +17,8 @@ public class Extract implements IExtract {
         this.output = 0;
 
         for (ITransaction x : transactions) {
-            
             this.transactions.add(x);
-        
+
             if (x.getValue() < 0) {
                 this.output += x.getValue();
             } else {
@@ -42,5 +41,4 @@ public class Extract implements IExtract {
     public Iterator<ITransaction> iterator() {
         return this.transactions.iterator();
     }
-
 }
