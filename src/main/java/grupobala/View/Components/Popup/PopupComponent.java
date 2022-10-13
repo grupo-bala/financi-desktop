@@ -1,6 +1,5 @@
 package grupobala.View.Components.Popup;
 
-
 import grupobala.View.Components.Component.Component;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
@@ -14,9 +13,11 @@ public class PopupComponent implements Component {
         this.hidePopup();
         background.getStyleClass().add("financi-popup-rect");
         container.getStyleClass().addAll("financi-popup-container");
-        container.getStylesheets().add(
-            "file:src/main/java/grupobala/View/Components/Popup/Popup.css"
-        );
+        container
+            .getStylesheets()
+            .add(
+                "file:src/main/java/grupobala/View/Components/Popup/Popup.css"
+            );
 
         container.getChildren().add(background);
         background.setOnMouseClicked(e -> {

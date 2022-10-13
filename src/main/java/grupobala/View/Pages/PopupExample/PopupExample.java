@@ -23,7 +23,11 @@ public class PopupExample implements Page {
         // getComponent() returns the javafx intern node
         popup.getComponent().getChildren().add(card);
 
-        mainPane.getStylesheets().add("file:src/main/java/grupobala/View/Pages/PopupExample/PopupExample.css");
+        mainPane
+            .getStylesheets()
+            .add(
+                "file:src/main/java/grupobala/View/Pages/PopupExample/PopupExample.css"
+            );
         mainPane.getStyleClass().add("container");
         title.setText("Teste");
 
