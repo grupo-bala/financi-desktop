@@ -14,7 +14,7 @@ public class TestAuthenticationController {
         SetupForTest.truncateTables();
 
         authController.signUp("financi", "1234", "Financi", 0);
-        authController.signIn("financi", "1234");
+        authController.signIn("financi", "1234").close();
     }
 
     @Test
@@ -31,7 +31,7 @@ public class TestAuthenticationController {
         Assertions.assertThrows(
             Exception.class,
             () -> {
-                authController.signIn("financi", "4321");
+                authController.signIn("financi", "4321").close();
             }
         );
     }

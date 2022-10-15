@@ -1,7 +1,9 @@
 package grupobala.Controller.Authentication.IAuthenticationController;
 
+import grupobala.Entities.User.IUser.IUser;
+
 public interface IAuthenticationController {
-    public void signIn(String username, String password) throws Exception;
+    public IUser signIn(String username, String password) throws Exception;
 
     public void signUp(
         String username,

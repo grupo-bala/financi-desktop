@@ -5,6 +5,8 @@ import grupobala.Crypt.Encryptor.Encryptor;
 import grupobala.Crypt.Implementations.SHA256Encryptor;
 import grupobala.Database.Authenticator.DBAuthenticator;
 import grupobala.Database.Connection.DBConnection;
+import grupobala.Entities.User.IUser.IUser;
+
 import java.sql.SQLException;
 
 public class AuthenticationController implements IAuthenticationController {
@@ -18,11 +20,11 @@ public class AuthenticationController implements IAuthenticationController {
     }
 
     @Override
-    public void signIn(String username, String password) throws Exception {
+    public IUser signIn(String username, String password) throws Exception {
         String hashPassword = encryptor.encrypt(password);
 
         try {
-            dbAuthenticator.login(username, hashPassword);
+            return dbAuthenticator.login(username, hashPassword);
         } catch (SQLException e) {
             throw new Exception("Usuário ou senha inválidos");
         }
