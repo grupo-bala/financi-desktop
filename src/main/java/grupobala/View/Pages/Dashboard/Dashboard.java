@@ -3,10 +3,10 @@ package grupobala.View.Pages.Dashboard;
 import grupobala.Entities.User.User;
 import grupobala.View.Components.AvatarCard.AvatarCardComponent;
 import grupobala.View.Components.Card.CardHBoxComponent;
+import grupobala.View.Components.Card.CardVBoxComponent;
 import grupobala.View.Pages.Page.Page;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
@@ -35,7 +35,7 @@ public class Dashboard implements Page {
 
     private CardHBoxComponent getSummaryCard() {
         CardHBoxComponent hBox = new CardHBoxComponent();
-        TilePane leftSummary = getLeftSummaryCard();
+        VBox leftSummary = getLeftSummaryCard();
 
         hBox.getComponent().getStyleClass().add("summary-card");
 
@@ -44,16 +44,31 @@ public class Dashboard implements Page {
         return hBox;
     }
 
-    private TilePane getLeftSummaryCard() {
-        TilePane leftSummaryCard = new TilePane();
+    private VBox getLeftSummaryCard() {
+        VBox leftSummaryCard = new VBox();
+        HBox topSide = new HBox();
+        HBox bottomSide = new HBox();
         AvatarCardComponent avatarCard = new AvatarCardComponent();
         VBox balanceBox = getBalanceBox();
+        CardVBoxComponent bottomCardIn = getLeftSummaryBottomCard("Receita mensal", new User().getValue(), "#49AD5A");
+        CardVBoxComponent bottomCardOut = getLeftSummaryBottomCard("Despesa mensal", new User().getValue(), "#C54646");
 
-        leftSummaryCard.getStyleClass().add("summary-card-left");
+        leftSummaryCard.getStyleClass().add("left-summary");
+        topSide.getStyleClass().add("summary-card-top");
+        bottomSide.getStyleClass().add("summary-card-bot");
+
+        topSide.getChildren().addAll(
+            avatarCard.getComponent(), balanceBox
+        );
+
+        bottomSide.getChildren().addAll(
+            bottomCardIn.getComponent(),
+            bottomCardOut.getComponent()
+        );
 
         leftSummaryCard
             .getChildren()
-            .addAll(avatarCard.getComponent(), balanceBox);
+            .addAll(topSide, bottomSide);
 
         return leftSummaryCard;
     }
@@ -72,5 +87,25 @@ public class Dashboard implements Page {
         vBox.getChildren().addAll(title, balance);
 
         return vBox;
+    }
+
+    private CardVBoxComponent getLeftSummaryBottomCard(String title, double value, String color) {
+        CardVBoxComponent cardVBoxComponent = new CardVBoxComponent();
+        Text titleText = new Text(title);
+        Text valueText = new Text(String.format("R$ %.2f", value));
+
+        cardVBoxComponent.getComponent().getStyleClass().add("left-summary-bottom-card");
+        cardVBoxComponent.getComponent().getChildren().addAll(
+            titleText,
+            valueText
+        );
+
+        titleText.getStyleClass().add("left-summary-bottom-title");
+        
+        valueText.setStyle(
+            String.format("-fx-fill: %s; -fx-font-size: 16px; -fx-font-weight: bold", color)
+        );
+
+        return cardVBoxComponent;
     }
 }
