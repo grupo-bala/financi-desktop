@@ -5,16 +5,19 @@ import javafx.scene.control.PasswordField;
 
 public class PasswordFieldComponent implements Component {
 
-    @Override
-    public PasswordField getComponent() {
-        PasswordField passwordField = new PasswordField();
+    PasswordField passwordField = new PasswordField();
+
+    public PasswordFieldComponent() {
         passwordField.getStyleClass().add("financi-text-field");
         passwordField
             .getStylesheets()
             .add(
                 "file:src/main/java/grupobala/View/Components/TextField/TextField.css"
             );
+    }
 
+    @Override
+    public PasswordField getComponent() {
         return passwordField;
     }
 }
