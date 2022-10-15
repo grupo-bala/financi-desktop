@@ -16,9 +16,8 @@ public class Extract implements IExtract {
         this.entry = 0;
         this.output = 0;
 
-        for (ITransaction x : transactions) {
-            this.transactions.add(x);
-
+        for (ITransaction x : this.transactions) {
+            
             if (x.getValue() < 0) {
                 this.output += x.getValue();
             } else {
