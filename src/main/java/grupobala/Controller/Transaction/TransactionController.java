@@ -1,13 +1,12 @@
 package grupobala.Controller.Transaction;
 
+import grupobala.Controller.Transaction.ITransactionController.ITransactionController;
 import grupobala.Database.Connection.DBConnection;
 import grupobala.Database.Transaction.DBTransaction;
-import grupobala.Controller.Transaction.ITransactionController.ITransactionController;
 import grupobala.Entities.Category.CategoryEnum;
 import grupobala.Entities.Transaction.ITransaction.ITransaction;
 import java.sql.Date;
 import java.sql.SQLException;
-
 
 public class TransactionController implements ITransactionController {
 
@@ -29,14 +28,12 @@ public class TransactionController implements ITransactionController {
     @Override
     public void removeTransaction(String username, int transactionID)
         throws Exception {
-            DBTransaction dbTransaction = new DBTransaction(new DBConnection());
+        DBTransaction dbTransaction = new DBTransaction(new DBConnection());
 
-            try { 
-                dbTransaction.removeTransaction(username, transactionID);
-            }
-            catch(SQLException error){
-                throw new Exception("Não foi possível apagar a transação");
-            }
-        
+        try {
+            dbTransaction.removeTransaction(username, transactionID);
+        } catch (SQLException error) {
+            throw new Exception("Não foi possível apagar a transação");
         }
+    }
 }

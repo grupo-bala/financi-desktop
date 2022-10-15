@@ -1,7 +1,7 @@
 package grupobala.SetupForTest;
 
-import java.util.Locale;
 import java.sql.*;
+import java.util.Locale;
 
 public class SetupForTest {
 
@@ -58,7 +58,6 @@ public class SetupForTest {
         connection.close();
     }
 
-
     public static int addDefaultTransaction() throws SQLException {
         Connection connection = DriverManager.getConnection(
             "jdbc:postgresql://localhost:5432/financi?user=postgres&password=postgres"
@@ -86,18 +85,22 @@ public class SetupForTest {
             );
 
         statement.executeUpdate(query);
-        
-        query = String.format(Locale.US, "SELECT id FROM movimentacao WHERE idusuario = %d", financiUserID);
 
-	result = statement.executeQuery(query);
-	
-	result.next();
-	
-	int transactionID = Integer.valueOf(result.getString("id"));
+        query =
+            String.format(
+                Locale.US,
+                "SELECT id FROM movimentacao WHERE idusuario = %d",
+                financiUserID
+            );
+
+        result = statement.executeQuery(query);
+
+        result.next();
+
+        int transactionID = Integer.valueOf(result.getString("id"));
 
         connection.close();
-        
+
         return transactionID;
     }
 }
-
