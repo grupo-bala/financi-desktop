@@ -4,7 +4,7 @@ import grupobala.View.Components.Component.Component;
 import javafx.scene.control.TextField;
 
 public class TextFieldComponent implements Component {
-    
+
     TextField textField = new TextField();
 
     public TextFieldComponent() {
