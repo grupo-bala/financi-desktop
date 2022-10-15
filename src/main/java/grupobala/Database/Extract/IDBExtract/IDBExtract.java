@@ -8,7 +8,7 @@ import java.util.Date;
 
 public interface IDBExtract {
     public ArrayList<ITransaction> getExtract(
-        String username,
+        int userID,
         Date initial,
         Date end
     ) throws SQLException, ParseException;
