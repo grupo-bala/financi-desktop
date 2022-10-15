@@ -12,7 +12,6 @@ import grupobala.SetupForTest.SetupForTest;
 import java.sql.*;
 import java.util.Calendar;
 import java.util.Date;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
 public class TestDBTransaction {
@@ -22,7 +21,6 @@ public class TestDBTransaction {
     );
 
     @Test
-    @Order(1)
     public void testAddTransaction() throws SQLException {
         SetupForTest.truncateTables();
         SetupForTest.addFinanciUser();
@@ -84,25 +82,7 @@ public class TestDBTransaction {
     public void testRemoveTransaction() throws SQLException {
         SetupForTest.truncateTables();
         SetupForTest.addFinanciUser();
-
-        Calendar calendar = Calendar.getInstance();
-
-        calendar.set(Calendar.YEAR, 2022);
-        calendar.set(Calendar.MONTH, Calendar.OCTOBER);
-        calendar.set(Calendar.DAY_OF_MONTH, 21);
-
-        Date transactionDate = calendar.getTime();
-
-        ITransaction transaction =
-            this.databaseTransaction.addTransaction(
-                    "financi",
-                    100,
-                    "Testes",
-                    CategoryEnum.OTHERS,
-                    transactionDate
-                );
-
-        int transactionID = transaction.getId();
+        int transactionID = SetupForTest.addDefaultTransaction();
 
         this.databaseTransaction.removeTransaction("financi", transactionID);
     }
