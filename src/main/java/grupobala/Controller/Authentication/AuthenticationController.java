@@ -6,7 +6,6 @@ import grupobala.Crypt.Implementations.SHA256Encryptor;
 import grupobala.Database.Authenticator.DBAuthenticator;
 import grupobala.Database.Connection.DBConnection;
 import grupobala.Entities.User.IUser.IUser;
-
 import java.sql.SQLException;
 
 public class AuthenticationController implements IAuthenticationController {
