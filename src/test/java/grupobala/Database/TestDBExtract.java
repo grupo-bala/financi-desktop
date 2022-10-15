@@ -2,20 +2,19 @@ package grupobala.Database;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.sql.SQLException;
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Calendar;
-
-import org.junit.jupiter.api.Test;
-
 import grupobala.Database.Connection.DBConnection;
 import grupobala.Database.Extract.DBExtract;
 import grupobala.Database.Extract.IDBExtract.IDBExtract;
 import grupobala.Entities.Transaction.ITransaction.ITransaction;
 import grupobala.SetupForTest.SetupForTest;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Calendar;
+import org.junit.jupiter.api.Test;
 
 public class TestDBExtract {
+
     private IDBExtract extract = new DBExtract(new DBConnection());
 
     @Test
@@ -36,7 +35,12 @@ public class TestDBExtract {
         endCalendar.set(Calendar.MONTH, Calendar.OCTOBER);
         endCalendar.set(Calendar.DAY_OF_MONTH, 31);
 
-        ArrayList<ITransaction> transactions = this.extract.getExtract("financi", initialCalendar.getTime(), endCalendar.getTime());
+        ArrayList<ITransaction> transactions =
+            this.extract.getExtract(
+                    "financi",
+                    initialCalendar.getTime(),
+                    endCalendar.getTime()
+                );
 
         int expectedSize = 1;
         int result = transactions.size();
@@ -45,12 +49,16 @@ public class TestDBExtract {
     }
 
     @Test
-    public void testGetExtractShouldFailNonexistentUser() throws SQLException, ParseException {
+    public void testGetExtractShouldFailNonexistentUser()
+        throws SQLException, ParseException {
         SetupForTest.truncateTables();
 
-        Exception exception = assertThrows(SQLException.class, () -> {
-            this.extract.getExtract("usuárioInexistente", null, null);
-        });
+        Exception exception = assertThrows(
+            SQLException.class,
+            () -> {
+                this.extract.getExtract("usuárioInexistente", null, null);
+            }
+        );
 
         String expected = "Usuário não existe";
         String result = exception.getMessage();

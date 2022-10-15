@@ -18,18 +18,18 @@ public enum CategoryEnum {
 
     public static CategoryEnum getCategory(String categoryName) {
         switch (categoryName) {
-        case "comida":
-            return CategoryEnum.FOOD;
-        case "roupa":
-            return CategoryEnum.CLOTHING;
-        case "saúde":
-            return CategoryEnum.HEALTH;
-        case "entretenimento":
-            return CategoryEnum.ENTERTAINMENT;
-        case "pagamentos":
-            return CategoryEnum.PAYMENTS;
-        default:
-            return CategoryEnum.OTHERS;
+            case "comida":
+                return CategoryEnum.FOOD;
+            case "roupa":
+                return CategoryEnum.CLOTHING;
+            case "saúde":
+                return CategoryEnum.HEALTH;
+            case "entretenimento":
+                return CategoryEnum.ENTERTAINMENT;
+            case "pagamentos":
+                return CategoryEnum.PAYMENTS;
+            default:
+                return CategoryEnum.OTHERS;
         }
     }
 }
