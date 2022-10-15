@@ -50,25 +50,28 @@ public class Dashboard implements Page {
         HBox bottomSide = new HBox();
         AvatarCardComponent avatarCard = new AvatarCardComponent();
         VBox balanceBox = getBalanceBox();
-        CardVBoxComponent bottomCardIn = getLeftSummaryBottomCard("Receita mensal", new User().getValue(), "#49AD5A");
-        CardVBoxComponent bottomCardOut = getLeftSummaryBottomCard("Despesa mensal", new User().getValue(), "#C54646");
+        CardVBoxComponent bottomCardIn = getLeftSummaryBottomCard(
+            "Receita mensal",
+            new User().getValue(),
+            "#49AD5A"
+        );
+        CardVBoxComponent bottomCardOut = getLeftSummaryBottomCard(
+            "Despesa mensal",
+            new User().getValue(),
+            "#C54646"
+        );
 
         leftSummaryCard.getStyleClass().add("left-summary");
         topSide.getStyleClass().add("summary-card-top");
         bottomSide.getStyleClass().add("summary-card-bot");
 
-        topSide.getChildren().addAll(
-            avatarCard.getComponent(), balanceBox
-        );
+        topSide.getChildren().addAll(avatarCard.getComponent(), balanceBox);
 
-        bottomSide.getChildren().addAll(
-            bottomCardIn.getComponent(),
-            bottomCardOut.getComponent()
-        );
-
-        leftSummaryCard
+        bottomSide
             .getChildren()
-            .addAll(topSide, bottomSide);
+            .addAll(bottomCardIn.getComponent(), bottomCardOut.getComponent());
+
+        leftSummaryCard.getChildren().addAll(topSide, bottomSide);
 
         return leftSummaryCard;
     }
@@ -89,21 +92,31 @@ public class Dashboard implements Page {
         return vBox;
     }
 
-    private CardVBoxComponent getLeftSummaryBottomCard(String title, double value, String color) {
+    private CardVBoxComponent getLeftSummaryBottomCard(
+        String title,
+        double value,
+        String color
+    ) {
         CardVBoxComponent cardVBoxComponent = new CardVBoxComponent();
         Text titleText = new Text(title);
         Text valueText = new Text(String.format("R$ %.2f", value));
 
-        cardVBoxComponent.getComponent().getStyleClass().add("left-summary-bottom-card");
-        cardVBoxComponent.getComponent().getChildren().addAll(
-            titleText,
-            valueText
-        );
+        cardVBoxComponent
+            .getComponent()
+            .getStyleClass()
+            .add("left-summary-bottom-card");
+        cardVBoxComponent
+            .getComponent()
+            .getChildren()
+            .addAll(titleText, valueText);
 
         titleText.getStyleClass().add("left-summary-bottom-title");
-        
+
         valueText.setStyle(
-            String.format("-fx-fill: %s; -fx-font-size: 16px; -fx-font-weight: bold", color)
+            String.format(
+                "-fx-fill: %s; -fx-font-size: 16px; -fx-font-weight: bold",
+                color
+            )
         );
 
         return cardVBoxComponent;
