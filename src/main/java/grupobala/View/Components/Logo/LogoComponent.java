@@ -8,15 +8,14 @@ import javafx.scene.text.Text;
 
 public class LogoComponent implements Component {
 
-    @Override
-    public VBox getComponent() {
-        VBox logoVBox = new VBox();
-        Image logoImg = new Image(
-            "file:src/main/resources/grupobala/images/financi-logo.png"
-        );
-        ImageView logo = new ImageView(logoImg);
-        Text financiTitle = new Text("Financi");
+    VBox logoVBox = new VBox();
+    Image logoImg = new Image(
+        "file:src/main/resources/grupobala/images/financi-logo.png"
+    );
+    ImageView logo = new ImageView(logoImg);
+    Text financiTitle = new Text("Financi");
 
+    public LogoComponent() {
         logoVBox
             .getStylesheets()
             .add("file:src/main/java/grupobala/View/Components/Logo/Logo.css");
@@ -25,7 +24,10 @@ public class LogoComponent implements Component {
         financiTitle.getStyleClass().add("title");
 
         logoVBox.getChildren().addAll(logo, financiTitle);
+    }
 
+    @Override
+    public VBox getComponent() {
         return logoVBox;
     }
 }
