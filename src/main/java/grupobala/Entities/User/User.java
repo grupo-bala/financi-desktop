@@ -16,6 +16,13 @@ public class User implements IUser {
             User.NAME = name;
             User.VALUE = value;
             User.ID = ID;
+            User.INSTANCIATED = true;
+        }
+    }
+
+    public User() {
+        if (!User.INSTANCIATED) {
+            throw new RuntimeException("Usuário precisa ser inicializado");
         }
     }
 
