@@ -8,6 +8,7 @@ import grupobala.View.Components.TextField.PasswordFieldComponent;
 import grupobala.View.Components.TextField.TextFieldComponent;
 import grupobala.View.PageManager;
 import grupobala.View.Pages.Authentication.SignUp.SignUpPage;
+import grupobala.View.Pages.Dashboard.Dashboard;
 import grupobala.View.Pages.Page.Page;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
@@ -100,6 +101,7 @@ public class SignInPage implements Page {
 
         try {
             authController.signIn(username, password);
+            new PageManager().setCurrentPage(new Dashboard());
             System.out.println("Logado");
         } catch (Exception e) {
             System.out.println(e.getMessage());

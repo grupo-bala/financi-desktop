@@ -113,6 +113,7 @@ public class SignUpPage implements Page {
 
         try {
             authController.signUp(username, password, name, wage);
+            new PageManager().setCurrentPage(new SignInPage());
             System.out.println("Registrado");
         } catch (Exception e) {
             System.out.println(e.getMessage());
