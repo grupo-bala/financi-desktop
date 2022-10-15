@@ -1,11 +1,10 @@
 package grupobala.View.Components.AvatarCard;
 
+import grupobala.Entities.User.User;
+import grupobala.View.Components.Component.Component;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-
-import grupobala.Entities.User.User;
-import grupobala.View.Components.Component.Component;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -31,9 +30,11 @@ public class AvatarCardComponent implements Component {
 
         icon.setFill(avaPattern);
 
-        avatarCard.getStylesheets().add(
-            "file:src/main/java/grupobala/View/Components/AvatarCard/AvatarCard.css"
-        );
+        avatarCard
+            .getStylesheets()
+            .add(
+                "file:src/main/java/grupobala/View/Components/AvatarCard/AvatarCard.css"
+            );
         avatarCard.getStyleClass().add("financi-avatar-card");
         icon.getStyleClass().add("financi-avatar-icon");
         greetings.getStyleClass().add("financi-avatar-greetings");
@@ -43,15 +44,9 @@ public class AvatarCardComponent implements Component {
         setGreetings();
         setUserName();
 
-        textContainer.getChildren().addAll(
-            userName,
-            greetings
-        );
+        textContainer.getChildren().addAll(userName, greetings);
 
-        avatarCard.getChildren().addAll(
-            icon,
-            textContainer
-        );
+        avatarCard.getChildren().addAll(icon, textContainer);
     }
 
     public HBox getComponent() {

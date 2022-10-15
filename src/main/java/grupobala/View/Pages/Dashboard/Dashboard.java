@@ -21,14 +21,14 @@ public class Dashboard implements Page {
 
         mainPane.getStyleClass().add("dashboard");
         container.getStyleClass().add("container");
-        mainPane.getStylesheets().add(
-            "file:src/main/java/grupobala/View/Pages/Dashboard/Dashboard.css"
-        );
+        mainPane
+            .getStylesheets()
+            .add(
+                "file:src/main/java/grupobala/View/Pages/Dashboard/Dashboard.css"
+            );
 
         mainPane.getChildren().add(container);
-        container.getChildren().addAll(
-            summaryCard.getComponent()
-        );
+        container.getChildren().addAll(summaryCard.getComponent());
 
         return mainPane;
     }
@@ -39,9 +39,7 @@ public class Dashboard implements Page {
 
         hBox.getComponent().getStyleClass().add("summary-card");
 
-        hBox.getComponent().getChildren().addAll(
-            leftSummary
-        );
+        hBox.getComponent().getChildren().addAll(leftSummary);
 
         return hBox;
     }
@@ -53,10 +51,9 @@ public class Dashboard implements Page {
 
         leftSummaryCard.getStyleClass().add("summary-card-left");
 
-        leftSummaryCard.getChildren().addAll(
-            avatarCard.getComponent(),
-            balanceBox
-        );
+        leftSummaryCard
+            .getChildren()
+            .addAll(avatarCard.getComponent(), balanceBox);
 
         return leftSummaryCard;
     }
@@ -72,10 +69,7 @@ public class Dashboard implements Page {
         title.getStyleClass().add("balance-title");
         balance.getStyleClass().add("balance");
 
-        vBox.getChildren().addAll(
-            title,
-            balance
-        );
+        vBox.getChildren().addAll(title, balance);
 
         return vBox;
     }
