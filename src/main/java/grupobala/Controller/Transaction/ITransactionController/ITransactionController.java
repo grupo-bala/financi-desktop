@@ -6,16 +6,16 @@ import java.sql.Date;
 
 public interface ITransactionController {
     public ITransaction addTransaction(
-        String username,
+        int userID,
         double wage,
         String title,
         CategoryEnum category,
         Date date
     ) throws Exception;
 
-    public void updateTransaction(String username, ITransaction transaction)
+    public void updateTransaction(int userID, ITransaction transaction)
         throws Exception;
 
-    public void removeTransaction(String username, int transactionID)
+    public void removeTransaction(int userID, int transactionID)
         throws Exception;
 }
