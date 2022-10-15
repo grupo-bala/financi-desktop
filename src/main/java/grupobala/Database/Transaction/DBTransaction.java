@@ -1,5 +1,7 @@
 package grupobala.Database.Transaction;
 
+import grupobala.Database.Category.DBCategory;
+import grupobala.Database.Category.IDBCategory.IDBCategory;
 import grupobala.Database.Connection.IDBConnection.IDBConnection;
 import grupobala.Database.Transaction.IDBTransaction.IDBTransaction;
 import grupobala.Entities.Category.CategoryEnum;
@@ -21,54 +23,21 @@ public class DBTransaction implements IDBTransaction {
 
     @Override
     public ITransaction addTransaction(
-        String username,
+        int userID,
         double value,
         String title,
         CategoryEnum category,
         Date date
     ) throws SQLException {
-        String query = String.format(
-            Locale.US,
-            "SELECT id FROM usuario WHERE nomeusuario = '%s'",
-            username
-        );
+        IDBCategory categoryDB = new DBCategory(this.databaseConnection);
 
-        ResultSet result = this.databaseConnection.executeQuery(query);
-
-        if (!result.isBeforeFirst()) {
-            throw new SQLException("Usuário não existe");
-        }
-
-        result.next();
-
-        int userID = Integer.valueOf(result.getString("id"));
-
-        result.close();
-
-        query =
-            String.format(
-                Locale.US,
-                "SELECT id FROM categoria WHERE nome = '%s'",
-                category.databaseName
-            );
-
-        result = this.databaseConnection.executeQuery(query);
-
-        if (!result.isBeforeFirst()) {
-            throw new SQLException("Categoria não existe");
-        }
-
-        result.next();
-
-        int categoryID = Integer.valueOf(result.getString("id"));
-
-        result.close();
+        int categoryID = categoryDB.getCategoryID(category);
 
         DateFormat formateDate = new SimpleDateFormat("yyyy-MM-dd");
 
         boolean isEntry = value > 0.0;
 
-        query =
+        String query =
             String.format(
                 Locale.US,
                 "INSERT INTO movimentacao(idusuario, valor, data, idcategoria, titulo, entrada) VALUES (%d, %f, '%s', %d, '%s', '%s')",
@@ -89,7 +58,7 @@ public class DBTransaction implements IDBTransaction {
                 userID
             );
 
-        result = this.databaseConnection.executeQuery(query);
+        ResultSet result = this.databaseConnection.executeQuery(query);
 
         if (!result.isBeforeFirst()) {
             throw new SQLException("Algo de errado ocorreu");
@@ -97,7 +66,7 @@ public class DBTransaction implements IDBTransaction {
 
         result.next();
 
-        int newTransactionID = Integer.valueOf(result.getString("id"));
+        int newTransactionID = result.getInt("id");
 
         result.close();
 
@@ -105,27 +74,9 @@ public class DBTransaction implements IDBTransaction {
     }
 
     @Override
-    public void removeTransaction(String username, int transactionID)
+    public void removeTransaction(int userID, int transactionID)
         throws SQLException {
-        String query = String.format(
-            Locale.US,
-            "SELECT id FROM usuario WHERE nomeusuario = '%s'",
-            username
-        );
-
-        ResultSet result = this.databaseConnection.executeQuery(query);
-
-        if (!result.isBeforeFirst()) {
-            throw new SQLException("Usuário não existe");
-        }
-
-        result.next();
-
-        int userID = Integer.valueOf(result.getString("id"));
-
-        result.close();
-
-        query =
+        String query =
             String.format(
                 Locale.US,
                 "DELETE FROM movimentacao WHERE id = %d AND idusuario = %d",
@@ -141,50 +92,17 @@ public class DBTransaction implements IDBTransaction {
     }
 
     @Override
-    public void updateTransaction(String username, ITransaction transaction)
+    public void updateTransaction(int userID, ITransaction transaction)
         throws SQLException {
-        String query = String.format(
-            Locale.US,
-            "SELECT id FROM usuario WHERE nomeusuario = '%s'",
-            username
-        );
+        IDBCategory categoryDB = new DBCategory(this.databaseConnection);
 
-        ResultSet result = this.databaseConnection.executeQuery(query);
-
-        if (!result.isBeforeFirst()) {
-            throw new SQLException("Usuário não existe");
-        }
-
-        result.next();
-
-        int userID = Integer.valueOf(result.getString("id"));
-
-        result.close();
-
-        query =
-            String.format(
-                Locale.US,
-                "SELECT id FROM categoria WHERE nome = '%s'",
-                transaction.getCategory().databaseName
-            );
-
-        result = this.databaseConnection.executeQuery(query);
-
-        if (!result.isBeforeFirst()) {
-            throw new SQLException("Categoria não existe");
-        }
-
-        result.next();
-
-        int categoryID = Integer.valueOf(result.getString("id"));
-
-        result.close();
+        int categoryID = categoryDB.getCategoryID(transaction.getCategory());
 
         boolean isEntry = transaction.getValue() > 0.0;
 
         DateFormat formateDate = new SimpleDateFormat("yyyy-MM-dd");
 
-        query =
+        String query =
             String.format(
                 Locale.US,
                 "UPDATE movimentacao SET valor = %f, data = '%s', idcategoria = '%s', titulo = '%s', entrada = '%s' WHERE idusuario = %d AND id = %d",
