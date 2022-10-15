@@ -1,0 +1,32 @@
+.container {
+    -fx-background-color: #222622;
+    -fx-font-family: "Montserrat";
+}
+
+.summary-card {
+    -fx-padding: 20px;
+    -fx-min-height: 100px;
+    -fx-alignment: center;
+}
+
+.summary-card-left {
+    -fx-hgap: 60px;
+}
+
+.balance-box {
+    -fx-border-width: 0px 0px 0px 2px;
+    -fx-border-color: #49AD5A;
+    -fx-padding: 0px 0px 0px 10px;
+    -fx-alignment: center-left;
+}
+
+.balance-title {
+    -fx-font-size: 16px;
+    -fx-fill: #A0A0A0;
+}
+
+.balance {
+    -fx-font-size: 28px;
+    -fx-font-weight: 600;
+    -fx-fill: #ffffff;
+}
