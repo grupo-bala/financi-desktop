@@ -1,0 +1,25 @@
+.financi-avatar-card {
+    -fx-alignment: center;
+}
+
+.financi-avatar-icon {
+    -fx-stroke: #65A644;
+    -fx-stroke-width: 3px;
+}
+
+.financi-avatar-texts {
+    -fx-translate-x: 15px;
+}
+
+.financi-avatar-greetings {
+    -fx-fill: #ffffff;
+    -fx-font-size: 20px;
+    -fx-font-family: "Montserrat";
+}
+
+.financi-avatar-name {
+    -fx-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-font-family: "Montserrat";
+    -fx-font-size: 28px;
+}
