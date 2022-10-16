@@ -3,7 +3,12 @@ package grupobala.View.Pages.Dashboard;
 import grupobala.Entities.User.User;
 import grupobala.View.Components.AvatarCard.AvatarCardComponent;
 import grupobala.View.Components.Card.CardHBoxComponent;
+<<<<<<< Updated upstream
 import grupobala.View.Components.Card.CardVBoxComponent;
+=======
+import grupobala.View.Components.OperationButton.OperationButton;
+import grupobala.View.Components.OperationButton.OperationButton.IconEnum;
+>>>>>>> Stashed changes
 import grupobala.View.Pages.Page.Page;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -35,11 +40,16 @@ public class Dashboard implements Page {
 
     private CardHBoxComponent getSummaryCard() {
         CardHBoxComponent hBox = new CardHBoxComponent();
+<<<<<<< Updated upstream
         VBox leftSummary = getLeftSummaryCard();
+=======
+        TilePane leftSummary = getLeftSummaryCard();
+        VBox rightSummary = getRightSummaryCard();
+>>>>>>> Stashed changes
 
         hBox.getComponent().getStyleClass().add("summary-card");
 
-        hBox.getComponent().getChildren().addAll(leftSummary);
+        hBox.getComponent().getChildren().addAll(leftSummary, rightSummary);
 
         return hBox;
     }
@@ -92,6 +102,7 @@ public class Dashboard implements Page {
         return vBox;
     }
 
+<<<<<<< Updated upstream
     private CardVBoxComponent getLeftSummaryBottomCard(
         String title,
         double value,
@@ -120,5 +131,38 @@ public class Dashboard implements Page {
         );
 
         return cardVBoxComponent;
+=======
+    private VBox getRightSummaryCard() {
+        VBox rightSummaryCard = new VBox();
+
+        Text title = new Text("Acesso rápido");
+        TilePane quickActions = getQuickActions();
+
+        rightSummaryCard.getStyleClass().add("summary-card-right");
+        title.getStyleClass().add("quick-access-title");
+
+        rightSummaryCard.getChildren().addAll(title, quickActions);
+
+        return rightSummaryCard;
+    }
+
+    private TilePane getQuickActions() {
+        TilePane quickActions = new TilePane();
+        OperationButton outputButton = new OperationButton();
+        OperationButton incomingButton = new OperationButton();
+        OperationButton goalButton = new OperationButton();
+
+        quickActions.getStyleClass().add("quick-actions");
+        
+        quickActions
+            .getChildren()
+            .addAll(
+                outputButton.getComponent("SAÍDA", IconEnum.SAIDA), 
+                incomingButton.getComponent("ENTRADA", IconEnum.ENTRADA),
+                goalButton.getComponent("META", IconEnum.META)
+            );
+
+        return quickActions;
+>>>>>>> Stashed changes
     }
 }

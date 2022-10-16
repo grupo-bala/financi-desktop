@@ -1,4 +1,5 @@
 .container {
+    -fx-padding: 20px 300px;
     -fx-background-color: #222622;
     -fx-font-family: "Montserrat";
 }
@@ -54,5 +55,23 @@
 
 .left-summary-bottom-title {
     -fx-fill: #ffffff;
-    -fx-font-size: 14px
+    -fx-font-size: 14px;
+}
+
+.summary-card-right {
+    -fx-border-width: 0px 0px 0px 4px;
+    -fx-border-color: #49AD5A;
+    -fx-spacing: 25px;
+    -fx-padding: 0px 0px 0px 60px;
+    -fx-alignment: center-left;
+}
+
+.quick-access-title {
+    -fx-font-size: 23px;
+    -fx-font-weight: 570;
+    -fx-fill: #ffffff;
+}
+
+.quick-actions {
+    -fx-hgap: 40px;
 }
