@@ -1,11 +1,12 @@
 .container {
-    -fx-padding: 20px 300px;
+    -fx-padding: 20px 450px;
     -fx-background-color: #222622;
     -fx-font-family: "Montserrat";
 }
 
 .summary-card {
-    -fx-padding: 20px;
+    -fx-padding: 35px 20px 40px 20px;
+    -fx-spacing: 50px;
     -fx-alignment: center;
     -fx-background-color: #121512;
 }
@@ -30,6 +31,7 @@
 
 .balance-box {
     -fx-border-width: 0px 0px 0px 2px;
+    -fx-spacing: 7px;
     -fx-border-color: #49AD5A;
     -fx-padding: 0px 0px 0px 10px;
     -fx-alignment: center-left;
@@ -60,6 +62,7 @@
 
 .summary-card-right {
     -fx-border-width: 0px 0px 0px 4px;
+    -fx-max-width: 460px;
     -fx-border-color: #49AD5A;
     -fx-spacing: 25px;
     -fx-padding: 0px 0px 0px 60px;
@@ -68,7 +71,7 @@
 
 .quick-access-title {
     -fx-font-size: 23px;
-    -fx-font-weight: 570;
+    -fx-font-weight: bold;
     -fx-fill: #ffffff;
 }
 
