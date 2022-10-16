@@ -20,8 +20,8 @@ public class TestDBExtract {
     @Test
     public void testGetExtract() throws SQLException, ParseException {
         SetupForTest.truncateTables();
-        SetupForTest.addFinanciUser();
-        SetupForTest.addDefaultTransaction();
+        int financiUserID = SetupForTest.addFinanciUser();
+        SetupForTest.addDefaultTransaction(financiUserID);
 
         Calendar initialCalendar = Calendar.getInstance();
 
@@ -37,7 +37,7 @@ public class TestDBExtract {
 
         ArrayList<ITransaction> transactions =
             this.extract.getExtract(
-                    "financi",
+                    financiUserID,
                     initialCalendar.getTime(),
                     endCalendar.getTime()
                 );
@@ -53,15 +53,22 @@ public class TestDBExtract {
         throws SQLException, ParseException {
         SetupForTest.truncateTables();
 
-        Exception exception = assertThrows(
-            SQLException.class,
-            () -> {
-                this.extract.getExtract("usuárioInexistente", null, null);
-            }
-        );
+        Calendar initialCalendar = Calendar.getInstance();
 
-        String expected = "Usuário não existe";
-        String result = exception.getMessage();
+        initialCalendar.set(Calendar.YEAR, 2022);
+        initialCalendar.set(Calendar.MONTH, Calendar.OCTOBER);
+        initialCalendar.set(Calendar.DAY_OF_MONTH, 01);
+
+        Calendar endCalendar = Calendar.getInstance();
+
+        endCalendar.set(Calendar.YEAR, 2022);
+        endCalendar.set(Calendar.MONTH, Calendar.OCTOBER);
+        endCalendar.set(Calendar.DAY_OF_MONTH, 31);
+
+        ArrayList<ITransaction> transactions = this.extract.getExtract(-1, initialCalendar.getTime(), endCalendar.getTime());
+
+        int expected = 0;
+        int result = transactions.size();
 
         assertEquals(expected, result);
     }

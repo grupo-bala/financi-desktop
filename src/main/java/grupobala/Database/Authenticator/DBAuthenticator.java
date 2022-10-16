@@ -33,10 +33,10 @@ public class DBAuthenticator implements IDBAuthenticator {
         result.next();
 
         String name = result.getString("nome");
-        double value = Double.valueOf(result.getString("rendafixa"));
-        int ID = Integer.valueOf(result.getString("id"));
+        double balance = result.getDouble("saldo");
+        int ID = result.getInt("id");
 
-        IUser user = new User(username, name, value, ID);
+        IUser user = new User(username, name, balance, ID);
 
         result.close();
 
@@ -48,16 +48,16 @@ public class DBAuthenticator implements IDBAuthenticator {
         String username,
         String password,
         String name,
-        double wage
+        double balance
     ) throws SQLException {
         try {
             String query = String.format(
                 Locale.US,
-                "INSERT INTO usuario(nome, nomeusuario, senha, rendafixa) VALUES ('%s', '%s', '%s', %f)",
+                "INSERT INTO usuario(nome, nomeusuario, senha, saldo) VALUES ('%s', '%s', '%s', %f)",
                 name,
                 username,
                 password,
-                wage
+                balance
             );
 
             this.databaseConnection.executeUpdate(query);

@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import grupobala.Controller.Transaction.TransactionController;
+import grupobala.Entities.Transaction.ITransaction.ITransaction;
 import grupobala.SetupForTest.SetupForTest;
 import org.junit.jupiter.api.Test;
 
@@ -14,9 +15,9 @@ public class TestRemoveTransactionController {
     @Test
     public void testRemoveTransaction() throws Exception {
         SetupForTest.truncateTables();
-        SetupForTest.addFinanciUser();
-        int transactionID = SetupForTest.addDefaultTransaction();
-        transactionController.removeTransaction("financi", transactionID);
+        int financiUserID = SetupForTest.addFinanciUser();
+        ITransaction transaction = SetupForTest.addDefaultTransaction(financiUserID);
+        transactionController.removeTransaction(financiUserID, transaction.getId());
     }
 
     @Test
@@ -26,7 +27,7 @@ public class TestRemoveTransactionController {
         Exception exception = assertThrows(
             Exception.class,
             () -> {
-                transactionController.removeTransaction("Nonexistent", -1);
+                transactionController.removeTransaction(-1, -1);
             }
         );
         String expected = "Não foi possível apagar a transação";
@@ -38,11 +39,11 @@ public class TestRemoveTransactionController {
     public void testRemoveTransactionShouldFailNonexistentID()
         throws Exception {
         SetupForTest.truncateTables();
-        SetupForTest.addFinanciUser();
+        int financiUserID = SetupForTest.addFinanciUser();
         Exception exception = assertThrows(
             Exception.class,
             () -> {
-                transactionController.removeTransaction("financi", -1);
+                transactionController.removeTransaction(financiUserID, -1);
             }
         );
         String expected = "Não foi possível apagar a transação";

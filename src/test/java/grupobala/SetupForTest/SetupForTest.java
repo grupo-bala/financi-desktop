@@ -1,7 +1,15 @@
 package grupobala.SetupForTest;
 
 import java.sql.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Locale;
+import java.util.Date;
+
+import grupobala.Entities.Category.CategoryEnum;
+import grupobala.Entities.Transaction.Transaction;
+import grupobala.Entities.Transaction.ITransaction.ITransaction;
 
 public class SetupForTest {
 
@@ -43,7 +51,7 @@ public class SetupForTest {
         }
     }
 
-    public static void addFinanciUser() throws SQLException {
+    public static int addFinanciUser() throws SQLException {
         Connection connection = DriverManager.getConnection(
             "jdbc:postgresql://localhost:5432/financi?user=postgres&password=postgres"
         );
@@ -51,37 +59,50 @@ public class SetupForTest {
         Statement statement = connection.createStatement();
 
         String query =
-            "INSERT INTO usuario(nome, nomeusuario, senha, rendafixa) VALUES ('Financi', 'financi', '1234', 1000)";
+            "INSERT INTO usuario(nome, nomeusuario, senha, saldo) VALUES ('Financi', 'financi', '1234', 1000)";
 
         statement.executeUpdate(query);
 
+        query = "SELECT id FROM usuario WHERE nomeusuario = 'financi'";
+
+        ResultSet result = statement.executeQuery(query);
+
+        result.next();
+
+        int financiID = result.getInt("id");
+
         connection.close();
+
+        return financiID;
     }
 
-    public static int addDefaultTransaction() throws SQLException {
+    public static ITransaction addDefaultTransaction(int financiUserID) throws SQLException {   
         Connection connection = DriverManager.getConnection(
             "jdbc:postgresql://localhost:5432/financi?user=postgres&password=postgres"
         );
 
         Statement statement = connection.createStatement();
 
-        String query = "SELECT id FROM usuario WHERE nomeusuario = 'financi'";
+        double value = 1000;
+        boolean isEntry = value > 0;
+        String title = "Teste";
+        Calendar calendar = Calendar.getInstance();
+        Date date = calendar.getTime();
+        CategoryEnum category = CategoryEnum.OTHERS;
 
-        ResultSet result = statement.executeQuery(query);
+        calendar.set(2022, 10, 21);
+        
+        DateFormat formateDate = new SimpleDateFormat("yyyy-MM-dd");
 
-        if (!result.isBeforeFirst()) {
-            throw new SQLException("Usuário financi não foi adicionado");
-        }
-
-        result.next();
-
-        int financiUserID = Integer.valueOf(result.getString("id"));
-
-        query =
+        String query =
             String.format(
                 Locale.US,
-                "INSERT INTO movimentacao(idusuario, valor, data, idcategoria, titulo, entrada) VALUES (%d, 1000, '2022-10-21', 1, 'Teste', true)",
-                financiUserID
+                "INSERT INTO movimentacao(idusuario, valor, data, idcategoria, titulo, entrada) VALUES (%d, %f, '%s', 6, '%s', '%s')",
+                financiUserID,
+                value,
+                formateDate.format(date),
+                title,
+                isEntry
             );
 
         statement.executeUpdate(query);
@@ -93,14 +114,16 @@ public class SetupForTest {
                 financiUserID
             );
 
-        result = statement.executeQuery(query);
+        ResultSet result = statement.executeQuery(query);
 
         result.next();
 
-        int transactionID = Integer.valueOf(result.getString("id"));
+        int transactionID = result.getInt("id");
 
         connection.close();
 
-        return transactionID;
+        ITransaction transaction = new Transaction(transactionID, 1000, query, category, date);
+
+        return transaction;
     }
 }

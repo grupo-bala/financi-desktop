@@ -12,7 +12,7 @@ public class TransactionController implements ITransactionController {
 
     @Override
     public ITransaction addTransaction(
-        String username,
+        int userID,
         double wage,
         String title,
         CategoryEnum category,
@@ -22,16 +22,16 @@ public class TransactionController implements ITransactionController {
     }
 
     @Override
-    public void updateTransaction(String username, ITransaction transaction)
+    public void updateTransaction(int userID, ITransaction transaction)
         throws Exception {}
 
     @Override
-    public void removeTransaction(String username, int transactionID)
+    public void removeTransaction(int userID, int transactionID)
         throws Exception {
         DBTransaction dbTransaction = new DBTransaction(new DBConnection());
 
         try {
-            dbTransaction.removeTransaction(username, transactionID);
+            dbTransaction.removeTransaction(userID, transactionID);
         } catch (SQLException error) {
             throw new Exception("Não foi possível apagar a transação");
         }

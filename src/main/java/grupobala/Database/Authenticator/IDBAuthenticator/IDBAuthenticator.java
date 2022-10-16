@@ -10,6 +10,6 @@ public interface IDBAuthenticator {
         String username,
         String senha,
         String name,
-        double wage
+        double balance
     ) throws SQLException;
 }

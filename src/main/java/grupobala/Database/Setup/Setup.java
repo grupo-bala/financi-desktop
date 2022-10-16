@@ -40,7 +40,7 @@ public class Setup {
 
     private static void createTables(Statement statement) throws SQLException {
         String[] queries = {
-            "CREATE TABLE usuario (id SERIAL PRIMARY KEY, nome TEXT NOT NULL, nomeusuario TEXT NOT NULL UNIQUE, senha TEXT NOT NULL, rendafixa FLOAT NOT NULL)",
+            "CREATE TABLE usuario (id SERIAL PRIMARY KEY, nome TEXT NOT NULL, nomeusuario TEXT NOT NULL UNIQUE, senha TEXT NOT NULL, saldo FLOAT NOT NULL)",
             "CREATE TABLE categoria (id SERIAL PRIMARY KEY, nome TEXT NOT NULL UNIQUE)",
             "CREATE TABLE meta (id SERIAL PRIMARY KEY, titulo TEXT NOT NULL UNIQUE, idusuario INTEGER NOT NULL, valormeta FLOAT NOT NULL, valoratual FLOAT NOT NULL, datalimite DATE, FOREIGN KEY (idusuario) REFERENCES usuario(id))",
             "CREATE TABLE aula (id SERIAL PRIMARY KEY , titulo TEXT NOT NULL UNIQUE, descricao TEXT NOT NULL, videourl TEXT NOT NULL, duracaosegundos INTEGER NOT NULL, thumbnailurl TEXT NOT NULL)",

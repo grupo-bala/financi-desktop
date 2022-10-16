@@ -1,5 +1,7 @@
 package grupobala.Database.Extract;
 
+import grupobala.Database.Category.DBCategory;
+import grupobala.Database.Category.IDBCategory.IDBCategory;
 import grupobala.Database.Connection.IDBConnection.IDBConnection;
 import grupobala.Database.Extract.IDBExtract.IDBExtract;
 import grupobala.Entities.Category.CategoryEnum;
@@ -23,31 +25,13 @@ public class DBExtract implements IDBExtract {
 
     @Override
     public ArrayList<ITransaction> getExtract(
-        String username,
+        int userID,
         Date initial,
         Date end
     ) throws SQLException, ParseException {
-        String query = String.format(
-            Locale.US,
-            "SELECT id FROM usuario WHERE nomeusuario = '%s'",
-            username
-        );
-
-        ResultSet result = this.databaseConnection.executeQuery(query);
-
-        if (!result.isBeforeFirst()) {
-            throw new SQLException("Usuário não existe");
-        }
-
-        result.next();
-
-        int userID = Integer.valueOf(result.getString("id"));
-
-        result.close();
-
         DateFormat formateDate = new SimpleDateFormat("yyyy-MM-dd");
 
-        query =
+        String query =
             String.format(
                 Locale.US,
                 "SELECT * FROM movimentacao WHERE idusuario = %d AND data BETWEEN '%s' AND '%s'",
@@ -56,34 +40,19 @@ public class DBExtract implements IDBExtract {
                 formateDate.format(end)
             );
 
-        result = this.databaseConnection.executeQuery(query);
+        ResultSet result = this.databaseConnection.executeQuery(query);
 
         ArrayList<ITransaction> transactions = new ArrayList<>();
 
+        IDBCategory categoryDB = new DBCategory(this.databaseConnection);
+
         while (result.next()) {
             String title = result.getString("titulo");
-            double wage = Double.valueOf(result.getString("valor"));
-            int ID = Integer.valueOf(result.getString("id"));
+            double wage = result.getDouble("valor");
+            int ID = result.getInt("id");
             Date date = formateDate.parse(result.getString("data"));
-            int categoryID = Integer.valueOf(result.getString("idcategoria"));
-
-            query =
-                String.format(
-                    Locale.US,
-                    "SELECT nome FROM categoria WHERE id = %d",
-                    categoryID
-                );
-
-            ResultSet categoryResult =
-                this.databaseConnection.executeQuery(query);
-
-            categoryResult.next();
-
-            CategoryEnum category = CategoryEnum.getCategory(
-                categoryResult.getString("nome")
-            );
-
-            categoryResult.close();
+            String categoryName = categoryDB.getCategoryName(result.getInt("idcategoria"));
+            CategoryEnum category = CategoryEnum.getCategory(categoryName);
 
             ITransaction transaction = new Transaction(
                 ID,
