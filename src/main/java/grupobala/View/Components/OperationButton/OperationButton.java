@@ -6,8 +6,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-public class OperationButton implements Component{
-    
+public class OperationButton implements Component {
+
     @Override
     public VBox getComponent() {
         VBox vBox = new VBox();
@@ -15,7 +15,11 @@ public class OperationButton implements Component{
 
         vBox.getStyleClass().add("container");
         buttonLabel.getStyleClass().add("button-label");
-        vBox.getStylesheets().add("file:src/main/java/grupobala/View/Components/OperationButton/OperationButton.css");
+        vBox
+            .getStylesheets()
+            .add(
+                "file:src/main/java/grupobala/View/Components/OperationButton/OperationButton.css"
+            );
 
         vBox.getChildren().addAll(buttonLabel);
 
@@ -28,7 +32,7 @@ public class OperationButton implements Component{
         META("file:src/main/resources/grupobala/images/goal-icon.png");
 
         public final String pathIcon;
-        
+
         private IconEnum(String pathIcon) {
             this.pathIcon = pathIcon;
         }
@@ -42,7 +46,11 @@ public class OperationButton implements Component{
 
         vBox.getStyleClass().add("container");
         buttonLabel.getStyleClass().add("button-label");
-        vBox.getStylesheets().add("file:src/main/java/grupobala/View/Components/OperationButton/OperationButton.css");
+        vBox
+            .getStylesheets()
+            .add(
+                "file:src/main/java/grupobala/View/Components/OperationButton/OperationButton.css"
+            );
 
         vBox.getChildren().addAll(incomingIcon, buttonLabel);
 

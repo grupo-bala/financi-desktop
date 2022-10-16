@@ -125,7 +125,7 @@ public class Dashboard implements Page {
 
         return cardVBoxComponent;
     }
-    
+
     private VBox getRightSummaryCard() {
         VBox rightSummaryCard = new VBox();
 
@@ -147,11 +147,11 @@ public class Dashboard implements Page {
         OperationButton goalButton = new OperationButton();
 
         quickActions.getStyleClass().add("quick-actions");
-        
+
         quickActions
             .getChildren()
             .addAll(
-                outputButton.getComponent("SAÍDA", IconEnum.SAIDA), 
+                outputButton.getComponent("SAÍDA", IconEnum.SAIDA),
                 incomingButton.getComponent("ENTRADA", IconEnum.ENTRADA),
                 goalButton.getComponent("META", IconEnum.META)
             );
