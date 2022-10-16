@@ -10,8 +10,11 @@ import java.sql.*;
 import java.util.*;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 
 @Order(1)
+@TestMethodOrder(OrderAnnotation.class)
 public class TestSetup {
 
     @Test
@@ -67,6 +70,8 @@ public class TestSetup {
         while (result.next()) {
             values.add(result.getString("nome"));
         }
+
+        result.close();
 
         ArrayList<String> expected = new ArrayList<>(
             Arrays.asList(
