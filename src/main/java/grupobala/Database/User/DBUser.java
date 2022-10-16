@@ -1,10 +1,9 @@
 package grupobala.Database.User;
 
-import java.sql.SQLException;
-import java.util.Locale;
-
 import grupobala.Database.Connection.IDBConnection.IDBConnection;
 import grupobala.Database.User.IDBUser.IDBUser;
+import java.sql.SQLException;
+import java.util.Locale;
 
 public class DBUser implements IDBUser {
 
@@ -29,5 +28,4 @@ public class DBUser implements IDBUser {
             throw new SQLException("Usuário não existe");
         }
     }
-    
 }

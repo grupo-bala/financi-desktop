@@ -3,20 +3,18 @@ package grupobala.Database;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Locale;
-
-import org.junit.jupiter.api.Test;
-
 import grupobala.Database.Connection.DBConnection;
 import grupobala.Database.Connection.IDBConnection.IDBConnection;
 import grupobala.Database.User.DBUser;
 import grupobala.Database.User.IDBUser.IDBUser;
 import grupobala.SetupForTest.SetupForTest;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Locale;
+import org.junit.jupiter.api.Test;
 
 public class TestDBUser {
-    
+
     IDBConnection databaseConnection = new DBConnection();
     IDBUser userDB = new DBUser(databaseConnection);
 
@@ -46,12 +44,16 @@ public class TestDBUser {
     }
 
     @Test
-    public void testSetUserBalanceShouldFailNonexistentUser() throws SQLException {
+    public void testSetUserBalanceShouldFailNonexistentUser()
+        throws SQLException {
         SetupForTest.truncateTables();
 
-        Exception exception = assertThrows(SQLException.class, () -> {
-            this.userDB.setUserBalance(-1, 0);
-        });
+        Exception exception = assertThrows(
+            SQLException.class,
+            () -> {
+                this.userDB.setUserBalance(-1, 0);
+            }
+        );
 
         String expected = "Usuário não existe";
         String result = exception.getMessage();
