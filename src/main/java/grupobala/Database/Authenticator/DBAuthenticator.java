@@ -39,6 +39,7 @@ public class DBAuthenticator implements IDBAuthenticator {
         IUser user = new User(username, name, balance, ID);
 
         result.close();
+        user.close();
 
         return user;
     }
