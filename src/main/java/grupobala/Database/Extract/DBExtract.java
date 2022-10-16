@@ -31,14 +31,13 @@ public class DBExtract implements IDBExtract {
     ) throws SQLException, ParseException {
         DateFormat formateDate = new SimpleDateFormat("yyyy-MM-dd");
 
-        String query =
-            String.format(
-                Locale.US,
-                "SELECT * FROM movimentacao WHERE idusuario = %d AND data BETWEEN '%s' AND '%s'",
-                userID,
-                formateDate.format(initial),
-                formateDate.format(end)
-            );
+        String query = String.format(
+            Locale.US,
+            "SELECT * FROM movimentacao WHERE idusuario = %d AND data BETWEEN '%s' AND '%s'",
+            userID,
+            formateDate.format(initial),
+            formateDate.format(end)
+        );
 
         ResultSet result = this.databaseConnection.executeQuery(query);
 
@@ -51,7 +50,9 @@ public class DBExtract implements IDBExtract {
             double wage = result.getDouble("valor");
             int ID = result.getInt("id");
             Date date = formateDate.parse(result.getString("data"));
-            String categoryName = categoryDB.getCategoryName(result.getInt("idcategoria"));
+            String categoryName = categoryDB.getCategoryName(
+                result.getInt("idcategoria")
+            );
             CategoryEnum category = CategoryEnum.getCategory(categoryName);
 
             ITransaction transaction = new Transaction(

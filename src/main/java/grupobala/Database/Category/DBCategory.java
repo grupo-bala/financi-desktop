@@ -1,13 +1,13 @@
 package grupobala.Database.Category;
 
-import java.sql.*;
-import java.util.Locale;
-
 import grupobala.Database.Category.IDBCategory.IDBCategory;
 import grupobala.Database.Connection.IDBConnection.IDBConnection;
 import grupobala.Entities.Category.CategoryEnum;
+import java.sql.*;
+import java.util.Locale;
 
 public class DBCategory implements IDBCategory {
+
     private IDBConnection databaseConnection;
 
     public DBCategory(IDBConnection databaseConnection) {
@@ -16,12 +16,11 @@ public class DBCategory implements IDBCategory {
 
     @Override
     public int getCategoryID(CategoryEnum category) throws SQLException {
-        String query =
-            String.format(
-                Locale.US,
-                "SELECT id FROM categoria WHERE nome = '%s'",
-                category.databaseName
-            );
+        String query = String.format(
+            Locale.US,
+            "SELECT id FROM categoria WHERE nome = '%s'",
+            category.databaseName
+        );
 
         ResultSet result = this.databaseConnection.executeQuery(query);
 
@@ -40,15 +39,13 @@ public class DBCategory implements IDBCategory {
 
     @Override
     public String getCategoryName(int categoryID) throws SQLException {
-        String query =
-            String.format(
-                Locale.US,
-                "SELECT nome FROM categoria WHERE id = %d",
-                categoryID
-            );
+        String query = String.format(
+            Locale.US,
+            "SELECT nome FROM categoria WHERE id = %d",
+            categoryID
+        );
 
-        ResultSet result =
-            this.databaseConnection.executeQuery(query);
+        ResultSet result = this.databaseConnection.executeQuery(query);
 
         if (!result.isBeforeFirst()) {
             throw new SQLException("Categoria inexistente");

@@ -73,9 +73,14 @@ public class TestDBTransaction {
     public void testRemoveTransaction() throws SQLException {
         SetupForTest.truncateTables();
         int financiUserID = SetupForTest.addFinanciUser();
-        ITransaction transaction = SetupForTest.addDefaultTransaction(financiUserID);
+        ITransaction transaction = SetupForTest.addDefaultTransaction(
+            financiUserID
+        );
 
-        this.databaseTransaction.removeTransaction(financiUserID, transaction.getId());
+        this.databaseTransaction.removeTransaction(
+                financiUserID,
+                transaction.getId()
+            );
     }
 
     @Test
@@ -86,10 +91,7 @@ public class TestDBTransaction {
         Exception exception = assertThrows(
             SQLException.class,
             () -> {
-                this.databaseTransaction.removeTransaction(
-                        -1,
-                        1
-                    );
+                this.databaseTransaction.removeTransaction(-1, 1);
             }
         );
 
@@ -122,7 +124,9 @@ public class TestDBTransaction {
     public void testUpdateTransaction() throws SQLException {
         SetupForTest.truncateTables();
         int financiUserID = SetupForTest.addFinanciUser();
-        ITransaction transaction = SetupForTest.addDefaultTransaction(financiUserID);
+        ITransaction transaction = SetupForTest.addDefaultTransaction(
+            financiUserID
+        );
 
         transaction.setTitle("Testes Testes e mais Testes");
 
@@ -153,10 +157,7 @@ public class TestDBTransaction {
         Exception exception = assertThrows(
             SQLException.class,
             () -> {
-                this.databaseTransaction.updateTransaction(
-                        -1,
-                        transaction
-                    );
+                this.databaseTransaction.updateTransaction(-1, transaction);
             }
         );
 

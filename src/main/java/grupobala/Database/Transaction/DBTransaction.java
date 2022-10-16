@@ -37,17 +37,16 @@ public class DBTransaction implements IDBTransaction {
 
         boolean isEntry = value > 0.0;
 
-        String query =
-            String.format(
-                Locale.US,
-                "INSERT INTO movimentacao(idusuario, valor, data, idcategoria, titulo, entrada) VALUES (%d, %f, '%s', %d, '%s', '%s')",
-                userID,
-                value,
-                formateDate.format(date),
-                categoryID,
-                title,
-                isEntry
-            );
+        String query = String.format(
+            Locale.US,
+            "INSERT INTO movimentacao(idusuario, valor, data, idcategoria, titulo, entrada) VALUES (%d, %f, '%s', %d, '%s', '%s')",
+            userID,
+            value,
+            formateDate.format(date),
+            categoryID,
+            title,
+            isEntry
+        );
 
         this.databaseConnection.executeUpdate(query);
 
@@ -76,13 +75,12 @@ public class DBTransaction implements IDBTransaction {
     @Override
     public void removeTransaction(int userID, int transactionID)
         throws SQLException {
-        String query =
-            String.format(
-                Locale.US,
-                "DELETE FROM movimentacao WHERE id = %d AND idusuario = %d",
-                transactionID,
-                userID
-            );
+        String query = String.format(
+            Locale.US,
+            "DELETE FROM movimentacao WHERE id = %d AND idusuario = %d",
+            transactionID,
+            userID
+        );
 
         int howManyUpdates = this.databaseConnection.executeUpdate(query);
 
@@ -102,18 +100,17 @@ public class DBTransaction implements IDBTransaction {
 
         DateFormat formateDate = new SimpleDateFormat("yyyy-MM-dd");
 
-        String query =
-            String.format(
-                Locale.US,
-                "UPDATE movimentacao SET valor = %f, data = '%s', idcategoria = '%s', titulo = '%s', entrada = '%s' WHERE idusuario = %d AND id = %d",
-                transaction.getValue(),
-                formateDate.format(transaction.getDate()),
-                categoryID,
-                transaction.getTitle(),
-                isEntry,
-                userID,
-                transaction.getId()
-            );
+        String query = String.format(
+            Locale.US,
+            "UPDATE movimentacao SET valor = %f, data = '%s', idcategoria = '%s', titulo = '%s', entrada = '%s' WHERE idusuario = %d AND id = %d",
+            transaction.getValue(),
+            formateDate.format(transaction.getDate()),
+            categoryID,
+            transaction.getTitle(),
+            isEntry,
+            userID,
+            transaction.getId()
+        );
 
         int howManyUpdates = this.databaseConnection.executeUpdate(query);
 

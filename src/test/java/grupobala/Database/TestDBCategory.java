@@ -3,18 +3,17 @@ package grupobala.Database;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
-import org.junit.jupiter.api.Test;
-
 import grupobala.Database.Category.DBCategory;
 import grupobala.Database.Category.IDBCategory.IDBCategory;
 import grupobala.Database.Connection.DBConnection;
 import grupobala.Database.Connection.IDBConnection.IDBConnection;
 import grupobala.Entities.Category.CategoryEnum;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import org.junit.jupiter.api.Test;
 
 public class TestDBCategory {
+
     IDBConnection databaseConnection = new DBConnection();
     IDBCategory categoryDB = new DBCategory(databaseConnection);
 
@@ -53,10 +52,14 @@ public class TestDBCategory {
     }
 
     @Test
-    public void testGetCategoryNameShouldFailNonexistentID() throws SQLException {
-        Exception exception = assertThrows(SQLException.class, () -> {
-            categoryDB.getCategoryName(-1);
-        });
+    public void testGetCategoryNameShouldFailNonexistentID()
+        throws SQLException {
+        Exception exception = assertThrows(
+            SQLException.class,
+            () -> {
+                categoryDB.getCategoryName(-1);
+            }
+        );
 
         String expected = "Categoria inexistente";
         String result = exception.getMessage();

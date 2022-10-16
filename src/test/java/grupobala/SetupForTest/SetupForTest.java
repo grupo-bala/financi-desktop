@@ -1,15 +1,14 @@
 package grupobala.SetupForTest;
 
+import grupobala.Entities.Category.CategoryEnum;
+import grupobala.Entities.Transaction.ITransaction.ITransaction;
+import grupobala.Entities.Transaction.Transaction;
 import java.sql.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Locale;
 import java.util.Date;
-
-import grupobala.Entities.Category.CategoryEnum;
-import grupobala.Entities.Transaction.Transaction;
-import grupobala.Entities.Transaction.ITransaction.ITransaction;
+import java.util.Locale;
 
 public class SetupForTest {
 
@@ -76,7 +75,8 @@ public class SetupForTest {
         return financiID;
     }
 
-    public static ITransaction addDefaultTransaction(int financiUserID) throws SQLException {   
+    public static ITransaction addDefaultTransaction(int financiUserID)
+        throws SQLException {
         Connection connection = DriverManager.getConnection(
             "jdbc:postgresql://localhost:5432/financi?user=postgres&password=postgres"
         );
@@ -91,19 +91,18 @@ public class SetupForTest {
         CategoryEnum category = CategoryEnum.OTHERS;
 
         calendar.set(2022, 10, 21);
-        
+
         DateFormat formateDate = new SimpleDateFormat("yyyy-MM-dd");
 
-        String query =
-            String.format(
-                Locale.US,
-                "INSERT INTO movimentacao(idusuario, valor, data, idcategoria, titulo, entrada) VALUES (%d, %f, '%s', 6, '%s', '%s')",
-                financiUserID,
-                value,
-                formateDate.format(date),
-                title,
-                isEntry
-            );
+        String query = String.format(
+            Locale.US,
+            "INSERT INTO movimentacao(idusuario, valor, data, idcategoria, titulo, entrada) VALUES (%d, %f, '%s', 6, '%s', '%s')",
+            financiUserID,
+            value,
+            formateDate.format(date),
+            title,
+            isEntry
+        );
 
         statement.executeUpdate(query);
 
@@ -122,7 +121,13 @@ public class SetupForTest {
 
         connection.close();
 
-        ITransaction transaction = new Transaction(transactionID, 1000, query, category, date);
+        ITransaction transaction = new Transaction(
+            transactionID,
+            1000,
+            query,
+            category,
+            date
+        );
 
         return transaction;
     }

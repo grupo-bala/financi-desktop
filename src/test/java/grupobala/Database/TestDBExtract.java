@@ -65,7 +65,12 @@ public class TestDBExtract {
         endCalendar.set(Calendar.MONTH, Calendar.OCTOBER);
         endCalendar.set(Calendar.DAY_OF_MONTH, 31);
 
-        ArrayList<ITransaction> transactions = this.extract.getExtract(-1, initialCalendar.getTime(), endCalendar.getTime());
+        ArrayList<ITransaction> transactions =
+            this.extract.getExtract(
+                    -1,
+                    initialCalendar.getTime(),
+                    endCalendar.getTime()
+                );
 
         int expected = 0;
         int result = transactions.size();

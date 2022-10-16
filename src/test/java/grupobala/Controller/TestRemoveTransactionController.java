@@ -16,8 +16,13 @@ public class TestRemoveTransactionController {
     public void testRemoveTransaction() throws Exception {
         SetupForTest.truncateTables();
         int financiUserID = SetupForTest.addFinanciUser();
-        ITransaction transaction = SetupForTest.addDefaultTransaction(financiUserID);
-        transactionController.removeTransaction(financiUserID, transaction.getId());
+        ITransaction transaction = SetupForTest.addDefaultTransaction(
+            financiUserID
+        );
+        transactionController.removeTransaction(
+            financiUserID,
+            transaction.getId()
+        );
     }
 
     @Test
