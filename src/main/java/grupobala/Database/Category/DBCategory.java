@@ -47,14 +47,18 @@ public class DBCategory implements IDBCategory {
                 categoryID
             );
 
-        ResultSet categoryResult =
+        ResultSet result =
             this.databaseConnection.executeQuery(query);
 
-        categoryResult.next();
+        if (!result.isBeforeFirst()) {
+            throw new SQLException("Categoria inexistente");
+        }
 
-        String categoryName = categoryResult.getString("nome");
+        result.next();
 
-        categoryResult.close();
+        String categoryName = result.getString("nome");
+
+        result.close();
 
         return categoryName;
     }
