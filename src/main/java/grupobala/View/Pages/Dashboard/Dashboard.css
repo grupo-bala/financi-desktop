@@ -107,7 +107,7 @@
 }
 
 .confirmation-card{
-    -fx-alignment: center;
+    -fx-alignment: top-center;
     -fx-max-width: 400px;
     -fx-max-height: 150px;
     -fx-spacing: 20px;
