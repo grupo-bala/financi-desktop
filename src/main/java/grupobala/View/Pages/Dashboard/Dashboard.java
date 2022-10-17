@@ -20,6 +20,8 @@ import grupobala.Controller.Transaction.TransactionController;
 public class Dashboard implements Page {
 
     private StackPane mainPane = new StackPane();
+    PopupComponent popupConfirmation = new PopupComponent();
+    PopupComponent errorPopup = new PopupComponent();
 
     @Override
     public StackPane getMainPane() {
@@ -36,7 +38,7 @@ public class Dashboard implements Page {
 
         mainPane.getChildren().add(container);
         container.getChildren().addAll(summaryCard.getComponent());
-        //popupRemoveTransactionError();
+
         popupRemoveTransactionConfirmation();
 
         return mainPane;
@@ -166,7 +168,6 @@ public class Dashboard implements Page {
     }
 
     private void popupRemoveTransactionError(){
-        PopupComponent errorPopup = new PopupComponent();
         VBox card = new CardVBoxComponent().getComponent();
         Button openPopup = new Button("lixeira");
         Button closePopup = new Button("X");
@@ -190,9 +191,8 @@ public class Dashboard implements Page {
             transactionController.removeTransaction(0, 0);
         }
         catch (Exception error) {
-            openPopup.setOnAction(e -> {
-                errorPopup.showPopup();
-            });
+            
+            errorPopup.showPopup();      
 
             closePopup.setOnAction(e -> {
                 errorPopup.hidePopup();
@@ -202,7 +202,6 @@ public class Dashboard implements Page {
     }
 
     private void popupRemoveTransactionConfirmation(){
-        PopupComponent popupConfirmation = new PopupComponent();
         VBox card = new CardVBoxComponent().getComponent();
         Button openPopup = new Button("lixeira");
         Button confirmation = new Button("Confirmar");
@@ -227,6 +226,7 @@ public class Dashboard implements Page {
 
         confirmation.setOnAction(e -> {
             popupConfirmation.hidePopup();
+            popupRemoveTransactionError();
         });
 
         closePopup.setOnAction(e -> {

@@ -80,8 +80,8 @@
 }
 
 .remove-card {
-    -fx-max-width: 500px;
-    -fx-max-height: 200px;
+    -fx-max-width: 400px;
+    -fx-max-height: 150px;
     -fx-background-color: #2B2F2B;
     -fx-alignment: top-right;
 }
