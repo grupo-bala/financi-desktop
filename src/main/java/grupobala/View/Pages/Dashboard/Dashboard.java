@@ -1,5 +1,6 @@
 package grupobala.View.Pages.Dashboard;
 
+import grupobala.Controller.Transaction.TransactionController;
 import grupobala.Entities.User.User;
 import grupobala.View.Components.AvatarCard.AvatarCardComponent;
 import grupobala.View.Components.Card.CardHBoxComponent;
@@ -15,7 +16,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import grupobala.Controller.Transaction.TransactionController;
 
 public class Dashboard implements Page {
 
@@ -167,7 +167,7 @@ public class Dashboard implements Page {
         return quickActions;
     }
 
-    private void popupRemoveTransactionError(){
+    private void popupRemoveTransactionError() {
         VBox card = new CardVBoxComponent().getComponent();
         Button openPopup = new Button("lixeira");
         Button closePopup = new Button("X");
@@ -179,29 +179,25 @@ public class Dashboard implements Page {
         errorPopup.getComponent().getChildren().add(card);
         vbox.getChildren().add(text);
         mainPane.getChildren().addAll(openPopup, errorPopup.getComponent());
-        
 
         vbox.getStyleClass().add("text-box");
         card.getStyleClass().add("remove-card");
         closePopup.getStyleClass().add("close-popup");
         text.getStyleClass().add("text-error");
 
-        try{
+        try {
             TransactionController transactionController = new TransactionController();
             transactionController.removeTransaction(0, 0);
-        }
-        catch (Exception error) {
-            
-            errorPopup.showPopup();      
+        } catch (Exception error) {
+            errorPopup.showPopup();
 
             closePopup.setOnAction(e -> {
                 errorPopup.hidePopup();
             });
         }
-        
     }
 
-    private void popupRemoveTransactionConfirmation(){
+    private void popupRemoveTransactionConfirmation() {
         VBox card = new CardVBoxComponent().getComponent();
         Button openPopup = new Button("lixeira");
         Button confirmation = new Button("Confirmar");
@@ -212,7 +208,9 @@ public class Dashboard implements Page {
         vbox.getChildren().add(closePopup);
         card.getChildren().addAll(vbox, text, confirmation);
         popupConfirmation.getComponent().getChildren().addAll(card);
-        mainPane.getChildren().addAll(openPopup, popupConfirmation.getComponent());
+        mainPane
+            .getChildren()
+            .addAll(openPopup, popupConfirmation.getComponent());
 
         vbox.getStyleClass().add("confirmation-box");
         card.getStyleClass().add("confirmation-card");
@@ -232,7 +230,5 @@ public class Dashboard implements Page {
         closePopup.setOnAction(e -> {
             popupConfirmation.hidePopup();
         });
-
-
     }
 }
