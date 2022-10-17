@@ -6,12 +6,16 @@ import grupobala.View.Components.Card.CardHBoxComponent;
 import grupobala.View.Components.Card.CardVBoxComponent;
 import grupobala.View.Components.OperationButton.OperationButton;
 import grupobala.View.Components.OperationButton.OperationButton.IconEnum;
+import grupobala.View.Components.Popup.PopupComponent;
 import grupobala.View.Pages.Page.Page;
+import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import grupobala.Controller.Transaction.TransactionController;
 
 public class Dashboard implements Page {
 
@@ -32,6 +36,8 @@ public class Dashboard implements Page {
 
         mainPane.getChildren().add(container);
         container.getChildren().addAll(summaryCard.getComponent());
+        //popupRemoveTransactionError();
+        popupRemoveTransactionConfirmation();
 
         return mainPane;
     }
@@ -157,5 +163,76 @@ public class Dashboard implements Page {
             );
 
         return quickActions;
+    }
+
+    private void popupRemoveTransactionError(){
+        PopupComponent errorPopup = new PopupComponent();
+        VBox card = new CardVBoxComponent().getComponent();
+        Button openPopup = new Button("lixeira");
+        Button closePopup = new Button("X");
+        Text text = new Text("Não foi possível remover a movimentação");
+        VBox vbox = new VBox();
+
+        VBox.setVgrow(vbox, Priority.ALWAYS);
+        card.getChildren().addAll(closePopup, text, vbox);
+        errorPopup.getComponent().getChildren().add(card);
+        vbox.getChildren().add(text);
+        mainPane.getChildren().addAll(openPopup, errorPopup.getComponent());
+        
+
+        vbox.getStyleClass().add("text-box");
+        card.getStyleClass().add("remove-card");
+        closePopup.getStyleClass().add("close-popup");
+        text.getStyleClass().add("text-error");
+
+        try{
+            TransactionController transactionController = new TransactionController();
+            transactionController.removeTransaction(0, 0);
+        }
+        catch (Exception error) {
+            openPopup.setOnAction(e -> {
+                errorPopup.showPopup();
+            });
+
+            closePopup.setOnAction(e -> {
+                errorPopup.hidePopup();
+            });
+        }
+        
+    }
+
+    private void popupRemoveTransactionConfirmation(){
+        PopupComponent popupConfirmation = new PopupComponent();
+        VBox card = new CardVBoxComponent().getComponent();
+        Button openPopup = new Button("lixeira");
+        Button confirmation = new Button("Confirmar");
+        Button closePopup = new Button("X");
+        Text text = new Text("Deseja apagar esta movimentação?");
+        VBox vbox = new VBox();
+
+        vbox.getChildren().add(closePopup);
+        card.getChildren().addAll(vbox, text, confirmation);
+        popupConfirmation.getComponent().getChildren().addAll(card);
+        mainPane.getChildren().addAll(openPopup, popupConfirmation.getComponent());
+
+        vbox.getStyleClass().add("confirmation-box");
+        card.getStyleClass().add("confirmation-card");
+        closePopup.getStyleClass().add("close-popup");
+        text.getStyleClass().add("confirmation-text");
+        confirmation.getStyleClass().add("confirmation-button");
+
+        openPopup.setOnAction(e -> {
+            popupConfirmation.showPopup();
+        });
+
+        confirmation.setOnAction(e -> {
+            popupConfirmation.hidePopup();
+        });
+
+        closePopup.setOnAction(e -> {
+            popupConfirmation.hidePopup();
+        });
+
+
     }
 }

@@ -1,5 +1,5 @@
 .container {
-    -fx-padding: 20px 450px;
+    -fx-padding: 20px 200px;
     -fx-background-color: #222622;
     -fx-font-family: "Montserrat";
 }
@@ -77,4 +77,47 @@
 
 .quick-actions {
     -fx-hgap: 40px;
+}
+
+.remove-card {
+    -fx-max-width: 500px;
+    -fx-max-height: 200px;
+    -fx-background-color: #2B2F2B;
+    -fx-alignment: top-right;
+}
+
+.close-popup {
+    -fx-font-family: "Montserrat";
+    -fx-background-color: #C54646;
+    -fx-cursor: hand;
+}
+
+.text-error {
+    -fx-font-family: "Montserrat";
+    -fx-font-size: 14px;
+    -fx-fill: #ffffff;
+}
+
+.text-box {
+    -fx-alignment: center;
+}
+
+.confirmation-box{
+    -fx-alignment: top-right;
+}
+
+.confirmation-card{
+    -fx-alignment: center;
+    -fx-max-width: 400px;
+    -fx-max-height: 150px;
+    -fx-spacing: 20px;
+    -fx-background-color: #2B2F2B;
+}
+
+.confirmation-text{
+    -fx-fill: #ffffff;
+}
+
+.confirmation-button{
+    -fx-cursor: hand; 
 }
