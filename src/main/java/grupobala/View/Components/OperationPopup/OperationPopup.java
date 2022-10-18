@@ -1,16 +1,16 @@
 package grupobala.View.Components.OperationPopup;
 
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Calendar;
-import java.util.Date;
-import grupobala.Controller.Transaction.TransactionController;
 import grupobala.Controller.Transaction.ITransactionController.ITransactionController;
+import grupobala.Controller.Transaction.TransactionController;
 import grupobala.Entities.Category.CategoryEnum;
 import grupobala.Entities.User.User;
 import grupobala.View.Components.Component.Component;
 import grupobala.View.Components.Popup.PopupComponent;
 import grupobala.View.Components.TextField.TextFieldComponent;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Calendar;
+import java.util.Date;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -25,7 +25,8 @@ import javafx.scene.text.Text;
 public class OperationPopup implements Component {
 
     private PopupComponent popup = new PopupComponent();
-    private TextField descriptionField = new TextFieldComponent().getComponent();
+    private TextField descriptionField = new TextFieldComponent()
+        .getComponent();
     private TextField valueField = new TextFieldComponent().getComponent();
     private DatePicker dateField = new DatePicker();
     private ChoiceBox<String> categoryField = new ChoiceBox<>();
@@ -50,7 +51,7 @@ public class OperationPopup implements Component {
         VBox description = getDescriptionInput();
         HBox valueDate = getvalueDate();
         VBox category = getLabelCategory();
-        
+
         valueDate.getStyleClass().add("inputs");
         description.getStyleClass().add("inputs");
         components.getStyleClass().add("op-container");
@@ -64,9 +65,16 @@ public class OperationPopup implements Component {
 
         components
             .getChildren()
-            .addAll(titleExitButton, description, valueDate, category, buttonLabel,confirm);
+            .addAll(
+                titleExitButton,
+                description,
+                valueDate,
+                category,
+                buttonLabel,
+                confirm
+            );
 
-        confirm.setOnAction(e-> {
+        confirm.setOnAction(e -> {
             try {
                 checkFieldMiss();
                 handleConfirm();
@@ -176,7 +184,7 @@ public class OperationPopup implements Component {
         Text title = new Text(text);
         Button exit = getExitButton();
 
-        if(text.equals("Nova entrada")) {
+        if (text.equals("Nova entrada")) {
             this.isIncoming = true;
         }
 
@@ -196,7 +204,9 @@ public class OperationPopup implements Component {
     }
 
     private Button getExitButton() {
-        Image image = new Image("file:src/main/resources/grupobala/images/exit-icon.png");
+        Image image = new Image(
+            "file:src/main/resources/grupobala/images/exit-icon.png"
+        );
         ImageView imageView = new ImageView(image);
         Button button = new Button("", imageView);
 
@@ -210,38 +220,54 @@ public class OperationPopup implements Component {
         categoryField.setValue(null);
     }
 
-    private void addTransaction(String description, String wage, LocalDate dateLocal, String category) throws Exception {
+    private void addTransaction(
+        String description,
+        String wage,
+        LocalDate dateLocal,
+        String category
+    ) throws Exception {
         ITransactionController transactionController = new TransactionController();
         // User user = new User();
         CategoryEnum categoryEnum = CategoryEnum.getCategory(category);
         double value = Double.valueOf(wage.replace(',', '.'));
         Calendar dateCalendar = Calendar.getInstance();
 
-        if(!isIncoming) {value *= -1;}
-        dateCalendar.set(dateLocal.getYear(), dateLocal.getMonthValue(), dateLocal.getDayOfMonth());
+        if (!isIncoming) {
+            value *= -1;
+        }
+        dateCalendar.set(
+            dateLocal.getYear(),
+            dateLocal.getMonthValue(),
+            dateLocal.getDayOfMonth()
+        );
 
         try {
-            transactionController.addTransaction(6, value, description, categoryEnum, dateCalendar.getTime());
+            transactionController.addTransaction(
+                6,
+                value,
+                description,
+                categoryEnum,
+                dateCalendar.getTime()
+            );
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
     }
 
-    private void handleConfirm () {
+    private void handleConfirm() {
         String description = descriptionField.getText();
         String value = valueField.getText();
         LocalDate date = dateField.getValue();
         String category = categoryField.getValue();
-    
+
         try {
             addTransaction(description, value, date, category);
             System.out.println("Transação adicionada");
             clearInputs();
-            popup.hidePopup(); 
+            popup.hidePopup();
         } catch (Exception error) {
             handleTransactionError(error.getMessage());
         }
-        
     }
 
     private void checkFieldMiss() throws Exception {
@@ -250,7 +276,12 @@ public class OperationPopup implements Component {
         LocalDate date = dateField.getValue();
         String category = categoryField.getValue();
 
-        if(description == null || value == null || date == null || category == null) {
+        if (
+            description == null ||
+            value == null ||
+            date == null ||
+            category == null
+        ) {
             throw new Exception("Preencha todos os campos");
         }
     }

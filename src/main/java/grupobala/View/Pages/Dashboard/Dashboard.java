@@ -23,6 +23,7 @@ public class Dashboard implements Page {
     private StackPane mainPane = new StackPane();
     private OperationPopup incomingPopup = new OperationPopup("Nova entrada");
     private OperationPopup outputPopup = new OperationPopup("Nova saída    ");
+
     // PopupComponent popupConfirmation = new PopupComponent();
     // PopupComponent errorPopup = new PopupComponent();
 
@@ -39,7 +40,13 @@ public class Dashboard implements Page {
                 "file:src/main/java/grupobala/View/Pages/Dashboard/Dashboard.css"
             );
 
-        mainPane.getChildren().addAll(container, incomingPopup.getComponent(), outputPopup.getComponent());
+        mainPane
+            .getChildren()
+            .addAll(
+                container,
+                incomingPopup.getComponent(),
+                outputPopup.getComponent()
+            );
         container.getChildren().addAll(summaryCard.getComponent());
 
         //popupRemoveTransactionConfirmation();
@@ -181,7 +188,6 @@ public class Dashboard implements Page {
 
         return quickActions;
     }
-
     // private void popupRemoveTransactionError() {
     //     VBox card = new CardVBoxComponent().getComponent();
     //     Button openPopup = new Button("lixeira");
