@@ -124,7 +124,7 @@ public class SetupForTest {
         ITransaction transaction = new Transaction(
             transactionID,
             1000,
-            query,
+            title,
             category,
             date
         );

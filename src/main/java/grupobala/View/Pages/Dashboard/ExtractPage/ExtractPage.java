@@ -115,8 +115,5 @@ public class ExtractPage implements Page{
         left.getStyleClass().add("extract-left");
 
         return tboxCont;
-    }
-
-
-    
+    }    
 }
