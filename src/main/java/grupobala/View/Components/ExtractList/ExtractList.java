@@ -1,5 +1,11 @@
 package grupobala.View.Components.ExtractList;
 
+import grupobala.Entities.Category.CategoryEnum;
+import grupobala.Entities.Extract.Extract;
+import grupobala.Entities.Extract.IExtract.IExtract;
+import grupobala.Entities.Transaction.ITransaction.ITransaction;
+import grupobala.Entities.Transaction.Transaction;
+import grupobala.View.Components.Component.Component;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -8,13 +14,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-
-import grupobala.Entities.Category.CategoryEnum;
-import grupobala.Entities.Extract.Extract;
-import grupobala.Entities.Extract.IExtract.IExtract;
-import grupobala.Entities.Transaction.Transaction;
-import grupobala.Entities.Transaction.ITransaction.ITransaction;
-import grupobala.View.Components.Component.Component;
 import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -22,8 +21,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-public class ExtractList implements Component{
- 
+public class ExtractList implements Component {
+
     private VBox mainPane = new VBox();
     private Locale localeBR;
     private DateFormat dateFormat;
@@ -55,7 +54,6 @@ public class ExtractList implements Component{
     }
 
     private void loadExtract() throws SQLException, ParseException {
-
         Calendar calendarBegin = Calendar.getInstance();
         calendarBegin.set(Calendar.YEAR, 2020);
         calendarBegin.set(Calendar.MONTH, Calendar.DECEMBER);

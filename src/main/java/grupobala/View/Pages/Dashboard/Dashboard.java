@@ -190,8 +190,8 @@ public class Dashboard implements Page {
 
         return quickActions;
     }
-    
-        private VBox getExtractList() {
+
+    private VBox getExtractList() {
         VBox extractContainer = new VBox();
         extractContainer.getStyleClass().add("extract-list");
         ExtractList extract = new ExtractList();
@@ -200,8 +200,6 @@ public class Dashboard implements Page {
 
         return extractContainer;
     }
-    
-    
     // private void popupRemoveTransactionError() {
     //     VBox card = new CardVBoxComponent().getComponent();
     //     Button openPopup = new Button("lixeira");
