@@ -1,11 +1,5 @@
-package grupobala.View.Pages.Dashboard.ExtractPage;
+package grupobala.View.Components.ExtractList;
 
-import grupobala.Entities.Category.CategoryEnum;
-import grupobala.Entities.Extract.Extract;
-import grupobala.Entities.Extract.IExtract.IExtract;
-import grupobala.Entities.Transaction.ITransaction.ITransaction;
-import grupobala.Entities.Transaction.Transaction;
-import grupobala.View.Pages.Page.Page;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -14,6 +8,13 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+
+import grupobala.Entities.Category.CategoryEnum;
+import grupobala.Entities.Extract.Extract;
+import grupobala.Entities.Extract.IExtract.IExtract;
+import grupobala.Entities.Transaction.Transaction;
+import grupobala.Entities.Transaction.ITransaction.ITransaction;
+import grupobala.View.Components.Component.Component;
 import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -21,24 +22,22 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-public class ExtractPage implements Page {
-
-    private StackPane mainPane = new StackPane();
-
+public class ExtractList implements Component{
+ 
+    private VBox mainPane = new VBox();
     private Locale localeBR;
     private DateFormat dateFormat;
     private VBox mainContainer;
 
     @Override
-    public StackPane getMainPane() {
+    public VBox getComponent() {
         localeBR = new Locale("pt", "BR");
         dateFormat = new SimpleDateFormat("dd 'de' MMM yyyy", localeBR);
 
         mainContainer = new VBox();
-        VBox title = getTitlePage();
 
         mainPane.getStyleClass().add("extract");
-        mainContainer.getStyleClass().add("container");
+        mainContainer.getStyleClass().add("container-extract");
 
         mainPane
             .getStylesheets()
@@ -47,7 +46,6 @@ public class ExtractPage implements Page {
             );
 
         mainPane.getChildren().add(mainContainer);
-        mainContainer.getChildren().add(title);
 
         try {
             loadExtract();
@@ -57,6 +55,7 @@ public class ExtractPage implements Page {
     }
 
     private void loadExtract() throws SQLException, ParseException {
+
         Calendar calendarBegin = Calendar.getInstance();
         calendarBegin.set(Calendar.YEAR, 2020);
         calendarBegin.set(Calendar.MONTH, Calendar.DECEMBER);
@@ -94,17 +93,6 @@ public class ExtractPage implements Page {
         Extract extract = new Extract(lista);
         VBox transactions = getTransactionsPreview(extract);
         mainContainer.getChildren().add(transactions);
-    }
-
-    private VBox getTitlePage() {
-        VBox container = new VBox();
-        Text title = new Text("Histórico de Transações");
-        title.getStyleClass().add("extract-title");
-
-        container.getChildren().add(title);
-        container.setAlignment(Pos.TOP_CENTER);
-
-        return container;
     }
 
     private VBox getTransactionsPreview(IExtract extract) {

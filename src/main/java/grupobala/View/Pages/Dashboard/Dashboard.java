@@ -5,6 +5,7 @@ import grupobala.Entities.User.User;
 import grupobala.View.Components.AvatarCard.AvatarCardComponent;
 import grupobala.View.Components.Card.CardHBoxComponent;
 import grupobala.View.Components.Card.CardVBoxComponent;
+import grupobala.View.Components.ExtractList.ExtractList;
 import grupobala.View.Components.OperationButton.OperationButton;
 import grupobala.View.Components.OperationButton.OperationButton.IconEnum;
 import grupobala.View.Components.OperationPopup.OperationPopup;
@@ -31,6 +32,7 @@ public class Dashboard implements Page {
     public StackPane getMainPane() {
         VBox container = new VBox();
         CardHBoxComponent summaryCard = getSummaryCard();
+        VBox extractList = getExtractList();
 
         mainPane.getStyleClass().add("dashboard");
         container.getStyleClass().add("container");
@@ -47,7 +49,7 @@ public class Dashboard implements Page {
                 incomingPopup.getComponent(),
                 outputPopup.getComponent()
             );
-        container.getChildren().addAll(summaryCard.getComponent());
+        container.getChildren().addAll(summaryCard.getComponent(), extractList);
 
         //popupRemoveTransactionConfirmation();
 
@@ -188,6 +190,18 @@ public class Dashboard implements Page {
 
         return quickActions;
     }
+    
+        private VBox getExtractList() {
+        VBox extractContainer = new VBox();
+        extractContainer.getStyleClass().add("extract-list");
+        ExtractList extract = new ExtractList();
+
+        extractContainer.getChildren().add(extract.getComponent());
+
+        return extractContainer;
+    }
+    
+    
     // private void popupRemoveTransactionError() {
     //     VBox card = new CardVBoxComponent().getComponent();
     //     Button openPopup = new Button("lixeira");
