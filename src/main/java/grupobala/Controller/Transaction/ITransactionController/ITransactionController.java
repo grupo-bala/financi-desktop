@@ -5,7 +5,7 @@ import grupobala.Entities.Transaction.ITransaction.ITransaction;
 import java.sql.Date;
 
 public interface ITransactionController {
-    public ITransaction addTransaction(
+    public void addTransaction(
         int userID,
         double wage,
         String title,

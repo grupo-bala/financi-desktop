@@ -11,14 +11,20 @@ import java.sql.SQLException;
 public class TransactionController implements ITransactionController {
 
     @Override
-    public ITransaction addTransaction(
+    public void addTransaction(
         int userID,
         double wage,
         String title,
         CategoryEnum category,
         Date date
     ) throws Exception {
-        return null;
+        DBTransaction dbTransaction = new DBTransaction(new DBConnection());
+
+        try {
+            dbTransaction.addTransaction(userID, wage, title, category, date);
+        } catch (SQLException error) {
+            throw new Exception("Erro ao adicionar transação");
+        }
     }
 
     @Override
