@@ -39,7 +39,7 @@ public class OperationPopup implements Component {
         );
         HBox titleExitButton = getTitleButton("Nova entrada");
 
-        components.getStyleClass().add("container");
+        components.getStyleClass().add("op-container");
         valueDate.getStyleClass().add("inputs");
         description.getStyleClass().add("inputs");
         confirm.getStyleClass().add("confirm-button");

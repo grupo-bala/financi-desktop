@@ -1,7 +1,7 @@
-.container {
+.op-container {
     -fx-font-family: "Montserrat";
-    -fx-max-width: 400px;
-    -fx-max-height: 700px;
+    -fx-max-width: 200px;
+    -fx-max-height: 200px;
     -fx-pading: 10px;
     -fx-spacing: 30px;
     -fx-background-color: #222622;
