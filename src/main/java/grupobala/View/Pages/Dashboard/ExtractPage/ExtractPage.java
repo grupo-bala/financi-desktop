@@ -1,11 +1,17 @@
 package grupobala.View.Pages.Dashboard.ExtractPage;
 
 import grupobala.Entities.Category.CategoryEnum;
+import grupobala.Entities.Category.CategoryEnum;
+import grupobala.Entities.Extract.Extract;
 import grupobala.Entities.Extract.Extract;
 import grupobala.Entities.Extract.IExtract.IExtract;
+import grupobala.Entities.Extract.IExtract.IExtract;
+import grupobala.Entities.Transaction.ITransaction.ITransaction;
 import grupobala.Entities.Transaction.ITransaction.ITransaction;
 import grupobala.Entities.Transaction.Transaction;
+import grupobala.Entities.Transaction.Transaction;
 import grupobala.SetupForTest.SetupForTest;
+import grupobala.View.Pages.Page.Page;
 import grupobala.View.Pages.Page.Page;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -14,14 +20,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Locale;
-
-import grupobala.Entities.Category.CategoryEnum;
-import grupobala.Entities.Extract.Extract;
-import grupobala.Entities.Extract.IExtract.IExtract;
-import grupobala.Entities.Transaction.Transaction;
-import grupobala.Entities.Transaction.ITransaction.ITransaction;
-import grupobala.View.Pages.Page.Page;
-
 import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
