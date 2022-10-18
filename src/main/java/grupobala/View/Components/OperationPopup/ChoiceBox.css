@@ -9,15 +9,20 @@
 }
 
 .choice-box .open-button .arrow {
+    -fx-cursor: hand;
     -fx-background-color: #49AD5A;
 }
 
 .choice-box .label {
-    -fx-text-fill: #121212;
+    -fx-text-fill: white;
 }
 
 .choice-box {
-    -fx-backgroundcolor: -fx-secondary-color;
+    -fx-background-color: #121212;
+    -fx-background-radius: 10px;
+    -fx-border-color: #49AD5A;
+    -fx-border-width: 1px;
+    -fx-border-radius: 10px;
     -fx-focus-color: -fx-secondary-color;
     -fx-control-inner-background: -fx-primary-color;
     -fx-selection-bar: -fx-secondary-color;
@@ -30,8 +35,4 @@
 
 .choice-box .menu-item .label {
     -fx-text-fill: white;
-}
-
-.choice-box .* {
-    -fx-background-color: red;
 }

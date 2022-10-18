@@ -1,9 +1,9 @@
-.container {
+.op-container {
     -fx-font-family: "Montserrat";
-    -fx-max-width: 400px;
-    -fx-max-height: 700px;
-    -fx-pading: 10px;
-    -fx-spacing: 30px;
+    -fx-max-width: 465px;
+    -fx-max-height: 550px;
+    -fx-pading: 10px 10px 14px 10px;
+    -fx-spacing: 35px;
     -fx-background-color: #222622;
     -fx-background-radius: 10px;
     -fx-alignment: center;
@@ -11,11 +11,13 @@
 
 .inputs {
     -fx-font-size: 14px;
+    -fx-alignment: center-left;
 }
 
-.description {
+.description-field {
     -fx-max-width: 320px;
-    -fx-pef-height: 40px;
+    -fx-min-height: 38px;
+    -fx-max-height: 40px;
 }
 
 .value {
@@ -24,11 +26,30 @@
 }
 
 .field-label {
-    -fx-alignment: center-left;
+    -fx-alignment: center;
     -fx-spacing: 5px;
 }
 
-.label {
+.label-date {
+    -fx-font-size: 16px;
+    -fx-fill: white;
+    -fx-translate-x: -50px;
+}
+
+.label-value {
+    -fx-font-size: 16px;
+    -fx-fill: white;
+    -fx-translate-x: -50px;
+}
+
+.label-description {
+    -fx-translate-x: -115px;
+    -fx-font-size: 16px;
+    -fx-fill: white;
+}
+
+.label-category {
+    -fx-translate-x: -115px;
     -fx-font-size: 16px;
     -fx-fill: white;
 }
@@ -41,6 +62,7 @@
 .value-date {
     -fx-spacing: 30px;
     -fx-min-width: 330px;
+    -fx-alignment: center;
 }
 
 .category-box {
@@ -48,15 +70,6 @@
     -fx-pref-height: 40px;
 }
 
-.confirm-button {
-    -fx-background-color: #222622;
-    -fx-padding: 2px;
-}
-
-.confirm-button:pressed {
-    -fx-background-radius: 38px;
-    -fx-effect: dropshadow(gaussian, #0000003f, 1, 0, 0, 4);
-}
 
 .text-exit-button {
     -fx-alignment: center;
@@ -70,6 +83,21 @@
 }
 
 .exit-button {
-    -fx-alignment: baseline-right;
+    -fx-cursor: hand;
     -fx-background-color: #222622;
+}
+
+.confirm-button {
+    -fx-font-size: 16px;
+    -fx-background-color: #49AD5A;
+    -fx-padding: 10px 30px 10px 30px;
+    -fx-cursor: hand;
+}
+
+.label-wrong {
+    -fx-fill: #EF5350;
+}
+
+.label-hide {
+    -fx-fill: transparent;
 }

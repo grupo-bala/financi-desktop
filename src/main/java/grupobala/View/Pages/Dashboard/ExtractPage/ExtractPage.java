@@ -57,7 +57,6 @@ public class ExtractPage implements Page {
     }
 
     private void loadExtract() throws SQLException, ParseException {
-
         Calendar calendarBegin = Calendar.getInstance();
         calendarBegin.set(Calendar.YEAR, 2020);
         calendarBegin.set(Calendar.MONTH, Calendar.DECEMBER);
