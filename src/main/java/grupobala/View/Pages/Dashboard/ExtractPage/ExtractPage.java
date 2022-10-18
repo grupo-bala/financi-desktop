@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.Locale;
 import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -67,7 +68,7 @@ public class ExtractPage implements Page {
         ITransaction transEx = new Transaction(
             12,
             1000,
-            "teste",
+            "TTTTTTTTTTTeste",
             CategoryEnum.CLOTHING,
             dataBegin
         );
@@ -129,9 +130,11 @@ public class ExtractPage implements Page {
         );
 
         VBox left = new VBox(title, date);
-        VBox right = new VBox(value);
+        HBox right = new HBox(value);
         HBox tbox = new HBox(left, right);
         VBox tboxCont = new VBox(tbox);
+
+        HBox.setHgrow(right, Priority.ALWAYS);
 
         value
             .getStyleClass()
