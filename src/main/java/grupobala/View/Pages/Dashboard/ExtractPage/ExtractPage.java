@@ -6,12 +6,13 @@ import grupobala.Entities.Extract.IExtract.IExtract;
 import grupobala.Entities.Transaction.ITransaction.ITransaction;
 import grupobala.Entities.Transaction.Transaction;
 import grupobala.View.Pages.Page.Page;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
@@ -55,26 +56,34 @@ public class ExtractPage implements Page {
     }
 
     private void loadExtract() throws SQLException, ParseException {
+
+        Calendar calendarBegin = Calendar.getInstance();
+        calendarBegin.set(Calendar.YEAR, 2020);
+        calendarBegin.set(Calendar.MONTH, Calendar.DECEMBER);
+        calendarBegin.set(Calendar.DAY_OF_MONTH, 31);
+
+        Date dataBegin = calendarBegin.getTime();
+
         ITransaction transEx = new Transaction(
             12,
             1000,
             "teste",
             CategoryEnum.CLOTHING,
-            new Date(2020, 1, 1)
+            dataBegin
         );
         ITransaction transExT = new Transaction(
             12,
             -1000,
             "teste",
             CategoryEnum.CLOTHING,
-            new Date(2020, 2, 2)
+            dataBegin
         );
         ITransaction transExTT = new Transaction(
             12,
             1000,
             "teste",
             CategoryEnum.CLOTHING,
-            new Date(2020, 1, 1)
+            dataBegin
         );
 
         ArrayList<ITransaction> lista = new ArrayList<>();
