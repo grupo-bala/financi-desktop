@@ -14,8 +14,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-public class OperationPopup implements Component{
-    
+public class OperationPopup implements Component {
+
     private PopupComponent popup = new PopupComponent();
 
     public OperationPopup() {
@@ -23,28 +23,36 @@ public class OperationPopup implements Component{
 
         popup.getComponent().getChildren().add(components);
     }
-    
+
     @Override
     public Node getComponent() {
         return popup.getComponent();
     }
-    
+
     public VBox getComponents() {
         VBox components = new VBox();
         VBox description = getInput("Descrição", "description");
         HBox valueDate = getvalueDate();
         VBox category = getLabelCategory();
-        Button confirm = getButton("file:src/main/resources/grupobala/images/confirm-icon.png");
+        Button confirm = getButton(
+            "file:src/main/resources/grupobala/images/confirm-icon.png"
+        );
         HBox titleExitButton = getTitleButton("Nova entrada");
-        
+
         components.getStyleClass().add("container");
         valueDate.getStyleClass().add("inputs");
         description.getStyleClass().add("inputs");
         confirm.getStyleClass().add("confirm-button");
 
-        components.getStylesheets().add("file:src/main/java/grupobala/View/Components/OperationPopup/OperationPopup.css");
-        
-        components.getChildren().addAll(titleExitButton, description, valueDate, category, confirm);
+        components
+            .getStylesheets()
+            .add(
+                "file:src/main/java/grupobala/View/Components/OperationPopup/OperationPopup.css"
+            );
+
+        components
+            .getChildren()
+            .addAll(titleExitButton, description, valueDate, category, confirm);
 
         return components;
     }
@@ -68,23 +76,25 @@ public class OperationPopup implements Component{
         VBox value = getInput("Valor", "value");
         VBox date = getDate();
 
-
         value.getStyleClass().add("value-field");
         date.getStyleClass().add("date-field");
         hBox.getStyleClass().add("value-date");
-        
+
         hBox.getChildren().addAll(value, date);
 
         return hBox;
     }
 
-
     private VBox getDate() {
         VBox vBox = new VBox();
-        DatePicker date = new DatePicker(); 
+        DatePicker date = new DatePicker();
         Text label = new Text("Data");
 
-        date.getStylesheets().add("file:src/main/java/grupobala/View/Components/OperationPopup/Calendar.css");
+        date
+            .getStylesheets()
+            .add(
+                "file:src/main/java/grupobala/View/Components/OperationPopup/Calendar.css"
+            );
 
         vBox.getStyleClass().add("field-label");
         label.getStyleClass().add("label");
@@ -97,14 +107,19 @@ public class OperationPopup implements Component{
     private ChoiceBox<String> getCategoryBox() {
         ChoiceBox<String> choiceBox = new ChoiceBox<>();
 
-        choiceBox.getStylesheets().add("file:src/main/java/grupobala/View/Components/OperationPopup/ChoiceBox.css");
-        
-        choiceBox.getItems()
+        choiceBox
+            .getStylesheets()
+            .add(
+                "file:src/main/java/grupobala/View/Components/OperationPopup/ChoiceBox.css"
+            );
+
+        choiceBox
+            .getItems()
             .addAll(
-                CategoryEnum.CLOTHING.displayedName, 
-                CategoryEnum.ENTERTAINMENT.displayedName, 
-                CategoryEnum.FOOD.displayedName, 
-                CategoryEnum.HEALTH.displayedName, 
+                CategoryEnum.CLOTHING.displayedName,
+                CategoryEnum.ENTERTAINMENT.displayedName,
+                CategoryEnum.FOOD.displayedName,
+                CategoryEnum.HEALTH.displayedName,
                 CategoryEnum.PAYMENTS.displayedName,
                 CategoryEnum.OTHERS.displayedName
             );
@@ -116,7 +131,7 @@ public class OperationPopup implements Component{
         VBox vBox = new VBox();
         Text label = new Text("Categoria");
         ChoiceBox<String> category = getCategoryBox();
-    
+
         category.getStyleClass().add("category-box");
         label.getStyleClass().add("label");
         vBox.getStyleClass().add("field-label");
@@ -126,25 +141,26 @@ public class OperationPopup implements Component{
         return vBox;
     }
 
-    
-    private HBox getTitleButton (String text) {
+    private HBox getTitleButton(String text) {
         HBox hBox = new HBox();
         Text title = new Text(text);
-        Button exit = getButton("file:src/main/resources/grupobala/images/exit-icon.png");
-        
+        Button exit = getButton(
+            "file:src/main/resources/grupobala/images/exit-icon.png"
+        );
+
         title.getStyleClass().add("title");
         hBox.getStyleClass().add("text-exit-button");
         exit.getStyleClass().add("exit-button");
 
         hBox.getChildren().addAll(title, exit);
-        
+
         return hBox;
-    }  
-    
+    }
+
     private Button getButton(String pathImage) {
         Image image = new Image(pathImage);
         ImageView imageView = new ImageView(image);
-        Button button = new Button("",imageView);
+        Button button = new Button("", imageView);
 
         return button;
     }

@@ -166,10 +166,12 @@ public class Dashboard implements Page {
                 goalButton.getComponent("META", IconEnum.META)
             );
 
-        incomingButton.getComponent().setOnMouseClicked(e -> {
-            incomingPopup.getPopup().showPopup();
-        });
-        
+        incomingButton
+            .getComponent()
+            .setOnMouseClicked(e -> {
+                incomingPopup.getPopup().showPopup();
+            });
+
         return quickActions;
     }
 

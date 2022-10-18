@@ -7,8 +7,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-public class OperationButton implements Component{
-    
+public class OperationButton implements Component {
+
     VBox vBox = new VBox();
 
     @Override
