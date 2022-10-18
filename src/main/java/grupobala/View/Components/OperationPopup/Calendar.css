@@ -11,12 +11,14 @@
 .date-picker .text-field {
     -fx-min-height: 40px;
     -fx-background-color: #121212;
+    -fx-background-radius: 10px 0px 0px 10px;
     -fx-text-fill: white;
 }
 
 .date-picker .arrow-button {
+    -fx-cursor: hand;
     -fx-background-color: -fx-primary-color;
-    -fx-background-radius: 0px;
+    -fx-background-radius: 0px 10px 10px 0px;
 }
 
 .date-picker .arrow-button:hover {
@@ -28,6 +30,7 @@
 }
 
 .date-picker .cell {
+    -fx-cursor: hand;
     -fx-padding:10px;
     -fx-text-fill: white;
     -fx-background-color: #222622;
@@ -43,9 +46,11 @@
 }
 
 .date-picker {
-    -fx-border-radius: 10px;
-    -fx-background-color: -fx-secondary-color;
+    -fx-background-color: transparent;
     -fx-text-fill: -fx-primary-color;
+    -fx-border-color: #49AD5A;
+    -fx-border-width: 1px;
+    -fx-border-radius: 10px;
 }
 
 .date-picker-popup .month-year-pane {

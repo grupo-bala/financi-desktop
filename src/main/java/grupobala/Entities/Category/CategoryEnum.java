@@ -17,7 +17,7 @@ public enum CategoryEnum {
     }
 
     public static CategoryEnum getCategory(String categoryName) {
-        switch (categoryName) {
+        switch (categoryName.toLowerCase()) {
             case "comida":
                 return CategoryEnum.FOOD;
             case "roupa":

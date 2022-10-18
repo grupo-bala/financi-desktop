@@ -2,10 +2,10 @@ package grupobala.Controller.Transaction.ITransactionController;
 
 import grupobala.Entities.Category.CategoryEnum;
 import grupobala.Entities.Transaction.ITransaction.ITransaction;
-import java.sql.Date;
+import java.util.Date;
 
 public interface ITransactionController {
-    public ITransaction addTransaction(
+    public void addTransaction(
         int userID,
         double wage,
         String title,
