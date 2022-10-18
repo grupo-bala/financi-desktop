@@ -8,8 +8,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 
-
-import grupobala.SetupForTest.SetupForTest;
 import grupobala.Entities.Category.CategoryEnum;
 import grupobala.Entities.Extract.Extract;
 import grupobala.Entities.Extract.IExtract.IExtract;
