@@ -3,9 +3,10 @@ package grupobala.Controller.Transaction;
 import grupobala.Controller.Transaction.ITransactionController.ITransactionController;
 import grupobala.Database.Connection.DBConnection;
 import grupobala.Database.Transaction.DBTransaction;
+import grupobala.Database.Transaction.IDBTransaction.IDBTransaction;
 import grupobala.Entities.Category.CategoryEnum;
 import grupobala.Entities.Transaction.ITransaction.ITransaction;
-import java.sql.Date;
+import java.util.Date;
 import java.sql.SQLException;
 
 public class TransactionController implements ITransactionController {
@@ -18,11 +19,11 @@ public class TransactionController implements ITransactionController {
         CategoryEnum category,
         Date date
     ) throws Exception {
-        DBTransaction dbTransaction = new DBTransaction(new DBConnection());
-
+        IDBTransaction dbTransaction = new DBTransaction(new DBConnection());
         try {
             dbTransaction.addTransaction(userID, wage, title, category, date);
         } catch (SQLException error) {
+            System.out.println(error.getMessage());
             throw new Exception("Erro ao adicionar transação");
         }
     }
