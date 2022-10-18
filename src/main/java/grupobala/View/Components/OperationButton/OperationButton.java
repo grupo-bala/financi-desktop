@@ -22,7 +22,7 @@ public class OperationButton implements Component{
         META("file:src/main/resources/grupobala/images/goal-icon.png");
 
         public final String pathIcon;
-        
+
         private IconEnum(String pathIcon) {
             this.pathIcon = pathIcon;
         }
@@ -35,7 +35,11 @@ public class OperationButton implements Component{
 
         vBox.getStyleClass().add("container");
         buttonLabel.getStyleClass().add("button-label");
-        vBox.getStylesheets().add("file:src/main/java/grupobala/View/Components/OperationButton/OperationButton.css");
+        vBox
+            .getStylesheets()
+            .add(
+                "file:src/main/java/grupobala/View/Components/OperationButton/OperationButton.css"
+            );
 
         vBox.getChildren().addAll(incomingIcon, buttonLabel);
 

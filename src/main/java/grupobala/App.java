@@ -3,7 +3,6 @@ package grupobala;
 import grupobala.View.PageManager;
 import grupobala.View.Pages.Authentication.SignIn.SignInPage;
 import grupobala.View.Pages.Dashboard.Dashboard;
-
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.stage.Stage;
