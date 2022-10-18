@@ -1,0 +1,75 @@
+.container {
+    -fx-font-family: "Montserrat";
+    -fx-max-width: 400px;
+    -fx-max-height: 700px;
+    -fx-pading: 10px;
+    -fx-spacing: 30px;
+    -fx-background-color: #222622;
+    -fx-background-radius: 10px;
+    -fx-alignment: center;
+}
+
+.inputs {
+    -fx-font-size: 14px;
+}
+
+.description {
+    -fx-max-width: 320px;
+    -fx-pef-height: 40px;
+}
+
+.value {
+    -fx-max-width: 150px;
+    -fx-pref-height: 40px;
+}
+
+.field-label {
+    -fx-alignment: center-left;
+    -fx-spacing: 5px;
+}
+
+.label {
+    -fx-font-size: 16px;
+    -fx-fill: white;
+}
+
+.date-field {
+    -fx-max-width: 140px;
+    -fx-show-week-numbers: false;
+}
+
+.value-date {
+    -fx-spacing: 30px;
+    -fx-min-width: 330px;
+}
+
+.category-box {
+    -fx-max-width: 320px;
+    -fx-pref-height: 40px;
+}
+
+.confirm-button {
+    -fx-background-color: #222622;
+    -fx-padding: 2px;
+}
+
+.confirm-button:pressed {
+    -fx-background-radius: 38px;
+    -fx-effect: dropshadow(gaussian, #0000003f, 1, 0, 0, 4);
+}
+
+.text-exit-button {
+    -fx-alignment: center;
+    -fx-spacing: 40px;
+}
+
+.title {
+    -fx-fill: white;
+    -fx-font-size: 35px;
+    -fx-alignment: center-left;
+}
+
+.exit-button {
+    -fx-alignment: baseline-right;
+    -fx-background-color: #222622;
+}

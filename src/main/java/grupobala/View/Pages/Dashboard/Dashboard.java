@@ -7,6 +7,7 @@ import grupobala.View.Components.Card.CardHBoxComponent;
 import grupobala.View.Components.Card.CardVBoxComponent;
 import grupobala.View.Components.OperationButton.OperationButton;
 import grupobala.View.Components.OperationButton.OperationButton.IconEnum;
+import grupobala.View.Components.OperationPopup.OperationPopup;
 import grupobala.View.Components.Popup.PopupComponent;
 import grupobala.View.Pages.Page.Page;
 import javafx.scene.control.Button;
@@ -20,6 +21,7 @@ import javafx.scene.text.Text;
 public class Dashboard implements Page {
 
     private StackPane mainPane = new StackPane();
+    private OperationPopup incomingPopup = new OperationPopup();
     PopupComponent popupConfirmation = new PopupComponent();
     PopupComponent errorPopup = new PopupComponent();
 
@@ -36,7 +38,7 @@ public class Dashboard implements Page {
                 "file:src/main/java/grupobala/View/Pages/Dashboard/Dashboard.css"
             );
 
-        mainPane.getChildren().add(container);
+        mainPane.getChildren().addAll(container, incomingPopup.getComponent());
         container.getChildren().addAll(summaryCard.getComponent());
 
         popupRemoveTransactionConfirmation();
@@ -164,6 +166,10 @@ public class Dashboard implements Page {
                 goalButton.getComponent("META", IconEnum.META)
             );
 
+        incomingButton.getComponent().setOnMouseClicked(e -> {
+            incomingPopup.getPopup().showPopup();
+        });
+        
         return quickActions;
     }
 
