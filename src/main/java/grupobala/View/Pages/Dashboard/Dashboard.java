@@ -1,6 +1,8 @@
 package grupobala.View.Pages.Dashboard;
 
+import grupobala.Controller.Extract.ExtractController;
 import grupobala.Controller.Transaction.TransactionController;
+import grupobala.Entities.Extract.IExtract.IExtract;
 import grupobala.Entities.User.User;
 import grupobala.View.Components.AvatarCard.AvatarCardComponent;
 import grupobala.View.Components.Card.CardHBoxComponent;
@@ -28,23 +30,23 @@ public class Dashboard implements Page {
     private OperationPopup incomingPopup = new OperationPopup("Nova entrada");
     private OperationPopup outputPopup = new OperationPopup("Nova saída    ");
 
-    PopupComponent popupConfirmation = new PopupComponent();
-    PopupComponent errorPopup = new PopupComponent();
+    private PopupComponent popupConfirmation = new PopupComponent();
+    private PopupComponent errorPopup = new PopupComponent();
+    private HBox summaryCard = new HBox();
 
     private ExtractList extract = new ExtractList();
 
     @Override
     public StackPane getMainPane() {
         VBox container = new VBox();
-        CardHBoxComponent summaryCard = getSummaryCard();
         VBox extractList = getExtractList();
 
         incomingPopup.setOnConfirm(() -> {
-            extract.reloadExtract();
+            updateValues();
         });
 
         outputPopup.setOnConfirm(() -> {
-            extract.reloadExtract();
+            updateValues();
         });
 
         mainPane.getStyleClass().add("dashboard");
@@ -63,21 +65,26 @@ public class Dashboard implements Page {
                 errorPopup.getComponent(),
                 popupConfirmation.getComponent()
             );
-        container.getChildren().addAll(summaryCard.getComponent(), extractList);
+        
+        setSummaryCard();
+        container.getChildren().addAll(summaryCard, extractList);
 
         return mainPane;
     }
 
-    private CardHBoxComponent getSummaryCard() {
-        CardHBoxComponent hBox = new CardHBoxComponent();
+    private void updateValues() {
+        extract.reloadExtract();
+
+        summaryCard.getChildren().clear();
+        setSummaryCard();
+    }
+
+    private void setSummaryCard() {
         VBox leftSummary = getLeftSummaryCard();
         VBox rightSummary = getRightSummaryCard();
 
-        hBox.getComponent().getStyleClass().add("summary-card");
-
-        hBox.getComponent().getChildren().addAll(leftSummary, rightSummary);
-
-        return hBox;
+        summaryCard.getStyleClass().add("summary-card");
+        summaryCard.getChildren().addAll(leftSummary, rightSummary);
     }
 
     private VBox getLeftSummaryCard() {
@@ -86,14 +93,24 @@ public class Dashboard implements Page {
         HBox bottomSide = new HBox();
         AvatarCardComponent avatarCard = new AvatarCardComponent();
         VBox balanceBox = getBalanceBox();
+        double entry, out;
+
+        try {
+            IExtract extract = new ExtractController().getExtract();
+            entry = extract.getEntry();
+            out = extract.getOutput();
+        } catch (Exception e) {
+            entry = out = -1;
+        }
+
         CardVBoxComponent bottomCardIn = getLeftSummaryBottomCard(
             "Receita mensal",
-            new User().getValue(),
+            entry,
             "#49AD5A"
         );
         CardVBoxComponent bottomCardOut = getLeftSummaryBottomCard(
             "Despesa mensal",
-            new User().getValue(),
+            out,
             "#C54646"
         );
 
