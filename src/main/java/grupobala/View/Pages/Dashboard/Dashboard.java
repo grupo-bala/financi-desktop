@@ -65,7 +65,7 @@ public class Dashboard implements Page {
                 errorPopup.getComponent(),
                 popupConfirmation.getComponent()
             );
-        
+
         setSummaryCard();
         container.getChildren().addAll(summaryCard, extractList);
 

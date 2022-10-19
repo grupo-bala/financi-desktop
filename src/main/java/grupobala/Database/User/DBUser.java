@@ -3,7 +3,6 @@ package grupobala.Database.User;
 import grupobala.Database.Connection.IDBConnection.IDBConnection;
 import grupobala.Database.User.IDBUser.IDBUser;
 import grupobala.Entities.User.User;
-
 import java.sql.SQLException;
 import java.util.Locale;
 
