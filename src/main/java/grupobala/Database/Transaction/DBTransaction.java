@@ -1,11 +1,14 @@
 package grupobala.Database.Transaction;
 
+import grupobala.Controller.Authentication.AuthenticationController;
 import grupobala.Database.Category.DBCategory;
 import grupobala.Database.Category.IDBCategory.IDBCategory;
 import grupobala.Database.Connection.IDBConnection.IDBConnection;
 import grupobala.Database.Transaction.IDBTransaction.IDBTransaction;
+import grupobala.Database.User.DBUser;
 import grupobala.Entities.Category.CategoryEnum;
 import grupobala.Entities.Transaction.ITransaction.ITransaction;
+import grupobala.Entities.User.User;
 import grupobala.Entities.Transaction.Transaction;
 import java.sql.*;
 import java.text.DateFormat;
@@ -68,6 +71,8 @@ public class DBTransaction implements IDBTransaction {
         int newTransactionID = result.getInt("id");
 
         result.close();
+        DBUser dbUser = new DBUser(databaseConnection);
+        dbUser.setUserBalance(userID, new User().getValue() + value);
 
         return new Transaction(newTransactionID, value, title, category, date);
     }
