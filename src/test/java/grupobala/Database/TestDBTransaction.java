@@ -2,11 +2,13 @@ package grupobala.Database;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import grupobala.Controller.Authentication.AuthenticationController;
 import grupobala.Database.Connection.DBConnection;
 import grupobala.Database.Transaction.DBTransaction;
 import grupobala.Database.Transaction.IDBTransaction.IDBTransaction;
 import grupobala.Entities.Category.CategoryEnum;
 import grupobala.Entities.Transaction.ITransaction.ITransaction;
+import grupobala.Entities.User.User;
 import grupobala.Entities.Transaction.Transaction;
 import grupobala.SetupForTest.SetupForTest;
 import java.sql.*;
@@ -21,9 +23,11 @@ public class TestDBTransaction {
     );
 
     @Test
-    public void testAddTransaction() throws SQLException {
+    public void testAddTransaction() throws Exception {
         SetupForTest.truncateTables();
-        int financiUserID = SetupForTest.addFinanciUser();
+        AuthenticationController authController = new AuthenticationController();
+        authController.signUp("financi", "1234", "Financi", 0);
+        authController.signIn("financi", "1234");
 
         Calendar calendar = Calendar.getInstance();
 
@@ -34,12 +38,14 @@ public class TestDBTransaction {
         Date transactionDate = calendar.getTime();
 
         this.databaseTransaction.addTransaction(
-                financiUserID,
+                new User().getID(),
                 100,
                 "Testes",
                 CategoryEnum.OTHERS,
                 transactionDate
-            );
+        );
+
+        new User().close();
     }
 
     @Test

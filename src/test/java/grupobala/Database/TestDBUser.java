@@ -3,10 +3,12 @@ package grupobala.Database;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import grupobala.Controller.Authentication.AuthenticationController;
 import grupobala.Database.Connection.DBConnection;
 import grupobala.Database.Connection.IDBConnection.IDBConnection;
 import grupobala.Database.User.DBUser;
 import grupobala.Database.User.IDBUser.IDBUser;
+import grupobala.Entities.User.User;
 import grupobala.SetupForTest.SetupForTest;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,16 +21,18 @@ public class TestDBUser {
     IDBUser userDB = new DBUser(databaseConnection);
 
     @Test
-    public void testSetUserBalance() throws SQLException {
+    public void testSetUserBalance() throws Exception {
         SetupForTest.truncateTables();
-        int financiUserID = SetupForTest.addFinanciUser();
+        AuthenticationController authController = new AuthenticationController();
+        authController.signUp("financi", "1234", "Financi", 0);
+        authController.signIn("financi", "1234");
 
-        this.userDB.setUserBalance(financiUserID, 2000);
+        this.userDB.setUserBalance(new User().getID(), 2000);
 
         String query = String.format(
             Locale.US,
             "SELECT saldo FROM usuario WHERE id = %d",
-            financiUserID
+            new User().getID()
         );
 
         ResultSet result = this.databaseConnection.executeQuery(query);
@@ -39,6 +43,7 @@ public class TestDBUser {
         double resultBalance = result.getDouble("saldo");
 
         result.close();
+        new User().close();
 
         assertEquals(expected, resultBalance);
     }
