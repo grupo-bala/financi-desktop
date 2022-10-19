@@ -7,6 +7,9 @@ import grupobala.Entities.Category.CategoryEnum;
 import grupobala.Entities.Transaction.ITransaction.ITransaction;
 import grupobala.Entities.User.User;
 import grupobala.SetupForTest.SetupForTest;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import java.util.Calendar;
 import java.util.Date;
 import org.junit.jupiter.api.Assertions;
@@ -30,5 +33,14 @@ public class TestAddTransactionController {
         transactionController.addTransaction(new User().getID(), wageTransaction, titleTranction, categoryTransaction, dateTransaction);
 
         new User().close();
+    }
+
+    @Test
+    public void testeAddTransactionFailUserIDNoneExistent() throws Exception {
+        SetupForTest.truncateTables();
+        
+        assertThrows(Exception.class, ()->{
+            transactionController.addTransaction(-1, wageTransaction, titleTranction, categoryTransaction, dateTransaction);
+        });
     }
 }
