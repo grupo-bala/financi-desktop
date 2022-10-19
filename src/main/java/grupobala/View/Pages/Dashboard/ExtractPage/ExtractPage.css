@@ -32,7 +32,7 @@
     -fx-background-color: #121512;
     -fx-effect: dropshadow(gaussian, #0000003F, 4, 0, 0, 4);
     -fx-background-radius: 5px;
-    
+    -fx-cursor: hand;
 }
 
 .extract-left {
