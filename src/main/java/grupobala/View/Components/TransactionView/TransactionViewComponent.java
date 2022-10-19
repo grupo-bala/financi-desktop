@@ -92,7 +92,7 @@ public class TransactionViewComponent implements Component {
         VBox rightSide = new VBox();
         TextWithLabelComponent date = new TextWithLabelComponent(
             "Data",
-            new SimpleDateFormat("dd/mm/yyyy").format(transaction.getDate())
+            new SimpleDateFormat("dd/MM/yyyy").format(transaction.getDate())
         );
         TextWithLabelComponent category = new TextWithLabelComponent(
             "Categoria",
@@ -133,7 +133,5 @@ public class TransactionViewComponent implements Component {
         } else {
             text.setStyle("-fx-fill: #49AD5A");
         }
-
-        System.out.println(value);
     }
 }

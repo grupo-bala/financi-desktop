@@ -31,11 +31,21 @@ public class Dashboard implements Page {
     PopupComponent popupConfirmation = new PopupComponent();
     PopupComponent errorPopup = new PopupComponent();
 
+    private ExtractList extract = new ExtractList();
+
     @Override
     public StackPane getMainPane() {
         VBox container = new VBox();
         CardHBoxComponent summaryCard = getSummaryCard();
         VBox extractList = getExtractList();
+        
+        incomingPopup.setOnConfirm(() -> {
+            extract.reloadExtract();
+        });
+
+        outputPopup.setOnConfirm(() -> {
+            extract.reloadExtract();
+        });
 
         mainPane.getStyleClass().add("dashboard");
         container.getStyleClass().add("container");
@@ -196,8 +206,7 @@ public class Dashboard implements Page {
     private VBox getExtractList() {
         VBox extractContainer = new VBox();
         extractContainer.getStyleClass().add("extract-list");
-        ExtractList extract = new ExtractList();
-
+        
         extract.setOnMouseClicked(transaction -> {
             TransactionViewComponent transactionView = new TransactionViewComponent(
                 transaction
@@ -251,6 +260,7 @@ public class Dashboard implements Page {
                 new User().getID(),
                 idTransaction
             );
+            extract.reloadExtract();
         } catch (Exception error) {
             errorPopup.showPopup();
 
