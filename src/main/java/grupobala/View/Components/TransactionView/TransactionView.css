@@ -1,0 +1,45 @@
+.transaction-view-container {
+    -fx-font-family: "Montserrat";
+    -fx-background-color: #2B2F2B;
+    -fx-max-width: 400px;
+    -fx-max-height: 200px;
+    -fx-padding: 20px;
+}
+
+.top-box {
+    -fx-alignment: center;
+    /* -fx-spacing: 5px; */
+}
+
+.top-box-titlebox {
+    -fx-alignment: center;
+}
+
+.top-box-title {
+    -fx-fill: #ffffff;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+}
+
+.top-box-trash {
+    -fx-translate-x: 20px;
+    -fx-translate-y: -3px;
+    -fx-cursor: hand;
+}
+
+.top-box-value {
+    -fx-font-size: 18px;
+}
+
+.bot-box-edit {
+    -fx-background-color: #2B2F2B;
+    -fx-text-fill: #EF5350;
+    -fx-border-width: 2;
+    -fx-border-color: #ffffff20;
+    -fx-cursor: hand;
+    -fx-border-radius: 3;
+}
+
+.bot-box-side {
+    -fx-spacing: 30px;
+}
