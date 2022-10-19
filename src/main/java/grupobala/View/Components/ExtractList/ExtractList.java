@@ -1,5 +1,6 @@
 package grupobala.View.Components.ExtractList;
 
+import grupobala.Controller.Extract.ExtractController;
 import grupobala.Entities.Category.CategoryEnum;
 import grupobala.Entities.Extract.Extract;
 import grupobala.Entities.Extract.IExtract.IExtract;
@@ -54,41 +55,9 @@ public class ExtractList implements Component {
     }
 
     private void loadExtract() throws SQLException, ParseException {
-        Calendar calendarBegin = Calendar.getInstance();
-        calendarBegin.set(Calendar.YEAR, 2020);
-        calendarBegin.set(Calendar.MONTH, Calendar.DECEMBER);
-        calendarBegin.set(Calendar.DAY_OF_MONTH, 31);
+        ExtractController extrato2 = new ExtractController();
 
-        Date dataBegin = calendarBegin.getTime();
-
-        ITransaction transEx = new Transaction(
-            12,
-            1000,
-            "TTTTTTTTTTTeste",
-            CategoryEnum.CLOTHING,
-            dataBegin
-        );
-        ITransaction transExT = new Transaction(
-            12,
-            -1000,
-            "teste",
-            CategoryEnum.CLOTHING,
-            dataBegin
-        );
-        ITransaction transExTT = new Transaction(
-            12,
-            1000,
-            "teste",
-            CategoryEnum.CLOTHING,
-            dataBegin
-        );
-
-        ArrayList<ITransaction> lista = new ArrayList<>();
-        lista.add(transEx);
-        lista.add(transExT);
-        lista.add(transExTT);
-
-        Extract extract = new Extract(lista);
+        IExtract extract = extrato2.getExtract();
         VBox transactions = getTransactionsPreview(extract);
         mainContainer.getChildren().add(transactions);
     }
@@ -100,7 +69,6 @@ public class ExtractList implements Component {
 
             outputs.getChildren().add(tview);
         }
-
         return outputs;
     }
 
