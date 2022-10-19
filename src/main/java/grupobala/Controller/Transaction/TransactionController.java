@@ -23,7 +23,6 @@ public class TransactionController implements ITransactionController {
         try {
             dbTransaction.addTransaction(userID, wage, title, category, date);
         } catch (SQLException error) {
-            System.out.println(error.getMessage());
             throw new Exception("Erro ao adicionar transação");
         }
     }
