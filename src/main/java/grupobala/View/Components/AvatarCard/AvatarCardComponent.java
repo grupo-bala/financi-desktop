@@ -52,7 +52,7 @@ public class AvatarCardComponent implements Component {
     }
 
     private void setUserName() {
-        User user = new User("Hugo", "Hugo", 20, 0);
+        User user = new User();
         userName.setText(user.getName());
     }
 
