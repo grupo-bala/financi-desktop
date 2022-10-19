@@ -199,7 +199,9 @@ public class Dashboard implements Page {
         ExtractList extract = new ExtractList();
 
         extract.setOnMouseClicked(transaction -> {
-            TransactionViewComponent transactionView = new TransactionViewComponent(transaction);
+            TransactionViewComponent transactionView = new TransactionViewComponent(
+                transaction
+            );
             mainPane.getChildren().add(transactionView.getComponent());
             transactionView.getPopup().showPopup();
         });

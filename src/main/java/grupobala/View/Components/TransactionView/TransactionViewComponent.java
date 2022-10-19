@@ -96,7 +96,9 @@ public class TransactionViewComponent implements Component {
         Button editButton = new ButtonComponent().getComponent();
         HBox rightSideAlignment = new HBox();
 
-        editButton.setStyle("-fx-background-color: #2B2F2B; -fx-text-fill: #EF5350; -fx-border-width: 2; -fx-border-color: #ffffff20; -fx-cursor: hand; -fx-border-radius: 3;");
+        editButton.setStyle(
+            "-fx-background-color: #2B2F2B; -fx-text-fill: #EF5350; -fx-border-width: 2; -fx-border-color: #ffffff20; -fx-cursor: hand; -fx-border-radius: 3;"
+        );
         leftSide.getStyleClass().add("bot-box-side");
         rightSide.getStyleClass().add("bot-box-side");
 
