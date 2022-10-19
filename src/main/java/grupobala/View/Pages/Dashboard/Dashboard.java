@@ -49,12 +49,12 @@ public class Dashboard implements Page {
             .addAll(
                 container,
                 incomingPopup.getComponent(),
-                outputPopup.getComponent()
+                outputPopup.getComponent(),
+                errorPopup.getComponent(),
+                popupConfirmation.getComponent()
             );
         container.getChildren().addAll(summaryCard.getComponent(), extractList);
-
-        popupRemoveTransactionConfirmation();
-
+      
         return mainPane;
     }
 
@@ -201,6 +201,10 @@ public class Dashboard implements Page {
         extract.setOnMouseClicked(transaction -> {
             TransactionViewComponent transactionView = new TransactionViewComponent(transaction);
             mainPane.getChildren().add(transactionView.getComponent());
+            transactionView.setOnDelete(transactionToDelete-> {
+                transactionView.getPopup().hidePopup();
+                popupRemoveTransactionConfirmation(transactionToDelete.getId());
+            });
             transactionView.getPopup().showPopup();
         });
 
@@ -209,9 +213,8 @@ public class Dashboard implements Page {
         return extractContainer;
     }
 
-    private void popupRemoveTransactionError() {
+    private void popupRemoveTransactionError(int idTransaction) {
         VBox card = new CardVBoxComponent().getComponent();
-        Button openPopup = new Button("lixeira");
         Button closePopup = new Button("X");
         Text text = new Text("Não foi possível remover a movimentação");
         VBox textVBox = new VBox();
@@ -226,7 +229,6 @@ public class Dashboard implements Page {
         errorPopup.getComponent().getChildren().add(card);
         textVBox.getChildren().add(text);
         alertHBox.getChildren().addAll(alert, closePopup);
-        mainPane.getChildren().addAll(openPopup, errorPopup.getComponent());
 
         textVBox.getStyleClass().add("text-box");
 
@@ -243,7 +245,7 @@ public class Dashboard implements Page {
 
         try {
             TransactionController transactionController = new TransactionController();
-            transactionController.removeTransaction(0, 0);
+            transactionController.removeTransaction(new User().getID(), idTransaction);
         } catch (Exception error) {
             errorPopup.showPopup();
 
@@ -253,9 +255,8 @@ public class Dashboard implements Page {
         }
     }
 
-    private void popupRemoveTransactionConfirmation() {
+    private void popupRemoveTransactionConfirmation(int idTransaction) {
         VBox card = new CardVBoxComponent().getComponent();
-        Button openPopup = new Button("lixeira");
         Button confirmation = new Button("Confirmar");
         Button closePopup = new Button("X");
         Text text = new Text("Deseja apagar esta movimentação?");
@@ -264,9 +265,6 @@ public class Dashboard implements Page {
         vbox.getChildren().add(closePopup);
         card.getChildren().addAll(vbox, text, confirmation);
         popupConfirmation.getComponent().getChildren().addAll(card);
-        mainPane
-            .getChildren()
-            .addAll(openPopup, popupConfirmation.getComponent());
 
         vbox.getStyleClass().add("confirmation-box");
         card.getStyleClass().add("confirmation-card");
@@ -274,13 +272,11 @@ public class Dashboard implements Page {
         text.getStyleClass().add("confirmation-text");
         confirmation.getStyleClass().add("confirmation-button");
 
-        openPopup.setOnAction(e -> {
-            popupConfirmation.showPopup();
-        });
+        popupConfirmation.showPopup();
 
         confirmation.setOnAction(e -> {
             popupConfirmation.hidePopup();
-            popupRemoveTransactionError();
+            popupRemoveTransactionError(idTransaction);
         });
 
         closePopup.setOnAction(e -> {

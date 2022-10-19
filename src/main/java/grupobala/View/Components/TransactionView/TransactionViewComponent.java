@@ -4,6 +4,7 @@ import grupobala.Entities.Transaction.ITransaction.ITransaction;
 import grupobala.View.Components.Button.ButtonComponent;
 import grupobala.View.Components.Card.CardVBoxComponent;
 import grupobala.View.Components.Component.Component;
+import grupobala.View.Components.ExtractList.ExtractLambda;
 import grupobala.View.Components.Popup.PopupComponent;
 import grupobala.View.Components.TextWithLabel.TextWithLabelComponent;
 import java.text.SimpleDateFormat;
@@ -18,7 +19,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 public class TransactionViewComponent implements Component {
-
+    ExtractLambda callback;
     VBox container = new CardVBoxComponent().getComponent();
     PopupComponent transactionPopup = new PopupComponent();
     ITransaction transaction;
@@ -39,6 +40,10 @@ public class TransactionViewComponent implements Component {
         container.getChildren().addAll(topBox, bottomBox);
 
         transactionPopup.getComponent().getChildren().add(container);
+    }
+
+    public void setOnDelete(ExtractLambda callback){
+        this.callback = callback;
     }
 
     @Override
@@ -64,6 +69,9 @@ public class TransactionViewComponent implements Component {
         );
         ImageView trash = new ImageView(trashIcon);
 
+        trash.setOnMouseClicked(e -> {
+            callback.onClick(transaction);
+        });
         topBox.getStyleClass().add("top-box");
         titleBox.getStyleClass().add("top-box-titlebox");
         title.getStyleClass().add("top-box-title");
