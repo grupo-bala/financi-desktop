@@ -54,7 +54,7 @@ public class Dashboard implements Page {
                 popupConfirmation.getComponent()
             );
         container.getChildren().addAll(summaryCard.getComponent(), extractList);
-      
+
         return mainPane;
     }
 
@@ -203,7 +203,7 @@ public class Dashboard implements Page {
                 transaction
             );
             mainPane.getChildren().add(transactionView.getComponent());
-            transactionView.setOnDelete(transactionToDelete-> {
+            transactionView.setOnDelete(transactionToDelete -> {
                 transactionView.getPopup().hidePopup();
                 popupRemoveTransactionConfirmation(transactionToDelete.getId());
             });
@@ -247,7 +247,10 @@ public class Dashboard implements Page {
 
         try {
             TransactionController transactionController = new TransactionController();
-            transactionController.removeTransaction(new User().getID(), idTransaction);
+            transactionController.removeTransaction(
+                new User().getID(),
+                idTransaction
+            );
         } catch (Exception error) {
             errorPopup.showPopup();
 

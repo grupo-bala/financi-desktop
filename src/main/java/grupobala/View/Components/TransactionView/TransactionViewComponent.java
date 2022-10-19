@@ -19,6 +19,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 public class TransactionViewComponent implements Component {
+
     ExtractLambda callback;
     VBox container = new CardVBoxComponent().getComponent();
     PopupComponent transactionPopup = new PopupComponent();
@@ -42,7 +43,7 @@ public class TransactionViewComponent implements Component {
         transactionPopup.getComponent().getChildren().add(container);
     }
 
-    public void setOnDelete(ExtractLambda callback){
+    public void setOnDelete(ExtractLambda callback) {
         this.callback = callback;
     }
 
