@@ -86,10 +86,17 @@
     -fx-alignment: top-right;
 }
 
-.close-popup {
+.close-popup-error {
     -fx-font-family: "Montserrat";
-    -fx-background-color: #C54646;
+    -fx-background-color: transparent;
     -fx-cursor: hand;
+    -fx-border-radius: 10px;
+}
+
+.close-popup{
+    -fx-font-family: "Montserrat";
+    -fx-cursor: hand;
+    -fx-border-radius: 10px;
 }
 
 .text-error {
@@ -100,6 +107,12 @@
 
 .text-box {
     -fx-alignment: center;
+}
+
+.alert-box{
+    -fx-background-color: #C54646;
+    -fx-background-radius: 5px;
+    -fx-spacing: 350px;
 }
 
 .confirmation-box{
