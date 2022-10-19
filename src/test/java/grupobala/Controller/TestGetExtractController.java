@@ -2,8 +2,6 @@ package grupobala.Controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.jupiter.api.Order;
-
 import grupobala.Controller.Authentication.AuthenticationController;
 import grupobala.Controller.Authentication.IAuthenticationController.IAuthenticationController;
 import grupobala.Controller.Extract.ExtractController;
@@ -11,6 +9,7 @@ import grupobala.Entities.Extract.IExtract.IExtract;
 import grupobala.Entities.Transaction.ITransaction.ITransaction;
 import grupobala.Entities.User.User;
 import grupobala.SetupForTest.SetupForTest;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
 public class TestGetExtractController {
@@ -64,7 +63,7 @@ public class TestGetExtractController {
         ITransaction transaction = SetupForTest.addDefaultTransaction(
             new User().getID()
         );
-        
+
         ExtractController controler = new ExtractController();
         IExtract teste = controler.getExtract();
 
