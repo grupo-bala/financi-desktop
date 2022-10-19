@@ -2,143 +2,99 @@ package grupobala.Controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.Order;
+
+import grupobala.Controller.Authentication.AuthenticationController;
+import grupobala.Controller.Authentication.IAuthenticationController.IAuthenticationController;
 import grupobala.Controller.Extract.ExtractController;
 import grupobala.Entities.Extract.IExtract.IExtract;
 import grupobala.Entities.Transaction.ITransaction.ITransaction;
+import grupobala.Entities.User.User;
 import grupobala.SetupForTest.SetupForTest;
-import java.sql.SQLException;
-import java.text.ParseException;
-import java.util.Calendar;
-import java.util.Date;
 import org.junit.jupiter.api.Test;
 
 public class TestGetExtractController {
 
     @Test
-    public void checkExtractEntry() throws SQLException, ParseException {
+    public void checkExtractEntry() throws Exception {
         SetupForTest.truncateTables();
-        int financiUserID = SetupForTest.addFinanciUser();
+        IAuthenticationController authController = new AuthenticationController();
+
+        authController.signUp("extract", "1234", "Financi", 0);
+        authController.signIn("extract", "1234");
+
         ITransaction transaction = SetupForTest.addDefaultTransaction(
-            financiUserID
+            new User().getID()
         );
-
-        Calendar calendarBegin = Calendar.getInstance();
-        calendarBegin.set(Calendar.YEAR, 2020);
-        calendarBegin.set(Calendar.MONTH, Calendar.DECEMBER);
-        calendarBegin.set(Calendar.DAY_OF_MONTH, 31);
-
-        Calendar calendarEnd = Calendar.getInstance();
-        calendarEnd.set(Calendar.YEAR, 2022);
-        calendarEnd.set(Calendar.MONTH, Calendar.DECEMBER);
-        calendarEnd.set(Calendar.DAY_OF_MONTH, 31);
-
-        Date dataBegin = calendarBegin.getTime();
-        Date dataEnd = calendarEnd.getTime();
 
         ExtractController controler = new ExtractController();
-        IExtract teste = controler.getExtract(
-            financiUserID,
-            dataBegin,
-            dataEnd
-        );
+        IExtract teste = controler.getExtract();
 
         assertEquals(transaction.getValue(), teste.getEntry());
+        new User().close();
     }
 
     @Test
-    public void checkExtractOutput() throws SQLException, ParseException {
+    public void checkExtractOutput() throws Exception {
         SetupForTest.truncateTables();
-        int financiUserID = SetupForTest.addFinanciUser();
-        SetupForTest.addDefaultTransaction(financiUserID);
+        IAuthenticationController authController = new AuthenticationController();
 
-        Calendar calendarBegin = Calendar.getInstance();
-        calendarBegin.set(Calendar.YEAR, 2020);
-        calendarBegin.set(Calendar.MONTH, Calendar.DECEMBER);
-        calendarBegin.set(Calendar.DAY_OF_MONTH, 31);
+        authController.signUp("extract", "1234", "Financi", 0);
+        authController.signIn("extract", "1234");
 
-        Calendar calendarEnd = Calendar.getInstance();
-        calendarEnd.set(Calendar.YEAR, 2022);
-        calendarEnd.set(Calendar.MONTH, Calendar.DECEMBER);
-        calendarEnd.set(Calendar.DAY_OF_MONTH, 31);
-
-        Date dataBegin = calendarBegin.getTime();
-        Date dataEnd = calendarEnd.getTime();
+        ITransaction transaction = SetupForTest.addDefaultTransaction(
+            new User().getID()
+        );
 
         ExtractController controler = new ExtractController();
-        IExtract teste = controler.getExtract(
-            financiUserID,
-            dataBegin,
-            dataEnd
-        );
+        IExtract teste = controler.getExtract();
 
         assertEquals(0, teste.getOutput());
+        new User().close();
     }
 
     @Test
-    public void checkTitle() throws SQLException, ParseException {
+    public void checkTitle() throws Exception {
         SetupForTest.truncateTables();
-        int financiUserID = SetupForTest.addFinanciUser();
+        IAuthenticationController authController = new AuthenticationController();
+
+        authController.signUp("extract", "1234", "Financi", 0);
+        authController.signIn("extract", "1234");
+
         ITransaction transaction = SetupForTest.addDefaultTransaction(
-            financiUserID
+            new User().getID()
         );
-
-        Calendar calendarBegin = Calendar.getInstance();
-        calendarBegin.set(Calendar.YEAR, 2020);
-        calendarBegin.set(Calendar.MONTH, Calendar.DECEMBER);
-        calendarBegin.set(Calendar.DAY_OF_MONTH, 31);
-
-        Calendar calendarEnd = Calendar.getInstance();
-        calendarEnd.set(Calendar.YEAR, 2022);
-        calendarEnd.set(Calendar.MONTH, Calendar.DECEMBER);
-        calendarEnd.set(Calendar.DAY_OF_MONTH, 31);
-
-        Date dataBegin = calendarBegin.getTime();
-        Date dataEnd = calendarEnd.getTime();
-
+        
         ExtractController controler = new ExtractController();
-        IExtract teste = controler.getExtract(
-            financiUserID,
-            dataBegin,
-            dataEnd
-        );
+        IExtract teste = controler.getExtract();
 
         assertEquals(
             transaction.getTitle(),
             teste.iterator().next().getTitle()
         );
+
+        new User().close();
     }
 
     @Test
-    public void checkCategory() throws SQLException, ParseException {
+    public void checkCategory() throws Exception {
         SetupForTest.truncateTables();
-        int financiUserID = SetupForTest.addFinanciUser();
+        IAuthenticationController authController = new AuthenticationController();
+        authController.signUp("extract", "1234", "Financi", 0);
+        authController.signIn("extract", "1234");
+
         ITransaction transaction = SetupForTest.addDefaultTransaction(
-            financiUserID
+            new User().getID()
         );
-
-        Calendar calendarBegin = Calendar.getInstance();
-        calendarBegin.set(Calendar.YEAR, 2020);
-        calendarBegin.set(Calendar.MONTH, Calendar.DECEMBER);
-        calendarBegin.set(Calendar.DAY_OF_MONTH, 31);
-
-        Calendar calendarEnd = Calendar.getInstance();
-        calendarEnd.set(Calendar.YEAR, 2022);
-        calendarEnd.set(Calendar.MONTH, Calendar.DECEMBER);
-        calendarEnd.set(Calendar.DAY_OF_MONTH, 31);
-
-        Date dataBegin = calendarBegin.getTime();
-        Date dataEnd = calendarEnd.getTime();
 
         ExtractController controler = new ExtractController();
-        IExtract teste = controler.getExtract(
-            financiUserID,
-            dataBegin,
-            dataEnd
-        );
+        IExtract teste = controler.getExtract();
 
         assertEquals(
             transaction.getCategory(),
             teste.iterator().next().getCategory()
         );
+
+        new User().close();
     }
 }

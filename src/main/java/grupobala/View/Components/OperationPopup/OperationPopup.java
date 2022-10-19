@@ -227,7 +227,7 @@ public class OperationPopup implements Component {
         String category
     ) throws Exception {
         ITransactionController transactionController = new TransactionController();
-        // User user = new User();
+        User user = new User();
         CategoryEnum categoryEnum = CategoryEnum.getCategory(category);
         double value = Double.valueOf(wage.replace(',', '.'));
         Calendar dateCalendar = Calendar.getInstance();
@@ -235,15 +235,16 @@ public class OperationPopup implements Component {
         if (!isIncoming) {
             value *= -1;
         }
+
         dateCalendar.set(
             dateLocal.getYear(),
-            dateLocal.getMonthValue(),
+            dateLocal.getMonthValue() - 1,
             dateLocal.getDayOfMonth()
         );
 
         try {
             transactionController.addTransaction(
-                6,
+                user.getID(),
                 value,
                 description,
                 categoryEnum,

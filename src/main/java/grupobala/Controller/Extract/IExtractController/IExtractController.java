@@ -6,6 +6,8 @@ import java.text.ParseException;
 import java.util.Date;
 
 public interface IExtractController {
-    public IExtract getExtract(int id, Date initial, Date end)
+    public IExtract getExtract(Date initial, Date end)
         throws SQLException, ParseException;
+
+    public IExtract getExtract() throws SQLException, ParseException;
 }

@@ -11,8 +11,8 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        Dashboard page = new Dashboard();
-        new PageManager(stage, page);
+        SignInPage signInPage = new SignInPage();
+        new PageManager(stage, signInPage);
     }
 
     public static void uiMain(String[] args) {
