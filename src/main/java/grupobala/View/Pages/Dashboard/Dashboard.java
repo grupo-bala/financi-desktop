@@ -38,7 +38,7 @@ public class Dashboard implements Page {
         VBox container = new VBox();
         CardHBoxComponent summaryCard = getSummaryCard();
         VBox extractList = getExtractList();
-        
+
         incomingPopup.setOnConfirm(() -> {
             extract.reloadExtract();
         });
@@ -206,7 +206,7 @@ public class Dashboard implements Page {
     private VBox getExtractList() {
         VBox extractContainer = new VBox();
         extractContainer.getStyleClass().add("extract-list");
-        
+
         extract.setOnMouseClicked(transaction -> {
             TransactionViewComponent transactionView = new TransactionViewComponent(
                 transaction

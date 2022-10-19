@@ -57,9 +57,7 @@ public class ExtractList implements Component {
         try {
             mainContainer.getChildren().clear();
             loadExtract();
-        } catch (Exception e) {
-
-        }
+        } catch (Exception e) {}
     }
 
     private void loadExtract() throws SQLException, ParseException {
