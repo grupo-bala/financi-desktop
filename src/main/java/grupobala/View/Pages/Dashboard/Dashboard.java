@@ -51,9 +51,8 @@ public class Dashboard implements Page {
                 outputPopup.getComponent()
             );
         container.getChildren().addAll(summaryCard.getComponent(), extractList);
-        
+
         popupRemoveTransactionConfirmation();
-        
 
         return mainPane;
     }
@@ -193,7 +192,6 @@ public class Dashboard implements Page {
         return quickActions;
     }
 
-
     private VBox getExtractList() {
         VBox extractContainer = new VBox();
         extractContainer.getStyleClass().add("extract-list");
@@ -211,11 +209,10 @@ public class Dashboard implements Page {
         Text text = new Text("Não foi possível remover a movimentação");
         VBox textVBox = new VBox();
         Image alertImg = new Image(
-        "file:src/main/resources/grupobala/images/alert.png"
-    );
+            "file:src/main/resources/grupobala/images/alert.png"
+        );
         ImageView alert = new ImageView(alertImg);
         HBox alertHBox = new HBox();
-
 
         VBox.setVgrow(textVBox, Priority.ALWAYS);
         card.getChildren().addAll(alertHBox, text, textVBox);
@@ -229,7 +226,7 @@ public class Dashboard implements Page {
         alert.setFitHeight(25);
         alert.setFitWidth(25);
         alert.setPreserveRatio(true);
-        
+
         alertHBox.getStyleClass().add("alert-box");
         textVBox.getStyleClass().add("text-box");
 
@@ -269,7 +266,7 @@ public class Dashboard implements Page {
         closePopup.getStyleClass().add("close-popup");
         text.getStyleClass().add("confirmation-text");
         confirmation.getStyleClass().add("confirmation-button");
-        
+
         openPopup.setOnAction(e -> {
             popupConfirmation.showPopup();
         });
