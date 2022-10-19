@@ -1,13 +1,12 @@
 package grupobala.View.Components.TransactionView;
 
-import java.text.SimpleDateFormat;
-
 import grupobala.Entities.Transaction.ITransaction.ITransaction;
 import grupobala.View.Components.Button.ButtonComponent;
 import grupobala.View.Components.Card.CardVBoxComponent;
 import grupobala.View.Components.Component.Component;
 import grupobala.View.Components.Popup.PopupComponent;
 import grupobala.View.Components.TextWithLabel.TextWithLabelComponent;
+import java.text.SimpleDateFormat;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -19,17 +18,19 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 public class TransactionViewComponent implements Component {
-    
+
     VBox container = new CardVBoxComponent().getComponent();
     PopupComponent transactionPopup = new PopupComponent();
     ITransaction transaction;
 
     public TransactionViewComponent(ITransaction transaction) {
         this.transaction = transaction;
-        
-        container.getStylesheets().add(
-            "file:src/main/java/grupobala/View/Components/TransactionView/TransactionView.css"
-        );
+
+        container
+            .getStylesheets()
+            .add(
+                "file:src/main/java/grupobala/View/Components/TransactionView/TransactionView.css"
+            );
 
         container.getStyleClass().add("transaction-view-container");
 
@@ -58,7 +59,9 @@ public class TransactionViewComponent implements Component {
         HBox titleBox = new HBox();
         Text title = new Text(transaction.getTitle());
         Text value = new Text(String.format("R$ %.2f", transaction.getValue()));
-        Image trashIcon = new Image("file:src/main/resources/grupobala/images/trash.png");
+        Image trashIcon = new Image(
+            "file:src/main/resources/grupobala/images/trash.png"
+        );
         ImageView trash = new ImageView(trashIcon);
 
         topBox.getStyleClass().add("top-box");
@@ -78,9 +81,18 @@ public class TransactionViewComponent implements Component {
         HBox bottomBox = new HBox();
         VBox leftSide = new VBox();
         VBox rightSide = new VBox();
-        TextWithLabelComponent date = new TextWithLabelComponent("Data", new SimpleDateFormat("dd/mm/yyyy").format(transaction.getDate()));
-        TextWithLabelComponent category = new TextWithLabelComponent("Categoria", transaction.getCategory().displayedName);
-        TextWithLabelComponent isRecurring = new TextWithLabelComponent("Recorrente?", "Não");
+        TextWithLabelComponent date = new TextWithLabelComponent(
+            "Data",
+            new SimpleDateFormat("dd/mm/yyyy").format(transaction.getDate())
+        );
+        TextWithLabelComponent category = new TextWithLabelComponent(
+            "Categoria",
+            transaction.getCategory().displayedName
+        );
+        TextWithLabelComponent isRecurring = new TextWithLabelComponent(
+            "Recorrente?",
+            "Não"
+        );
         Button editButton = new ButtonComponent().getComponent();
         HBox rightSideAlignment = new HBox();
 
@@ -92,10 +104,12 @@ public class TransactionViewComponent implements Component {
         HBox.setHgrow(rightSideAlignment, Priority.ALWAYS);
         rightSideAlignment.setAlignment(Pos.BASELINE_RIGHT);
 
-        leftSide.getChildren().addAll(date.getComponent(), isRecurring.getComponent());
+        leftSide
+            .getChildren()
+            .addAll(date.getComponent(), isRecurring.getComponent());
         rightSide.getChildren().addAll(category.getComponent(), editButton);
         bottomBox.getStyleClass().add("bot-box");
-        
+
         rightSideAlignment.getChildren().add(rightSide);
         bottomBox.getChildren().addAll(leftSide, rightSideAlignment);
 

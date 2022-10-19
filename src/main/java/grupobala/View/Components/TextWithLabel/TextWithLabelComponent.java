@@ -17,9 +17,11 @@ public class TextWithLabelComponent implements Component {
         this.topText.getStyleClass().add("financi-textwlabel-top");
         this.botText.getStyleClass().add("financi-textwlabel-bot");
 
-        container.getStylesheets().add(
-            "file:src/main/java/grupobala/View/Components/TextWithLabel/TextWithLabel.css"
-        );
+        container
+            .getStylesheets()
+            .add(
+                "file:src/main/java/grupobala/View/Components/TextWithLabel/TextWithLabel.css"
+            );
         container.getChildren().addAll(this.topText, this.botText);
     }
 
