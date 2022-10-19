@@ -9,5 +9,7 @@ public interface IUser {
 
     public String getUsername();
 
+    public void setBalance(double balance);
+
     public void close();
 }

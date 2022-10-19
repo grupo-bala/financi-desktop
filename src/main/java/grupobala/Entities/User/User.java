@@ -47,6 +47,11 @@ public class User implements IUser {
     }
 
     @Override
+    public void setBalance(double balance) {
+        User.VALUE = balance;
+    }
+
+    @Override
     public void close() {
         User.INSTANCIATED = false;
     }
