@@ -1,24 +1,19 @@
 package grupobala.View.Components.ExtractList;
 
 import grupobala.Controller.Extract.ExtractController;
-import grupobala.Entities.Category.CategoryEnum;
-import grupobala.Entities.Extract.Extract;
 import grupobala.Entities.Extract.IExtract.IExtract;
 import grupobala.Entities.Transaction.ITransaction.ITransaction;
-import grupobala.Entities.Transaction.Transaction;
 import grupobala.View.Components.Component.Component;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
-import javafx.geometry.Pos;
+
+import javafx.event.EventHandler;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
@@ -28,6 +23,7 @@ public class ExtractList implements Component {
     private Locale localeBR;
     private DateFormat dateFormat;
     private VBox mainContainer;
+    private ExtractLambda callback;
 
     @Override
     public VBox getComponent() {
@@ -52,6 +48,10 @@ public class ExtractList implements Component {
         } catch (Exception e) {}
 
         return mainPane;
+    }
+
+    public void setOnMouseClicked(ExtractLambda callback) {
+        this.callback = callback;
     }
 
     private void loadExtract() throws SQLException, ParseException {
@@ -97,6 +97,10 @@ public class ExtractList implements Component {
         tbox.getStyleClass().add("extract-transaction");
         right.getStyleClass().add("extract-right");
         left.getStyleClass().add("extract-left");
+
+        tboxCont.setOnMouseClicked(e -> {
+            this.callback.onClick(t);
+        });
 
         return tboxCont;
     }
