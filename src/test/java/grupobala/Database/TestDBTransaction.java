@@ -8,8 +8,8 @@ import grupobala.Database.Transaction.DBTransaction;
 import grupobala.Database.Transaction.IDBTransaction.IDBTransaction;
 import grupobala.Entities.Category.CategoryEnum;
 import grupobala.Entities.Transaction.ITransaction.ITransaction;
-import grupobala.Entities.User.User;
 import grupobala.Entities.Transaction.Transaction;
+import grupobala.Entities.User.User;
 import grupobala.SetupForTest.SetupForTest;
 import java.sql.*;
 import java.util.Calendar;
@@ -43,7 +43,7 @@ public class TestDBTransaction {
                 "Testes",
                 CategoryEnum.OTHERS,
                 transactionDate
-        );
+            );
 
         new User().close();
     }
