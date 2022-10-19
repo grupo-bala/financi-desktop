@@ -11,6 +11,9 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
+
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -74,16 +77,19 @@ public class OperationPopup implements Component {
                 confirm
             );
 
+        return components;
+    }
+
+    public void setOnConfirm(OperationLambda callback) {
         confirm.setOnAction(e -> {
             try {
                 checkFieldMiss();
                 handleConfirm();
+                callback.applyOperation();
             } catch (Exception error) {
                 handleMissField(error.getMessage());
             }
         });
-
-        return components;
     }
 
     private VBox getDescriptionInput() {

@@ -53,6 +53,15 @@ public class ExtractList implements Component {
         this.callback = callback;
     }
 
+    public void reloadExtract() {
+        try {
+            mainContainer.getChildren().clear();
+            loadExtract();
+        } catch (Exception e) {
+
+        }
+    }
+
     private void loadExtract() throws SQLException, ParseException {
         ExtractController extrato2 = new ExtractController();
 
