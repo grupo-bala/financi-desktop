@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import grupobala.Database.Authenticator.DBAuthenticator;
 import grupobala.Database.Authenticator.IDBAuthenticator.IDBAuthenticator;
 import grupobala.Database.Connection.DBConnection;
+import grupobala.Entities.User.User;
 import grupobala.Entities.User.IUser.IUser;
 import grupobala.SetupForTest.SetupForTest;
 import java.sql.*;
@@ -38,6 +39,8 @@ public class TestDBAuthenticator {
         IUser result = this.databaseAuthenticator.login("testLogin", "1234");
 
         assertEquals(expectedName, result.getName());
+
+        new User().close();
     }
 
     @Test
