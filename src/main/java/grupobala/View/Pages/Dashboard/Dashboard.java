@@ -10,6 +10,7 @@ import grupobala.View.Components.OperationButton.OperationButton;
 import grupobala.View.Components.OperationButton.OperationButton.IconEnum;
 import grupobala.View.Components.OperationPopup.OperationPopup;
 import grupobala.View.Components.Popup.PopupComponent;
+import grupobala.View.Components.TransactionView.TransactionViewComponent;
 import grupobala.View.Pages.Page.Page;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -196,6 +197,12 @@ public class Dashboard implements Page {
         VBox extractContainer = new VBox();
         extractContainer.getStyleClass().add("extract-list");
         ExtractList extract = new ExtractList();
+
+        extract.setOnMouseClicked(transaction -> {
+            TransactionViewComponent transactionView = new TransactionViewComponent(transaction);
+            mainPane.getChildren().add(transactionView.getComponent());
+            transactionView.getPopup().showPopup();
+        });
 
         extractContainer.getChildren().add(extract.getComponent());
 
