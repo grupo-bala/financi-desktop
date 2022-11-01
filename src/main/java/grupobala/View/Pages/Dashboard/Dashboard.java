@@ -8,6 +8,7 @@ import grupobala.View.Components.AvatarCard.AvatarCardComponent;
 import grupobala.View.Components.Card.CardHBoxComponent;
 import grupobala.View.Components.Card.CardVBoxComponent;
 import grupobala.View.Components.ExtractList.ExtractList;
+import grupobala.View.Components.NavigationBar.NavigationBar;
 import grupobala.View.Components.OperationButton.OperationButton;
 import grupobala.View.Components.OperationButton.OperationButton.IconEnum;
 import grupobala.View.Components.OperationPopup.OperationPopup;
@@ -20,7 +21,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
@@ -36,8 +36,11 @@ public class Dashboard implements Page {
 
     private ExtractList extract = new ExtractList();
 
+    private NavigationBar navigationBar = new NavigationBar();
+
     @Override
     public StackPane getMainPane() {
+        VBox mainContainer = new VBox();
         VBox container = new VBox();
         VBox extractList = getExtractList();
 
@@ -49,6 +52,7 @@ public class Dashboard implements Page {
             updateValues();
         });
 
+        mainContainer.getStyleClass().add("main-container");
         mainPane.getStyleClass().add("dashboard");
         container.getStyleClass().add("container");
         mainPane
@@ -59,7 +63,7 @@ public class Dashboard implements Page {
         mainPane
             .getChildren()
             .addAll(
-                container,
+                mainContainer,
                 incomingPopup.getComponent(),
                 outputPopup.getComponent(),
                 errorPopup.getComponent(),
@@ -67,6 +71,7 @@ public class Dashboard implements Page {
             );
 
         setSummaryCard();
+        mainContainer.getChildren().addAll(navigationBar.getComponent(), container);
         container.getChildren().addAll(summaryCard, extractList);
 
         return mainPane;
@@ -179,7 +184,7 @@ public class Dashboard implements Page {
         VBox rightSummaryCard = new VBox();
 
         Text title = new Text("Acesso rápido");
-        TilePane quickActions = getQuickActions();
+        HBox quickActions = getQuickActions();
 
         rightSummaryCard.getStyleClass().add("summary-card-right");
         title.getStyleClass().add("quick-access-title");
@@ -189,8 +194,8 @@ public class Dashboard implements Page {
         return rightSummaryCard;
     }
 
-    private TilePane getQuickActions() {
-        TilePane quickActions = new TilePane();
+    private HBox getQuickActions() {
+        HBox quickActions = new HBox();
         OperationButton outputButton = new OperationButton();
         OperationButton incomingButton = new OperationButton();
         OperationButton goalButton = new OperationButton();

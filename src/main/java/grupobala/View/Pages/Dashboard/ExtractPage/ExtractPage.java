@@ -5,6 +5,7 @@ import grupobala.Entities.Extract.Extract;
 import grupobala.Entities.Extract.IExtract.IExtract;
 import grupobala.Entities.Transaction.ITransaction.ITransaction;
 import grupobala.Entities.Transaction.Transaction;
+import grupobala.View.Components.NavigationBar.NavigationBar;
 import grupobala.View.Pages.Page.Page;
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -25,20 +26,24 @@ public class ExtractPage implements Page {
 
     private StackPane mainPane = new StackPane();
 
+    private NavigationBar navigationBar = new NavigationBar();
     private Locale localeBR;
     private DateFormat dateFormat;
     private VBox mainContainer;
+    private VBox container;
 
     @Override
     public StackPane getMainPane() {
         localeBR = new Locale("pt", "BR");
         dateFormat = new SimpleDateFormat("dd 'de' MMM yyyy", localeBR);
-
+        
         mainContainer = new VBox();
+        container = new VBox();
         VBox title = getTitlePage();
 
+        mainContainer.getStyleClass().add("main-container");
         mainPane.getStyleClass().add("extract");
-        mainContainer.getStyleClass().add("container");
+        container.getStyleClass().add("container");
 
         mainPane
             .getStylesheets()
@@ -47,7 +52,8 @@ public class ExtractPage implements Page {
             );
 
         mainPane.getChildren().add(mainContainer);
-        mainContainer.getChildren().add(title);
+        mainContainer.getChildren().addAll(navigationBar.getComponent(), container);
+        container.getChildren().add(title);
 
         try {
             loadExtract();
@@ -93,7 +99,7 @@ public class ExtractPage implements Page {
 
         Extract extract = new Extract(lista);
         VBox transactions = getTransactionsPreview(extract);
-        mainContainer.getChildren().add(transactions);
+        container.getChildren().add(transactions);
     }
 
     private VBox getTitlePage() {

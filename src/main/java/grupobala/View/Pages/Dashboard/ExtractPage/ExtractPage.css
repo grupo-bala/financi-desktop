@@ -1,3 +1,11 @@
+.extract {
+    -fx-background-color: #222622;
+}
+
+.main-container {
+    -fx-spacing: 35px;
+}
+
 .container {
     -fx-padding: 20px 450px;
     -fx-background-color: #222622;

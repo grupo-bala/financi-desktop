@@ -1,3 +1,7 @@
+.dashboard {
+    -fx-background-color: #222622;
+}
+
 .container {
     -fx-padding: 20px 200px;
     -fx-background-color: #222622;
@@ -75,7 +79,8 @@
 }
 
 .quick-actions {
-    -fx-hgap: 40px;
+    -fx-spacing: 40px;
+    -fx-alignment: center;
 }
 
 .remove-card {
@@ -123,7 +128,7 @@
     -fx-alignment: top-right;
 }
 
-.confirmation-card{
+.confirmation-card {
     -fx-font-family: "Montserrat";
     -fx-alignment: top-center;
     -fx-max-width: 400px;
@@ -132,14 +137,18 @@
     -fx-background-color: #2B2F2B;
 }
 
-.confirmation-text{
+.confirmation-text {
     -fx-fill: #ffffff;
     -fx-font-size: 16px;
 }
 
-.confirmation-button{
+.confirmation-button {
     -fx-cursor: hand;
     -fx-background-color: #C54646;
     -fx-font-size: 14px;
     -fx-text-fill: #ffffff;
+}
+
+.main-container {
+    -fx-spacing: 35px;
 }

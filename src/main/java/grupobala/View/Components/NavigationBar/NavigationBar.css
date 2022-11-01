@@ -1,0 +1,19 @@
+.navigation-bar{
+    -fx-padding: 10px;
+    -fx-spacing: 460px;
+    -fx-alignment: center;
+    -fx-font-family: "Montserrat";
+    -fx-font-color: white;
+    -fx-background-color: #65A644;
+}
+
+.titles-box{
+    -fx-translate-x: -40px;
+    -fx-spacing: 30px;
+    -fx-alignment: center;
+}
+
+.title{
+    -fx-fill: white;
+    -fx-font-size: 16px;
+}
