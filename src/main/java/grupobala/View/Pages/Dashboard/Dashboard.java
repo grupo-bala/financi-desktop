@@ -71,7 +71,9 @@ public class Dashboard implements Page {
             );
 
         setSummaryCard();
-        mainContainer.getChildren().addAll(navigationBar.getComponent(), container);
+        mainContainer
+            .getChildren()
+            .addAll(navigationBar.getComponent(), container);
         container.getChildren().addAll(summaryCard, extractList);
 
         return mainPane;

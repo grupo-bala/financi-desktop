@@ -1,7 +1,7 @@
 package grupobala.View.Components.NavigationBar;
 
-import grupobala.View.PageManager;
 import grupobala.View.Components.Component.Component;
+import grupobala.View.PageManager;
 import grupobala.View.Pages.Dashboard.Dashboard;
 import grupobala.View.Pages.Dashboard.ExtractPage.ExtractPage;
 import grupobala.View.Pages.Page.Page;
@@ -11,8 +11,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 
-public class NavigationBar implements Component{
-    
+public class NavigationBar implements Component {
+
     private HBox bar = new HBox();
     private ImageView logo;
     private HBox titles;
@@ -20,25 +20,32 @@ public class NavigationBar implements Component{
     Text dashboard = new Text("início");
     Text extract = new Text("transações");
     Text classes = new Text("aulas");
-    Text analysis = new Text ("análise inteligente");
-    
-    
+    Text analysis = new Text("análise inteligente");
+
     public NavigationBar() {
-        Image iconSetting = new Image("file:src/main/resources/grupobala/images/settings.png");
-        Image logoImage = new Image("file:src/main/resources/grupobala/images/financi-logo-white.png");
+        Image iconSetting = new Image(
+            "file:src/main/resources/grupobala/images/settings.png"
+        );
+        Image logoImage = new Image(
+            "file:src/main/resources/grupobala/images/financi-logo-white.png"
+        );
         settings = new ImageView(iconSetting);
         logo = new ImageView(logoImage);
         titles = getTitles();
-        
-        bar.getStylesheets().add("file:src/main/java/grupobala/View/Components/NavigationBar/NavigationBar.css");
+
+        bar
+            .getStylesheets()
+            .add(
+                "file:src/main/java/grupobala/View/Components/NavigationBar/NavigationBar.css"
+            );
         bar.getStyleClass().add("navigation-bar");
         logo.getStyleClass().add("logo");
-        
+
         bar.getChildren().addAll(logo, titles, settings);
     }
-    
+
     @Override
-    public Node getComponent(){
+    public Node getComponent() {
         return this.bar;
     }
 
@@ -55,15 +62,14 @@ public class NavigationBar implements Component{
 
         PageManager pageManager = new PageManager();
 
-        dashboard.setOnMouseClicked(e-> {
+        dashboard.setOnMouseClicked(e -> {
             pageManager.setCurrentPage(new Dashboard());
         });
 
-        extract.setOnMouseClicked(e-> {
+        extract.setOnMouseClicked(e -> {
             pageManager.setCurrentPage(new ExtractPage());
         });
 
         return hbox;
     }
-
 }

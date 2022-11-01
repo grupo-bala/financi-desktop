@@ -36,7 +36,7 @@ public class ExtractPage implements Page {
     public StackPane getMainPane() {
         localeBR = new Locale("pt", "BR");
         dateFormat = new SimpleDateFormat("dd 'de' MMM yyyy", localeBR);
-        
+
         mainContainer = new VBox();
         container = new VBox();
         VBox title = getTitlePage();
@@ -52,7 +52,9 @@ public class ExtractPage implements Page {
             );
 
         mainPane.getChildren().add(mainContainer);
-        mainContainer.getChildren().addAll(navigationBar.getComponent(), container);
+        mainContainer
+            .getChildren()
+            .addAll(navigationBar.getComponent(), container);
         container.getChildren().add(title);
 
         try {
