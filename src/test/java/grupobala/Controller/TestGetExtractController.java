@@ -2,8 +2,6 @@ package grupobala.Controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.Date;
-
 import grupobala.Controller.Authentication.AuthenticationController;
 import grupobala.Controller.Authentication.IAuthenticationController.IAuthenticationController;
 import grupobala.Controller.Extract.ExtractController;
@@ -13,6 +11,7 @@ import grupobala.Entities.Extract.IExtract.IExtract;
 import grupobala.Entities.Transaction.ITransaction.ITransaction;
 import grupobala.Entities.User.User;
 import grupobala.SetupForTest.SetupForTest;
+import java.util.Date;
 import org.junit.jupiter.api.Test;
 
 public class TestGetExtractController {
@@ -28,13 +27,14 @@ public class TestGetExtractController {
         User user = new User();
 
         float transactionValue = 1000;
-        new TransactionController().addTransaction(
-            user.getID(),
-            transactionValue,
-            "teste",
-            CategoryEnum.OTHERS,
-            new Date()
-        );
+        new TransactionController()
+            .addTransaction(
+                user.getID(),
+                transactionValue,
+                "teste",
+                CategoryEnum.OTHERS,
+                new Date()
+            );
 
         ExtractController controler = new ExtractController();
         IExtract teste = controler.getExtract();
@@ -54,13 +54,14 @@ public class TestGetExtractController {
         User user = new User();
 
         float transactionValue = -1000;
-        new TransactionController().addTransaction(
-            user.getID(),
-            transactionValue,
-            "teste",
-            CategoryEnum.OTHERS,
-            new Date()
-        );
+        new TransactionController()
+            .addTransaction(
+                user.getID(),
+                transactionValue,
+                "teste",
+                CategoryEnum.OTHERS,
+                new Date()
+            );
 
         ExtractController controler = new ExtractController();
         IExtract teste = controler.getExtract();
@@ -79,21 +80,19 @@ public class TestGetExtractController {
 
         User user = new User();
         String transactionTitle = "teste";
-        new TransactionController().addTransaction(
-            user.getID(),
-            1000,
-            transactionTitle,
-            CategoryEnum.OTHERS,
-            new Date()
-        );
+        new TransactionController()
+            .addTransaction(
+                user.getID(),
+                1000,
+                transactionTitle,
+                CategoryEnum.OTHERS,
+                new Date()
+            );
 
         ExtractController controler = new ExtractController();
         IExtract teste = controler.getExtract();
 
-        assertEquals(
-            transactionTitle,
-            teste.iterator().next().getTitle()
-        );
+        assertEquals(transactionTitle, teste.iterator().next().getTitle());
 
         new User().close();
     }
@@ -107,21 +106,13 @@ public class TestGetExtractController {
 
         User user = new User();
         CategoryEnum category = CategoryEnum.ENTERTAINMENT;
-        new TransactionController().addTransaction(
-            user.getID(),
-            1000,
-            "teste",
-            category,
-            new Date()
-        );
+        new TransactionController()
+            .addTransaction(user.getID(), 1000, "teste", category, new Date());
 
         ExtractController controler = new ExtractController();
         IExtract teste = controler.getExtract();
 
-        assertEquals(
-            category,
-            teste.iterator().next().getCategory()
-        );
+        assertEquals(category, teste.iterator().next().getCategory());
 
         new User().close();
     }

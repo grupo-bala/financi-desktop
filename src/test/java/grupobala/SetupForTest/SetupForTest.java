@@ -88,7 +88,7 @@ public class SetupForTest {
         String title = "Teste";
         Calendar calendar = Calendar.getInstance();
         CategoryEnum category = CategoryEnum.OTHERS;
-        
+
         calendar.set(2022, 9, 21);
         Date date = calendar.getTime();
 
