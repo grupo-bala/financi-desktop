@@ -52,6 +52,7 @@ public class Dashboard implements Page {
             updateValues();
         });
 
+        extractList.getStyleClass().add("extract-list");
         mainContainer.getStyleClass().add("main-container");
         mainPane.getStyleClass().add("dashboard");
         container.getStyleClass().add("container");

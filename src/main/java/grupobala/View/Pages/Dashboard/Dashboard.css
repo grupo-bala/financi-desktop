@@ -4,6 +4,7 @@
 
 .container {
     -fx-padding: 20px 200px;
+    -fx-spacing: 25px;
     -fx-background-color: #222622;
     -fx-font-family: "Montserrat";
 }
