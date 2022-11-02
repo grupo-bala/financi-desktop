@@ -2,14 +2,17 @@ package grupobala.Controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.Date;
+
 import grupobala.Controller.Authentication.AuthenticationController;
 import grupobala.Controller.Authentication.IAuthenticationController.IAuthenticationController;
 import grupobala.Controller.Extract.ExtractController;
+import grupobala.Controller.Transaction.TransactionController;
+import grupobala.Entities.Category.CategoryEnum;
 import grupobala.Entities.Extract.IExtract.IExtract;
 import grupobala.Entities.Transaction.ITransaction.ITransaction;
 import grupobala.Entities.User.User;
 import grupobala.SetupForTest.SetupForTest;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
 public class TestGetExtractController {
@@ -22,14 +25,21 @@ public class TestGetExtractController {
         authController.signUp("extract", "1234", "Financi", 0);
         authController.signIn("extract", "1234");
 
-        ITransaction transaction = SetupForTest.addDefaultTransaction(
-            new User().getID()
+        User user = new User();
+
+        float transactionValue = 1000;
+        new TransactionController().addTransaction(
+            user.getID(),
+            transactionValue,
+            "teste",
+            CategoryEnum.OTHERS,
+            new Date()
         );
 
         ExtractController controler = new ExtractController();
         IExtract teste = controler.getExtract();
 
-        assertEquals(transaction.getValue(), teste.getEntry());
+        assertEquals(transactionValue, teste.getEntry());
         new User().close();
     }
 
@@ -41,14 +51,21 @@ public class TestGetExtractController {
         authController.signUp("extract", "1234", "Financi", 0);
         authController.signIn("extract", "1234");
 
-        ITransaction transaction = SetupForTest.addDefaultTransaction(
-            new User().getID()
+        User user = new User();
+
+        float transactionValue = -1000;
+        new TransactionController().addTransaction(
+            user.getID(),
+            transactionValue,
+            "teste",
+            CategoryEnum.OTHERS,
+            new Date()
         );
 
         ExtractController controler = new ExtractController();
         IExtract teste = controler.getExtract();
 
-        assertEquals(0, teste.getOutput());
+        assertEquals(transactionValue, teste.getOutput());
         new User().close();
     }
 
@@ -60,15 +77,21 @@ public class TestGetExtractController {
         authController.signUp("extract", "1234", "Financi", 0);
         authController.signIn("extract", "1234");
 
-        ITransaction transaction = SetupForTest.addDefaultTransaction(
-            new User().getID()
+        User user = new User();
+        String transactionTitle = "teste";
+        new TransactionController().addTransaction(
+            user.getID(),
+            1000,
+            transactionTitle,
+            CategoryEnum.OTHERS,
+            new Date()
         );
 
         ExtractController controler = new ExtractController();
         IExtract teste = controler.getExtract();
 
         assertEquals(
-            transaction.getTitle(),
+            transactionTitle,
             teste.iterator().next().getTitle()
         );
 
@@ -82,15 +105,21 @@ public class TestGetExtractController {
         authController.signUp("extract", "1234", "Financi", 0);
         authController.signIn("extract", "1234");
 
-        ITransaction transaction = SetupForTest.addDefaultTransaction(
-            new User().getID()
+        User user = new User();
+        CategoryEnum category = CategoryEnum.ENTERTAINMENT;
+        new TransactionController().addTransaction(
+            user.getID(),
+            1000,
+            "teste",
+            category,
+            new Date()
         );
 
         ExtractController controler = new ExtractController();
         IExtract teste = controler.getExtract();
 
         assertEquals(
-            transaction.getCategory(),
+            category,
             teste.iterator().next().getCategory()
         );
 

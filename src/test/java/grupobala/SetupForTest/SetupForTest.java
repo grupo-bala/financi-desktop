@@ -87,10 +87,10 @@ public class SetupForTest {
         boolean isEntry = value > 0;
         String title = "Teste";
         Calendar calendar = Calendar.getInstance();
-        Date date = calendar.getTime();
         CategoryEnum category = CategoryEnum.OTHERS;
-
-        calendar.set(2022, 10, 21);
+        
+        calendar.set(2022, 9, 21);
+        Date date = calendar.getTime();
 
         DateFormat formateDate = new SimpleDateFormat("yyyy-MM-dd");
 
