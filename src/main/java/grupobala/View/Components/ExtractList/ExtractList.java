@@ -74,6 +74,7 @@ public class ExtractList implements Component {
 
     private VBox getTransactionsPreview(IExtract extract) {
         VBox outputs = new VBox();
+        
         for (ITransaction t : extract) {
             VBox tview = compilingTransactionPreview(t);
 

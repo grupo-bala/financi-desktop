@@ -1,6 +1,7 @@
 package grupobala.Entities.Extract;
 
 import grupobala.Entities.Extract.IExtract.IExtract;
+import grupobala.Entities.Extract.ReverseExtract.ReverseExtract;
 import grupobala.Entities.Transaction.ITransaction.ITransaction;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -37,6 +38,6 @@ public class Extract implements IExtract {
 
     @Override
     public Iterator<ITransaction> iterator() {
-        return this.transactions.iterator();
+        return new ReverseExtract<ITransaction>(this.transactions);
     }
 }
