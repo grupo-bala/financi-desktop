@@ -44,7 +44,7 @@ public class ExtractList implements Component {
                 "file:src/main/java/grupobala/View/Pages/Dashboard/ExtractPage/ExtractPage.css"
             );
 
-        mainPane.getChildren().addAll(extractTitle,mainContainer);
+        mainPane.getChildren().addAll(extractTitle, mainContainer);
 
         try {
             loadExtract();
@@ -74,7 +74,7 @@ public class ExtractList implements Component {
 
     private VBox getTransactionsPreview(IExtract extract) {
         VBox outputs = new VBox();
-        
+
         for (ITransaction t : extract) {
             VBox tview = compilingTransactionPreview(t);
 
@@ -128,27 +128,44 @@ public class ExtractList implements Component {
     }
 
     private HBox getIcon(ITransaction t) {
-
         Image imageLocation;
 
         switch (t.getCategory()) {
             case FOOD:
-                imageLocation = new Image("file:src/main/resources/grupobala/images/Food Bar.png");
+                imageLocation =
+                    new Image(
+                        "file:src/main/resources/grupobala/images/Food Bar.png"
+                    );
                 break;
             case CLOTHING:
-                imageLocation = new Image("file:src/main/resources/grupobala/images/fashion.png");
+                imageLocation =
+                    new Image(
+                        "file:src/main/resources/grupobala/images/fashion.png"
+                    );
                 break;
             case HEALTH:
-                imageLocation = new Image("file:src/main/resources/grupobala/images/health.png");
+                imageLocation =
+                    new Image(
+                        "file:src/main/resources/grupobala/images/health.png"
+                    );
                 break;
             case ENTERTAINMENT:
-                imageLocation = new Image("file:src/main/resources/grupobala/images/entertainment.png");
+                imageLocation =
+                    new Image(
+                        "file:src/main/resources/grupobala/images/entertainment.png"
+                    );
                 break;
             case PAYMENTS:
-                imageLocation = new Image("file:src/main/resources/grupobala/images/dollar-symbol.png");
+                imageLocation =
+                    new Image(
+                        "file:src/main/resources/grupobala/images/dollar-symbol.png"
+                    );
                 break;
             default:
-                imageLocation = new Image("file:src/main/resources/grupobala/images/others.png");
+                imageLocation =
+                    new Image(
+                        "file:src/main/resources/grupobala/images/others.png"
+                    );
         }
         ImageView image = new ImageView(imageLocation);
         HBox container = new HBox(image);
