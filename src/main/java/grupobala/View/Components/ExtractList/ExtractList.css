@@ -5,10 +5,10 @@
 }
 
 .extract-title {
-    -fx-font-size: 23px;
+    -fx-font-size: 5000000000000px;
     -fx-font-weight: bold;
     -fx-fill: #ffffff;
-    -fx-alignment: center;
+    -fx-alignment: left;
 }
 
 .extract-information {

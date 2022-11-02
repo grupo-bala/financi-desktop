@@ -10,6 +10,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -30,6 +33,7 @@ public class ExtractList implements Component {
         dateFormat = new SimpleDateFormat("dd 'de' MMM yyyy", localeBR);
 
         mainContainer = new VBox();
+        VBox extractTitle = getTitlePage();
 
         mainPane.getStyleClass().add("extract");
         mainContainer.getStyleClass().add("container-extract");
@@ -40,7 +44,7 @@ public class ExtractList implements Component {
                 "file:src/main/java/grupobala/View/Pages/Dashboard/ExtractPage/ExtractPage.css"
             );
 
-        mainPane.getChildren().add(mainContainer);
+        mainPane.getChildren().addAll(extractTitle,mainContainer);
 
         try {
             loadExtract();
@@ -90,7 +94,7 @@ public class ExtractList implements Component {
 
         VBox left = new VBox(title, date);
         HBox right = new HBox(value);
-        HBox tbox = new HBox(left, right);
+        HBox tbox = new HBox(getIcon(t), left, right);
         VBox tboxCont = new VBox(tbox);
 
         HBox.setHgrow(right, Priority.ALWAYS);
@@ -109,5 +113,45 @@ public class ExtractList implements Component {
         });
 
         return tboxCont;
+    }
+
+    private VBox getTitlePage() {
+        VBox container = new VBox();
+        Text title = new Text("Atividade Recente");
+        title.getStyleClass().add("extract-title");
+
+        container.getChildren().add(title);
+        container.setAlignment(Pos.TOP_LEFT);
+
+        return container;
+    }
+
+    private HBox getIcon(ITransaction t) {
+
+        Image imageLocation;
+
+        switch (t.getCategory()) {
+            case FOOD:
+                imageLocation = new Image("file:src/main/resources/grupobala/images/Food Bar.png");
+                break;
+            case CLOTHING:
+                imageLocation = new Image("file:src/main/resources/grupobala/images/fashion.png");
+                break;
+            case HEALTH:
+                imageLocation = new Image("file:src/main/resources/grupobala/images/health.png");
+                break;
+            case ENTERTAINMENT:
+                imageLocation = new Image("file:src/main/resources/grupobala/images/entertainment.png");
+                break;
+            case PAYMENTS:
+                imageLocation = new Image("file:src/main/resources/grupobala/images/dollar-symbol.png");
+                break;
+            default:
+                imageLocation = new Image("file:src/main/resources/grupobala/images/others.png");
+        }
+        ImageView image = new ImageView(imageLocation);
+        HBox container = new HBox(image);
+
+        return container;
     }
 }
