@@ -3,6 +3,8 @@ package grupobala.Controller;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import grupobala.Entities.User.User;
+import grupobala.Entities.User.IUser.IUser;
 import grupobala.Controller.Transaction.TransactionController;
 import grupobala.Entities.Transaction.ITransaction.ITransaction;
 import grupobala.SetupForTest.SetupForTest;
@@ -21,8 +23,12 @@ public class TestRemoveTransactionController {
         );
         transactionController.removeTransaction(
             financiUserID,
-            transaction.getId()
+            transaction.getId(),
+            transaction.getValue(),
+            new User("financi", "Financi", 0, 0).getValue()
+            
         );
+        new User().close();
     }
 
     @Test
@@ -32,7 +38,7 @@ public class TestRemoveTransactionController {
         Exception exception = assertThrows(
             Exception.class,
             () -> {
-                transactionController.removeTransaction(-1, -1);
+                transactionController.removeTransaction(-1, -1, 1.10, 1.10);
             }
         );
         String expected = "Não foi possível apagar a transação";
@@ -48,7 +54,7 @@ public class TestRemoveTransactionController {
         Exception exception = assertThrows(
             Exception.class,
             () -> {
-                transactionController.removeTransaction(financiUserID, -1);
+                transactionController.removeTransaction(financiUserID, -1,1.10, 1.10);
             }
         );
         String expected = "Não foi possível apagar a transação";

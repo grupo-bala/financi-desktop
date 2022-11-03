@@ -16,6 +16,6 @@ public interface ITransactionController {
     public void updateTransaction(int userID, ITransaction transaction)
         throws Exception;
 
-    public void removeTransaction(int userID, int transactionID)
+    public void removeTransaction(int userID, int transactionID, double transactionValue, double userBalance)
         throws Exception;
 }
