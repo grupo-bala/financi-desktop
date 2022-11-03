@@ -3,6 +3,7 @@ package grupobala.View.Pages.Dashboard;
 import grupobala.Controller.Extract.ExtractController;
 import grupobala.Controller.Transaction.TransactionController;
 import grupobala.Entities.Extract.IExtract.IExtract;
+import grupobala.Entities.Transaction.Transaction;
 import grupobala.Entities.User.User;
 import grupobala.View.Components.AvatarCard.AvatarCardComponent;
 import grupobala.View.Components.Card.CardHBoxComponent;
@@ -239,7 +240,7 @@ public class Dashboard implements Page {
             mainPane.getChildren().add(transactionView.getComponent());
             transactionView.setOnDelete(transactionToDelete -> {
                 transactionView.getPopup().hidePopup();
-                popupRemoveTransactionConfirmation(transactionToDelete.getId());
+                popupRemoveTransactionConfirmation(transactionToDelete.getId(), transactionToDelete.getValue());
             });
             transactionView.getPopup().showPopup();
         });
@@ -249,7 +250,7 @@ public class Dashboard implements Page {
         return extractContainer;
     }
 
-    private void popupRemoveTransactionError(int idTransaction) {
+    private void popupRemoveTransactionError(int idTransaction, double transactionValue) {
         VBox card = new CardVBoxComponent().getComponent();
         Button closePopup = new Button("X");
         Text text = new Text("Não foi possível remover a movimentação");
@@ -283,9 +284,11 @@ public class Dashboard implements Page {
             TransactionController transactionController = new TransactionController();
             transactionController.removeTransaction(
                 new User().getID(),
-                idTransaction
+                idTransaction,
+                transactionValue,
+                new User().getValue()
             );
-            extract.reloadExtract();
+            updateValues();
         } catch (Exception error) {
             errorPopup.showPopup();
 
@@ -295,7 +298,7 @@ public class Dashboard implements Page {
         }
     }
 
-    private void popupRemoveTransactionConfirmation(int idTransaction) {
+    private void popupRemoveTransactionConfirmation(int idTransaction, double transactionValue) {
         VBox card = new CardVBoxComponent().getComponent();
         Button confirmation = new Button("Confirmar");
         Button closePopup = new Button("X");
@@ -316,7 +319,7 @@ public class Dashboard implements Page {
 
         confirmation.setOnAction(e -> {
             popupConfirmation.hidePopup();
-            popupRemoveTransactionError(idTransaction);
+            popupRemoveTransactionError(idTransaction, transactionValue);
         });
 
         closePopup.setOnAction(e -> {
