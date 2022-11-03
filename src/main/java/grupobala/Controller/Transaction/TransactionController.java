@@ -33,18 +33,25 @@ public class TransactionController implements ITransactionController {
         throws Exception {}
 
     @Override
-    public void removeTransaction(int userID, int transactionID, double transactionValue, double userBalance)
-        throws Exception {
+    public void removeTransaction(
+        int userID,
+        int transactionID,
+        double transactionValue,
+        double userBalance
+    ) throws Exception {
         DBTransaction dbTransaction = new DBTransaction(new DBConnection());
-        DBUser dbUser = new DBUser(new DBConnection());   
+        DBUser dbUser = new DBUser(new DBConnection());
         try {
             dbTransaction.removeTransaction(userID, transactionID);
-            if(transactionValue > 0)
-                dbUser.setUserBalance(userID, (userBalance - transactionValue));
-            else{
-                dbUser.setUserBalance(userID, (userBalance + (transactionValue * -1)));
+            if (transactionValue > 0) dbUser.setUserBalance(
+                userID,
+                (userBalance - transactionValue)
+            ); else {
+                dbUser.setUserBalance(
+                    userID,
+                    (userBalance + (transactionValue * -1))
+                );
             }
-
         } catch (SQLException error) {
             throw new Exception("Não foi possível apagar a transação");
         }

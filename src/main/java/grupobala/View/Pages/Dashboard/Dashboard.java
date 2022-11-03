@@ -240,7 +240,10 @@ public class Dashboard implements Page {
             mainPane.getChildren().add(transactionView.getComponent());
             transactionView.setOnDelete(transactionToDelete -> {
                 transactionView.getPopup().hidePopup();
-                popupRemoveTransactionConfirmation(transactionToDelete.getId(), transactionToDelete.getValue());
+                popupRemoveTransactionConfirmation(
+                    transactionToDelete.getId(),
+                    transactionToDelete.getValue()
+                );
             });
             transactionView.getPopup().showPopup();
         });
@@ -250,7 +253,10 @@ public class Dashboard implements Page {
         return extractContainer;
     }
 
-    private void popupRemoveTransactionError(int idTransaction, double transactionValue) {
+    private void popupRemoveTransactionError(
+        int idTransaction,
+        double transactionValue
+    ) {
         VBox card = new CardVBoxComponent().getComponent();
         Button closePopup = new Button("X");
         Text text = new Text("Não foi possível remover a movimentação");
@@ -298,7 +304,10 @@ public class Dashboard implements Page {
         }
     }
 
-    private void popupRemoveTransactionConfirmation(int idTransaction, double transactionValue) {
+    private void popupRemoveTransactionConfirmation(
+        int idTransaction,
+        double transactionValue
+    ) {
         VBox card = new CardVBoxComponent().getComponent();
         Button confirmation = new Button("Confirmar");
         Button closePopup = new Button("X");
