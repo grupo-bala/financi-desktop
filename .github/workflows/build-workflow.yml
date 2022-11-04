@@ -17,7 +17,11 @@ jobs:
       - run: sudo service postgresql start
       - run: echo "ALTER USER postgres WITH PASSWORD 'postgres';" | sudo -u postgres psql
       - run: mvn package
+      - run: mkdir build
+      - run: cp -r src build
+      - run: rm -rf build/src/main/java
+      - run: mv target/*-jar-with-dependencies.jar build/financi.jar
       - uses: actions/upload-artifact@v3
         with:
           name: project build
-          path: target/*-jar-with-dependencies.jar
+          path: build
