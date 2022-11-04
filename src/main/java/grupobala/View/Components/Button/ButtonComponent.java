@@ -12,7 +12,7 @@ public class ButtonComponent implements Component {
         button
             .getStylesheets()
             .add(
-                "file:src/main/java/grupobala/View/Components/Button/Button.css"
+                "file:src/main/resources/grupobala/css/Components/Button/Button.css"
             );
     }
 

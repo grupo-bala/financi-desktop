@@ -12,7 +12,7 @@ public class PasswordFieldComponent implements Component {
         passwordField
             .getStylesheets()
             .add(
-                "file:src/main/java/grupobala/View/Components/TextField/TextField.css"
+                "file:src/main/resources/grupobala/css/Components/TextField/TextField.css"
             );
     }
 

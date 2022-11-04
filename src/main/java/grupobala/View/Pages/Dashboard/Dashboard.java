@@ -60,7 +60,7 @@ public class Dashboard implements Page {
         mainPane
             .getStylesheets()
             .add(
-                "file:src/main/java/grupobala/View/Pages/Dashboard/Dashboard.css"
+                "file:src/main/resources/grupobala/css/Pages/Dashboard/Dashboard.css"
             );
         mainPane
             .getChildren()

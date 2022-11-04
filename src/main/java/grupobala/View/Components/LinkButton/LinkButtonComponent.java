@@ -12,7 +12,7 @@ public class LinkButtonComponent implements Component {
         button
             .getStylesheets()
             .add(
-                "file:src/main/java/grupobala/View/Components/LinkButton/LinkButton.css"
+                "file:src/main/resources/grupobala/css/Components/LinkButton/LinkButton.css"
             );
     }
 

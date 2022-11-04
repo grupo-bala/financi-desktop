@@ -36,7 +36,7 @@ public class NavigationBar implements Component {
         bar
             .getStylesheets()
             .add(
-                "file:src/main/java/grupobala/View/Components/NavigationBar/NavigationBar.css"
+                "file:src/main/resources/grupobala/css/Components/NavigationBar/NavigationBar.css"
             );
         bar.getStyleClass().add("navigation-bar");
         logo.getStyleClass().add("logo");
