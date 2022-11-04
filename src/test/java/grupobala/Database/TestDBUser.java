@@ -1,0 +1,68 @@
+package grupobala.Database;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import grupobala.Controller.Authentication.AuthenticationController;
+import grupobala.Database.Connection.DBConnection;
+import grupobala.Database.Connection.IDBConnection.IDBConnection;
+import grupobala.Database.User.DBUser;
+import grupobala.Database.User.IDBUser.IDBUser;
+import grupobala.Entities.User.User;
+import grupobala.SetupForTest.SetupForTest;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Locale;
+import org.junit.jupiter.api.Test;
+
+public class TestDBUser {
+
+    IDBConnection databaseConnection = new DBConnection();
+    IDBUser userDB = new DBUser(databaseConnection);
+
+    @Test
+    public void testSetUserBalance() throws Exception {
+        SetupForTest.truncateTables();
+        AuthenticationController authController = new AuthenticationController();
+        authController.signUp("financi", "1234", "Financi", 0);
+        authController.signIn("financi", "1234");
+
+        this.userDB.setUserBalance(new User().getID(), 2000);
+
+        String query = String.format(
+            Locale.US,
+            "SELECT saldo FROM usuario WHERE id = %d",
+            new User().getID()
+        );
+
+        ResultSet result = this.databaseConnection.executeQuery(query);
+
+        result.next();
+
+        double expected = 2000;
+        double resultBalance = result.getDouble("saldo");
+
+        result.close();
+        new User().close();
+
+        assertEquals(expected, resultBalance);
+    }
+
+    @Test
+    public void testSetUserBalanceShouldFailNonexistentUser()
+        throws SQLException {
+        SetupForTest.truncateTables();
+
+        Exception exception = assertThrows(
+            SQLException.class,
+            () -> {
+                this.userDB.setUserBalance(-1, 0);
+            }
+        );
+
+        String expected = "Usuário não existe";
+        String result = exception.getMessage();
+
+        assertEquals(expected, result);
+    }
+}

@@ -1,0 +1,155 @@
+.dashboard {
+    -fx-background-color: #222622;
+}
+
+.container {
+    -fx-padding: 20px 200px;
+    -fx-spacing: 25px;
+    -fx-background-color: #222622;
+    -fx-font-family: "Montserrat";
+}
+.summary-card {
+    -fx-padding: 35px 20px 40px 20px;
+    -fx-spacing: 50px;
+    -fx-alignment: center;
+    -fx-background-color: #121512;
+}
+
+.left-summary {
+    -fx-alignment: center;
+}
+
+.summary-card-top, .summary-card-bot {
+    -fx-spacing: 50px;
+}
+
+.summary-card-bot {
+    -fx-padding: 20px 0px 0px 0px;
+}
+
+.summary-card-top {
+    -fx-padding: 0px 0px 20px 0px;
+    -fx-border-width: 0px 0px 2px 0px;
+    -fx-border-color: #3D3D3D;
+}
+
+.balance-box {
+    -fx-border-width: 0px 0px 0px 2px;
+    -fx-spacing: 7px;
+    -fx-border-color: #49AD5A;
+    -fx-padding: 0px 0px 0px 10px;
+    -fx-alignment: center-left;
+    -fx-max-width: 100px;
+}
+
+.balance-title {
+    -fx-font-size: 14px;
+    -fx-fill: #A0A0A0;
+}
+
+.balance {
+    -fx-font-size: 20px;
+    -fx-font-weight: 600;
+    -fx-fill: #ffffff;
+}
+
+.left-summary-bottom-card {
+    -fx-background-color: #2B2F2B;
+    -fx-padding: 12px 20px;
+    -fx-alignment: center;
+}
+
+.left-summary-bottom-title {
+    -fx-fill: #ffffff;
+    -fx-font-size: 14px;
+}
+
+.summary-card-right {
+    -fx-border-width: 0px 0px 0px 4px;
+    -fx-max-width: 460px;
+    -fx-border-color: #49AD5A;
+    -fx-spacing: 25px;
+    -fx-padding: 0px 0px 0px 60px;
+    -fx-alignment: center-left;
+}
+
+.quick-access-title {
+    -fx-font-size: 23px;
+    -fx-font-weight: bold;
+    -fx-fill: #ffffff;
+}
+
+.quick-actions {
+    -fx-spacing: 40px;
+    -fx-alignment: center;
+}
+
+.remove-card {
+    -fx-max-width: 400px;
+    -fx-max-height: 150px;
+    -fx-background-color: #2B2F2B;
+    -fx-alignment: top-right;
+}
+
+.close-popup-error {
+    -fx-font-family: "Montserrat";
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+    -fx-border-radius: 10px;
+    -fx-background-color: transparent;
+    -fx-text-fill: #C54646;
+}
+
+.close-popup{
+    -fx-font-family: "Montserrat";
+    -fx-cursor: hand;
+    -fx-border-radius: 10px;
+    -fx-background-color: transparent;
+    -fx-text-fill: #C54646;
+    -fx-font-size: 18px;
+}
+
+.text-error {
+    -fx-font-family: "Montserrat";
+    -fx-font-size: 14px;
+    -fx-fill: #ffffff;
+}
+
+.text-box {
+    -fx-alignment: center;
+}
+
+.alert-box{
+    -fx-background-color: #C54646;
+    -fx-background-radius: 5px;
+    -fx-spacing: 350px;
+}
+
+.confirmation-box{
+    -fx-alignment: top-right;
+}
+
+.confirmation-card {
+    -fx-font-family: "Montserrat";
+    -fx-alignment: top-center;
+    -fx-max-width: 400px;
+    -fx-max-height: 150px;
+    -fx-spacing: 20px;
+    -fx-background-color: #2B2F2B;
+}
+
+.confirmation-text {
+    -fx-fill: #ffffff;
+    -fx-font-size: 16px;
+}
+
+.confirmation-button {
+    -fx-cursor: hand;
+    -fx-background-color: #C54646;
+    -fx-font-size: 14px;
+    -fx-text-fill: #ffffff;
+}
+
+.main-container {
+    -fx-spacing: 35px;
+}

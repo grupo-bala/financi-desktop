@@ -1,0 +1,32 @@
+name: Test and Prettier Workflow
+on:
+  push:
+    branches:
+      - dev
+jobs:
+  prettier:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+      - run: source ~/.bashrc
+      - run: npm install -g prettier prettier-plugin-java
+      - run: prettier --write "**/*.java"
+      - uses: mikeal/publish-to-github-action@master
+        env: 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH_NAME: 'dev'
+
+  test:
+    runs-on: ubuntu-latest
+    needs: prettier
+    steps:
+      - uses: actions/checkout@v3
+      - run: sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+      - run: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+      - run: sudo add-apt-repository ppa:openjdk-r/ppa
+      - run: sudo apt update
+      - run: sudo apt install openjdk-17-jdk maven postgresql -y
+      - run: sudo service postgresql start
+      - run: echo "ALTER USER postgres WITH PASSWORD 'postgres';" | sudo -u postgres psql
+      - run: mvn test
