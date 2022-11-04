@@ -11,7 +11,9 @@ public class CardVBoxComponent implements Component {
         vBox.getStyleClass().add("financi-card");
         vBox
             .getStylesheets()
-            .add("file:src/main/resources/grupobala/css/Components/Card/Card.css");
+            .add(
+                "file:src/main/resources/grupobala/css/Components/Card/Card.css"
+            );
     }
 
     public VBox getComponent() {
