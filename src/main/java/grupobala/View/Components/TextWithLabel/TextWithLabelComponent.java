@@ -20,7 +20,7 @@ public class TextWithLabelComponent implements Component {
         container
             .getStylesheets()
             .add(
-                "file:src/main/java/grupobala/View/Components/TextWithLabel/TextWithLabel.css"
+                "file:src/main/resources/grupobala/css/Components/TextWithLabel/TextWithLabel.css"
             );
         container.getChildren().addAll(this.topText, this.botText);
     }

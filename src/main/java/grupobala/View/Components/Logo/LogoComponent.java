@@ -18,7 +18,9 @@ public class LogoComponent implements Component {
     public LogoComponent() {
         logoVBox
             .getStylesheets()
-            .add("file:src/main/java/grupobala/View/Components/Logo/Logo.css");
+            .add(
+                "file:src/main/resources/grupobala/css/Components/Logo/Logo.css"
+            );
 
         logoVBox.getStyleClass().add("logo-container");
         financiTitle.getStyleClass().add("title");

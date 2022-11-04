@@ -11,7 +11,9 @@ public class CardHBoxComponent implements Component {
         HBox.getStyleClass().add("financi-card");
         HBox
             .getStylesheets()
-            .add("file:src/main/java/grupobala/View/Components/Card/Card.css");
+            .add(
+                "file:src/main/resources/grupobala/css/Components/Card/Card.css"
+            );
     }
 
     public HBox getComponent() {

@@ -36,7 +36,7 @@ public class SignInPage implements Page {
         container
             .getStylesheets()
             .add(
-                "file:src/main/java/grupobala/View/Pages/Authentication/SignIn/SignInPage.css"
+                "file:src/main/resources/grupobala/css/Pages/Authentication/SignInPage.css"
             );
 
         return container;

@@ -41,7 +41,7 @@ public class ExtractList implements Component {
         mainPane
             .getStylesheets()
             .add(
-                "file:src/main/java/grupobala/View/Pages/Dashboard/ExtractPage/ExtractPage.css"
+                "file:src/main/resources/grupobala/css/Pages/ExtractPage/ExtractPage.css"
             );
 
         mainPane.getChildren().addAll(extractTitle, mainContainer);

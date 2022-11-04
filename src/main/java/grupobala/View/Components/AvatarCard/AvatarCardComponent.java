@@ -31,7 +31,7 @@ public class AvatarCardComponent implements Component {
         avatarCard
             .getStylesheets()
             .add(
-                "file:src/main/java/grupobala/View/Components/AvatarCard/AvatarCard.css"
+                "file:src/main/resources/grupobala/css/Components/AvatarCard/AvatarCard.css"
             );
         avatarCard.getStyleClass().add("financi-avatar-card");
         icon.getStyleClass().add("financi-avatar-icon");
