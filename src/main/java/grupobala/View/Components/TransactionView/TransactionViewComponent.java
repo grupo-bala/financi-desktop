@@ -31,7 +31,7 @@ public class TransactionViewComponent implements Component {
         container
             .getStylesheets()
             .add(
-                "file:src/main/java/grupobala/View/Components/TransactionView/TransactionView.css"
+                "file:src/main/resources/grupobala/css/Components/TransactionView/TransactionView.css"
             );
 
         container.getStyleClass().add("transaction-view-container");

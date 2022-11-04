@@ -16,7 +16,7 @@ public class PopupComponent implements Component {
         container
             .getStylesheets()
             .add(
-                "file:src/main/java/grupobala/View/Components/Popup/Popup.css"
+                "file:src/main/resources/grupobala/css/Components/Popup/Popup.css"
             );
 
         container.getChildren().add(background);
