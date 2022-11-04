@@ -1,0 +1,12 @@
+.container {
+    -fx-spacing: 13px;
+    -fx-padding: 17px 17px 15px 17px;
+    -fx-alignment: center;
+    -fx-background-color: #2B2F2B;
+    -fx-background-radius: 5px;
+    -fx-effect: dropshadow(gaussian, #0000003F, 4, 0, 0, 4);
+}
+
+.button-label {
+    -fx-fill: #ffffff;
+}

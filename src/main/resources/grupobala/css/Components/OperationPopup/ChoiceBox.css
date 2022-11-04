@@ -1,0 +1,38 @@
+* {
+    -fx-primary-color: #222622;
+    -fx-secondary-color: #49AD5A;
+    -fx-light-grey-color: #222622;
+    /*Set focus color*/
+    -fx-focus-color: -fx-primary-color;
+    /*Increase font size*/
+    -fx-font-size: 15px;
+}
+
+.choice-box .open-button .arrow {
+    -fx-cursor: hand;
+    -fx-background-color: #49AD5A;
+}
+
+.choice-box .label {
+    -fx-text-fill: white;
+}
+
+.choice-box {
+    -fx-background-color: #121212;
+    -fx-background-radius: 10px;
+    -fx-border-color: #49AD5A;
+    -fx-border-width: 1px;
+    -fx-border-radius: 10px;
+    -fx-focus-color: -fx-secondary-color;
+    -fx-control-inner-background: -fx-primary-color;
+    -fx-selection-bar: -fx-secondary-color;
+    -fx-selection-bar-text-fill: #121212;
+}
+
+.choice-box .menu-item:focused .label {
+    -fx-text-fill: -fx-primary-color;
+}
+
+.choice-box .menu-item .label {
+    -fx-text-fill: white;
+}
