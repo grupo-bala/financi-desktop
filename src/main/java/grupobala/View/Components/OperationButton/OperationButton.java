@@ -1,7 +1,6 @@
 package grupobala.View.Components.OperationButton;
 
 import grupobala.View.Components.Component.Component;
-import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;

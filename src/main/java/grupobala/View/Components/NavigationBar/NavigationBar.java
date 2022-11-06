@@ -4,7 +4,6 @@ import grupobala.View.Components.Component.Component;
 import grupobala.View.PageManager;
 import grupobala.View.Pages.Dashboard.Dashboard;
 import grupobala.View.Pages.Dashboard.ExtractPage.ExtractPage;
-import grupobala.View.Pages.Page.Page;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
