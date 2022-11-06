@@ -8,7 +8,6 @@ import grupobala.Controller.Extract.ExtractController;
 import grupobala.Controller.Transaction.TransactionController;
 import grupobala.Entities.Category.CategoryEnum;
 import grupobala.Entities.Extract.IExtract.IExtract;
-import grupobala.Entities.Transaction.ITransaction.ITransaction;
 import grupobala.Entities.User.User;
 import grupobala.SetupForTest.SetupForTest;
 import java.util.Date;
