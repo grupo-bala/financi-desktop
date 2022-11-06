@@ -140,7 +140,7 @@ public class SetupForTest {
         );
 
         Statement statement = connection.createStatement();
-        
+
         Calendar calendar = Calendar.getInstance();
         calendar.set(2022, 9, 21);
 
@@ -168,12 +168,13 @@ public class SetupForTest {
             throw new SQLException("Something goes wrong");
         }
 
-        query = String.format(
-            Locale.US,
-            "SELECT id FROM meta WHERE idusuario = %d AND titulo = '%s'",
-            financiUserID,
-            title
-        );
+        query =
+            String.format(
+                Locale.US,
+                "SELECT id FROM meta WHERE idusuario = %d AND titulo = '%s'",
+                financiUserID,
+                title
+            );
 
         ResultSet result = statement.executeQuery(query);
 
@@ -183,7 +184,13 @@ public class SetupForTest {
 
         connection.close();
 
-        IGoal goal = new Goal(goalID, title, objective, calendar.getTime(), idealValuePerMonth);
+        IGoal goal = new Goal(
+            goalID,
+            title,
+            objective,
+            calendar.getTime(),
+            idealValuePerMonth
+        );
 
         return goal;
     }

@@ -1,16 +1,15 @@
 package grupobala.Database.Goal;
 
+import grupobala.Database.Connection.IDBConnection.IDBConnection;
+import grupobala.Database.Goal.IDBGoal.IDBGoal;
+import grupobala.Entities.Goal.Goal;
+import grupobala.Entities.Goal.IGoal.IGoal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
-
-import grupobala.Database.Connection.IDBConnection.IDBConnection;
-import grupobala.Database.Goal.IDBGoal.IDBGoal;
-import grupobala.Entities.Goal.Goal;
-import grupobala.Entities.Goal.IGoal.IGoal;
 
 public class DBGoal implements IDBGoal {
 
@@ -21,7 +20,13 @@ public class DBGoal implements IDBGoal {
     }
 
     @Override
-    public IGoal addGoal(int userID, String title, double objective, Calendar expectedDate, double idealValuePerMonth) throws SQLException {
+    public IGoal addGoal(
+        int userID,
+        String title,
+        double objective,
+        Calendar expectedDate,
+        double idealValuePerMonth
+    ) throws SQLException {
         DateFormat formateDate = new SimpleDateFormat("yyyy-MM-dd");
 
         String query = String.format(
@@ -41,12 +46,13 @@ public class DBGoal implements IDBGoal {
             throw new SQLException("Essa meta já existe");
         }
 
-        query = String.format(
-            Locale.US,
-            "SELECT id FROM meta WHERE idusuario = %d AND titulo = '%s'",
-            userID,
-            title
-        );
+        query =
+            String.format(
+                Locale.US,
+                "SELECT id FROM meta WHERE idusuario = %d AND titulo = '%s'",
+                userID,
+                title
+            );
 
         ResultSet result = this.databaseConnection.executeQuery(query);
 
@@ -56,7 +62,13 @@ public class DBGoal implements IDBGoal {
 
         result.close();
 
-        IGoal goal = new Goal(goalID, title, objective, expectedDate.getTime(), idealValuePerMonth);
+        IGoal goal = new Goal(
+            goalID,
+            title,
+            objective,
+            expectedDate.getTime(),
+            idealValuePerMonth
+        );
 
         return goal;
     }
@@ -103,5 +115,4 @@ public class DBGoal implements IDBGoal {
 
         return howManyUpdates;
     }
-    
 }

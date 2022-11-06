@@ -1,11 +1,10 @@
 package grupobala.Entities.Goal;
 
+import grupobala.Entities.Goal.IGoal.IGoal;
 import java.util.Date;
 
-import grupobala.Entities.Goal.IGoal.IGoal;
-
 public class Goal implements IGoal {
-    
+
     private int id;
     private String title;
     private double objective;
@@ -13,7 +12,13 @@ public class Goal implements IGoal {
     private double idealValuePerMonth;
     private double amountDeposited;
 
-    public Goal(int id, String title, double objective, Date date, double idealValuePerMonth) {
+    public Goal(
+        int id,
+        String title,
+        double objective,
+        Date date,
+        double idealValuePerMonth
+    ) {
         this.id = id;
         this.title = title;
         this.objective = objective;
@@ -22,7 +27,14 @@ public class Goal implements IGoal {
         this.amountDeposited = 0;
     }
 
-    public Goal(int id, String title, double objective, Date date, double idealValuePerMonth, double depositedValue) {
+    public Goal(
+        int id,
+        String title,
+        double objective,
+        Date date,
+        double idealValuePerMonth,
+        double depositedValue
+    ) {
         this.id = id;
         this.title = title;
         this.objective = objective;
@@ -85,5 +97,4 @@ public class Goal implements IGoal {
     public void setAmountDeposited(double amountDeposited) {
         this.amountDeposited = amountDeposited;
     }
-
 }

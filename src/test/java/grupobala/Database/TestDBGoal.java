@@ -4,20 +4,18 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.sql.SQLException;
-import java.util.Calendar;
-
-import org.junit.jupiter.api.Test;
-
 import grupobala.Database.Connection.DBConnection;
 import grupobala.Database.Goal.DBGoal;
 import grupobala.Database.Goal.IDBGoal.IDBGoal;
 import grupobala.Entities.Goal.Goal;
 import grupobala.Entities.Goal.IGoal.IGoal;
 import grupobala.SetupForTest.SetupForTest;
+import java.sql.SQLException;
+import java.util.Calendar;
+import org.junit.jupiter.api.Test;
 
 public class TestDBGoal {
-    
+
     private IDBGoal goalDB = new DBGoal(new DBConnection());
 
     @Test
@@ -28,7 +26,14 @@ public class TestDBGoal {
         Calendar calendar = Calendar.getInstance();
         calendar.set(2022, 9, 21);
 
-        IGoal newGoal = this.goalDB.addGoal(financiUserID, "Teste", 1000.0, calendar, 123.0);
+        IGoal newGoal =
+            this.goalDB.addGoal(
+                    financiUserID,
+                    "Teste",
+                    1000.0,
+                    calendar,
+                    123.0
+                );
 
         assertNotNull(newGoal);
     }
@@ -43,9 +48,18 @@ public class TestDBGoal {
 
         this.goalDB.addGoal(financiUserID, "Teste", 1000.0, calendar, 123.0);
 
-        Exception exception = assertThrows(SQLException.class, () -> {
-            this.goalDB.addGoal(financiUserID, "Teste", 1000.0, calendar, 123.0);
-        });
+        Exception exception = assertThrows(
+            SQLException.class,
+            () -> {
+                this.goalDB.addGoal(
+                        financiUserID,
+                        "Teste",
+                        1000.0,
+                        calendar,
+                        123.0
+                    );
+            }
+        );
 
         String expected = "Essa meta já existe";
 
@@ -60,7 +74,7 @@ public class TestDBGoal {
 
         int updates = this.goalDB.removeGoal(financiUserID, goal.getID());
         int expected = 1;
-        
+
         assertEquals(expected, updates);
     }
 
@@ -69,12 +83,15 @@ public class TestDBGoal {
         SetupForTest.truncateTables();
         int financiUserID = SetupForTest.addFinanciUser();
 
-        Exception exception = assertThrows(SQLException.class, () -> {
-            this.goalDB.removeGoal(financiUserID, -1);
-        });
+        Exception exception = assertThrows(
+            SQLException.class,
+            () -> {
+                this.goalDB.removeGoal(financiUserID, -1);
+            }
+        );
 
         String expected = "Meta não existe";
-        
+
         assertEquals(expected, exception.getMessage());
     }
 
@@ -102,9 +119,12 @@ public class TestDBGoal {
 
         IGoal goal = new Goal(-1, "Teste", 1000, calendar.getTime(), 123);
 
-        Exception exception = assertThrows(SQLException.class, () -> {
-            this.goalDB.updateGoal(financiUserID, goal);
-        });
+        Exception exception = assertThrows(
+            SQLException.class,
+            () -> {
+                this.goalDB.updateGoal(financiUserID, goal);
+            }
+        );
 
         String expected = "Meta não existe";
 
