@@ -59,13 +59,13 @@ public class NavigationBar implements Component {
 
         hbox.getChildren().addAll(dashboard, extract, classes, analysis);
 
-        PageManager pageManager = new PageManager();
-
         dashboard.setOnMouseClicked(e -> {
+            PageManager pageManager = new PageManager();
             pageManager.setCurrentPage(new Dashboard());
         });
 
         extract.setOnMouseClicked(e -> {
+            PageManager pageManager = new PageManager();
             pageManager.setCurrentPage(new ExtractPage());
         });
 
