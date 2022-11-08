@@ -20,7 +20,7 @@ import javafx.scene.text.Text;
 
 public class TransactionViewComponent implements Component {
 
-    ExtractLambda callback;
+    ExtractLambda deleteCallback;
     VBox container = new CardVBoxComponent().getComponent();
     PopupComponent transactionPopup = new PopupComponent();
     ITransaction transaction;
@@ -43,8 +43,8 @@ public class TransactionViewComponent implements Component {
         transactionPopup.getComponent().getChildren().add(container);
     }
 
-    public void setOnDelete(ExtractLambda callback) {
-        this.callback = callback;
+    public void setOnDelete(ExtractLambda deleteCallback) {
+        this.deleteCallback = deleteCallback;
     }
 
     @Override
@@ -71,7 +71,7 @@ public class TransactionViewComponent implements Component {
         ImageView trash = new ImageView(trashIcon);
 
         trash.setOnMouseClicked(e -> {
-            callback.onClick(transaction);
+            deleteCallback.onClick(transaction);
         });
         topBox.getStyleClass().add("top-box");
         titleBox.getStyleClass().add("top-box-titlebox");
