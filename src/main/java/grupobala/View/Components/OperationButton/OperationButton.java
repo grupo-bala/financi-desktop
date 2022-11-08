@@ -1,7 +1,6 @@
 package grupobala.View.Components.OperationButton;
 
 import grupobala.View.Components.Component.Component;
-import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
@@ -38,7 +37,7 @@ public class OperationButton implements Component {
         vBox
             .getStylesheets()
             .add(
-                "file:src/main/java/grupobala/View/Components/OperationButton/OperationButton.css"
+                "file:src/main/resources/grupobala/css/Components/OperationButton/OperationButton.css"
             );
 
         vBox.getChildren().addAll(incomingIcon, buttonLabel);

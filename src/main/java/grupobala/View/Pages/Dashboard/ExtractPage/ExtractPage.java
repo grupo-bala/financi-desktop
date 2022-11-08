@@ -48,7 +48,7 @@ public class ExtractPage implements Page {
         mainPane
             .getStylesheets()
             .add(
-                "file:src/main/java/grupobala/View/Pages/Dashboard/ExtractPage/ExtractPage.css"
+                "file:src/main/resources/grupobala/css/Pages/ExtractPage/ExtractPage.css"
             );
 
         mainPane.getChildren().add(mainContainer);

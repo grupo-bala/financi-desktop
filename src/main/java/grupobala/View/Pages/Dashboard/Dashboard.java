@@ -3,10 +3,8 @@ package grupobala.View.Pages.Dashboard;
 import grupobala.Controller.Extract.ExtractController;
 import grupobala.Controller.Transaction.TransactionController;
 import grupobala.Entities.Extract.IExtract.IExtract;
-import grupobala.Entities.Transaction.Transaction;
 import grupobala.Entities.User.User;
 import grupobala.View.Components.AvatarCard.AvatarCardComponent;
-import grupobala.View.Components.Card.CardHBoxComponent;
 import grupobala.View.Components.Card.CardVBoxComponent;
 import grupobala.View.Components.ExtractList.ExtractList;
 import grupobala.View.Components.NavigationBar.NavigationBar;
@@ -60,7 +58,7 @@ public class Dashboard implements Page {
         mainPane
             .getStylesheets()
             .add(
-                "file:src/main/java/grupobala/View/Pages/Dashboard/Dashboard.css"
+                "file:src/main/resources/grupobala/css/Pages/Dashboard/Dashboard.css"
             );
         mainPane
             .getChildren()

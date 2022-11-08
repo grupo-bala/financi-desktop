@@ -6,12 +6,10 @@ import grupobala.Controller.Authentication.AuthenticationController;
 import grupobala.Controller.Transaction.ITransactionController.ITransactionController;
 import grupobala.Controller.Transaction.TransactionController;
 import grupobala.Entities.Category.CategoryEnum;
-import grupobala.Entities.Transaction.ITransaction.ITransaction;
 import grupobala.Entities.User.User;
 import grupobala.SetupForTest.SetupForTest;
 import java.util.Calendar;
 import java.util.Date;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class TestAddTransactionController {

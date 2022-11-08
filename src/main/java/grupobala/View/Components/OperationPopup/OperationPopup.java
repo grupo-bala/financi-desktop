@@ -8,11 +8,7 @@ import grupobala.View.Components.Component.Component;
 import grupobala.View.Components.Popup.PopupComponent;
 import grupobala.View.Components.TextField.TextFieldComponent;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.Calendar;
-import java.util.Date;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -62,7 +58,7 @@ public class OperationPopup implements Component {
         components
             .getStylesheets()
             .add(
-                "file:src/main/java/grupobala/View/Components/OperationPopup/OperationPopup.css"
+                "file:src/main/resources/grupobala/css/Components/OperationPopup/OperationPopup.css"
             );
 
         components
@@ -138,7 +134,7 @@ public class OperationPopup implements Component {
         dateField
             .getStylesheets()
             .add(
-                "file:src/main/java/grupobala/View/Components/OperationPopup/Calendar.css"
+                "file:src/main/resources/grupobala/css/Components/OperationPopup/Calendar.css"
             );
 
         vBox.getStyleClass().add("field-label");
@@ -153,7 +149,7 @@ public class OperationPopup implements Component {
         categoryField
             .getStylesheets()
             .add(
-                "file:src/main/java/grupobala/View/Components/OperationPopup/ChoiceBox.css"
+                "file:src/main/resources/grupobala/css/Components/OperationPopup/ChoiceBox.css"
             );
 
         categoryField

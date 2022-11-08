@@ -9,11 +9,9 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -41,7 +39,7 @@ public class ExtractList implements Component {
         mainPane
             .getStylesheets()
             .add(
-                "file:src/main/java/grupobala/View/Pages/Dashboard/ExtractPage/ExtractPage.css"
+                "file:src/main/resources/grupobala/css/Pages/ExtractPage/ExtractPage.css"
             );
 
         mainPane.getChildren().addAll(extractTitle, mainContainer);

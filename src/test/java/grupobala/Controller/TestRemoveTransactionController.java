@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import grupobala.Controller.Transaction.TransactionController;
 import grupobala.Entities.Transaction.ITransaction.ITransaction;
-import grupobala.Entities.User.IUser.IUser;
 import grupobala.Entities.User.User;
 import grupobala.SetupForTest.SetupForTest;
 import org.junit.jupiter.api.Test;

@@ -42,7 +42,7 @@ public class Setup {
         String[] queries = {
             "CREATE TABLE usuario (id SERIAL PRIMARY KEY, nome TEXT NOT NULL, nomeusuario TEXT NOT NULL UNIQUE, senha TEXT NOT NULL, saldo FLOAT NOT NULL)",
             "CREATE TABLE categoria (id SERIAL PRIMARY KEY, nome TEXT NOT NULL UNIQUE)",
-            "CREATE TABLE meta (id SERIAL PRIMARY KEY, titulo TEXT NOT NULL UNIQUE, idusuario INTEGER NOT NULL, valormeta FLOAT NOT NULL, valoratual FLOAT NOT NULL, datalimite DATE, FOREIGN KEY (idusuario) REFERENCES usuario(id))",
+            "CREATE TABLE meta (id SERIAL PRIMARY KEY, titulo TEXT NOT NULL, idusuario INTEGER NOT NULL, valormeta FLOAT NOT NULL, valoratual FLOAT NOT NULL, datalimite DATE, valoridealpormes FLOAT NOT NULL, FOREIGN KEY (idusuario) REFERENCES usuario(id), UNIQUE(titulo, idusuario))",
             "CREATE TABLE aula (id SERIAL PRIMARY KEY , titulo TEXT NOT NULL UNIQUE, descricao TEXT NOT NULL, videourl TEXT NOT NULL, duracaosegundos INTEGER NOT NULL, thumbnailurl TEXT NOT NULL)",
             "CREATE TABLE aulaassistida (id SERIAL PRIMARY KEY, idusuario INTEGER NOT NULL, idaula INTEGER NOT NULL, UNIQUE(idusuario, idaula), FOREIGN KEY (idusuario) REFERENCES usuario(id), FOREIGN KEY (idaula) REFERENCES aula(id))",
             "CREATE TABLE movimentacao (id SERIAL PRIMARY KEY, idusuario INTEGER NOT NULL, valor FLOAT NOT NULL, data DATE NOT NULL, idcategoria INTEGER NOT NULL, titulo TEXT NOT NULL, entrada BOOLEAN NOT NULL, FOREIGN KEY (idusuario) REFERENCES usuario(id), FOREIGN KEY (idcategoria) REFERENCES categoria(id))",

@@ -1,6 +1,5 @@
 package grupobala.Database.Transaction;
 
-import grupobala.Controller.Authentication.AuthenticationController;
 import grupobala.Database.Category.DBCategory;
 import grupobala.Database.Category.IDBCategory.IDBCategory;
 import grupobala.Database.Connection.IDBConnection.IDBConnection;

@@ -4,7 +4,6 @@ import grupobala.View.Components.Component.Component;
 import grupobala.View.PageManager;
 import grupobala.View.Pages.Dashboard.Dashboard;
 import grupobala.View.Pages.Dashboard.ExtractPage.ExtractPage;
-import grupobala.View.Pages.Page.Page;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -36,7 +35,7 @@ public class NavigationBar implements Component {
         bar
             .getStylesheets()
             .add(
-                "file:src/main/java/grupobala/View/Components/NavigationBar/NavigationBar.css"
+                "file:src/main/resources/grupobala/css/Components/NavigationBar/NavigationBar.css"
             );
         bar.getStyleClass().add("navigation-bar");
         logo.getStyleClass().add("logo");

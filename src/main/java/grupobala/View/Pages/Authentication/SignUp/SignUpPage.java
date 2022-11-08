@@ -35,7 +35,7 @@ public class SignUpPage implements Page {
         container
             .getStylesheets()
             .add(
-                "file:src/main/java/grupobala/View/Pages/Authentication/SignUp/SignUpPage.css"
+                "file:src/main/resources/grupobala/css/Pages/Authentication/SignUpPage.css"
             );
 
         container.getChildren().addAll(logoVBox, signUpVBox);
