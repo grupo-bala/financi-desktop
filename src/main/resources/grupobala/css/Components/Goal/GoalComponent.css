@@ -1,6 +1,7 @@
 .financi-goal-container {
     -fx-background-color: #2B2E2B;
     -fx-padding: 25px;
+    -fx-cursor: hand;
 }
 
 .financi-goal-left {
