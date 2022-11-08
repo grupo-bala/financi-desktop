@@ -8,6 +8,7 @@ import grupobala.View.Components.AvatarCard.AvatarCardComponent;
 import grupobala.View.Components.Card.CardVBoxComponent;
 import grupobala.View.Components.ExtractList.ExtractList;
 import grupobala.View.Components.GoalList.GoalListComponent;
+import grupobala.View.Components.GoalView.GoalViewComponent;
 import grupobala.View.Components.NavigationBar.NavigationBar;
 import grupobala.View.Components.OperationButton.OperationButton;
 import grupobala.View.Components.OperationButton.OperationButton.IconEnum;
@@ -82,7 +83,7 @@ public class Dashboard implements Page {
             .addAll(
                 summaryCard,
                 extractList,
-                new GoalListComponent().getComponent()
+                getGoalsList()
             );
         clipContainer.setContent(container);
         clipContainer.setStyle("-fx-background-color: transparent;");
@@ -262,6 +263,18 @@ public class Dashboard implements Page {
         extractContainer.getChildren().add(extract.getComponent());
 
         return extractContainer;
+    }
+
+    private VBox getGoalsList() {
+        GoalListComponent goalsList = new GoalListComponent();
+
+        goalsList.setOnClick(goal -> {
+            GoalViewComponent goalView = new GoalViewComponent(goal);
+            mainPane.getChildren().add(goalView.getComponent());
+            goalView.getPopup().showPopup();
+        });
+
+        return goalsList.getComponent();
     }
 
     private void popupRemoveTransactionError(
