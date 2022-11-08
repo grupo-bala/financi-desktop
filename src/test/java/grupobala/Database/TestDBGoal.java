@@ -144,5 +144,4 @@ public class TestDBGoal {
 
         assertEquals(expectedSize, goals.size());
     }
-
 }
