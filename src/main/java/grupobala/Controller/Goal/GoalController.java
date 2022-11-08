@@ -4,6 +4,9 @@ import grupobala.Controller.Goal.IGoalController.IGoalController;
 import grupobala.Database.Connection.DBConnection;
 import grupobala.Database.Goal.DBGoal;
 import grupobala.Database.Goal.IDBGoal.IDBGoal;
+import grupobala.Entities.Goal.IGoal.IGoal;
+import grupobala.Entities.User.User;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class GoalController implements IGoalController {
@@ -12,6 +15,12 @@ public class GoalController implements IGoalController {
 
     public GoalController() {
         this.idbGoal = new DBGoal(new DBConnection());
+    }
+
+    @Override
+    public ArrayList<IGoal> getGoals() throws Exception {
+        ArrayList<IGoal> goals = this.idbGoal.getAllGoals(new User().getID());
+        return goals;
     }
 
     @Override
