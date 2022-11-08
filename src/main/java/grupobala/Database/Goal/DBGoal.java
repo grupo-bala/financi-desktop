@@ -137,7 +137,14 @@ public class DBGoal implements IDBGoal {
             Date date = result.getDate("datalimite");
             double idealValuePerMonth = result.getDouble("valoridealpormes");
 
-            IGoal goal = new Goal(id, title, objective, date, idealValuePerMonth, idealValuePerMonth);
+            IGoal goal = new Goal(
+                id,
+                title,
+                objective,
+                date,
+                idealValuePerMonth,
+                idealValuePerMonth
+            );
 
             goals.add(goal);
         }
