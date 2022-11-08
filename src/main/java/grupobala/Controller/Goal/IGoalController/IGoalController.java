@@ -7,7 +7,6 @@ public interface IGoalController {
         int userID,
         String title,
         double objective,
-        Calendar expectedDate,
-        double idealValuePerMonth
+        Calendar expectedDate
     ) throws Exception;
 }
