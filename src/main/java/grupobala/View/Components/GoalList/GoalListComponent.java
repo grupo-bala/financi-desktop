@@ -7,7 +7,6 @@ import grupobala.View.Components.Card.CardVBoxComponent;
 import grupobala.View.Components.Component.Component;
 import grupobala.View.Components.Goal.GoalComponent;
 import java.util.ArrayList;
-
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
@@ -42,9 +41,10 @@ public class GoalListComponent implements Component {
         this.mainPane = new VBox();
         Text title = new Text("Metas");
 
-        this.mainPane.getStylesheets().add(
-            "file:src/main/resources/grupobala/css/Components/GoalList/GoalListComponent.css"
-        );
+        this.mainPane.getStylesheets()
+            .add(
+                "file:src/main/resources/grupobala/css/Components/GoalList/GoalListComponent.css"
+            );
 
         this.mainPane.getChildren().add(title);
         this.mainPane.getStyleClass().add("financi-goals-container");
@@ -55,8 +55,7 @@ public class GoalListComponent implements Component {
 
             goalComponent.setOnClick(this.onClickCallback);
 
-            this.mainPane.getChildren()
-                .add(goalComponent.getComponent());
+            this.mainPane.getChildren().add(goalComponent.getComponent());
         }
     }
 }

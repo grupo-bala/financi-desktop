@@ -64,7 +64,9 @@ public class GoalViewComponent implements Component {
         VBox topBox = new VBox();
         HBox titleBox = new HBox();
         Text title = new Text(goal.getTitle());
-        Text value = new Text(String.format("R$ %.2f", goal.getAmountDeposited()));
+        Text value = new Text(
+            String.format("R$ %.2f", goal.getAmountDeposited())
+        );
         Image trashIcon = new Image(
             "file:src/main/resources/grupobala/images/trash.png"
         );
@@ -126,8 +128,14 @@ public class GoalViewComponent implements Component {
 
         leftSide
             .getChildren()
-            .addAll(date.getComponent(), idealMonth.getComponent(), depositButton);
-        rightSide.getChildren().addAll(target.getComponent(), editButton, completeButton);
+            .addAll(
+                date.getComponent(),
+                idealMonth.getComponent(),
+                depositButton
+            );
+        rightSide
+            .getChildren()
+            .addAll(target.getComponent(), editButton, completeButton);
         bottomBox.getStyleClass().add("bot-box");
 
         rightSideAlignment.getChildren().add(rightSide);

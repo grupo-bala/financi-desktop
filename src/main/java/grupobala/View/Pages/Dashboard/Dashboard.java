@@ -80,11 +80,7 @@ public class Dashboard implements Page {
             .addAll(navigationBar.getComponent(), clipContainer);
         container
             .getChildren()
-            .addAll(
-                summaryCard,
-                extractList,
-                getGoalsList()
-            );
+            .addAll(summaryCard, extractList, getGoalsList());
         clipContainer.setContent(container);
         clipContainer.setStyle("-fx-background-color: transparent;");
         clipContainer.setFitToHeight(true);
