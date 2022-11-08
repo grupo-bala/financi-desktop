@@ -6,7 +6,6 @@ import grupobala.Database.Goal.DBGoal;
 import grupobala.Database.Goal.IDBGoal.IDBGoal;
 import grupobala.Entities.Goal.IGoal.IGoal;
 import grupobala.Entities.User.User;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 
