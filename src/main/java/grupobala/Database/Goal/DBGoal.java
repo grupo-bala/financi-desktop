@@ -8,7 +8,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 public class DBGoal implements IDBGoal {
@@ -114,5 +116,34 @@ public class DBGoal implements IDBGoal {
         }
 
         return howManyUpdates;
+    }
+
+    @Override
+    public ArrayList<IGoal> getAllGoals(int userID) throws SQLException {
+        String query = String.format(
+            Locale.US,
+            "SELECT * FROM meta WHERE idusuario = %d",
+            userID
+        );
+
+        ResultSet result = this.databaseConnection.executeQuery(query);
+
+        ArrayList<IGoal> goals = new ArrayList<>();
+
+        while (result.next()) {
+            int id = result.getInt("id");
+            String title = result.getString("titulo");
+            double objective = result.getDouble("valormeta");
+            Date date = result.getDate("datalimite");
+            double idealValuePerMonth = result.getDouble("valoridealpormes");
+
+            IGoal goal = new Goal(id, title, objective, date, idealValuePerMonth, idealValuePerMonth);
+
+            goals.add(goal);
+        }
+
+        result.close();
+
+        return goals;
     }
 }
