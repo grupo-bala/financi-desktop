@@ -10,6 +10,7 @@ import grupobala.View.Components.ExtractList.ExtractList;
 import grupobala.View.Components.NavigationBar.NavigationBar;
 import grupobala.View.Components.OperationButton.OperationButton;
 import grupobala.View.Components.OperationButton.OperationButton.IconEnum;
+import grupobala.View.Components.OperationPopup.GoalPopup;
 import grupobala.View.Components.OperationPopup.OperationPopup;
 import grupobala.View.Components.Popup.PopupComponent;
 import grupobala.View.Components.TransactionView.TransactionViewComponent;
@@ -28,6 +29,7 @@ public class Dashboard implements Page {
     private StackPane mainPane = new StackPane();
     private OperationPopup incomingPopup = new OperationPopup("Nova entrada");
     private OperationPopup outputPopup = new OperationPopup("Nova saída    ");
+    private GoalPopup goalPopup = new GoalPopup();
 
     private PopupComponent popupConfirmation = new PopupComponent();
     private PopupComponent errorPopup = new PopupComponent();
@@ -51,6 +53,8 @@ public class Dashboard implements Page {
             updateValues();
         });
 
+        goalPopup.setOnConfirm();
+
         extractList.getStyleClass().add("extract-list");
         mainContainer.getStyleClass().add("main-container");
         mainPane.getStyleClass().add("dashboard");
@@ -66,6 +70,7 @@ public class Dashboard implements Page {
                 mainContainer,
                 incomingPopup.getComponent(),
                 outputPopup.getComponent(),
+                goalPopup.getComponent(),
                 errorPopup.getComponent(),
                 popupConfirmation.getComponent()
             );
@@ -222,6 +227,12 @@ public class Dashboard implements Page {
             .getComponent()
             .setOnMouseClicked(e -> {
                 outputPopup.getPopup().showPopup();
+            });
+
+        goalButton
+            .getComponent()
+            .setOnMouseClicked(e -> {
+                goalPopup.getPopup().showPopup();
             });
 
         return quickActions;
