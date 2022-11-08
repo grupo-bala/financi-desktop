@@ -11,6 +11,7 @@ import grupobala.Entities.Goal.Goal;
 import grupobala.Entities.Goal.IGoal.IGoal;
 import grupobala.SetupForTest.SetupForTest;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import org.junit.jupiter.api.Test;
 
@@ -130,4 +131,18 @@ public class TestDBGoal {
 
         assertEquals(expected, exception.getMessage());
     }
+
+    @Test
+    public void getAllGoals() throws SQLException {
+        SetupForTest.truncateTables();
+        int financiUserID = SetupForTest.addFinanciUser();
+        SetupForTest.addDefaultGoal(financiUserID);
+
+        ArrayList<IGoal> goals = this.goalDB.getAllGoals(financiUserID);
+
+        int expectedSize = 1;
+
+        assertEquals(expectedSize, goals.size());
+    }
+
 }
