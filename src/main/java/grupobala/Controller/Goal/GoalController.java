@@ -1,14 +1,12 @@
 package grupobala.Controller.Goal;
 
-import java.util.Calendar;
-
 import grupobala.Controller.Goal.IGoalController.IGoalController;
 import grupobala.Database.Connection.DBConnection;
 import grupobala.Database.Goal.DBGoal;
 import grupobala.Database.Goal.IDBGoal.IDBGoal;
+import java.util.Calendar;
 
-
-public class GoalController implements IGoalController{
+public class GoalController implements IGoalController {
 
     private IDBGoal idbGoal;
 
@@ -17,9 +15,21 @@ public class GoalController implements IGoalController{
     }
 
     @Override
-    public void addGoal(int userID, String title, double objective, Calendar expectedDate, double idealValuePerMonth) throws Exception {
+    public void addGoal(
+        int userID,
+        String title,
+        double objective,
+        Calendar expectedDate,
+        double idealValuePerMonth
+    ) throws Exception {
         try {
-            idbGoal.addGoal(userID, title, objective, expectedDate, idealValuePerMonth);
+            idbGoal.addGoal(
+                userID,
+                title,
+                objective,
+                expectedDate,
+                idealValuePerMonth
+            );
         } catch (Exception error) {
             throw new Exception("Erro ao adicionar meta");
         }
