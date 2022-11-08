@@ -1,10 +1,12 @@
 package grupobala.View.Components.Goal;
 
+import grupobala.Entities.Goal.IGoal.IGoal;
 import grupobala.View.Components.Card.CardHBoxComponent;
 import grupobala.View.Components.Component.Component;
+import grupobala.View.Components.GoalList.GoalLambda;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
@@ -13,11 +15,8 @@ import javafx.scene.text.Text;
 
 public class GoalComponent implements Component {
 
-    String title;
-    double goalValue;
-    Date goalDate;
-    double idealValuePerMonth;
-    double currentValue;
+    IGoal goal;
+    GoalLambda onClickCallback;
 
     HBox mainPane = new CardHBoxComponent().getComponent();
 
@@ -25,18 +24,18 @@ public class GoalComponent implements Component {
         return this.mainPane;
     }
 
-    public GoalComponent(
-        String title,
-        double goalValue,
-        Date goalDate,
-        double idealValuePerMonth,
-        double currentValue
-    ) {
-        this.title = title;
-        this.goalValue = goalValue;
-        this.goalDate = goalDate;
-        this.idealValuePerMonth = idealValuePerMonth;
-        this.currentValue = currentValue;
+    public GoalComponent(IGoal goal) {
+        this.goal = goal;
+        buildComponent();
+    }
+
+    public void setOnClick(GoalLambda onClickCallback) {
+        this.onClickCallback = onClickCallback;
+        buildComponent();
+    }
+
+    private void buildComponent() {
+        this.mainPane = new HBox();
 
         this.mainPane.getStylesheets()
             .add(
@@ -44,10 +43,7 @@ public class GoalComponent implements Component {
             );
 
         this.mainPane.getStyleClass().add("financi-goal-container");
-        buildComponent();
-    }
 
-    private void buildComponent() {
         HBox leftSideContainer = new HBox();
         VBox leftSide = getLeftSide();
         VBox rightSide = getRightSide();
@@ -55,12 +51,16 @@ public class GoalComponent implements Component {
         HBox.setHgrow(leftSideContainer, Priority.ALWAYS);
         leftSideContainer.getChildren().add(leftSide);
         this.mainPane.getChildren().addAll(leftSideContainer, rightSide);
+
+        this.mainPane.setOnMouseClicked(e -> {
+            this.onClickCallback.onClick(this.goal);
+        });
     }
 
     private VBox getLeftSide() {
         VBox container = new VBox();
         HBox bottomContainer = getGoalInfo();
-        Text title = new Text(this.title);
+        Text title = new Text(this.goal.getTitle());
 
         container.getStyleClass().add("financi-goal-left");
         title.getStyleClass().add("financi-goal-title");
@@ -74,10 +74,10 @@ public class GoalComponent implements Component {
         HBox container = new HBox();
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         Calendar dateCalendar = Calendar.getInstance();
-        dateCalendar.setTime(this.goalDate);
+        dateCalendar.setTime(this.goal.getExpectedDate());
         VBox goalValue = getInfoUnit(
             "Objetivo",
-            String.format("R$ %.2f", this.goalValue),
+            String.format("R$ %.2f", this.goal.getObjective()),
             "#ffffffaa",
             "#168CC0"
         );
@@ -89,7 +89,7 @@ public class GoalComponent implements Component {
         );
         VBox idealValue = getInfoUnit(
             "Ideal por mês",
-            String.format("R$ %.2f", this.idealValuePerMonth),
+            String.format("R$ %.2f", this.goal.getIdealValuePerMonth()),
             "#ffffffaa",
             "#168CC0"
         );
@@ -126,15 +126,15 @@ public class GoalComponent implements Component {
     private VBox getRightSide() {
         VBox container = new VBox();
         double completePercentage =
-            ((this.currentValue * 100.0) / this.goalValue) / 100.0;
+            ((this.goal.getAmountDeposited() * 100.0) / this.goal.getObjective()) / 100.0;
         Text percentageText = new Text(
             String.format("%.1f%% atingido", completePercentage * 100.0)
         );
         Text depositedText = new Text(
-            String.format("R$ %.2f", this.currentValue)
+            String.format("R$ %.2f", this.goal.getAmountDeposited())
         );
         Text remainingText = new Text(
-            String.format("Faltam R$ %.2f", this.goalValue - this.currentValue)
+            String.format("Faltam R$ %.2f", this.goal.getObjective() - this.goal.getAmountDeposited())
         );
         HBox progressBox = getProgressBar(completePercentage);
 
