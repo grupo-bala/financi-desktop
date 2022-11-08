@@ -1,14 +1,14 @@
 package grupobala.Controller;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-
 import grupobala.Controller.Authentication.AuthenticationController;
 import grupobala.Controller.Goal.GoalController;
 import grupobala.Entities.User.User;
 import grupobala.SetupForTest.SetupForTest;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class TestGoalController {
+
     @Test
     public void testGetAllTransactions() throws Exception {
         SetupForTest.truncateTables();

@@ -1,11 +1,10 @@
 package grupobala.View.Components.Goal;
 
+import grupobala.View.Components.Card.CardHBoxComponent;
+import grupobala.View.Components.Component.Component;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-
-import grupobala.View.Components.Card.CardHBoxComponent;
-import grupobala.View.Components.Component.Component;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
@@ -13,6 +12,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 public class GoalComponent implements Component {
+
     String title;
     double goalValue;
     Date goalDate;
@@ -25,16 +25,23 @@ public class GoalComponent implements Component {
         return this.mainPane;
     }
 
-    public GoalComponent(String title, double goalValue, Date goalDate, double idealValuePerMonth, double currentValue) {
+    public GoalComponent(
+        String title,
+        double goalValue,
+        Date goalDate,
+        double idealValuePerMonth,
+        double currentValue
+    ) {
         this.title = title;
         this.goalValue = goalValue;
         this.goalDate = goalDate;
         this.idealValuePerMonth = idealValuePerMonth;
         this.currentValue = currentValue;
 
-        this.mainPane.getStylesheets().add(
-            "file:src/main/resources/grupobala/css/Components/Goal/GoalComponent.css"
-        );
+        this.mainPane.getStylesheets()
+            .add(
+                "file:src/main/resources/grupobala/css/Components/Goal/GoalComponent.css"
+            );
 
         this.mainPane.getStyleClass().add("financi-goal-container");
         buildComponent();
@@ -47,10 +54,7 @@ public class GoalComponent implements Component {
 
         HBox.setHgrow(leftSideContainer, Priority.ALWAYS);
         leftSideContainer.getChildren().add(leftSide);
-        this.mainPane.getChildren().addAll(
-            leftSideContainer,
-            rightSide
-        );
+        this.mainPane.getChildren().addAll(leftSideContainer, rightSide);
     }
 
     private VBox getLeftSide() {
@@ -61,10 +65,7 @@ public class GoalComponent implements Component {
         container.getStyleClass().add("financi-goal-left");
         title.getStyleClass().add("financi-goal-title");
 
-        container.getChildren().addAll(
-            title,
-            bottomContainer
-        );
+        container.getChildren().addAll(title, bottomContainer);
 
         return container;
     }
@@ -74,58 +75,81 @@ public class GoalComponent implements Component {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         Calendar dateCalendar = Calendar.getInstance();
         dateCalendar.setTime(this.goalDate);
-        VBox goalValue = getInfoUnit("Objetivo", String.format("R$ %.2f", this.goalValue), "#ffffffaa", "#168CC0");
-        VBox dateValue = getInfoUnit("Data estimada", formatter.format(dateCalendar.getTime()), "#ffffffaa", "white");
-        VBox idealValue = getInfoUnit("Ideal por mês", String.format("R$ %.2f", this.idealValuePerMonth), "#ffffffaa", "#168CC0");
+        VBox goalValue = getInfoUnit(
+            "Objetivo",
+            String.format("R$ %.2f", this.goalValue),
+            "#ffffffaa",
+            "#168CC0"
+        );
+        VBox dateValue = getInfoUnit(
+            "Data estimada",
+            formatter.format(dateCalendar.getTime()),
+            "#ffffffaa",
+            "white"
+        );
+        VBox idealValue = getInfoUnit(
+            "Ideal por mês",
+            String.format("R$ %.2f", this.idealValuePerMonth),
+            "#ffffffaa",
+            "#168CC0"
+        );
 
         container.getStyleClass().add("financi-goal-info");
 
-        container.getChildren().addAll(
-            goalValue,
-            dateValue,
-            idealValue
-        );
+        container.getChildren().addAll(goalValue, dateValue, idealValue);
 
         return container;
     }
 
-    private VBox getInfoUnit(String top, String bottom, String topColor, String bottomColor) {
+    private VBox getInfoUnit(
+        String top,
+        String bottom,
+        String topColor,
+        String bottomColor
+    ) {
         VBox container = new VBox();
         Text topText = new Text(top);
         Text bottomText = new Text(bottom);
 
         container.getStyleClass().add("financi-goal-info-unit");
 
-        topText.setStyle(String.format("-fx-fill: %s; -fx-font-weight: bold;", topColor));
+        topText.setStyle(
+            String.format("-fx-fill: %s; -fx-font-weight: bold;", topColor)
+        );
         bottomText.setStyle(String.format("-fx-fill: %s;", bottomColor));
 
-        container.getChildren().addAll(
-            topText,
-            bottomText
-        );
+        container.getChildren().addAll(topText, bottomText);
 
         return container;
     }
 
     private VBox getRightSide() {
         VBox container = new VBox();
-        double completePercentage = ((this.currentValue * 100.0) / this.goalValue) / 100.0;
-        Text percentageText = new Text(String.format("%.1f%% atingido", completePercentage * 100.0));
-        Text depositedText = new Text(String.format("R$ %.2f", this.currentValue));
-        Text remainingText = new Text(String.format("Faltam R$ %.2f", this.goalValue - this.currentValue));
+        double completePercentage =
+            ((this.currentValue * 100.0) / this.goalValue) / 100.0;
+        Text percentageText = new Text(
+            String.format("%.1f%% atingido", completePercentage * 100.0)
+        );
+        Text depositedText = new Text(
+            String.format("R$ %.2f", this.currentValue)
+        );
+        Text remainingText = new Text(
+            String.format("Faltam R$ %.2f", this.goalValue - this.currentValue)
+        );
         HBox progressBox = getProgressBar(completePercentage);
 
         container.getStyleClass().add("financi-goal-right");
-        percentageText.setStyle("-fx-fill: #168CC0; -fx-font-weight: bold; -fx-font-size: 14px;");
-        depositedText.setStyle("-fx-fill: #168CC0; -fx-font-weight: bold; -fx-font-size: 18px;");
+        percentageText.setStyle(
+            "-fx-fill: #168CC0; -fx-font-weight: bold; -fx-font-size: 14px;"
+        );
+        depositedText.setStyle(
+            "-fx-fill: #168CC0; -fx-font-weight: bold; -fx-font-size: 18px;"
+        );
         remainingText.setStyle("-fx-fill: #ffffffaa; -fx-font-size: 13px;");
 
-        container.getChildren().addAll(
-            percentageText,
-            progressBox,
-            depositedText,
-            remainingText
-        );
+        container
+            .getChildren()
+            .addAll(percentageText, progressBox, depositedText, remainingText);
 
         return container;
     }
@@ -142,5 +166,4 @@ public class GoalComponent implements Component {
 
         return container;
     }
-
 }

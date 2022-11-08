@@ -1,17 +1,17 @@
 package grupobala.View.Components.GoalList;
 
-import java.util.ArrayList;
-
 import grupobala.Controller.Goal.GoalController;
 import grupobala.Controller.Goal.IGoalController.IGoalController;
 import grupobala.Entities.Goal.IGoal.IGoal;
 import grupobala.View.Components.Card.CardVBoxComponent;
 import grupobala.View.Components.Component.Component;
 import grupobala.View.Components.Goal.GoalComponent;
+import java.util.ArrayList;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 public class GoalListComponent implements Component {
+
     ArrayList<IGoal> goals;
     VBox mainPane = new CardVBoxComponent().getComponent();
 
@@ -24,9 +24,10 @@ public class GoalListComponent implements Component {
             this.goals = new ArrayList<>();
         }
 
-        this.mainPane.getStylesheets().add(
-            "file:src/main/resources/grupobala/css/Components/GoalList/GoalListComponent.css"
-        );
+        this.mainPane.getStylesheets()
+            .add(
+                "file:src/main/resources/grupobala/css/Components/GoalList/GoalListComponent.css"
+            );
         buildComponent();
     }
 
@@ -42,9 +43,17 @@ public class GoalListComponent implements Component {
         title.getStyleClass().add("financi-goals-title");
 
         for (IGoal goal : this.goals) {
-            this.mainPane.getChildren().add(
-                new GoalComponent(goal.getTitle(), goal.getObjective(), goal.getExpectedDate(), goal.getIdealValuePerMonth(), goal.getAmountDeposited()).getComponent()
-            );
+            this.mainPane.getChildren()
+                .add(
+                    new GoalComponent(
+                        goal.getTitle(),
+                        goal.getObjective(),
+                        goal.getExpectedDate(),
+                        goal.getIdealValuePerMonth(),
+                        goal.getAmountDeposited()
+                    )
+                        .getComponent()
+                );
         }
     }
 }

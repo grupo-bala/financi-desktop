@@ -13,11 +13,11 @@ public class GoalController implements IGoalController {
     public GoalController() {
         this.idbGoal = new DBGoal(new DBConnection());
     }
-    
+
     @Override
     public ArrayList<IGoal> getGoals() throws Exception {
-      ArrayList<IGoal> goals = dbGoal.getAllGoals(new User().getID());
-      return goals;
+        ArrayList<IGoal> goals = dbGoal.getAllGoals(new User().getID());
+        return goals;
     }
 
     @Override
