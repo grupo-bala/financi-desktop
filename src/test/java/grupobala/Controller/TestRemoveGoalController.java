@@ -10,6 +10,7 @@ import grupobala.SetupForTest.SetupForTest;
 import org.junit.jupiter.api.Test;
 
 public class TestRemoveGoalController {
+
     private GoalController goalController = new GoalController();
 
     @Test
@@ -17,13 +18,15 @@ public class TestRemoveGoalController {
         SetupForTest.truncateTables();
         int financiUserID = SetupForTest.addFinanciUser();
         IGoal goal = SetupForTest.addDefaultGoal(financiUserID);
-        goalController.removeGoal(financiUserID, goal.getID(), goal.getAmountDeposited(), 
-        new User("financi", "Financi", 0, 0).getValue());
+        goalController.removeGoal(
+            financiUserID,
+            goal.getID(),
+            goal.getAmountDeposited(),
+            new User("financi", "Financi", 0, 0).getValue()
+        );
 
         new User().close();
-    
     }
-
 
     @Test
     public void removeGoalShouldFailNonexistentGoalID() throws Exception {
@@ -32,12 +35,7 @@ public class TestRemoveGoalController {
         Exception exception = assertThrows(
             Exception.class,
             () -> {
-                goalController.removeGoal(
-                    financiUserID,
-                    -1,
-                    1.10,
-                    1.10
-                );
+                goalController.removeGoal(financiUserID, -1, 1.10, 1.10);
             }
         );
         String expected = "Não foi possível apagar a meta";

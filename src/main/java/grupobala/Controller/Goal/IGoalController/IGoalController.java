@@ -15,6 +15,10 @@ public interface IGoalController {
 
     public ArrayList<IGoal> getGoals() throws Exception;
 
-    public void removeGoal(int userID, int goalID, double objective, double userBalance) throws Exception;
-
+    public void removeGoal(
+        int userID,
+        int goalID,
+        double objective,
+        double userBalance
+    ) throws Exception;
 }
