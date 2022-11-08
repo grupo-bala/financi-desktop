@@ -27,6 +27,21 @@
     -fx-spacing: 10px;
 }
 
+.financi-goal-progress {
+    -fx-min-width: 200px;
+    -fx-min-height: 8px;
+    -fx-background-color: white;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+.financi-goal-inner {
+    -fx-background-color: #168CC0;
+    -fx-min-height: 8px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
 .progress-bar {
     -fx-min-width: 200px;
     -fx-box-border: red;

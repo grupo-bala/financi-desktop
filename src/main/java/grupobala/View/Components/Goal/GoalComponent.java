@@ -6,7 +6,6 @@ import java.util.Date;
 
 import grupobala.View.Components.Card.CardHBoxComponent;
 import grupobala.View.Components.Component.Component;
-import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
@@ -114,13 +113,16 @@ public class GoalComponent implements Component {
         Text percentageText = new Text(String.format("%.1f%% atingido", completePercentage * 100.0));
         Text depositedText = new Text(String.format("R$ %.2f", this.currentValue));
         Text remainingText = new Text(String.format("Faltam R$ %.2f", this.goalValue - this.currentValue));
-        ProgressBar progressBar = new ProgressBar(completePercentage);
+        HBox progressBox = getProgressBar(completePercentage);
 
         container.getStyleClass().add("financi-goal-right");
+        percentageText.setStyle("-fx-fill: #168CC0; -fx-font-weight: bold; -fx-font-size: 14px;");
+        depositedText.setStyle("-fx-fill: #168CC0; -fx-font-weight: bold; -fx-font-size: 18px;");
+        remainingText.setStyle("-fx-fill: #ffffffaa; -fx-font-size: 13px;");
 
         container.getChildren().addAll(
             percentageText,
-            progressBar,
+            progressBox,
             depositedText,
             remainingText
         );
@@ -128,11 +130,15 @@ public class GoalComponent implements Component {
         return container;
     }
 
-    private HBox getProgressBar() {
+    private HBox getProgressBar(double percentage) {
         HBox container = new HBox();
         Region inner = new Region();
 
-        // inner.getStyleClass().add()
+        container.getStyleClass().add("financi-goal-progress");
+        inner.getStyleClass().add("financi-goal-inner");
+        inner.setMinWidth(200 * percentage);
+
+        container.getChildren().add(inner);
 
         return container;
     }
