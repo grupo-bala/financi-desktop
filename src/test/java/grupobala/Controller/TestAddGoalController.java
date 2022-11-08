@@ -28,8 +28,7 @@ public class TestAddGoalController {
                 new User().getID(),
                 "ps5",
                 5000,
-                Calendar.getInstance(),
-                150
+                Calendar.getInstance()
             );
         });
 
@@ -47,8 +46,7 @@ public class TestAddGoalController {
                     -1,
                     "ps5",
                     5000,
-                    Calendar.getInstance(),
-                    150
+                    Calendar.getInstance()
                 );
             }
         );
