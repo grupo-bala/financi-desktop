@@ -136,6 +136,7 @@ public class DBGoal implements IDBGoal {
             double objective = result.getDouble("valormeta");
             Date date = result.getDate("datalimite");
             double idealValuePerMonth = result.getDouble("valoridealpormes");
+            double amountDeposited = result.getDouble("valoratual");
 
             IGoal goal = new Goal(
                 id,
@@ -143,7 +144,7 @@ public class DBGoal implements IDBGoal {
                 objective,
                 date,
                 idealValuePerMonth,
-                idealValuePerMonth
+                amountDeposited
             );
 
             goals.add(goal);
