@@ -93,7 +93,6 @@ public class ExtractList implements Component {
         Text title = new Text(t.getTitle());
         Text date = new Text(dateFormat.format(t.getDate()));
         Text value = new Text(
-            (isNegative ? "-" : "") +
             String.format("R$ %.2f", Math.abs(t.getValue()))
         );
 
