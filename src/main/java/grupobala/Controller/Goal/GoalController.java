@@ -84,4 +84,14 @@ public class GoalController implements IGoalController {
             throw new Exception("Não foi possível apagar a meta");
         }
     }
+
+    @Override
+    public void editGoal(int userID, IGoal goal) throws Exception {
+
+        try {
+            this.idbGoal.updateGoal(userID, goal);
+        } catch (Exception error) {
+            throw new Exception("Não foi possível editar a meta");
+        }
+    }
 }
