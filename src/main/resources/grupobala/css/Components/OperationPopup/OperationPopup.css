@@ -9,6 +9,17 @@
     -fx-alignment: center;
 }
 
+.goal-container {
+    -fx-font-family: "Montserrat";
+    -fx-max-width: 450px;
+    -fx-max-height: 450px;
+    -fx-pading: 10px 10px 14px 10px;
+    -fx-spacing: 35px;
+    -fx-background-color: #222622;
+    -fx-background-radius: 10px;
+    -fx-alignment: center;
+}
+
 .inputs {
     -fx-font-size: 14px;
     -fx-alignment: center-left;

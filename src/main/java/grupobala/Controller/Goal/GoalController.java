@@ -29,9 +29,10 @@ public class GoalController implements IGoalController {
         int userID,
         String title,
         double objective,
-        Calendar expectedDate,
-        double idealValuePerMonth
+        Calendar expectedDate
     ) throws Exception {
+        double idealValuePerMonth = calculateIdealValuePerMonth(objective, expectedDate);
+        
         try {
             idbGoal.addGoal(
                 userID,
@@ -44,6 +45,21 @@ public class GoalController implements IGoalController {
             throw new Exception("Erro ao adicionar meta");
         }
     }
+
+
+    private double calculateIdealValuePerMonth(double objective, Calendar expectedDate) {
+        Calendar atualDate = Calendar.getInstance();
+        int expectedMonth = expectedDate.get(Calendar.MONTH);
+        int expectedYear = expectedDate.get(Calendar.YEAR);
+        int atualMonth = atualDate.get(Calendar.MONTH);
+        int atualYear = atualDate.get(Calendar.YEAR);
+
+        if (expectedYear == atualYear) {
+            return objective / (Math.abs(expectedMonth - atualMonth) + 1);
+        }
+
+        return objective / ((expectedMonth * (expectedYear - atualYear) * 12 - atualMonth) + 1);
+    {
 
     @Override
     public void removeGoal(
