@@ -93,4 +93,15 @@ public class GoalController implements IGoalController {
             throw new Exception("Não foi possível editar a meta");
         }
     }
+
+    public void depositGoal(double value, IGoal goal) throws Exception {
+        double newValue = goal.getAmountDeposited() + value;
+        goal.setAmountDeposited(newValue);
+        
+        try {
+            editGoal(new User().getID(), goal);
+        } catch (Exception error) {
+            throw new Exception(error.getMessage());
+        }
+    }
 }
