@@ -20,6 +20,7 @@ import javafx.scene.text.Text;
 
 public class GoalViewComponent implements Component {
 
+    GoalLambda editCallback;
     GoalLambda deleteCallback;
     GoalLambda depositeCallBack;
     VBox container = new CardVBoxComponent().getComponent();
@@ -50,6 +51,10 @@ public class GoalViewComponent implements Component {
 
     public void setOnDeposite(GoalLambda depositeCallback) {
         this.depositeCallBack = depositeCallback;
+    }
+
+    public void setOnEdit(GoalLambda editCallback) {
+        this.editCallback = editCallback;
     }
 
     @Override
@@ -115,6 +120,10 @@ public class GoalViewComponent implements Component {
 
         depositButton.setOnMouseClicked(e -> {
             depositeCallBack.onClick(this.goal);
+        });
+
+        editButton.setOnMouseClicked(e -> {
+            editCallback.onClick(this.goal);
         });
 
         editButton.setStyle(

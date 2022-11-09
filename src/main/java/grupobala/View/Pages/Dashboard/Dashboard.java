@@ -14,6 +14,7 @@ import grupobala.View.Components.GoalView.GoalViewComponent;
 import grupobala.View.Components.NavigationBar.NavigationBar;
 import grupobala.View.Components.OperationButton.OperationButton;
 import grupobala.View.Components.OperationButton.OperationButton.IconEnum;
+import grupobala.View.Components.OperationPopup.EditGoalPopup;
 import grupobala.View.Components.OperationPopup.GoalPopup;
 import grupobala.View.Components.OperationPopup.OperationPopup;
 import grupobala.View.Components.Popup.PopupComponent;
@@ -36,6 +37,7 @@ public class Dashboard implements Page {
     private OperationPopup outputPopup = new OperationPopup("Nova saída    ");
     private GoalPopup goalPopup = new GoalPopup();
     private DepositGoal depositGoal = new DepositGoal();
+    private EditGoalPopup editGoal = new EditGoalPopup();
 
     private PopupComponent popupConfirmation = new PopupComponent();
     private PopupComponent errorPopup = new PopupComponent();
@@ -84,7 +86,8 @@ public class Dashboard implements Page {
                 goalPopup.getComponent(),
                 errorPopup.getComponent(),
                 popupConfirmation.getComponent(),
-                depositGoal.getComponent()
+                depositGoal.getComponent(),
+                editGoal.getComponent()
             );
 
         setSummaryCard();
@@ -256,7 +259,6 @@ public class Dashboard implements Page {
             .setOnMouseClicked(e -> {
                 goalPopup.getPopup().showPopup();
             });
-
         return quickActions;
     }
 
@@ -310,6 +312,16 @@ public class Dashboard implements Page {
                     updateGoals();
                 });
             });
+
+            goalView.setOnEdit(edit -> {
+                goalView.getPopup().hidePopup();
+                editGoal.editGoal(goal);
+                editGoal.getPopup().showPopup();
+                editGoal.setOnConfirm(() -> {
+                    updateGoals();
+                });
+            });
+
         });
 
         return goalsList;
