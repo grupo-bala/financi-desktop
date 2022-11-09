@@ -59,7 +59,7 @@ public class GoalController implements IGoalController {
         }
 
         return objective / ((expectedMonth * (expectedYear - atualYear) * 12 - atualMonth) + 1);
-    {
+    }
 
     @Override
     public void removeGoal(
