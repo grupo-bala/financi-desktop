@@ -8,10 +8,13 @@ import grupobala.Entities.User.User;
 import grupobala.View.Components.Component.Component;
 import grupobala.View.Components.Popup.PopupComponent;
 import grupobala.View.Components.TextField.TextFieldComponent;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
@@ -33,6 +36,17 @@ public class EditGoalPopup implements Component {
     private Text feedbackError = new Text();
     Button confirm = new Button("Editar Meta");
 
+    private void loadValuesField() {
+        this.descriptionField.setText(goal.getTitle());
+        this.valueField.setText(String.format(Locale.US, "%f", goal.getObjective()));
+
+        DateFormat formateDate = new SimpleDateFormat("yyyy-MM-dd");
+
+        String dateString = formateDate.format(this.goal.getExpectedDate());
+
+        this.dateField.setValue(LocalDate.parse(dateString, DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+    }
+
     public EditGoalPopup() {
         VBox components = getComponents();
 
@@ -50,6 +64,7 @@ public class EditGoalPopup implements Component {
 
     public void editGoal(IGoal igoal) {
         this.goal = igoal;
+        loadValuesField();
     }
 
     private VBox getComponents() {
