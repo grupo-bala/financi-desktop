@@ -283,7 +283,7 @@ public class Dashboard implements Page {
 
     private GoalListComponent getGoalsList() {
         GoalListComponent goalsList = new GoalListComponent();
-    
+
         goalsList.setOnClick(goal -> {
             GoalViewComponent goalView = new GoalViewComponent(goal);
             mainPane.getChildren().add(goalView.getComponent());

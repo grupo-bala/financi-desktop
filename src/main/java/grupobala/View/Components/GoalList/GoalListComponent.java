@@ -61,7 +61,7 @@ public class GoalListComponent implements Component {
             System.err.println(e.getMessage());
             this.goals = new ArrayList<>();
         }
-        
+
         for (IGoal goal : this.goals) {
             GoalComponent goalComponent = new GoalComponent(goal);
 
