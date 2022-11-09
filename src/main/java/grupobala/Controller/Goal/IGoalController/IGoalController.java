@@ -20,4 +20,6 @@ public interface IGoalController {
         double objective,
         double userBalance
     ) throws Exception;
+
+    public void editGoal(int userId, IGoal goal) throws Exception;
 }
