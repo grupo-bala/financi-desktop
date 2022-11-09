@@ -209,12 +209,12 @@ public class GoalPopup implements Component {
         }
     }
 
-    public void setOnConfirm(/*OperationLambda callback*/) {
+    public void setOnConfirm(OperationLambda callback) {
         confirm.setOnAction(e -> {
             try {
                 checkFieldMiss();
                 handleConfirm();
-                //callback.applyOperation();
+                callback.applyOperation();
             } catch (Exception error) {
                 handleError(error.getMessage());
             }

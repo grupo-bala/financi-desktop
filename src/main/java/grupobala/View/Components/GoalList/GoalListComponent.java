@@ -50,6 +50,18 @@ public class GoalListComponent implements Component {
         this.mainPane.getStyleClass().add("financi-goals-container");
         title.getStyleClass().add("financi-goals-title");
 
+        loadGoals();
+    }
+
+    private void loadGoals() {
+        IGoalController goalController = new GoalController();
+        try {
+            this.goals = goalController.getGoals();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            this.goals = new ArrayList<>();
+        }
+        
         for (IGoal goal : this.goals) {
             GoalComponent goalComponent = new GoalComponent(goal);
 
@@ -57,5 +69,10 @@ public class GoalListComponent implements Component {
 
             this.mainPane.getChildren().add(goalComponent.getComponent());
         }
+    }
+
+    public void reloadGoals() {
+        mainPane.getChildren().clear();
+        loadGoals();
     }
 }
