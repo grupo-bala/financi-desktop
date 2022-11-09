@@ -72,12 +72,18 @@ public class ExtractList implements Component {
 
     private VBox getTransactionsPreview(IExtract extract) {
         VBox outputs = new VBox();
-
+        int limit = 0;
+        
         for (ITransaction t : extract) {
+            if(limit == 4) {
+                break;
+            }
+            limit++;
             VBox tview = compilingTransactionPreview(t);
 
             outputs.getChildren().add(tview);
         }
+
         return outputs;
     }
 
@@ -120,7 +126,7 @@ public class ExtractList implements Component {
         title.getStyleClass().add("extract-title");
 
         container.getChildren().add(title);
-        container.setAlignment(Pos.TOP_LEFT);
+        container.setAlignment(Pos.TOP_CENTER);
 
         return container;
     }
