@@ -1,0 +1,13 @@
+.financi-goals-container {
+    -fx-background-color: #121512;
+    -fx-padding: 20px;
+    -fx-spacing: 20px;
+    -fx-alignment: center;
+    -fx-font-family: "Montserrat";
+}
+
+.financi-goals-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-fill: white;
+}

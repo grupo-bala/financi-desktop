@@ -7,6 +7,8 @@ import grupobala.Entities.User.User;
 import grupobala.View.Components.AvatarCard.AvatarCardComponent;
 import grupobala.View.Components.Card.CardVBoxComponent;
 import grupobala.View.Components.ExtractList.ExtractList;
+import grupobala.View.Components.GoalList.GoalListComponent;
+import grupobala.View.Components.GoalView.GoalViewComponent;
 import grupobala.View.Components.NavigationBar.NavigationBar;
 import grupobala.View.Components.OperationButton.OperationButton;
 import grupobala.View.Components.OperationButton.OperationButton.IconEnum;
@@ -16,6 +18,7 @@ import grupobala.View.Components.Popup.PopupComponent;
 import grupobala.View.Components.TransactionView.TransactionViewComponent;
 import grupobala.View.Pages.Page.Page;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -43,6 +46,7 @@ public class Dashboard implements Page {
     public StackPane getMainPane() {
         VBox mainContainer = new VBox();
         VBox container = new VBox();
+        ScrollPane clipContainer = new ScrollPane();
         VBox extractList = getExtractList();
 
         incomingPopup.setOnConfirm(() -> {
@@ -78,8 +82,14 @@ public class Dashboard implements Page {
         setSummaryCard();
         mainContainer
             .getChildren()
-            .addAll(navigationBar.getComponent(), container);
-        container.getChildren().addAll(summaryCard, extractList);
+            .addAll(navigationBar.getComponent(), clipContainer);
+        container
+            .getChildren()
+            .addAll(summaryCard, extractList, getGoalsList());
+        clipContainer.setContent(container);
+        clipContainer.setStyle("-fx-background-color: transparent;");
+        clipContainer.setFitToHeight(true);
+        clipContainer.setFitToWidth(true);
 
         return mainPane;
     }
@@ -260,6 +270,18 @@ public class Dashboard implements Page {
         extractContainer.getChildren().add(extract.getComponent());
 
         return extractContainer;
+    }
+
+    private VBox getGoalsList() {
+        GoalListComponent goalsList = new GoalListComponent();
+
+        goalsList.setOnClick(goal -> {
+            GoalViewComponent goalView = new GoalViewComponent(goal);
+            mainPane.getChildren().add(goalView.getComponent());
+            goalView.getPopup().showPopup();
+        });
+
+        return goalsList.getComponent();
     }
 
     private void popupRemoveTransactionError(

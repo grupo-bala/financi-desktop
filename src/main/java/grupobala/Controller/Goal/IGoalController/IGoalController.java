@@ -1,5 +1,7 @@
 package grupobala.Controller.Goal.IGoalController;
 
+import grupobala.Entities.Goal.IGoal.IGoal;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public interface IGoalController {
@@ -8,5 +10,14 @@ public interface IGoalController {
         String title,
         double objective,
         Calendar expectedDate
+    ) throws Exception;
+
+    public ArrayList<IGoal> getGoals() throws Exception;
+
+    public void removeGoal(
+        int userID,
+        int goalID,
+        double objective,
+        double userBalance
     ) throws Exception;
 }
