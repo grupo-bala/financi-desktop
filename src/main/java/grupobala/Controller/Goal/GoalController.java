@@ -31,8 +31,11 @@ public class GoalController implements IGoalController {
         double objective,
         Calendar expectedDate
     ) throws Exception {
-        double idealValuePerMonth = calculateIdealValuePerMonth(objective, expectedDate);
-        
+        double idealValuePerMonth = calculateIdealValuePerMonth(
+            objective,
+            expectedDate
+        );
+
         try {
             idbGoal.addGoal(
                 userID,
@@ -46,8 +49,10 @@ public class GoalController implements IGoalController {
         }
     }
 
-
-    private double calculateIdealValuePerMonth(double objective, Calendar expectedDate) {
+    private double calculateIdealValuePerMonth(
+        double objective,
+        Calendar expectedDate
+    ) {
         Calendar atualDate = Calendar.getInstance();
         int expectedMonth = expectedDate.get(Calendar.MONTH);
         int expectedYear = expectedDate.get(Calendar.YEAR);
@@ -58,7 +63,10 @@ public class GoalController implements IGoalController {
             return objective / (Math.abs(expectedMonth - atualMonth) + 1);
         }
 
-        return objective / ((expectedMonth * (expectedYear - atualYear) * 12 - atualMonth) + 1);
+        return (
+            objective /
+            ((expectedMonth * (expectedYear - atualYear) * 12 - atualMonth) + 1)
+        );
     }
 
     @Override

@@ -1,15 +1,14 @@
-    package grupobala.View.Components.OperationPopup;
-
-import java.time.LocalDate;
-import java.util.Calendar;
+package grupobala.View.Components.OperationPopup;
 
 import grupobala.Controller.Goal.GoalController;
 import grupobala.Controller.Goal.IGoalController.IGoalController;
-import grupobala.Entities.User.User;
 import grupobala.Entities.User.IUser.IUser;
+import grupobala.Entities.User.User;
 import grupobala.View.Components.Component.Component;
 import grupobala.View.Components.Popup.PopupComponent;
 import grupobala.View.Components.TextField.TextFieldComponent;
+import java.time.LocalDate;
+import java.util.Calendar;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
@@ -20,21 +19,22 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-public class GoalPopup implements Component{
-    
+public class GoalPopup implements Component {
+
     private PopupComponent popup = new PopupComponent();
-    private TextField descriptionField = new TextFieldComponent().getComponent();
+    private TextField descriptionField = new TextFieldComponent()
+        .getComponent();
     private TextField valueField = new TextFieldComponent().getComponent();
     private DatePicker dateField = new DatePicker();
     private Text feedbackError = new Text();
-    Button confirm = new Button("Adicionar"); 
+    Button confirm = new Button("Adicionar");
 
     public GoalPopup() {
         VBox components = getComponents();
 
         this.popup.getComponent().getChildren().add(components);
     }
-    
+
     @Override
     public Node getComponent() {
         return popup.getComponent();
@@ -49,15 +49,27 @@ public class GoalPopup implements Component{
         HBox titleExitButton = getTitleButton();
         VBox description = getDescriptionInput();
         HBox valueDate = getvalueDate();
-        
+
         description.getStyleClass().add("inputs");
         valueDate.getStyleClass().add("inputs");
         confirm.getStyleClass().add("confirm-button");
         components.getStyleClass().add("goal-container");
 
-        components.getStylesheets().add("file:src/main/resources/grupobala/css/Components/OperationPopup/OperationPopup.css");
+        components
+            .getStylesheets()
+            .add(
+                "file:src/main/resources/grupobala/css/Components/OperationPopup/OperationPopup.css"
+            );
 
-        components.getChildren().addAll(titleExitButton, description, valueDate, feedbackError, confirm);
+        components
+            .getChildren()
+            .addAll(
+                titleExitButton,
+                description,
+                valueDate,
+                feedbackError,
+                confirm
+            );
 
         return components;
     }
@@ -167,25 +179,31 @@ public class GoalPopup implements Component{
         String value = valueField.getText();
         LocalDate date = dateField.getValue();
 
-        if (
-            description == null ||
-            value == null ||
-            date == null
-        ) {
+        if (description == null || value == null || date == null) {
             throw new Exception("Preencha todos os campos");
         }
     }
 
-    private void addGoal(String description, String value, LocalDate dateLocal) throws Exception {
+    private void addGoal(String description, String value, LocalDate dateLocal)
+        throws Exception {
         IGoalController goalController = new GoalController();
         IUser user = new User();
         double objectiveValue = Double.valueOf(value.replace(',', '.'));
         Calendar dateObjective = Calendar.getInstance();
 
-        dateObjective.set(dateLocal.getYear(), dateLocal.getMonthValue() - 1, dateLocal.getDayOfMonth());
+        dateObjective.set(
+            dateLocal.getYear(),
+            dateLocal.getMonthValue() - 1,
+            dateLocal.getDayOfMonth()
+        );
 
         try {
-            goalController.addGoal(user.getID(), description, objectiveValue, dateObjective);
+            goalController.addGoal(
+                user.getID(),
+                description,
+                objectiveValue,
+                dateObjective
+            );
         } catch (Exception e) {
             throw new Exception("Erro ao adicionar meta");
         }
@@ -217,7 +235,7 @@ public class GoalPopup implements Component{
             handleError(error.getMessage());
         }
     }
-    
+
     private void handleError(String messageError) {
         feedbackError.setText(messageError);
         feedbackError.getStyleClass().clear();
