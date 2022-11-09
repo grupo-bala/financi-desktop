@@ -407,10 +407,7 @@ public class Dashboard implements Page {
         });
     }
 
-    private void popupRemoveGoalError(
-        int idGoal,
-        double amountDeposited
-    ) {
+    private void popupRemoveGoalError(int idGoal, double amountDeposited) {
         VBox card = new CardVBoxComponent().getComponent();
         Button closePopup = new Button("X");
         Text text = new Text("Não foi possível remover a meta");
@@ -457,5 +454,4 @@ public class Dashboard implements Page {
             });
         }
     }
-
 }
