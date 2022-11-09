@@ -289,11 +289,11 @@ public class Dashboard implements Page {
 
         goalsList.setOnClick(goal -> {
             GoalViewComponent goalView = new GoalViewComponent(goal);
-            
+
             mainPane.getChildren().add(goalView.getComponent());
-            
+
             goalView.getPopup().showPopup();
-            
+
             goalView.setOnDelete(goalToDelete -> {
                 goalView.getPopup().hidePopup();
                 popupRemoveGoalConfirmation(
@@ -301,7 +301,7 @@ public class Dashboard implements Page {
                     goalToDelete.getAmountDeposited()
                 );
             });
-            
+
             goalView.setOnDeposite(deposite -> {
                 goalView.getPopup().hidePopup();
                 depositGoal.setGoal(goal);

@@ -16,8 +16,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-public class DepositGoal implements Component{
-    
+public class DepositGoal implements Component {
+
     IGoal goal;
     private PopupComponent popup = new PopupComponent();
     private TextField valueField = new TextFieldComponent().getComponent();
@@ -34,7 +34,7 @@ public class DepositGoal implements Component{
     public Node getComponent() {
         return popup.getComponent();
     }
-    
+
     public PopupComponent getPopup() {
         return this.popup;
     }
@@ -56,7 +56,9 @@ public class DepositGoal implements Component{
                 "file:src/main/resources/grupobala/css/Components/DepositGoal/DepositGoal.css"
             );
 
-        components.getChildren().addAll(titleExitButton, getValueInput(), feedbackError, confirm);
+        components
+            .getChildren()
+            .addAll(titleExitButton, getValueInput(), feedbackError, confirm);
 
         return components;
     }
@@ -154,7 +156,7 @@ public class DepositGoal implements Component{
         feedbackError.getStyleClass().add("label-hide");
     }
 
-    void depositValueGoal(String value) throws Exception{
+    void depositValueGoal(String value) throws Exception {
         IGoalController goalController = new GoalController();
         double depositValue = Double.valueOf(value.replace(',', '.'));
 

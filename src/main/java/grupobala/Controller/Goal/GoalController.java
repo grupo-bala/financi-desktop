@@ -97,7 +97,7 @@ public class GoalController implements IGoalController {
     public void depositGoal(double value, IGoal goal) throws Exception {
         double newValue = goal.getAmountDeposited() + value;
         goal.setAmountDeposited(newValue);
-        
+
         try {
             editGoal(new User().getID(), goal);
         } catch (Exception error) {
