@@ -21,6 +21,7 @@ import javafx.scene.text.Text;
 public class GoalViewComponent implements Component {
 
     GoalLambda deleteCallback;
+    GoalLambda depositeCallBack;
     VBox container = new CardVBoxComponent().getComponent();
     PopupComponent goalPopup = new PopupComponent();
     IGoal goal;
@@ -45,6 +46,10 @@ public class GoalViewComponent implements Component {
 
     public void setOnDelete(GoalLambda deleteCallback) {
         this.deleteCallback = deleteCallback;
+    }
+
+    public void setOnDeposite(GoalLambda depositeCallback) {
+        this.depositeCallBack = depositeCallback;
     }
 
     @Override
@@ -107,6 +112,10 @@ public class GoalViewComponent implements Component {
         Button depositButton = new ButtonComponent().getComponent();
         Button completeButton = new ButtonComponent().getComponent();
         HBox rightSideAlignment = new HBox();
+
+        depositButton.setOnMouseClicked(e -> {
+            depositeCallBack.onClick(this.goal);
+        });
 
         editButton.setStyle(
             "-fx-background-color: #2B2F2B; -fx-text-fill: #168CC0; -fx-border-width: 2; -fx-border-color: #ffffff20; -fx-cursor: hand; -fx-border-radius: 3; -fx-min-width: 80px;"

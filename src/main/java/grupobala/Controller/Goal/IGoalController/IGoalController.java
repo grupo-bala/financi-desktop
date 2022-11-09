@@ -22,4 +22,6 @@ public interface IGoalController {
     ) throws Exception;
 
     public void editGoal(int userId, IGoal goal) throws Exception;
+
+    public void depositGoal(double value, IGoal goal) throws Exception;
 }

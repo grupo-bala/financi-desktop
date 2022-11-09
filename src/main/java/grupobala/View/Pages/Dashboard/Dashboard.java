@@ -7,6 +7,7 @@ import grupobala.Entities.Extract.IExtract.IExtract;
 import grupobala.Entities.User.User;
 import grupobala.View.Components.AvatarCard.AvatarCardComponent;
 import grupobala.View.Components.Card.CardVBoxComponent;
+import grupobala.View.Components.DepositGoal.DepositGoal;
 import grupobala.View.Components.ExtractList.ExtractList;
 import grupobala.View.Components.GoalList.GoalListComponent;
 import grupobala.View.Components.GoalView.GoalViewComponent;
@@ -34,6 +35,7 @@ public class Dashboard implements Page {
     private OperationPopup incomingPopup = new OperationPopup("Nova entrada");
     private OperationPopup outputPopup = new OperationPopup("Nova saída    ");
     private GoalPopup goalPopup = new GoalPopup();
+    private DepositGoal depositGoal = new DepositGoal();
 
     private PopupComponent popupConfirmation = new PopupComponent();
     private PopupComponent errorPopup = new PopupComponent();
@@ -81,7 +83,8 @@ public class Dashboard implements Page {
                 outputPopup.getComponent(),
                 goalPopup.getComponent(),
                 errorPopup.getComponent(),
-                popupConfirmation.getComponent()
+                popupConfirmation.getComponent(),
+                depositGoal.getComponent()
             );
 
         setSummaryCard();
@@ -286,14 +289,26 @@ public class Dashboard implements Page {
 
         goalsList.setOnClick(goal -> {
             GoalViewComponent goalView = new GoalViewComponent(goal);
+            
             mainPane.getChildren().add(goalView.getComponent());
+            
             goalView.getPopup().showPopup();
+            
             goalView.setOnDelete(goalToDelete -> {
                 goalView.getPopup().hidePopup();
                 popupRemoveGoalConfirmation(
                     goalToDelete.getID(),
                     goalToDelete.getAmountDeposited()
                 );
+            });
+            
+            goalView.setOnDeposite(deposite -> {
+                goalView.getPopup().hidePopup();
+                depositGoal.setGoal(goal);
+                depositGoal.getPopup().showPopup();
+                depositGoal.setOnConfirm(() -> {
+                    updateGoals();
+                });
             });
         });
 
