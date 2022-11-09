@@ -54,9 +54,9 @@ public class GoalController implements IGoalController {
         Calendar expectedDate
     ) {
         Calendar atualDate = Calendar.getInstance();
-        int expectedMonth = expectedDate.get(Calendar.MONTH);
+        int expectedMonth = expectedDate.get(Calendar.MONTH) + 1;
         int expectedYear = expectedDate.get(Calendar.YEAR);
-        int atualMonth = atualDate.get(Calendar.MONTH);
+        int atualMonth = atualDate.get(Calendar.MONTH) + 1;
         int atualYear = atualDate.get(Calendar.YEAR);
 
         if (expectedYear == atualYear) {
@@ -65,8 +65,9 @@ public class GoalController implements IGoalController {
 
         return (
             objective /
-            ((expectedMonth * (expectedYear - atualYear) * 12 - atualMonth) + 1)
+            (((12 - atualMonth) + (12 * ((expectedYear - atualYear) - 1)) + expectedMonth) + 1)
         );
+            
     }
 
     @Override
@@ -87,13 +88,19 @@ public class GoalController implements IGoalController {
 
     @Override
     public void editGoal(int userID, IGoal goal) throws Exception {
+        Calendar calendar = Calendar.getInstance();
+
+        calendar.setTime(goal.getExpectedDate());
+        
         try {
+            goal.setIdealValuePerMonth(this.calculateIdealValuePerMonth(goal.getObjective(), calendar));
             this.idbGoal.updateGoal(userID, goal);
         } catch (Exception error) {
             throw new Exception("Não foi possível editar a meta");
         }
     }
 
+    @Override
     public void depositGoal(double value, IGoal goal) throws Exception {
         double newValue = goal.getAmountDeposited() + value;
         goal.setAmountDeposited(newValue);
