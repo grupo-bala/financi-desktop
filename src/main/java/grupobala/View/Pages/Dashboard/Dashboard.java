@@ -321,7 +321,6 @@ public class Dashboard implements Page {
                     updateGoals();
                 });
             });
-
         });
 
         return goalsList;

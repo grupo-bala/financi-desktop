@@ -2,8 +2,8 @@ package grupobala.View.Components.OperationPopup;
 
 import grupobala.Controller.Goal.GoalController;
 import grupobala.Controller.Goal.IGoalController.IGoalController;
-import grupobala.Entities.User.IUser.IUser;
 import grupobala.Entities.Goal.IGoal.IGoal;
+import grupobala.Entities.User.IUser.IUser;
 import grupobala.Entities.User.User;
 import grupobala.View.Components.Component.Component;
 import grupobala.View.Components.Popup.PopupComponent;
@@ -12,7 +12,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
@@ -49,8 +48,7 @@ public class EditGoalPopup implements Component {
         return this.popup;
     }
 
-    
-    public void editGoal(IGoal igoal){
+    public void editGoal(IGoal igoal) {
         this.goal = igoal;
     }
 
@@ -194,9 +192,11 @@ public class EditGoalPopup implements Component {
         }
     }
 
-    private void editGoalParameters(String description, String value, LocalDate dateLocal)
-        throws Exception {
-
+    private void editGoalParameters(
+        String description,
+        String value,
+        LocalDate dateLocal
+    ) throws Exception {
         IGoalController goalController = new GoalController();
         IUser user = new User();
         double objectiveValue = Double.valueOf(value.replace(',', '.'));
@@ -213,7 +213,7 @@ public class EditGoalPopup implements Component {
         Date workable = dateObjective.getTime();
         firstGoal.setExpectedDate(workable);
         firstGoal.setTitle(description);
-        firstGoal.setObjective(objectiveValue);        
+        firstGoal.setObjective(objectiveValue);
         firstGoal.getID();
         firstGoal.getIdealValuePerMonth();
 
@@ -224,10 +224,9 @@ public class EditGoalPopup implements Component {
         }
     }
 
-    public IGoal findGoalId(IGoalController goalController) throws Exception{
-        
-        for(int i = 0; i < goalController.getGoals().size(); i++){
-            if(goalController.getGoals().get(i).getID() == goal.getID()) {
+    public IGoal findGoalId(IGoalController goalController) throws Exception {
+        for (int i = 0; i < goalController.getGoals().size(); i++) {
+            if (goalController.getGoals().get(i).getID() == goal.getID()) {
                 return goalController.getGoals().get(i);
             }
         }

@@ -92,9 +92,7 @@ public class ExtractList implements Component {
 
         Text title = new Text(t.getTitle());
         Text date = new Text(dateFormat.format(t.getDate()));
-        Text value = new Text(
-            String.format("R$ %.2f", Math.abs(t.getValue()))
-        );
+        Text value = new Text(String.format("R$ %.2f", Math.abs(t.getValue())));
 
         VBox left = new VBox(title, date);
         HBox right = new HBox(value);
