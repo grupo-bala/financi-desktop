@@ -41,6 +41,8 @@ public class Dashboard implements Page {
 
     private ExtractList extract = new ExtractList();
 
+    private GoalListComponent goalsList = getGoalsList();
+
     private NavigationBar navigationBar = new NavigationBar();
 
     @Override
@@ -58,7 +60,9 @@ public class Dashboard implements Page {
             updateValues();
         });
 
-        goalPopup.setOnConfirm();
+        goalPopup.setOnConfirm(() -> {
+            updateGoals();
+        });
 
         extractList.getStyleClass().add("extract-list");
         mainContainer.getStyleClass().add("main-container");
@@ -86,7 +90,7 @@ public class Dashboard implements Page {
             .addAll(navigationBar.getComponent(), clipContainer);
         container
             .getChildren()
-            .addAll(summaryCard, extractList, getGoalsList());
+            .addAll(summaryCard, extractList, goalsList.getComponent());
         clipContainer.setContent(container);
         clipContainer.setStyle("-fx-background-color: transparent;");
         clipContainer.setFitToHeight(true);
@@ -100,6 +104,10 @@ public class Dashboard implements Page {
 
         summaryCard.getChildren().clear();
         setSummaryCard();
+    }
+
+    private void updateGoals() {
+        goalsList.reloadGoals();
     }
 
     private void setSummaryCard() {
@@ -273,9 +281,9 @@ public class Dashboard implements Page {
         return extractContainer;
     }
 
-    private VBox getGoalsList() {
+    private GoalListComponent getGoalsList() {
         GoalListComponent goalsList = new GoalListComponent();
-
+    
         goalsList.setOnClick(goal -> {
             GoalViewComponent goalView = new GoalViewComponent(goal);
             mainPane.getChildren().add(goalView.getComponent());
@@ -289,7 +297,7 @@ public class Dashboard implements Page {
             });
         });
 
-        return goalsList.getComponent();
+        return goalsList;
     }
 
     private void popupRemoveTransactionError(
