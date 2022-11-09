@@ -1,0 +1,57 @@
+.deposit-container {
+    -fx-font-family: "Montserrat";
+    -fx-max-width: 280px;
+    -fx-max-height: 320px;
+    -fx-pading: 10px 10px 14px 10px;
+    -fx-spacing: 35px;
+    -fx-background-color: #222622;
+    -fx-background-radius: 10px;
+    -fx-alignment: center;
+}
+
+.confirm-button {
+    -fx-font-size: 16px;
+    -fx-background-color: #49AD5A;
+    -fx-padding: 10px 30px 10px 30px;
+    -fx-cursor: hand;
+}
+
+.text-exit-button {
+    -fx-alignment: center;
+    -fx-spacing: 40px;
+}
+
+.title {
+    -fx-fill: white;
+    -fx-font-size: 25px;
+    -fx-alignment: center-left;
+}
+
+.exit-button {
+    -fx-cursor: hand;
+    -fx-background-color: #222622;
+}
+
+.value {
+    -fx-max-width: 185px;
+    -fx-pref-height: 40px;
+}
+
+.field-label {
+    -fx-alignment: center;
+    -fx-spacing: 5px;
+}
+
+.label-value {
+    -fx-font-size: 16px;
+    -fx-fill: white;
+    -fx-translate-x: -70px;
+}
+
+.label-wrong {
+    -fx-fill: #EF5350;
+}
+
+.label-hide {
+    -fx-fill: transparent;
+}
