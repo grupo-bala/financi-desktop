@@ -454,6 +454,7 @@ public class Dashboard implements Page {
                 new User().getValue()
             );
             updateValues();
+            updateGoals();
         } catch (Exception error) {
             errorPopup.showPopup();
 
