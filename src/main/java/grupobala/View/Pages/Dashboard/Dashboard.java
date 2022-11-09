@@ -374,8 +374,9 @@ public class Dashboard implements Page {
         popupConfirmation.showPopup();
 
         confirmation.setOnAction(e -> {
-            popupConfirmation.hidePopup();
             popupRemoveTransactionError(idTransaction, transactionValue);
+            updateGoals();
+            popupConfirmation.hidePopup();
         });
 
         closePopup.setOnAction(e -> {
