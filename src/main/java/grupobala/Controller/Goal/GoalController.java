@@ -87,7 +87,6 @@ public class GoalController implements IGoalController {
 
     @Override
     public void editGoal(int userID, IGoal goal) throws Exception {
-
         try {
             this.idbGoal.updateGoal(userID, goal);
         } catch (Exception error) {
