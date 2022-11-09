@@ -73,9 +73,9 @@ public class ExtractList implements Component {
     private VBox getTransactionsPreview(IExtract extract) {
         VBox outputs = new VBox();
         int limit = 0;
-        
+
         for (ITransaction t : extract) {
-            if(limit == 4) {
+            if (limit == 4) {
                 break;
             }
             limit++;
