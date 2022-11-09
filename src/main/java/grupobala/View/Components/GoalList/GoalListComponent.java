@@ -39,16 +39,13 @@ public class GoalListComponent implements Component {
 
     public void buildComponent() {
         this.mainPane = new VBox();
-        Text title = new Text("Metas");
 
         this.mainPane.getStylesheets()
             .add(
                 "file:src/main/resources/grupobala/css/Components/GoalList/GoalListComponent.css"
             );
 
-        this.mainPane.getChildren().add(title);
         this.mainPane.getStyleClass().add("financi-goals-container");
-        title.getStyleClass().add("financi-goals-title");
 
         loadGoals();
     }
@@ -62,11 +59,13 @@ public class GoalListComponent implements Component {
             this.goals = new ArrayList<>();
         }
 
+        Text title = new Text("Metas");
+        title.getStyleClass().add("financi-goals-title");
+        this.mainPane.getChildren().add(title);
+
         for (IGoal goal : this.goals) {
             GoalComponent goalComponent = new GoalComponent(goal);
-
             goalComponent.setOnClick(this.onClickCallback);
-
             this.mainPane.getChildren().add(goalComponent.getComponent());
         }
     }
