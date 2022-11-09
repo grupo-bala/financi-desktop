@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 public class TestGoalController {
 
     @Test
-    public void testGetAllTransactions() throws Exception {
+    public void testGetAllGoals() throws Exception {
         SetupForTest.truncateTables();
 
         Assertions.assertDoesNotThrow(() -> {

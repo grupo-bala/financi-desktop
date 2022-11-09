@@ -1,6 +1,7 @@
 package grupobala.View.Pages.Dashboard;
 
 import grupobala.Controller.Extract.ExtractController;
+import grupobala.Controller.Goal.GoalController;
 import grupobala.Controller.Transaction.TransactionController;
 import grupobala.Entities.Extract.IExtract.IExtract;
 import grupobala.Entities.User.User;
@@ -279,6 +280,13 @@ public class Dashboard implements Page {
             GoalViewComponent goalView = new GoalViewComponent(goal);
             mainPane.getChildren().add(goalView.getComponent());
             goalView.getPopup().showPopup();
+            goalView.setOnDelete(goalToDelete -> {
+                goalView.getPopup().hidePopup();
+                popupRemoveGoalConfirmation(
+                    goalToDelete.getID(),
+                    goalToDelete.getAmountDeposited()
+                );
+            });
         });
 
         return goalsList.getComponent();
@@ -366,4 +374,88 @@ public class Dashboard implements Page {
             popupConfirmation.hidePopup();
         });
     }
+
+    private void popupRemoveGoalConfirmation(
+        int idGoal,
+        double amountDeposited
+    ) {
+        VBox card = new CardVBoxComponent().getComponent();
+        Button confirmation = new Button("Confirmar");
+        Button closePopup = new Button("X");
+        Text text = new Text("Deseja apagar esta meta?");
+        VBox vbox = new VBox();
+
+        vbox.getChildren().add(closePopup);
+        card.getChildren().addAll(vbox, text, confirmation);
+        popupConfirmation.getComponent().getChildren().addAll(card);
+
+        vbox.getStyleClass().add("confirmation-box");
+        card.getStyleClass().add("confirmation-card");
+        closePopup.getStyleClass().add("close-popup");
+        text.getStyleClass().add("confirmation-text");
+        confirmation.getStyleClass().add("confirmation-button");
+
+        popupConfirmation.showPopup();
+
+        confirmation.setOnAction(e -> {
+            popupConfirmation.hidePopup();
+            popupRemoveGoalError(idGoal, amountDeposited);
+        });
+
+        closePopup.setOnAction(e -> {
+            popupConfirmation.hidePopup();
+        });
+    }
+
+    private void popupRemoveGoalError(
+        int idGoal,
+        double amountDeposited
+    ) {
+        VBox card = new CardVBoxComponent().getComponent();
+        Button closePopup = new Button("X");
+        Text text = new Text("Não foi possível remover a meta");
+        VBox textVBox = new VBox();
+        Image alertImg = new Image(
+            "file:src/main/resources/grupobala/images/alert.png"
+        );
+        ImageView alert = new ImageView(alertImg);
+        HBox alertHBox = new HBox();
+
+        VBox.setVgrow(textVBox, Priority.ALWAYS);
+        card.getChildren().addAll(alertHBox, text, textVBox);
+        errorPopup.getComponent().getChildren().add(card);
+        textVBox.getChildren().add(text);
+        alertHBox.getChildren().addAll(alert, closePopup);
+
+        textVBox.getStyleClass().add("text-box");
+
+        alert.setFitHeight(25);
+        alert.setFitWidth(25);
+        alert.setPreserveRatio(true);
+
+        alertHBox.getStyleClass().add("alert-box");
+        textVBox.getStyleClass().add("text-box");
+
+        card.getStyleClass().add("remove-card");
+        closePopup.getStyleClass().add("close-popup-error");
+        text.getStyleClass().add("text-error");
+
+        try {
+            GoalController goalController = new GoalController();
+            goalController.removeGoal(
+                new User().getID(),
+                idGoal,
+                amountDeposited,
+                new User().getValue()
+            );
+            updateValues();
+        } catch (Exception error) {
+            errorPopup.showPopup();
+
+            closePopup.setOnAction(e -> {
+                errorPopup.hidePopup();
+            });
+        }
+    }
+
 }
