@@ -10,7 +10,6 @@ import grupobala.Entities.Goal.IGoal.IGoal;
 import grupobala.Entities.User.User;
 import grupobala.SetupForTest.SetupForTest;
 import java.util.Calendar;
-import java.util.Date;
 import org.junit.jupiter.api.Test;
 
 public class TestEditGoalController {
