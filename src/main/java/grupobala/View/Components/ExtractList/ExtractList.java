@@ -119,7 +119,7 @@ public class ExtractList implements Component {
 
     private VBox getTitlePage() {
         VBox container = new VBox();
-        Text title = new Text("Atividade Recente");
+        Text title = new Text("Movimentações recentes");
         title.getStyleClass().add("extract-title");
         container.getStyleClass().add("container-title");
 
@@ -171,6 +171,7 @@ public class ExtractList implements Component {
         }
         ImageView image = new ImageView(imageLocation);
         HBox container = new HBox(image);
+        container.getStyleClass().add("icon-container");
 
         return container;
     }
