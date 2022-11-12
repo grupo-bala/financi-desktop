@@ -26,7 +26,7 @@
     -fx-padding: 35px 20px 40px 20px;
     -fx-spacing: 50px;
     -fx-alignment: center;
-    -fx-background-color: #222622;
+    -fx-background-color: #2B2E2B;
 }
 
 /* Extract container(icon-date-value) setup */
@@ -36,8 +36,8 @@
 
 .extract-transaction {
     -fx-padding: 12px 20px;
-    -fx-spacing: 50px;
-    -fx-background-color: #222622;
+    -fx-spacing: 15px;
+    -fx-background-color: #2B2E2B;
     -fx-effect: dropshadow(gaussian, #0000003F, 4, 0, 0, 4);
     -fx-background-radius: 5px;
     -fx-cursor: hand;
@@ -46,6 +46,14 @@
 /* Number alignment */
 .extract-right {
     -fx-alignment: center-right;
+}
+
+.icon-container{
+    -fx-padding: 0px 0 0 0;
+}
+
+.extract-left {
+    -fx-padding: 0px 0 0 0;
 }
 
 /* Date setup */
