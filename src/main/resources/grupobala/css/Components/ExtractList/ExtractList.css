@@ -1,47 +1,64 @@
-.container-extract {
-    -fx-padding: 20px 450px;
-    -fx-background-color: #e2f5e2;
-    -fx-font-family: "Montserrat";
+/*Main extract container*/
+.extract {
+    -fx-background-color: #121512;
+    -fx-padding: 25px 0 25 0;
 }
 
+.container-title {
+    -fx-padding: 0px 0 0 0;
+}
+
+/*Makes every container word withe*/
+.container * {
+    -fx-fill: #ffffff;
+}
+
+/* Title setup*/
 .extract-title {
-    -fx-font-size: 5000000000000px;
+    -fx-font-size: 24px;
     -fx-font-weight: bold;
     -fx-fill: #ffffff;
-    -fx-alignment: left;
+    -fx-alignment: center;
+    -fx-font-family: "Montserrat";
 }
 
 .extract-information {
     -fx-padding: 35px 20px 40px 20px;
     -fx-spacing: 50px;
     -fx-alignment: center;
-    -fx-background-color: #121512;
+    -fx-background-color: #222622;
 }
 
+/* Extract container(icon-date-value) setup */
 .extract-transaction-container {
-    -fx-padding: 10px 0 0 0;
+    -fx-padding: 25px 20 0 20; /*DownS right UpS Left*/
 }
 
 .extract-transaction {
     -fx-padding: 12px 20px;
     -fx-spacing: 50px;
-    -fx-background-color: #121512;
+    -fx-background-color: #222622;
     -fx-effect: dropshadow(gaussian, #0000003F, 4, 0, 0, 4);
     -fx-background-radius: 5px;
+    -fx-cursor: hand;
 }
 
+/* Number alignment */
 .extract-right {
     -fx-alignment: center-right;
 }
 
+/* Date setup */
 .extract-transaction-date {
-    -fx-fill: #ffffffa6;
+    -fx-fill: #ffffff;
 }
 
+/*Negative number color*/
 .extract-value-red {
     -fx-fill: #EF5350;
 }
 
+/*Positive number color*/
 .extract-value-green {
     -fx-fill: #49AD5A;
 }

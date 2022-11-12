@@ -39,7 +39,7 @@ public class ExtractList implements Component {
         mainPane
             .getStylesheets()
             .add(
-                "file:src/main/resources/grupobala/css/Pages/ExtractPage/ExtractPage.css"
+                "file:src/main/resources/grupobala/css/Components/ExtractList/ExtractList.css"
             );
 
         mainPane.getChildren().addAll(extractTitle, mainContainer);
@@ -121,9 +121,10 @@ public class ExtractList implements Component {
         VBox container = new VBox();
         Text title = new Text("Atividade Recente");
         title.getStyleClass().add("extract-title");
+        container.getStyleClass().add("container-title");
 
         container.getChildren().add(title);
-        container.setAlignment(Pos.TOP_CENTER);
+        container.setAlignment(Pos.CENTER);
 
         return container;
     }
