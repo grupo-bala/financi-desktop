@@ -1,21 +1,19 @@
 package grupobala.View.Pages.Dashboard.ExtractPage;
 
-import grupobala.Entities.Category.CategoryEnum;
-import grupobala.Entities.Extract.Extract;
+import grupobala.Controller.Extract.ExtractController;
+import grupobala.View.Components.ExtractList.ExtractLambda;
 import grupobala.Entities.Extract.IExtract.IExtract;
 import grupobala.Entities.Transaction.ITransaction.ITransaction;
-import grupobala.Entities.Transaction.Transaction;
 import grupobala.View.Components.NavigationBar.NavigationBar;
 import grupobala.View.Pages.Page.Page;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
 import javafx.geometry.Pos;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
@@ -31,6 +29,7 @@ public class ExtractPage implements Page {
     private DateFormat dateFormat;
     private VBox mainContainer;
     private VBox container;
+    private ExtractLambda callback;
 
     @Override
     public StackPane getMainPane() {
@@ -64,44 +63,24 @@ public class ExtractPage implements Page {
         return mainPane;
     }
 
+    public void setOnMouseClicked(ExtractLambda callback) {
+        this.callback = callback;
+    }
+
+    public void reloadExtract() {
+        try {
+            mainContainer.getChildren().clear();
+            loadExtract();
+        } catch (Exception e) {}
+    }
+
+
     private void loadExtract() throws SQLException, ParseException {
-        Calendar calendarBegin = Calendar.getInstance();
-        calendarBegin.set(Calendar.YEAR, 2020);
-        calendarBegin.set(Calendar.MONTH, Calendar.DECEMBER);
-        calendarBegin.set(Calendar.DAY_OF_MONTH, 31);
+        ExtractController extrato2 = new ExtractController();
 
-        Date dataBegin = calendarBegin.getTime();
-
-        ITransaction transEx = new Transaction(
-            12,
-            1000,
-            "TTTTTTTTTTTeste",
-            CategoryEnum.CLOTHING,
-            dataBegin
-        );
-        ITransaction transExT = new Transaction(
-            12,
-            -1000,
-            "teste",
-            CategoryEnum.CLOTHING,
-            dataBegin
-        );
-        ITransaction transExTT = new Transaction(
-            12,
-            1000,
-            "teste",
-            CategoryEnum.CLOTHING,
-            dataBegin
-        );
-
-        ArrayList<ITransaction> lista = new ArrayList<>();
-        lista.add(transEx);
-        lista.add(transExT);
-        lista.add(transExTT);
-
-        Extract extract = new Extract(lista);
+        IExtract extract = extrato2.getExtract();
         VBox transactions = getTransactionsPreview(extract);
-        container.getChildren().add(transactions);
+        mainContainer.getChildren().add(transactions);
     }
 
     private VBox getTitlePage() {
@@ -131,14 +110,11 @@ public class ExtractPage implements Page {
 
         Text title = new Text(t.getTitle());
         Text date = new Text(dateFormat.format(t.getDate()));
-        Text value = new Text(
-            (isNegative ? "-" : "") +
-            String.format("R$ %.2f", Math.abs(t.getValue()))
-        );
+        Text value = new Text(String.format("R$ %.2f", Math.abs(t.getValue())));
 
         VBox left = new VBox(title, date);
         HBox right = new HBox(value);
-        HBox tbox = new HBox(left, right);
+        HBox tbox = new HBox(getIcon(t), left, right);
         VBox tboxCont = new VBox(tbox);
 
         HBox.setHgrow(right, Priority.ALWAYS);
@@ -148,10 +124,62 @@ public class ExtractPage implements Page {
             .add(isNegative ? "extract-value-red" : "extract-value-green");
         tboxCont.getStyleClass().add("extract-transaction-container");
         date.getStyleClass().add("extract-transaction-date");
+        title.getStyleClass().add("extract-transaction-title");
         tbox.getStyleClass().add("extract-transaction");
         right.getStyleClass().add("extract-right");
         left.getStyleClass().add("extract-left");
 
+        tboxCont.setOnMouseClicked(e -> {
+            this.callback.onClick(t);
+        });
+        
         return tboxCont;
+    }
+
+    private HBox getIcon(ITransaction t) {
+        Image imageLocation;
+
+        switch (t.getCategory()) {
+            case FOOD:
+                imageLocation =
+                    new Image(
+                        "file:src/main/resources/grupobala/images/Food Bar.png"
+                    );
+                break;
+            case CLOTHING:
+                imageLocation =
+                    new Image(
+                        "file:src/main/resources/grupobala/images/fashion.png"
+                    );
+                break;
+            case HEALTH:
+                imageLocation =
+                    new Image(
+                        "file:src/main/resources/grupobala/images/health.png"
+                    );
+                break;
+            case ENTERTAINMENT:
+                imageLocation =
+                    new Image(
+                        "file:src/main/resources/grupobala/images/entertainment.png"
+                    );
+                break;
+            case PAYMENTS:
+                imageLocation =
+                    new Image(
+                        "file:src/main/resources/grupobala/images/dollar-symbol.png"
+                    );
+                break;
+            default:
+                imageLocation =
+                    new Image(
+                        "file:src/main/resources/grupobala/images/others.png"
+                    );
+        }
+        ImageView image = new ImageView(imageLocation);
+        HBox container = new HBox(image);
+        container.getStyleClass().add("icon-container");
+
+        return container;
     }
 }
