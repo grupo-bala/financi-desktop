@@ -1,5 +1,6 @@
 .extract {
     -fx-background-color: #222622;
+    -fx-padding: 0px 20000000px 0px 20000000px; /*Useless*/
 }
 
 .main-container {
@@ -16,11 +17,13 @@
     -fx-fill: #ffffff;
 }
 
+/* Title setup*/
 .extract-title {
-    -fx-font-size: 23px;
+    -fx-font-size: 24px;
     -fx-font-weight: bold;
     -fx-fill: #ffffff;
     -fx-alignment: center;
+    -fx-font-family: "Montserrat";
 }
 
 .extract-information {
@@ -31,28 +34,28 @@
 }
 
 .extract-transaction-container {
-    -fx-padding: 10px 0 0 0;
+    -fx-padding: 25px 1000 0 1000; /*DownS right UpS Left*/
 }
 
 .extract-transaction {
     -fx-padding: 12px 20px;
-    -fx-spacing: 50px;
+    -fx-spacing: 15px;
     -fx-background-color: #121512;
     -fx-effect: dropshadow(gaussian, #0000003F, 4, 0, 0, 4);
     -fx-background-radius: 5px;
     -fx-cursor: hand;
 }
 
-.extract-left {
-    
-}
-
 .extract-right {
     -fx-alignment: center-right;
 }
 
+.extract-transaction-title{
+    -fx-fill: #ffffff;
+}
+
 .extract-transaction-date {
-    -fx-fill: #ffffffa6;
+    -fx-fill: #ffffff;
 }
 
 .extract-value-red {
