@@ -1,9 +1,9 @@
 package grupobala.View.Pages.Dashboard.ExtractPage;
 
 import grupobala.Controller.Extract.ExtractController;
-import grupobala.View.Components.ExtractList.ExtractLambda;
 import grupobala.Entities.Extract.IExtract.IExtract;
 import grupobala.Entities.Transaction.ITransaction.ITransaction;
+import grupobala.View.Components.ExtractList.ExtractLambda;
 import grupobala.View.Components.NavigationBar.NavigationBar;
 import grupobala.View.Pages.Page.Page;
 import java.sql.SQLException;
@@ -74,7 +74,6 @@ public class ExtractPage implements Page {
         } catch (Exception e) {}
     }
 
-
     private void loadExtract() throws SQLException, ParseException {
         ExtractController extrato2 = new ExtractController();
 
@@ -132,7 +131,7 @@ public class ExtractPage implements Page {
         tboxCont.setOnMouseClicked(e -> {
             this.callback.onClick(t);
         });
-        
+
         return tboxCont;
     }
 
