@@ -65,9 +65,15 @@ public class GoalController implements IGoalController {
 
         return (
             objective /
-            (((12 - atualMonth) + (12 * ((expectedYear - atualYear) - 1)) + expectedMonth) + 1)
+            (
+                (
+                    (12 - atualMonth) +
+                    (12 * ((expectedYear - atualYear) - 1)) +
+                    expectedMonth
+                ) +
+                1
+            )
         );
-            
     }
 
     @Override
@@ -91,9 +97,11 @@ public class GoalController implements IGoalController {
         Calendar calendar = Calendar.getInstance();
 
         calendar.setTime(goal.getExpectedDate());
-        
+
         try {
-            goal.setIdealValuePerMonth(this.calculateIdealValuePerMonth(goal.getObjective(), calendar));
+            goal.setIdealValuePerMonth(
+                this.calculateIdealValuePerMonth(goal.getObjective(), calendar)
+            );
             this.idbGoal.updateGoal(userID, goal);
         } catch (Exception error) {
             throw new Exception("Não foi possível editar a meta");

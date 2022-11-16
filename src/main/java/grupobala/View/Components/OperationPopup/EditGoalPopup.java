@@ -38,13 +38,20 @@ public class EditGoalPopup implements Component {
 
     private void loadValuesField() {
         this.descriptionField.setText(goal.getTitle());
-        this.valueField.setText(String.format(Locale.US, "%f", goal.getObjective()));
+        this.valueField.setText(
+                String.format(Locale.US, "%f", goal.getObjective())
+            );
 
         DateFormat formateDate = new SimpleDateFormat("yyyy-MM-dd");
 
         String dateString = formateDate.format(this.goal.getExpectedDate());
 
-        this.dateField.setValue(LocalDate.parse(dateString, DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        this.dateField.setValue(
+                LocalDate.parse(
+                    dateString,
+                    DateTimeFormatter.ofPattern("yyyy-MM-dd")
+                )
+            );
     }
 
     public EditGoalPopup() {
