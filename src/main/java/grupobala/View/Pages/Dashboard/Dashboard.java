@@ -325,6 +325,7 @@ public class Dashboard implements Page {
                 depositGoal.getPopup().showPopup();
                 depositGoal.setOnConfirm(() -> {
                     updateGoals();
+                    updateValues();
                 });
             });
 
