@@ -34,8 +34,12 @@ import javafx.scene.text.Text;
 public class Dashboard implements Page {
 
     private StackPane mainPane = new StackPane();
-    private TransactionPopup incomingPopup = new TransactionPopup("Nova entrada");
-    private TransactionPopup outputPopup = new TransactionPopup("Nova saída    ");
+    private TransactionPopup incomingPopup = new TransactionPopup(
+        "Nova entrada"
+    );
+    private TransactionPopup outputPopup = new TransactionPopup(
+        "Nova saída    "
+    );
     private EditTransactionPopup editTransaction = new EditTransactionPopup();
     private GoalPopup goalPopup = new GoalPopup();
     private DepositGoal depositGoal = new DepositGoal();
@@ -274,9 +278,9 @@ public class Dashboard implements Page {
                 transaction
             );
             mainPane.getChildren().add(transactionView.getComponent());
-            
+
             transactionView.getPopup().showPopup();
-            
+
             transactionView.setOnDelete(transactionToDelete -> {
                 transactionView.getPopup().hidePopup();
                 popupRemoveTransactionConfirmation(
@@ -293,7 +297,6 @@ public class Dashboard implements Page {
                     updateValues();
                 });
             });
-            
         });
 
         extractContainer.getChildren().add(extract.getComponent());
