@@ -4,6 +4,7 @@ import grupobala.View.Components.Component.Component;
 import grupobala.View.PageManager;
 import grupobala.View.Pages.Dashboard.Dashboard;
 import grupobala.View.Pages.Dashboard.ExtractPage.ExtractPage;
+import grupobala.View.Pages.Settings.Settings;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -16,6 +17,7 @@ public class NavigationBar implements Component {
     private ImageView logo;
     private HBox titles;
     private ImageView settings;
+    private PageManager pageManager = new PageManager();
     Text dashboard = new Text("início");
     Text extract = new Text("transações");
     Text classes = new Text("aulas");
@@ -31,6 +33,10 @@ public class NavigationBar implements Component {
         settings = new ImageView(iconSetting);
         logo = new ImageView(logoImage);
         titles = getTitles();
+
+        settings.setOnMouseClicked(e -> {
+            pageManager.setCurrentPage(new Settings());
+        });
 
         bar
             .getStylesheets()
@@ -60,12 +66,10 @@ public class NavigationBar implements Component {
         hbox.getChildren().addAll(dashboard, extract, classes, analysis);
 
         dashboard.setOnMouseClicked(e -> {
-            PageManager pageManager = new PageManager();
             pageManager.setCurrentPage(new Dashboard());
         });
 
         extract.setOnMouseClicked(e -> {
-            PageManager pageManager = new PageManager();
             pageManager.setCurrentPage(new ExtractPage());
         });
 
