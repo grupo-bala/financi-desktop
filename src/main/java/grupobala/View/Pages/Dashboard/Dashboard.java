@@ -14,10 +14,11 @@ import grupobala.View.Components.GoalView.GoalViewComponent;
 import grupobala.View.Components.NavigationBar.NavigationBar;
 import grupobala.View.Components.OperationButton.OperationButton;
 import grupobala.View.Components.OperationButton.OperationButton.IconEnum;
-import grupobala.View.Components.OperationPopup.EditGoalPopup;
-import grupobala.View.Components.OperationPopup.GoalPopup;
-import grupobala.View.Components.OperationPopup.OperationPopup;
 import grupobala.View.Components.Popup.PopupComponent;
+import grupobala.View.Components.Popups.EditGoalPopup;
+import grupobala.View.Components.Popups.EditTransactionPopup;
+import grupobala.View.Components.Popups.GoalPopup;
+import grupobala.View.Components.Popups.TransactionPopup;
 import grupobala.View.Components.TransactionView.TransactionViewComponent;
 import grupobala.View.Pages.Page.Page;
 import javafx.scene.control.Button;
@@ -33,8 +34,9 @@ import javafx.scene.text.Text;
 public class Dashboard implements Page {
 
     private StackPane mainPane = new StackPane();
-    private OperationPopup incomingPopup = new OperationPopup("Nova entrada");
-    private OperationPopup outputPopup = new OperationPopup("Nova saída    ");
+    private TransactionPopup incomingPopup = new TransactionPopup("Nova entrada");
+    private TransactionPopup outputPopup = new TransactionPopup("Nova saída    ");
+    private EditTransactionPopup editTransaction = new EditTransactionPopup();
     private GoalPopup goalPopup = new GoalPopup();
     private DepositGoal depositGoal = new DepositGoal();
     private EditGoalPopup editGoal = new EditGoalPopup();
@@ -87,7 +89,8 @@ public class Dashboard implements Page {
                 errorPopup.getComponent(),
                 popupConfirmation.getComponent(),
                 depositGoal.getComponent(),
-                editGoal.getComponent()
+                editGoal.getComponent(),
+                editTransaction.getComponent()
             );
 
         setSummaryCard();
@@ -271,6 +274,9 @@ public class Dashboard implements Page {
                 transaction
             );
             mainPane.getChildren().add(transactionView.getComponent());
+            
+            transactionView.getPopup().showPopup();
+            
             transactionView.setOnDelete(transactionToDelete -> {
                 transactionView.getPopup().hidePopup();
                 popupRemoveTransactionConfirmation(
@@ -278,7 +284,16 @@ public class Dashboard implements Page {
                     transactionToDelete.getValue()
                 );
             });
-            transactionView.getPopup().showPopup();
+
+            transactionView.setOnEdit(transactionToEdit -> {
+                transactionView.getPopup().hidePopup();
+                editTransaction.setTransaction(transaction);
+                editTransaction.getPopup().showPopup();
+                editTransaction.setOnConfirm(() -> {
+                    updateValues();
+                });
+            });
+            
         });
 
         extractContainer.getChildren().add(extract.getComponent());
@@ -310,6 +325,7 @@ public class Dashboard implements Page {
                 depositGoal.getPopup().showPopup();
                 depositGoal.setOnConfirm(() -> {
                     updateGoals();
+                    updateValues();
                 });
             });
 

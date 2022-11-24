@@ -1,14 +1,20 @@
-package grupobala.View.Components.OperationPopup;
+package grupobala.View.Components.Popups;
 
-import grupobala.Controller.Transaction.ITransactionController.ITransactionController;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Locale;
+
 import grupobala.Controller.Transaction.TransactionController;
+import grupobala.Controller.Transaction.ITransactionController.ITransactionController;
 import grupobala.Entities.Category.CategoryEnum;
+import grupobala.Entities.Transaction.ITransaction.ITransaction;
 import grupobala.Entities.User.User;
 import grupobala.View.Components.Component.Component;
 import grupobala.View.Components.Popup.PopupComponent;
 import grupobala.View.Components.TextField.TextFieldComponent;
-import java.time.LocalDate;
-import java.util.Calendar;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -20,32 +26,40 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-public class OperationPopup implements Component {
+public class EditTransactionPopup implements Component{
 
+    private ITransaction transaction;
     private PopupComponent popup = new PopupComponent();
     private TextField descriptionField = new TextFieldComponent()
         .getComponent();
     private TextField valueField = new TextFieldComponent().getComponent();
     private DatePicker dateField = new DatePicker();
     private ChoiceBox<String> categoryField = new ChoiceBox<>();
-    private Text buttonLabel = new Text();
-    Button confirm = new Button("Adicionar");
-    private boolean isIncoming = false;
+    private Text feedbackError = new Text();
+    private Button confirm = new Button("Confirmar");
 
-    public OperationPopup(String title) {
-        VBox components = getComponents(title);
-
-        popup.getComponent().getChildren().add(components);
+    public EditTransactionPopup() {
+        popup.getComponent().getChildren().addAll(this.getComponents());
     }
 
     @Override
     public Node getComponent() {
-        return popup.getComponent();
+        return this.popup.getComponent();
     }
 
-    public VBox getComponents(String title) {
+    public PopupComponent getPopup() {
+        return this.popup;
+    }
+
+    public void setTransaction(ITransaction transaction) {
+        this.transaction = transaction;
+        loadValues();
+    }
+
+    private VBox getComponents() {
         VBox components = new VBox();
-        HBox titleExitButton = getTitleButton(title);
+
+        HBox titleExitButton = getTitleButton();
         VBox description = getDescriptionInput();
         HBox valueDate = getvalueDate();
         VBox category = getLabelCategory();
@@ -68,23 +82,41 @@ public class OperationPopup implements Component {
                 description,
                 valueDate,
                 category,
-                buttonLabel,
+                feedbackError,
                 confirm
             );
 
         return components;
     }
 
-    public void setOnConfirm(OperationLambda callback) {
-        confirm.setOnAction(e -> {
-            try {
-                checkFieldMiss();
-                handleConfirm();
-                callback.applyOperation();
-            } catch (Exception error) {
-                handleMissField(error.getMessage());
-            }
+    private HBox getTitleButton() {
+        HBox hBox = new HBox();
+        Text title = new Text("Editar transação");
+        Button exit = getExitButton();
+
+        title.getStyleClass().add("title");
+        hBox.getStyleClass().add("text-exit-button");
+        exit.getStyleClass().add("exit-button");
+
+        hBox.getChildren().addAll(title, exit);
+
+        exit.setOnAction(e -> {
+            clearInputs();
+            hideButtonLabel();
+            popup.hidePopup();
         });
+
+        return hBox;
+    }
+
+    private Button getExitButton() {
+        Image image = new Image(
+            "file:src/main/resources/grupobala/images/exit-icon.png"
+        );
+        ImageView imageView = new ImageView(image);
+        Button button = new Button("", imageView);
+
+        return button;
     }
 
     private VBox getDescriptionInput() {
@@ -180,96 +212,11 @@ public class OperationPopup implements Component {
         return vBox;
     }
 
-    private HBox getTitleButton(String text) {
-        HBox hBox = new HBox();
-        Text title = new Text(text);
-        Button exit = getExitButton();
-
-        if (text.equals("Nova entrada")) {
-            this.isIncoming = true;
-        }
-
-        title.getStyleClass().add("title");
-        hBox.getStyleClass().add("text-exit-button");
-        exit.getStyleClass().add("exit-button");
-
-        hBox.getChildren().addAll(title, exit);
-
-        exit.setOnAction(e -> {
-            clearInputs();
-            hideButtonLabel();
-            popup.hidePopup();
-        });
-
-        return hBox;
-    }
-
-    private Button getExitButton() {
-        Image image = new Image(
-            "file:src/main/resources/grupobala/images/exit-icon.png"
-        );
-        ImageView imageView = new ImageView(image);
-        Button button = new Button("", imageView);
-
-        return button;
-    }
-
     private void clearInputs() {
         descriptionField.setText(null);
         valueField.setText(null);
         dateField.setValue(null);
         categoryField.setValue(null);
-    }
-
-    private void addTransaction(
-        String description,
-        String wage,
-        LocalDate dateLocal,
-        String category
-    ) throws Exception {
-        ITransactionController transactionController = new TransactionController();
-        User user = new User();
-        CategoryEnum categoryEnum = CategoryEnum.getCategory(category);
-        double value = Double.valueOf(wage.replace(',', '.'));
-        Calendar dateCalendar = Calendar.getInstance();
-
-        if (!isIncoming) {
-            value *= -1;
-        }
-
-        dateCalendar.set(
-            dateLocal.getYear(),
-            dateLocal.getMonthValue() - 1,
-            dateLocal.getDayOfMonth()
-        );
-
-        try {
-            transactionController.addTransaction(
-                user.getID(),
-                value,
-                description,
-                categoryEnum,
-                dateCalendar.getTime()
-            );
-        } catch (Exception e) {
-            throw new Exception(e.getMessage());
-        }
-    }
-
-    private void handleConfirm() {
-        String description = descriptionField.getText();
-        String value = valueField.getText();
-        LocalDate date = dateField.getValue();
-        String category = categoryField.getValue();
-
-        try {
-            addTransaction(description, value, date, category);
-            System.out.println("Transação adicionada");
-            clearInputs();
-            popup.hidePopup();
-        } catch (Exception error) {
-            handleTransactionError(error.getMessage());
-        }
     }
 
     private void checkFieldMiss() throws Exception {
@@ -288,26 +235,94 @@ public class OperationPopup implements Component {
         }
     }
 
-    private void handleMissField(String errorMsg) {
-        System.out.println(errorMsg);
-        buttonLabel.setText(errorMsg);
-        buttonLabel.getStyleClass().clear();
-        buttonLabel.getStyleClass().add("label-wrong");
-    }
-
-    private void handleTransactionError(String errorMsg) {
-        buttonLabel.setText("Erro ao adicionar transação");
-        buttonLabel.getStyleClass().clear();
-        buttonLabel.getStyleClass().add("label-wrong");
+    private void handleError(String messageError) {
+        feedbackError.setText(messageError);
+        feedbackError.getStyleClass().clear();
+        feedbackError.getStyleClass().add("label-wrong");
     }
 
     private void hideButtonLabel() {
-        buttonLabel.setText("");
-        buttonLabel.getStyleClass().clear();
-        buttonLabel.getStyleClass().add("label-hide");
+        feedbackError.setText("");
+        feedbackError.getStyleClass().clear();
+        feedbackError.getStyleClass().add("label-hide");
     }
 
-    public PopupComponent getPopup() {
-        return this.popup;
+    public void setOnConfirm(OperationLambda callback) {
+        confirm.setOnAction(e -> {
+            try {
+                checkFieldMiss();
+                handleConfirm();
+                callback.applyOperation();
+            } catch (Exception error) {
+                handleError(error.getMessage());
+            }
+        });
+    }
+
+    private void editTransaction(String title, String wage, LocalDate dateLocal, String category) throws Exception{
+        ITransactionController transactionController = new TransactionController();
+        User user = new User();
+        
+        CategoryEnum categoryEnum = CategoryEnum.getCategory(category);
+        double value = Double.valueOf(wage.replace(',', '.'));
+        Calendar dateCalendar = Calendar.getInstance();
+
+        dateCalendar.set(
+            dateLocal.getYear(),
+            dateLocal.getMonthValue() - 1,
+            dateLocal.getDayOfMonth()
+        );
+
+        if (dateCalendar.getTime().after(Calendar.getInstance().getTime())) {
+            throw new Exception("Data indisponível");
+        } 
+        else {
+            transaction.setTitle(title);
+            transaction.setValue(value);
+            transaction.setDate(dateCalendar.getTime());
+            transaction.setCategory(categoryEnum);
+
+            try {
+                transactionController.updateTransaction(user.getID(), transaction);
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }   
+    }
+
+    private void handleConfirm() {
+        String description = descriptionField.getText();
+        String value = valueField.getText();
+        LocalDate date = dateField.getValue();
+        String category = categoryField.getValue();
+
+        try {
+            editTransaction(description, value, date, category);
+            System.out.println("Meta editada");
+            clearInputs();
+            popup.hidePopup();
+        } catch (Exception error) {
+            handleError(error.getMessage());
+        }
+    }
+
+    private void loadValues() {
+        this.descriptionField.setText(transaction.getTitle());
+        this.valueField.setText(
+                String.format(Locale.US, "%.2f", transaction.getValue())
+            );
+
+        DateFormat formateDate = new SimpleDateFormat("yyyy-MM-dd");
+
+        String dateString = formateDate.format(this.transaction.getDate());
+
+        this.dateField.setValue(
+                LocalDate.parse(
+                    dateString,
+                    DateTimeFormatter.ofPattern("yyyy-MM-dd")
+                )
+            );
+
+        this.categoryField.setValue(transaction.getCategory().displayedName);
     }
 }

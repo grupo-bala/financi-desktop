@@ -30,7 +30,14 @@ public class TransactionController implements ITransactionController {
 
     @Override
     public void updateTransaction(int userID, ITransaction transaction)
-        throws Exception {}
+        throws Exception {
+            IDBTransaction dbtTransaction = new DBTransaction(new DBConnection());
+            try {
+                dbtTransaction.updateTransaction(userID, transaction);
+            } catch (SQLException error) {
+                throw new Exception("Erro ao adicionar transação");
+            }
+        }
 
     @Override
     public void removeTransaction(

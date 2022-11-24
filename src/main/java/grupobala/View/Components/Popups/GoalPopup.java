@@ -1,4 +1,4 @@
-package grupobala.View.Components.OperationPopup;
+package grupobala.View.Components.Popups;
 
 import grupobala.Controller.Goal.GoalController;
 import grupobala.Controller.Goal.IGoalController.IGoalController;

@@ -5,6 +5,7 @@ import grupobala.Database.Connection.DBConnection;
 import grupobala.Database.Goal.DBGoal;
 import grupobala.Database.Goal.IDBGoal.IDBGoal;
 import grupobala.Database.User.DBUser;
+import grupobala.Database.User.IDBUser.IDBUser;
 import grupobala.Entities.Goal.IGoal.IGoal;
 import grupobala.Entities.User.User;
 import java.util.ArrayList;
@@ -113,8 +114,12 @@ public class GoalController implements IGoalController {
         double newValue = goal.getAmountDeposited() + value;
         goal.setAmountDeposited(newValue);
 
+        User user = new User();
+
         try {
-            editGoal(new User().getID(), goal);
+            editGoal(user.getID(), goal);
+            IDBUser idbUser = new DBUser(new DBConnection());
+            idbUser.setUserBalance(user.getID(), (user.getValue() - value));
         } catch (Exception error) {
             throw new Exception(error.getMessage());
         }

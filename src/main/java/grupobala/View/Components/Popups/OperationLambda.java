@@ -1,4 +1,4 @@
-package grupobala.View.Components.OperationPopup;
+package grupobala.View.Components.Popups;
 
 public interface OperationLambda {
     public void applyOperation();

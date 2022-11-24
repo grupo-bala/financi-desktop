@@ -21,6 +21,7 @@ import javafx.scene.text.Text;
 public class TransactionViewComponent implements Component {
 
     ExtractLambda deleteCallback;
+    ExtractLambda editCallback;
     VBox container = new CardVBoxComponent().getComponent();
     PopupComponent transactionPopup = new PopupComponent();
     ITransaction transaction;
@@ -45,6 +46,10 @@ public class TransactionViewComponent implements Component {
 
     public void setOnDelete(ExtractLambda deleteCallback) {
         this.deleteCallback = deleteCallback;
+    }
+
+    public void setOnEdit(ExtractLambda editCallback) {
+        this.editCallback = editCallback;
     }
 
     @Override
@@ -104,6 +109,10 @@ public class TransactionViewComponent implements Component {
         );
         Button editButton = new ButtonComponent().getComponent();
         HBox rightSideAlignment = new HBox();
+
+        editButton.setOnMouseClicked(e -> {
+            this.editCallback.onClick(transaction);
+        });
 
         editButton.setStyle(
             "-fx-background-color: #2B2F2B; -fx-text-fill: #EF5350; -fx-border-width: 2; -fx-border-color: #ffffff20; -fx-cursor: hand; -fx-border-radius: 3;"
