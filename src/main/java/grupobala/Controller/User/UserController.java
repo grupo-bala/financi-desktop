@@ -31,7 +31,7 @@ public class UserController implements IUserController{
         SHA256Encryptor encryptor = new SHA256Encryptor();
          
         if (!idbUser.getPassword().equals(encryptor.encrypt(oldPassword))) {
-            throw new Exception("senha atual errada");
+            throw new Exception("Senha atual errada");
         }
         else {
             try {
