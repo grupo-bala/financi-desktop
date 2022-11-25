@@ -11,5 +11,9 @@ public interface IUser {
 
     public void setBalance(double balance);
 
+    public void setName(String name);
+
+    public void setUsername(String username);
+
     public void close();
 }
