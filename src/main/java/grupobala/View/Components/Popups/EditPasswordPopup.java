@@ -1,7 +1,7 @@
 package grupobala.View.Components.Popups;
 
-import grupobala.Controller.User.UserController;
 import grupobala.Controller.User.IUserController.IUserController;
+import grupobala.Controller.User.UserController;
 import grupobala.View.Components.Component.Component;
 import grupobala.View.Components.Popup.PopupComponent;
 import grupobala.View.Components.TextField.PasswordFieldComponent;
@@ -17,16 +17,19 @@ import javafx.scene.text.Text;
 public class EditPasswordPopup implements Component {
 
     private PopupComponent popup = new PopupComponent();
-    private PasswordField oldpassword = new PasswordFieldComponent().getComponent();
-    private PasswordField newPassword = new PasswordFieldComponent().getComponent();
-    private PasswordField newPasswordConfirmation = new PasswordFieldComponent().getComponent();
+    private PasswordField oldpassword = new PasswordFieldComponent()
+        .getComponent();
+    private PasswordField newPassword = new PasswordFieldComponent()
+        .getComponent();
+    private PasswordField newPasswordConfirmation = new PasswordFieldComponent()
+        .getComponent();
     private Button confirmationButton = new Button("Confirmar");
     private Text feedbackError = new Text();
 
     public EditPasswordPopup() {
         this.popup.getComponent().getChildren().add(getComponents());
     }
-    
+
     @Override
     public Node getComponent() {
         return this.popup.getComponent();
@@ -35,20 +38,33 @@ public class EditPasswordPopup implements Component {
     public PopupComponent getPopup() {
         return this.popup;
     }
-    
+
     private VBox getComponents() {
         VBox components = new VBox();
         HBox titleExitButton = getTitleButton();
 
-        components.getStylesheets().add("file:src/main/resources/grupobala/css/Components/OperationPopup/EditPasswordPopup.css");
-    
+        components
+            .getStylesheets()
+            .add(
+                "file:src/main/resources/grupobala/css/Components/OperationPopup/EditPasswordPopup.css"
+            );
+
         components.getStyleClass().add("op-container");
         oldpassword.getStyleClass().add("inputs");
         newPassword.getStyleClass().add("inputs");
         newPasswordConfirmation.getStyleClass().add("inputs");
         confirmationButton.getStyleClass().add("confirm-button");
-        
-        components.getChildren().addAll(titleExitButton, getOldPasswordInput(), getNewPasswordInput(), getNewPasswordConfirmationInput(), feedbackError, confirmationButton);
+
+        components
+            .getChildren()
+            .addAll(
+                titleExitButton,
+                getOldPasswordInput(),
+                getNewPasswordInput(),
+                getNewPasswordConfirmationInput(),
+                feedbackError,
+                confirmationButton
+            );
 
         confirmationButton.setOnMouseClicked(e -> {
             try {
@@ -139,8 +155,7 @@ public class EditPasswordPopup implements Component {
 
         if (!newPassword.equals(newPasswordConfirm)) {
             throw new Exception("Senhas não correspondentes");
-        }
-        else {
+        } else {
             try {
                 userController.updatePassword(oldPassword, newPasswordConfirm);
             } catch (Exception e) {
@@ -150,7 +165,11 @@ public class EditPasswordPopup implements Component {
     }
 
     private void checkFieldMiss() throws Exception {
-        if (this.oldpassword.getText() == "" || this.newPassword.getText() == "" || this.newPasswordConfirmation.getText() == "") {
+        if (
+            this.oldpassword.getText() == "" ||
+            this.newPassword.getText() == "" ||
+            this.newPasswordConfirmation.getText() == ""
+        ) {
             throw new Exception("Preencha todos os campos");
         }
     }

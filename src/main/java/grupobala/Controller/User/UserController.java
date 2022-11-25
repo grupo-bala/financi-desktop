@@ -5,10 +5,10 @@ import grupobala.Crypt.Implementations.SHA256Encryptor;
 import grupobala.Database.Connection.DBConnection;
 import grupobala.Database.User.DBUser;
 import grupobala.Database.User.IDBUser.IDBUser;
-import grupobala.Entities.User.User;
 import grupobala.Entities.User.IUser.IUser;
+import grupobala.Entities.User.User;
 
-public class UserController implements IUserController{
+public class UserController implements IUserController {
 
     @Override
     public void editUserInfo(String newUserName, String name) throws Exception {
@@ -16,7 +16,7 @@ public class UserController implements IUserController{
 
         user.setName(name);
         user.setUsername(newUserName);
-        
+
         try {
             IDBUser idbUser = new DBUser(new DBConnection());
             idbUser.updateUserInformation();
@@ -26,14 +26,14 @@ public class UserController implements IUserController{
     }
 
     @Override
-    public void updatePassword(String oldPassword, String newPassword) throws Exception {
+    public void updatePassword(String oldPassword, String newPassword)
+        throws Exception {
         IDBUser idbUser = new DBUser(new DBConnection());
         SHA256Encryptor encryptor = new SHA256Encryptor();
-         
+
         if (!idbUser.getPassword().equals(encryptor.encrypt(oldPassword))) {
             throw new Exception("Senha atual errada");
-        }
-        else {
+        } else {
             try {
                 idbUser.updatePassword(encryptor.encrypt(newPassword));
             } catch (Exception e) {
@@ -41,5 +41,4 @@ public class UserController implements IUserController{
             }
         }
     }
-
 }

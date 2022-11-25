@@ -1,7 +1,7 @@
 package grupobala.View.Pages.Settings;
 
-import grupobala.Entities.User.User;
 import grupobala.Entities.User.IUser.IUser;
+import grupobala.Entities.User.User;
 import grupobala.View.Components.NavigationBar.NavigationBar;
 import grupobala.View.Components.Popups.EditPasswordPopup;
 import grupobala.View.Components.Popups.EditUserInfoPopup;
@@ -15,7 +15,7 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 
-public class Settings implements Page{
+public class Settings implements Page {
 
     private StackPane mainPane = new StackPane();
     private NavigationBar navigationBar = new NavigationBar();
@@ -29,15 +29,27 @@ public class Settings implements Page{
     public Pane getMainPane() {
         VBox mainContainer = new VBox();
 
-        mainPane.getStylesheets().add("file:src/main/resources/grupobala/css/Pages/Settings/Settings.css");
+        mainPane
+            .getStylesheets()
+            .add(
+                "file:src/main/resources/grupobala/css/Pages/Settings/Settings.css"
+            );
         mainPane.getStyleClass().add("mainPane");
         mainContainer.getStyleClass().add("mainContainer");
 
         setContainer();
 
-        mainContainer.getChildren().addAll(navigationBar.getComponent(), this.container);
+        mainContainer
+            .getChildren()
+            .addAll(navigationBar.getComponent(), this.container);
 
-        mainPane.getChildren().addAll(mainContainer, editPopup.getComponent(), editPasswordPopup.getComponent());
+        mainPane
+            .getChildren()
+            .addAll(
+                mainContainer,
+                editPopup.getComponent(),
+                editPasswordPopup.getComponent()
+            );
 
         editPopup.setOnConfirm(() -> {
             reloadInfo();
@@ -100,7 +112,7 @@ public class Settings implements Page{
         vbox.getChildren().addAll(username, name);
 
         return vbox;
-    }   
+    }
 
     private void reloadInfo() {
         this.container.getChildren().clear();

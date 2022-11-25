@@ -1,9 +1,9 @@
 package grupobala.View.Components.Popups;
 
-import grupobala.Controller.User.UserController;
 import grupobala.Controller.User.IUserController.IUserController;
-import grupobala.Entities.User.User;
+import grupobala.Controller.User.UserController;
 import grupobala.Entities.User.IUser.IUser;
+import grupobala.Entities.User.User;
 import grupobala.View.Components.Component.Component;
 import grupobala.View.Components.LinkButton.LinkButtonComponent;
 import grupobala.View.Components.Popup.PopupComponent;
@@ -17,8 +17,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-public class EditUserInfoPopup implements Component{
-    
+public class EditUserInfoPopup implements Component {
+
     IUser user = new User();
     private PopupComponent popup = new PopupComponent();
     private TextField usernameInput = new TextFieldComponent().getComponent();
@@ -48,15 +48,28 @@ public class EditUserInfoPopup implements Component{
         VBox nameBox = getNameInput();
         changePassword.setText("Alterar senha");
 
-        components.getStylesheets().add("file:src/main/resources/grupobala/css/Components/OperationPopup/EditUserInfoPopup.css");
-    
+        components
+            .getStylesheets()
+            .add(
+                "file:src/main/resources/grupobala/css/Components/OperationPopup/EditUserInfoPopup.css"
+            );
+
         components.getStyleClass().add("op-container");
         usernameBox.getStyleClass().add("inputs");
         nameBox.getStyleClass().add("inputs");
         changePassword.getStyleClass().add("change-password-button");
         confirm.getStyleClass().add("confirm-button");
 
-        components.getChildren().addAll(titleExitButton, usernameBox, nameBox, feedbackError, confirm, changePassword);
+        components
+            .getChildren()
+            .addAll(
+                titleExitButton,
+                usernameBox,
+                nameBox,
+                feedbackError,
+                confirm,
+                changePassword
+            );
 
         changePassword.setOnMouseClicked(e -> {
             this.popup.hidePopup();
@@ -145,7 +158,9 @@ public class EditUserInfoPopup implements Component{
     }
 
     private void checkField() throws Exception {
-        if (this.usernameInput.getText() == "" || this.nameInput.getText() == "") {
+        if (
+            this.usernameInput.getText() == "" || this.nameInput.getText() == ""
+        ) {
             throw new Exception("Preecha todos os campos");
         }
     }
@@ -175,7 +190,10 @@ public class EditUserInfoPopup implements Component{
     private void editInfo() throws Exception {
         try {
             IUserController userController = new UserController();
-            userController.editUserInfo(this.usernameInput.getText(), this.nameInput.getText());
+            userController.editUserInfo(
+                this.usernameInput.getText(),
+                this.nameInput.getText()
+            );
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
