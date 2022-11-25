@@ -9,6 +9,7 @@ import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 public class NavigationBar implements Component {
@@ -24,6 +25,7 @@ public class NavigationBar implements Component {
     Text analysis = new Text("análise inteligente");
 
     public NavigationBar() {
+        VBox vbox = new VBox();
         Image iconSetting = new Image(
             "file:src/main/resources/grupobala/images/settings.png"
         );
@@ -34,7 +36,7 @@ public class NavigationBar implements Component {
         logo = new ImageView(logoImage);
         titles = getTitles();
 
-        settings.setOnMouseClicked(e -> {
+        vbox.setOnMouseClicked(e -> {
             pageManager.setCurrentPage(new Settings());
         });
 
@@ -45,8 +47,10 @@ public class NavigationBar implements Component {
             );
         bar.getStyleClass().add("navigation-bar");
         logo.getStyleClass().add("logo");
+        vbox.getStyleClass().add("settings");
 
-        bar.getChildren().addAll(logo, titles, settings);
+        vbox.getChildren().add(settings);
+        bar.getChildren().addAll(logo, titles, vbox);
     }
 
     @Override
