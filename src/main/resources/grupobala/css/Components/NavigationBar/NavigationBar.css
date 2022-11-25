@@ -16,4 +16,10 @@
 .title{
     -fx-fill: white;
     -fx-font-size: 16px;
+    -fx-cursor: hand;
+}
+
+.settings{
+    -fx-alignment: center;
+    -fx-cursor: hand;
 }

@@ -5,6 +5,7 @@
     -fx-background-color: #2B2F2B;
     -fx-background-radius: 5px;
     -fx-effect: dropshadow(gaussian, #0000003F, 4, 0, 0, 4);
+    -fx-cursor: hand;
 }
 
 .button-label {

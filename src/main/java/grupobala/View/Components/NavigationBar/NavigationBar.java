@@ -4,10 +4,12 @@ import grupobala.View.Components.Component.Component;
 import grupobala.View.PageManager;
 import grupobala.View.Pages.Dashboard.Dashboard;
 import grupobala.View.Pages.Dashboard.ExtractPage.ExtractPage;
+import grupobala.View.Pages.Settings.Settings;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 public class NavigationBar implements Component {
@@ -16,12 +18,14 @@ public class NavigationBar implements Component {
     private ImageView logo;
     private HBox titles;
     private ImageView settings;
+    private PageManager pageManager = new PageManager();
     Text dashboard = new Text("início");
     Text extract = new Text("transações");
     Text classes = new Text("aulas");
     Text analysis = new Text("análise inteligente");
 
     public NavigationBar() {
+        VBox vbox = new VBox();
         Image iconSetting = new Image(
             "file:src/main/resources/grupobala/images/settings.png"
         );
@@ -32,6 +36,10 @@ public class NavigationBar implements Component {
         logo = new ImageView(logoImage);
         titles = getTitles();
 
+        vbox.setOnMouseClicked(e -> {
+            pageManager.setCurrentPage(new Settings());
+        });
+
         bar
             .getStylesheets()
             .add(
@@ -39,8 +47,10 @@ public class NavigationBar implements Component {
             );
         bar.getStyleClass().add("navigation-bar");
         logo.getStyleClass().add("logo");
+        vbox.getStyleClass().add("settings");
 
-        bar.getChildren().addAll(logo, titles, settings);
+        vbox.getChildren().add(settings);
+        bar.getChildren().addAll(logo, titles, vbox);
     }
 
     @Override
@@ -60,12 +70,10 @@ public class NavigationBar implements Component {
         hbox.getChildren().addAll(dashboard, extract, classes, analysis);
 
         dashboard.setOnMouseClicked(e -> {
-            PageManager pageManager = new PageManager();
             pageManager.setCurrentPage(new Dashboard());
         });
 
         extract.setOnMouseClicked(e -> {
-            PageManager pageManager = new PageManager();
             pageManager.setCurrentPage(new ExtractPage());
         });
 
