@@ -88,5 +88,7 @@ public class TestEditTransactionController {
                 transactionController.updateTransaction(-1, transaction);
             }
         );
+
+        user.close();
     }
 }
