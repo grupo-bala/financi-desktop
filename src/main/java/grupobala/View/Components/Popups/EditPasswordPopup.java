@@ -1,11 +1,13 @@
 package grupobala.View.Components.Popups;
 
+import grupobala.Controller.User.UserController;
+import grupobala.Controller.User.IUserController.IUserController;
 import grupobala.View.Components.Component.Component;
 import grupobala.View.Components.Popup.PopupComponent;
-import grupobala.View.Components.TextField.TextFieldComponent;
+import grupobala.View.Components.TextField.PasswordFieldComponent;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
+import javafx.scene.control.PasswordField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -15,9 +17,9 @@ import javafx.scene.text.Text;
 public class EditPasswordPopup implements Component {
 
     private PopupComponent popup = new PopupComponent();
-    private TextField oldpassword = new TextFieldComponent().getComponent();;
-    private TextField newPassword = new TextFieldComponent().getComponent();;
-    private TextField newPasswordConfirmation = new TextFieldComponent().getComponent();;
+    private PasswordField oldpassword = new PasswordFieldComponent().getComponent();
+    private PasswordField newPassword = new PasswordFieldComponent().getComponent();
+    private PasswordField newPasswordConfirmation = new PasswordFieldComponent().getComponent();
     private Button confirmationButton = new Button("Confirmar");
     private Text feedbackError = new Text();
 
@@ -48,6 +50,15 @@ public class EditPasswordPopup implements Component {
         
         components.getChildren().addAll(titleExitButton, getOldPasswordInput(), getNewPasswordInput(), getNewPasswordConfirmationInput(), feedbackError, confirmationButton);
 
+        confirmationButton.setOnMouseClicked(e -> {
+            try {
+                checkFieldMiss();
+                handleConfirm();
+            } catch (Exception error) {
+                handleError(error.getMessage());
+            }
+        });
+
         return components;
     }
 
@@ -63,7 +74,7 @@ public class EditPasswordPopup implements Component {
         hBox.getChildren().addAll(title, exit);
 
         exit.setOnAction(e -> {
-            //hideButtonLabel();
+            hideButtonLabel();
             popup.hidePopup();
         });
 
@@ -117,5 +128,59 @@ public class EditPasswordPopup implements Component {
         vBox.getChildren().addAll(label, newPasswordConfirmation);
 
         return vBox;
+    }
+
+    private void editPassword() throws Exception {
+        IUserController userController = new UserController();
+
+        String oldPassword = this.oldpassword.getText();
+        String newPassword = this.newPassword.getText();
+        String newPasswordConfirm = this.newPasswordConfirmation.getText();
+
+        if (!newPassword.equals(newPasswordConfirm)) {
+            throw new Exception("Senhas não correspondentes");
+        }
+        else {
+            try {
+                userController.updatePassword(oldPassword, newPasswordConfirm);
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
+
+    private void checkFieldMiss() throws Exception {
+        if (this.oldpassword.getText() == "" || this.newPassword.getText() == "" || this.newPasswordConfirmation.getText() == "") {
+            throw new Exception("Preencha todos os campos");
+        }
+    }
+
+    private void clearFields() {
+        this.oldpassword.clear();
+        this.newPassword.clear();
+        this.newPasswordConfirmation.clear();
+    }
+
+    private void handleConfirm() {
+        try {
+            editPassword();
+            System.out.println("Senha alterada");
+            this.popup.hidePopup();
+            clearFields();
+        } catch (Exception e) {
+            handleError(e.getMessage());
+        }
+    }
+
+    private void handleError(String messageError) {
+        feedbackError.setText(messageError);
+        feedbackError.getStyleClass().clear();
+        feedbackError.getStyleClass().add("label-wrong");
+    }
+
+    private void hideButtonLabel() {
+        feedbackError.setText("");
+        feedbackError.getStyleClass().clear();
+        feedbackError.getStyleClass().add("label-hide");
     }
 }
