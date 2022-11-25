@@ -55,4 +55,14 @@ public class User implements IUser {
     public void close() {
         User.INSTANCIATED = false;
     }
+
+    @Override
+    public void setName(String name) {
+        User.NAME = name;
+    }
+
+    @Override
+    public void setUsername(String username) {
+        User.USERNAME = username;
+    }
 }

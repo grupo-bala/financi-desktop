@@ -1,20 +1,19 @@
 package grupobala.View.Components.Popups;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
-import java.util.Locale;
-
-import grupobala.Controller.Transaction.TransactionController;
 import grupobala.Controller.Transaction.ITransactionController.ITransactionController;
+import grupobala.Controller.Transaction.TransactionController;
 import grupobala.Entities.Category.CategoryEnum;
 import grupobala.Entities.Transaction.ITransaction.ITransaction;
 import grupobala.Entities.User.User;
 import grupobala.View.Components.Component.Component;
 import grupobala.View.Components.Popup.PopupComponent;
 import grupobala.View.Components.TextField.TextFieldComponent;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Locale;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -26,7 +25,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-public class EditTransactionPopup implements Component{
+public class EditTransactionPopup implements Component {
 
     private ITransaction transaction;
     private PopupComponent popup = new PopupComponent();
@@ -259,10 +258,15 @@ public class EditTransactionPopup implements Component{
         });
     }
 
-    private void editTransaction(String title, String wage, LocalDate dateLocal, String category) throws Exception{
+    private void editTransaction(
+        String title,
+        String wage,
+        LocalDate dateLocal,
+        String category
+    ) throws Exception {
         ITransactionController transactionController = new TransactionController();
         User user = new User();
-        
+
         CategoryEnum categoryEnum = CategoryEnum.getCategory(category);
         double value = Double.valueOf(wage.replace(',', '.'));
         Calendar dateCalendar = Calendar.getInstance();
@@ -275,19 +279,21 @@ public class EditTransactionPopup implements Component{
 
         if (dateCalendar.getTime().after(Calendar.getInstance().getTime())) {
             throw new Exception("Data indisponível");
-        } 
-        else {
+        } else {
             transaction.setTitle(title);
             transaction.setValue(value);
             transaction.setDate(dateCalendar.getTime());
             transaction.setCategory(categoryEnum);
 
             try {
-                transactionController.updateTransaction(user.getID(), transaction);
+                transactionController.updateTransaction(
+                    user.getID(),
+                    transaction
+                );
             } catch (Exception e) {
                 throw new Exception(e.getMessage());
             }
-        }   
+        }
     }
 
     private void handleConfirm() {

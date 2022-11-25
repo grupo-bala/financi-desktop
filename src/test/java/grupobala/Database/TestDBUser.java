@@ -1,5 +1,6 @@
 package grupobala.Database;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -64,5 +65,54 @@ public class TestDBUser {
         String result = exception.getMessage();
 
         assertEquals(expected, result);
+    }
+
+    @Test
+    public void testGetUserPassword() throws SQLException {
+        SetupForTest.truncateTables();
+        int financiUserID = SetupForTest.addFinanciUser();
+
+        new User("financi", "Financi", 1000, financiUserID);
+
+        String result = this.userDB.getPassword();
+        String expected = "1234";
+
+        assertEquals(expected, result);
+
+        new User().close();
+    }
+
+    @Test
+    public void updatePassword() throws SQLException {
+        SetupForTest.truncateTables();
+        int financiUserID = SetupForTest.addFinanciUser();
+
+        new User("financi", "Financi", 1000, financiUserID);
+
+        this.userDB.updatePassword("4321");
+
+        String result = this.userDB.getPassword();
+        String expected = "4321";
+
+        assertEquals(expected, result);
+
+        new User().close();
+    }
+
+    @Test
+    public void updateUserInformation() throws SQLException {
+        SetupForTest.truncateTables();
+        int financiUserID = SetupForTest.addFinanciUser();
+
+        new User("financi", "Financi", 1000, financiUserID);
+
+        new User().setName("FinanciFinanci");
+        new User().setUsername("financiiiiiiiii");
+
+        assertDoesNotThrow(() -> {
+            this.userDB.updateUserInformation();
+        });
+
+        new User().close();
     }
 }
