@@ -52,8 +52,8 @@ public class AvatarCardComponent implements Component {
     }
 
     private void setUserName() {
-        User user = new User();
-        userName.setText(user.getName());
+        String name = new User().getName();
+        userName.setText(name.substring(0, 1).toUpperCase() + name.substring(1));
     }
 
     private void setGreetings() {
