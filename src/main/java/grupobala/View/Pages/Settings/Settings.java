@@ -2,10 +2,10 @@ package grupobala.View.Pages.Settings;
 
 import grupobala.Entities.User.IUser.IUser;
 import grupobala.Entities.User.User;
-import grupobala.View.PageManager;
 import grupobala.View.Components.NavigationBar.NavigationBar;
 import grupobala.View.Components.Popups.EditPasswordPopup;
 import grupobala.View.Components.Popups.EditUserInfoPopup;
+import grupobala.View.PageManager;
 import grupobala.View.Pages.Authentication.SignIn.SignInPage;
 import grupobala.View.Pages.Page.Page;
 import javafx.scene.control.Button;
@@ -29,9 +29,9 @@ public class Settings implements Page {
 
     public Settings() {
         this.logout.setOnAction(e -> {
-            new User().close();
-            new PageManager().setCurrentPage(new SignInPage());
-        });
+                new User().close();
+                new PageManager().setCurrentPage(new SignInPage());
+            });
     }
 
     @Override
