@@ -9,6 +9,7 @@ import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
@@ -48,6 +49,8 @@ public class NavigationBar implements Component {
         bar.getStyleClass().add("navigation-bar");
         logo.getStyleClass().add("logo");
         vbox.getStyleClass().add("settings");
+
+        HBox.setHgrow(titles, Priority.ALWAYS);
 
         vbox.getChildren().add(settings);
         bar.getChildren().addAll(logo, titles, vbox);

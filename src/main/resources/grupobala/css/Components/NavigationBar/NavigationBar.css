@@ -1,6 +1,5 @@
 .navigation-bar{
-    -fx-padding: 10px;
-    -fx-spacing: 460px;
+    -fx-padding: 10px 40px;
     -fx-alignment: center;
     -fx-font-family: "Montserrat";
     -fx-font-color: white;
@@ -8,7 +7,6 @@
 }
 
 .titles-box{
-    -fx-translate-x: -40px;
     -fx-spacing: 30px;
     -fx-alignment: center;
 }
