@@ -59,13 +59,17 @@ public class ExtractPage implements Page {
                 "file:src/main/resources/grupobala/css/Pages/ExtractPage/ExtractPage.css"
             );
 
-        mainPane.getChildren().addAll(
-            mainContainer,
-            errorPopup.getComponent(),
-            popupConfirmation.getComponent()
-        );
+        mainPane
+            .getChildren()
+            .addAll(
+                mainContainer,
+                errorPopup.getComponent(),
+                popupConfirmation.getComponent()
+            );
 
-        mainContainer.getChildren().addAll(navigationBar.getComponent(), clipContainer);
+        mainContainer
+            .getChildren()
+            .addAll(navigationBar.getComponent(), clipContainer);
 
         try {
             loadExtract();
@@ -84,7 +88,7 @@ public class ExtractPage implements Page {
         this.callback = callback;
     }
 
-    public void reloadExtract() { 
+    public void reloadExtract() {
         try {
             container.getChildren().clear();
             loadExtract();
@@ -200,7 +204,6 @@ public class ExtractPage implements Page {
     }
 
     private void getTransactionPopup() {
-
         setOnMouseClicked(transaction -> {
             TransactionViewComponent transactionView = new TransactionViewComponent(
                 transaction
@@ -216,9 +219,11 @@ public class ExtractPage implements Page {
             transactionView.getPopup().showPopup();
         });
     }
-    
-    private void popupRemoveTransactionConfirmation(int idTransaction,double transactionValue) {
 
+    private void popupRemoveTransactionConfirmation(
+        int idTransaction,
+        double transactionValue
+    ) {
         VBox card = new CardVBoxComponent().getComponent();
         Button confirmation = new Button("Confirmar");
         Button closePopup = new Button("X");
@@ -247,9 +252,10 @@ public class ExtractPage implements Page {
         });
     }
 
-    
-    private void popupRemoveTransactionError(int idTransaction,double transactionValue) {
-
+    private void popupRemoveTransactionError(
+        int idTransaction,
+        double transactionValue
+    ) {
         VBox card = new CardVBoxComponent().getComponent();
         Button closePopup = new Button("X");
         Text text = new Text("Não foi possível remover a movimentação");
@@ -291,7 +297,7 @@ public class ExtractPage implements Page {
 
             closePopup.setOnAction(e -> {
                 errorPopup.hidePopup();
-            }); 
+            });
         }
-    }    
+    }
 }
