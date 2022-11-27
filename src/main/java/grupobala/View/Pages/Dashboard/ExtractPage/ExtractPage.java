@@ -1,10 +1,15 @@
 package grupobala.View.Pages.Dashboard.ExtractPage;
 
 import grupobala.Controller.Extract.ExtractController;
+import grupobala.Controller.Transaction.TransactionController;
 import grupobala.Entities.Extract.IExtract.IExtract;
 import grupobala.Entities.Transaction.ITransaction.ITransaction;
+import grupobala.Entities.User.User;
+import grupobala.View.Components.Card.CardVBoxComponent;
 import grupobala.View.Components.ExtractList.ExtractLambda;
 import grupobala.View.Components.NavigationBar.NavigationBar;
+import grupobala.View.Components.Popup.PopupComponent;
+import grupobala.View.Components.TransactionView.TransactionViewComponent;
 import grupobala.View.Pages.Page.Page;
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -12,6 +17,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -25,6 +32,8 @@ public class ExtractPage implements Page {
     private StackPane mainPane = new StackPane();
 
     private NavigationBar navigationBar = new NavigationBar();
+    private PopupComponent popupConfirmation = new PopupComponent();
+    private PopupComponent errorPopup = new PopupComponent();
     private Locale localeBR;
     private DateFormat dateFormat;
     private VBox mainContainer;
@@ -36,9 +45,9 @@ public class ExtractPage implements Page {
         localeBR = new Locale("pt", "BR");
         dateFormat = new SimpleDateFormat("dd 'de' MMM yyyy", localeBR);
 
+        ScrollPane clipContainer = new ScrollPane();
         mainContainer = new VBox();
         container = new VBox();
-        VBox title = getTitlePage();
 
         mainContainer.getStyleClass().add("main-container");
         mainPane.getStyleClass().add("extract");
@@ -50,15 +59,23 @@ public class ExtractPage implements Page {
                 "file:src/main/resources/grupobala/css/Pages/ExtractPage/ExtractPage.css"
             );
 
-        mainPane.getChildren().add(mainContainer);
-        mainContainer
-            .getChildren()
-            .addAll(navigationBar.getComponent(), container);
-        container.getChildren().add(title);
+        mainPane.getChildren().addAll(
+            mainContainer,
+            errorPopup.getComponent(),
+            popupConfirmation.getComponent()
+        );
+
+        mainContainer.getChildren().addAll(navigationBar.getComponent(), clipContainer);
 
         try {
             loadExtract();
         } catch (Exception e) {}
+
+        getTransactionPopup();
+        clipContainer.setContent(container);
+        clipContainer.setStyle("-fx-background-color: transparent;");
+        clipContainer.setFitToHeight(true);
+        clipContainer.setFitToWidth(true);
 
         return mainPane;
     }
@@ -67,9 +84,9 @@ public class ExtractPage implements Page {
         this.callback = callback;
     }
 
-    public void reloadExtract() {
+    public void reloadExtract() { 
         try {
-            mainContainer.getChildren().clear();
+            container.getChildren().clear();
             loadExtract();
         } catch (Exception e) {}
     }
@@ -79,7 +96,7 @@ public class ExtractPage implements Page {
 
         IExtract extract = extrato2.getExtract();
         VBox transactions = getTransactionsPreview(extract);
-        mainContainer.getChildren().add(transactions);
+        container.getChildren().addAll(getTitlePage(), transactions);
     }
 
     private VBox getTitlePage() {
@@ -88,7 +105,7 @@ public class ExtractPage implements Page {
         title.getStyleClass().add("extract-title");
 
         container.getChildren().add(title);
-        container.setAlignment(Pos.TOP_CENTER);
+        container.setAlignment(Pos.TOP_LEFT);
 
         return container;
     }
@@ -181,4 +198,100 @@ public class ExtractPage implements Page {
 
         return container;
     }
+
+    private void getTransactionPopup() {
+
+        setOnMouseClicked(transaction -> {
+            TransactionViewComponent transactionView = new TransactionViewComponent(
+                transaction
+            );
+            mainPane.getChildren().add(transactionView.getComponent());
+            transactionView.setOnDelete(transactionToDelete -> {
+                transactionView.getPopup().hidePopup();
+                popupRemoveTransactionConfirmation(
+                    transactionToDelete.getId(),
+                    transactionToDelete.getValue()
+                );
+            });
+            transactionView.getPopup().showPopup();
+        });
+    }
+    
+    private void popupRemoveTransactionConfirmation(int idTransaction,double transactionValue) {
+
+        VBox card = new CardVBoxComponent().getComponent();
+        Button confirmation = new Button("Confirmar");
+        Button closePopup = new Button("X");
+        Text text = new Text("Deseja apagar esta movimentação?");
+        VBox vbox = new VBox();
+
+        vbox.getChildren().add(closePopup);
+        card.getChildren().addAll(vbox, text, confirmation);
+        popupConfirmation.getComponent().getChildren().addAll(card);
+
+        vbox.getStyleClass().add("confirmation-box");
+        card.getStyleClass().add("confirmation-card");
+        closePopup.getStyleClass().add("close-popup");
+        text.getStyleClass().add("confirmation-text");
+        confirmation.getStyleClass().add("confirmation-button");
+
+        popupConfirmation.showPopup();
+
+        confirmation.setOnAction(e -> {
+            popupRemoveTransactionError(idTransaction, transactionValue);
+            popupConfirmation.hidePopup();
+        });
+
+        closePopup.setOnAction(e -> {
+            popupConfirmation.hidePopup();
+        });
+    }
+
+    
+    private void popupRemoveTransactionError(int idTransaction,double transactionValue) {
+
+        VBox card = new CardVBoxComponent().getComponent();
+        Button closePopup = new Button("X");
+        Text text = new Text("Não foi possível remover a movimentação");
+        VBox textVBox = new VBox();
+        Image alertImg = new Image(
+            "file:src/main/resources/grupobala/images/alert.png"
+        );
+        ImageView alert = new ImageView(alertImg);
+        HBox alertHBox = new HBox();
+
+        VBox.setVgrow(textVBox, Priority.ALWAYS);
+        card.getChildren().addAll(alertHBox, text, textVBox);
+        errorPopup.getComponent().getChildren().add(card);
+        textVBox.getChildren().add(text);
+        alertHBox.getChildren().addAll(alert, closePopup);
+
+        alert.setFitHeight(25);
+        alert.setFitWidth(25);
+        alert.setPreserveRatio(true);
+
+        alertHBox.getStyleClass().add("alert-box");
+        textVBox.getStyleClass().add("text-box");
+
+        card.getStyleClass().add("remove-card");
+        closePopup.getStyleClass().add("close-popup-error");
+        text.getStyleClass().add("text-error");
+
+        try {
+            TransactionController transactionController = new TransactionController();
+            transactionController.removeTransaction(
+                new User().getID(),
+                idTransaction,
+                transactionValue,
+                new User().getValue()
+            );
+            reloadExtract();
+        } catch (Exception error) {
+            errorPopup.showPopup();
+
+            closePopup.setOnAction(e -> {
+                errorPopup.hidePopup();
+            }); 
+        }
+    }    
 }
