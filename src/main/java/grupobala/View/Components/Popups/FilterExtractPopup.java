@@ -1,8 +1,14 @@
 package grupobala.View.Components.Popups;
 
+import grupobala.Entities.Extract.Filter.DateFilter;
+import grupobala.Entities.Extract.Filter.IFilter.IFilter;
 import grupobala.View.Components.Component.Component;
+import grupobala.View.Components.ExtractList.ExtractLambda;
 import grupobala.View.Components.Popup.PopupComponent;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
+
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
@@ -53,11 +59,17 @@ public class FilterExtractPopup implements Component {
         return components;
     }
 
-    public void setOnConfirm(OperationLambda callback) {
+    public void setOnConfirm(FilterLambda callback) {
         confirm.setOnAction(e -> {
             try {
                 checkFieldMiss();
-                callback.applyOperation();
+                IFilter filter = new DateFilter(
+                    Date.from(this.dateFieldLeft.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()),
+                    Date.from(this.dateField.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant())
+                );
+
+                this.popup.hidePopup();
+                callback.applyOperation(filter);
             } catch (Exception error) {
                 handleMissField(error.getMessage());
             }
