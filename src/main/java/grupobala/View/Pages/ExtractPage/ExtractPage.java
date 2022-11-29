@@ -1,7 +1,8 @@
-package grupobala.View.Pages.Dashboard.ExtractPage;
+package grupobala.View.Pages.ExtractPage;
 
 import grupobala.Controller.Extract.ExtractController;
 import grupobala.Controller.Transaction.TransactionController;
+import grupobala.Entities.Extract.Filter.IFilter.IFilter;
 import grupobala.Entities.Extract.IExtract.IExtract;
 import grupobala.Entities.Transaction.ITransaction.ITransaction;
 import grupobala.Entities.User.User;
@@ -41,6 +42,7 @@ public class ExtractPage implements Page {
     private VBox mainContainer;
     private VBox container;
     private ExtractLambda callback;
+    private IFilter currentFilter = null;
 
     @Override
     public StackPane getMainPane() {
@@ -54,6 +56,11 @@ public class ExtractPage implements Page {
         mainContainer.getStyleClass().add("main-container");
         mainPane.getStyleClass().add("extract");
         container.getStyleClass().add("container");
+
+        filterPopup.setOnConfirm(filter -> {
+            this.currentFilter = filter;
+            this.reloadExtract();
+        });
 
         mainPane
             .getStylesheets()
@@ -140,9 +147,10 @@ public class ExtractPage implements Page {
     private VBox getTransactionsPreview(IExtract extract) {
         VBox outputs = new VBox();
         for (ITransaction t : extract) {
-            VBox tview = compilingTransactionPreview(t);
-
-            outputs.getChildren().add(tview);
+            if ((this.currentFilter != null && this.currentFilter.matchesFilter(t)) || (this.currentFilter == null)) {
+                VBox tview = compilingTransactionPreview(t);
+                outputs.getChildren().add(tview);
+            }
         }
 
         return outputs;

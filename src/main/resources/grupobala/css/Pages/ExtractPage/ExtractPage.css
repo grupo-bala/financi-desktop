@@ -2,10 +2,6 @@
     -fx-background-color: #2B2E2B;
 }
 
-.main-container {
-
-}
-
 .filterButton_container {
     -fx-cursor: hand;
 }
@@ -15,7 +11,7 @@
 }
 
 .container {
-    -fx-padding: 50px 450 35 500;
+    -fx-padding: 40px 200px;
     -fx-spacing: 40px;
     -fx-background-color: #2B2E2B;
     -fx-font-family: "Montserrat";
@@ -31,7 +27,6 @@
 }
 
 .extract-information {
-    -fx-padding: 35px 20px 40px 20px;
     -fx-spacing: 50px;
     -fx-alignment: center;
     -fx-background-color: #121512;
