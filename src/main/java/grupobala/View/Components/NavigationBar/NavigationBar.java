@@ -3,7 +3,7 @@ package grupobala.View.Components.NavigationBar;
 import grupobala.View.Components.Component.Component;
 import grupobala.View.PageManager;
 import grupobala.View.Pages.Dashboard.Dashboard;
-import grupobala.View.Pages.Dashboard.ExtractPage.ExtractPage;
+import grupobala.View.Pages.ExtractPage.ExtractPage;
 import grupobala.View.Pages.Settings.Settings;
 import grupobala.View.Pages.SmartAnalysis.SmartAnalysis;
 import javafx.scene.Node;
