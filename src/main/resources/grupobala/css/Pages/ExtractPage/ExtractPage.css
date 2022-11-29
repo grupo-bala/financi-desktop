@@ -6,6 +6,14 @@
 
 }
 
+.filterButton_container {
+    -fx-cursor: hand;
+}
+
+.title-image-container {
+    -fx-spacing: 475px;
+}
+
 .container {
     -fx-padding: 50px 500 35 500;
     -fx-spacing: 40px;

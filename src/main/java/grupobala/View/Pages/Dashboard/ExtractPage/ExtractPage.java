@@ -7,8 +7,10 @@ import grupobala.Entities.Transaction.ITransaction.ITransaction;
 import grupobala.Entities.User.User;
 import grupobala.View.Components.Card.CardVBoxComponent;
 import grupobala.View.Components.ExtractList.ExtractLambda;
+import grupobala.View.Components.FilterButton.FilterButton;
 import grupobala.View.Components.NavigationBar.NavigationBar;
 import grupobala.View.Components.Popup.PopupComponent;
+import grupobala.View.Components.Popups.FilterExtractPopup;
 import grupobala.View.Components.TransactionView.TransactionViewComponent;
 import grupobala.View.Pages.Page.Page;
 import java.sql.SQLException;
@@ -16,7 +18,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
-import javafx.geometry.Pos;
+
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
@@ -34,6 +36,7 @@ public class ExtractPage implements Page {
     private NavigationBar navigationBar = new NavigationBar();
     private PopupComponent popupConfirmation = new PopupComponent();
     private PopupComponent errorPopup = new PopupComponent();
+    private FilterExtractPopup filterPopup = new FilterExtractPopup();
     private Locale localeBR;
     private DateFormat dateFormat;
     private VBox mainContainer;
@@ -62,7 +65,8 @@ public class ExtractPage implements Page {
         mainPane.getChildren().addAll(
             mainContainer,
             errorPopup.getComponent(),
-            popupConfirmation.getComponent()
+            popupConfirmation.getComponent(),
+            filterPopup.getComponent()
         );
 
         mainContainer.getChildren().addAll(navigationBar.getComponent(), clipContainer);
@@ -99,15 +103,37 @@ public class ExtractPage implements Page {
         container.getChildren().addAll(getTitlePage(), transactions);
     }
 
-    private VBox getTitlePage() {
-        VBox container = new VBox();
+    private HBox getTitlePage() {
+
+        HBox titleContainer = new HBox();
+        HBox titleBox = new HBox();
+        HBox filter = getFilterButton(); 
+
         Text title = new Text("Histórico de Transações");
         title.getStyleClass().add("extract-title");
 
-        container.getChildren().add(title);
-        container.setAlignment(Pos.TOP_LEFT);
+        titleBox.getChildren().add(title);
+        titleContainer.getChildren().addAll(titleBox, filter);
+        titleContainer.getStyleClass().add("title-image-container");
 
-        return container;
+        return titleContainer;
+    }
+
+    private HBox getFilterButton(){
+
+        HBox filterBox = new HBox();
+        filterBox.getStyleClass().add("filterButton_container");
+        FilterButton filterButton = new FilterButton();
+
+        filterBox.getChildren().add(filterButton.getComponentClick());
+
+        filterButton
+            .getComponent()
+            .setOnMouseClicked(e -> {
+                filterPopup.getPopup().showPopup();
+            });
+
+        return filterBox;
     }
 
     private VBox getTransactionsPreview(IExtract extract) {
