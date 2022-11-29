@@ -1,0 +1,127 @@
+.smart-analysis {
+    -fx-background-color: #222622;
+
+}
+
+.main-container {
+    -fx-background-color: #222622;
+    -fx-alignment: top-center;
+
+}
+
+.container {
+    -fx-background-color: #222622;
+    -fx-alignment: top-center;
+}
+
+.smart-analysis-title{
+    -fx-font-size: 30px;
+    -fx-padding: 40px 0px 30px 0px;
+    -fx-font-weight: bold;
+    -fx-fill: #ffffff;
+    -fx-alignment: center;
+    -fx-font-family: "Montserrat";
+}
+
+.analysis-container {
+    -fx-max-width: 400px;
+    -fx-max-height: 400px;
+    -fx-padding: 0px 0px 20px 0px;
+    -fx-alignment: top-center;
+    -fx-background-color: #121512;   
+}
+.text-output{
+    -fx-fill: #ffffff;
+    -fx-alignment: center;
+    -fx-padding: 50px;
+    -fx-font-family: "Montserrat";
+}
+
+.text-entry{
+    -fx-fill: #ffffff;
+    -fx-alignment: center;
+    -fx-padding: 50px;
+    -fx-font-family: "Montserrat";
+}
+
+.output-percentage {
+    -fx-background-color: #121512;
+    -fx-max-width: 250px;
+    -fx-max-height: 250px;
+    -fx-padding: 10px 20px 10px 20px;
+    -fx-background-radius: 5px;
+
+}
+
+.entry-percentage {
+    -fx-max-width: 250px;
+    -fx-max-height: 250px;
+    -fx-border-width: 0px 0px 0px 4px;
+    -fx-border-color: #49AD5A;
+    -fx-padding: 10px 20px 10px 20px;
+    -fx-background-color: #121512;
+    -fx-background-radius: 5px;
+
+
+}
+.entry-output-container{
+    -fx-background-radius: 5px;
+    -fx-background-color: #121512;
+    -fx-padding: 20px;
+    -fx-max-width: 500px;
+    -fx-max-height: 500px;
+    -fx-alignment: top-center;
+}
+
+.analysis-text{
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-fill: #ffffff;
+    -fx-font-family: "Montserrat";
+}
+
+.higher-output-text{
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-fill: #C54646;
+    -fx-alignment: top;
+    -fx-font-family: "Montserrat";
+}
+
+.higher-entry-text{
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-fill: #49AD5A;
+    -fx-alignment: top;
+    -fx-font-family: "Montserrat";
+}
+.analysis-text-vbox{
+    -fx-alignment: top-center;
+    -fx-padding: 0px 0px 40px 0px;
+
+}
+
+.hold-higher{
+    -fx-padding: 0px 0px 30px 0px;
+
+}
+
+.hint{
+    -fx-border-width: 2px 0px 0px 0px;
+    -fx-border-color: #3D3D3D;
+    -fx-padding: 20px;
+}
+
+.hint-text{
+    -fx-fill: #ffffff;
+    -fx-alignment: top;
+    -fx-font-family: "Montserrat";
+}
+
+.hint-title{
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-fill: #49AD5A;
+    -fx-alignment: top;
+    -fx-font-family: "Montserrat";
+}
