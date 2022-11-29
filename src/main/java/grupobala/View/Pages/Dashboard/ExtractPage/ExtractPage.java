@@ -18,7 +18,6 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
-
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
@@ -62,12 +61,14 @@ public class ExtractPage implements Page {
                 "file:src/main/resources/grupobala/css/Pages/ExtractPage/ExtractPage.css"
             );
 
-        mainPane.getChildren().addAll(
-            mainContainer,
-            errorPopup.getComponent(),
-            popupConfirmation.getComponent(),
-            filterPopup.getComponent()
-        );
+        mainPane
+            .getChildren()
+            .addAll(
+                mainContainer,
+                errorPopup.getComponent(),
+                popupConfirmation.getComponent(),
+                filterPopup.getComponent()
+            );
 
         mainContainer
             .getChildren()
@@ -106,10 +107,9 @@ public class ExtractPage implements Page {
     }
 
     private HBox getTitlePage() {
-
         HBox titleContainer = new HBox();
         HBox titleBox = new HBox();
-        HBox filter = getFilterButton(); 
+        HBox filter = getFilterButton();
 
         Text title = new Text("Histórico de Transações");
         title.getStyleClass().add("extract-title");
@@ -121,8 +121,7 @@ public class ExtractPage implements Page {
         return titleContainer;
     }
 
-    private HBox getFilterButton(){
-
+    private HBox getFilterButton() {
         HBox filterBox = new HBox();
         filterBox.getStyleClass().add("filterButton_container");
         FilterButton filterButton = new FilterButton();

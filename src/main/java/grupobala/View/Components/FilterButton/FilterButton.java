@@ -14,10 +14,10 @@ public class FilterButton implements Component {
         return this.HBox;
     }
 
-    
     public HBox getComponentClick() {
-
-        Image filterImage = new Image("file:src/main/resources/grupobala/images/FilterExtract.png");
+        Image filterImage = new Image(
+            "file:src/main/resources/grupobala/images/FilterExtract.png"
+        );
         ImageView filterIcon = new ImageView(filterImage);
 
         HBox.getChildren().add(filterIcon);

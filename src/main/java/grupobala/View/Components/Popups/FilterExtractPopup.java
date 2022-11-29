@@ -3,7 +3,6 @@ package grupobala.View.Components.Popups;
 import grupobala.View.Components.Component.Component;
 import grupobala.View.Components.Popup.PopupComponent;
 import java.time.LocalDate;
-
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
@@ -12,7 +11,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-
 
 public class FilterExtractPopup implements Component {
 
@@ -50,12 +48,7 @@ public class FilterExtractPopup implements Component {
 
         components
             .getChildren()
-            .addAll(
-                titleExitButton,
-                valueDate,
-                buttonLabel,
-                confirm
-            );
+            .addAll(titleExitButton, valueDate, buttonLabel, confirm);
 
         return components;
     }
