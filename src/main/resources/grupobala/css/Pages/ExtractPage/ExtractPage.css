@@ -2,10 +2,6 @@
     -fx-background-color: #2B2E2B;
 }
 
-.main-container {
-    background-color: blue;
-}
-
 .filterButton_container {
     -fx-cursor: hand;
 }
@@ -31,7 +27,6 @@
 }
 
 .extract-information {
-    /* -fx-padding: 35px 20px 40px 20px; */
     -fx-spacing: 50px;
     -fx-alignment: center;
     -fx-background-color: #121512;
