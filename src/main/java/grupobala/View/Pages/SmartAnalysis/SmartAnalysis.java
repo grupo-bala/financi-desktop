@@ -1,27 +1,24 @@
 package grupobala.View.Pages.SmartAnalysis;
 
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
+import grupobala.Controller.SmartAnalysis.SmartAnalysisController;
+import grupobala.Entities.User.User;
+import grupobala.View.Components.NavigationBar.NavigationBar;
+import grupobala.View.Pages.Page.Page;
 import javafx.geometry.Pos;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 
+public class SmartAnalysis implements Page {
 
-import grupobala.Entities.User.User;
-import grupobala.Controller.SmartAnalysis.SmartAnalysisController;
-import grupobala.View.Pages.Page.Page;
-import grupobala.View.Components.NavigationBar.NavigationBar;
-
-
-public class SmartAnalysis implements Page{
     private StackPane mainPane = new StackPane();
     private NavigationBar navigationBar = new NavigationBar();
     private SmartAnalysisController smartAnalysisController = new SmartAnalysisController();
 
     @Override
     public StackPane getMainPane() {
-        
         VBox mainContainer = new VBox();
         VBox container = new VBox();
         VBox entryOutputcontainer = new VBox();
@@ -43,29 +40,32 @@ public class SmartAnalysis implements Page{
 
         try {
             hintString = smartAnalysisController.getHint(new User().getID());
-        }
-        catch (Exception error){
+        } catch (Exception error) {
             System.err.println("Erro ao pegar dica");
         }
-        try { 
-            stringOutput = smartAnalysisController.convertOutputToString(new User().getID());
-        }
-        catch(Exception error){
+        try {
+            stringOutput =
+                smartAnalysisController.convertOutputToString(
+                    new User().getID()
+                );
+        } catch (Exception error) {
             System.err.println("Erro na conversao para string");
         }
 
-        try { 
-            stringEntry = smartAnalysisController.convertEntryToString(new User().getID());
-        }
-        catch(Exception error){
+        try {
+            stringEntry =
+                smartAnalysisController.convertEntryToString(
+                    new User().getID()
+                );
+        } catch (Exception error) {
             System.err.println("Erro na conversao para string");
         }
-        
+
         Text hintText = new Text(hintString);
         Text textOutput = new Text(stringOutput);
         Text textEntry = new Text(stringEntry);
         Text hintTitle = new Text("Dica:");
-        
+
         holdHigherEntry.getStyleClass().add("hold-higher");
         holdHigherOutput.getStyleClass().add("hold-higher");
         hint.getStyleClass().add("hint");
@@ -85,31 +85,36 @@ public class SmartAnalysis implements Page{
         container.getStyleClass().add("container");
         analysisContainer.getStyleClass().add("analysis-container");
         entryOutputcontainer.getStyleClass().add("entry-output-container");
-        
+
         mainPane
             .getStylesheets()
             .add(
                 "file:src/main/resources/grupobala/css/Pages/SmartAnalysis/SmartAnalysis.css"
             );
 
-
         hint.getChildren().addAll(hintTitle, hintText);
         analysisTextVBox.getChildren().add(analysisText);
-        entryOutputcontainer.getChildren().addAll(analysisTextVBox, analysisContainer, hint);
+        entryOutputcontainer
+            .getChildren()
+            .addAll(analysisTextVBox, analysisContainer, hint);
         holdHigherEntry.getChildren().add(higherEntryText);
         holdHigherOutput.getChildren().add(higherOutputText);
-        outputPercentage.getChildren().addAll(holdHigherOutput,textOutput);
-        entryPercentage.getChildren().addAll(holdHigherEntry,textEntry);
-        analysisContainer.getChildren().addAll(outputPercentage, entryPercentage);
+        outputPercentage.getChildren().addAll(holdHigherOutput, textOutput);
+        entryPercentage.getChildren().addAll(holdHigherEntry, textEntry);
+        analysisContainer
+            .getChildren()
+            .addAll(outputPercentage, entryPercentage);
         container.getChildren().addAll(entryOutputcontainer);
-        mainContainer.getChildren().addAll(navigationBar.getComponent(),title, container);
+        mainContainer
+            .getChildren()
+            .addAll(navigationBar.getComponent(), title, container);
         mainPane.getChildren().addAll(mainContainer, clipContainer);
 
         clipContainer.setContent(mainContainer);
         clipContainer.setStyle("-fx-background-color: transparent;");
         clipContainer.setFitToHeight(true);
         clipContainer.setFitToWidth(true);
-        
+
         return mainPane;
     }
 
@@ -123,5 +128,4 @@ public class SmartAnalysis implements Page{
 
         return container;
     }
-
 }
