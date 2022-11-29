@@ -1,26 +1,30 @@
 package grupobala.Filter;
 
-import java.util.Calendar;
-import java.util.Date;
-
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-
 import grupobala.Entities.Category.CategoryEnum;
 import grupobala.Entities.Extract.Filter.DateFilter;
 import grupobala.Entities.Extract.Filter.IFilter.IFilter;
-import grupobala.Entities.Transaction.Transaction;
 import grupobala.Entities.Transaction.ITransaction.ITransaction;
+import grupobala.Entities.Transaction.Transaction;
+import java.util.Calendar;
+import java.util.Date;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class TestDateFilter {
-    
+
     @Test
     public void testDateFilterShouldPass() {
         Date transactionDate = makeDate(5, Calendar.JANUARY, 2022);
         Date initDate = makeDate(1, Calendar.JANUARY, 2022);
         Date endDate = makeDate(10, Calendar.JANUARY, 2022);
 
-        ITransaction transaction = new Transaction(0, 0, "Teste", CategoryEnum.OTHERS, transactionDate);
+        ITransaction transaction = new Transaction(
+            0,
+            0,
+            "Teste",
+            CategoryEnum.OTHERS,
+            transactionDate
+        );
 
         IFilter filter = new DateFilter(initDate, endDate);
 
@@ -33,7 +37,13 @@ public class TestDateFilter {
         Date initDate = makeDate(1, Calendar.JANUARY, 2022);
         Date endDate = makeDate(10, Calendar.JANUARY, 2022);
 
-        ITransaction transaction = new Transaction(0, 0, "Teste", CategoryEnum.OTHERS, transactionDate);
+        ITransaction transaction = new Transaction(
+            0,
+            0,
+            "Teste",
+            CategoryEnum.OTHERS,
+            transactionDate
+        );
 
         IFilter filter = new DateFilter(initDate, endDate);
 

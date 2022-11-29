@@ -147,7 +147,13 @@ public class ExtractPage implements Page {
     private VBox getTransactionsPreview(IExtract extract) {
         VBox outputs = new VBox();
         for (ITransaction t : extract) {
-            if ((this.currentFilter != null && this.currentFilter.matchesFilter(t)) || (this.currentFilter == null)) {
+            if (
+                (
+                    this.currentFilter != null &&
+                    this.currentFilter.matchesFilter(t)
+                ) ||
+                (this.currentFilter == null)
+            ) {
                 VBox tview = compilingTransactionPreview(t);
                 outputs.getChildren().add(tview);
             }

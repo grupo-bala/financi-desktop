@@ -8,7 +8,6 @@ import grupobala.View.Components.Popup.PopupComponent;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
-
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
@@ -64,8 +63,16 @@ public class FilterExtractPopup implements Component {
             try {
                 checkFieldMiss();
                 IFilter filter = new DateFilter(
-                    Date.from(this.dateFieldLeft.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()),
-                    Date.from(this.dateField.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant())
+                    Date.from(
+                        this.dateFieldLeft.getValue()
+                            .atStartOfDay(ZoneId.systemDefault())
+                            .toInstant()
+                    ),
+                    Date.from(
+                        this.dateField.getValue()
+                            .atStartOfDay(ZoneId.systemDefault())
+                            .toInstant()
+                    )
                 );
 
                 this.popup.hidePopup();
