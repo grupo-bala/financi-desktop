@@ -5,6 +5,7 @@ import grupobala.View.PageManager;
 import grupobala.View.Pages.Dashboard.Dashboard;
 import grupobala.View.Pages.Dashboard.ExtractPage.ExtractPage;
 import grupobala.View.Pages.Settings.Settings;
+import grupobala.View.Pages.SmartAnalysis.SmartAnalysis;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -78,6 +79,11 @@ public class NavigationBar implements Component {
 
         extract.setOnMouseClicked(e -> {
             pageManager.setCurrentPage(new ExtractPage());
+        });
+
+        analysis.setOnMouseClicked(e -> {
+            PageManager pageManager = new PageManager();
+            pageManager.setCurrentPage(new SmartAnalysis());
         });
 
         return hbox;
