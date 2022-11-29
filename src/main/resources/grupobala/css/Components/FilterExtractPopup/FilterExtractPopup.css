@@ -1,9 +1,9 @@
 .op-container {
     -fx-font-family: "Montserrat";
-    -fx-max-width: 485px;
-    -fx-max-height: 250px;
+    -fx-max-width: 470px;
+    -fx-max-height: 150px;
     -fx-padding: 10px 10px 14px 10px;
-    -fx-spacing: 35px;
+    -fx-spacing: 15px;
     -fx-background-color: #222622;
     -fx-background-radius: 10px;
     -fx-alignment: center;
@@ -77,20 +77,14 @@
     -fx-fill: transparent;
 }
 
-
-.dates-contanier {
-    fx-background-color: blue;
-    -fx-spacing: 20000px;
-}
-
 .left-date-container {
-    /*-fx-alignment: center-left;*/
-    /*-fx-background-color: green;*/
+    -fx-padding: 40px 50px 0px 40px;
+    -fx-max-width: 250px;
     -fx-show-week-numbers: false;
 }
 
 .right-date-container {
-    /*-fx-alignment: center-right;*/
-    /*-fx-background-color: yellow;*/
+    -fx-padding: 40px 0px 0px 0px;
+    -fx-max-width: 163px;
     -fx-show-week-numbers: false;
 }
