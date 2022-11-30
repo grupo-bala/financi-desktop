@@ -11,6 +11,7 @@ import grupobala.View.Components.ExtractList.ExtractLambda;
 import grupobala.View.Components.FilterButton.FilterButton;
 import grupobala.View.Components.NavigationBar.NavigationBar;
 import grupobala.View.Components.Popup.PopupComponent;
+import grupobala.View.Components.Popups.EditTransactionPopup;
 import grupobala.View.Components.Popups.FilterExtractPopup;
 import grupobala.View.Components.TransactionView.TransactionViewComponent;
 import grupobala.View.Pages.Page.Page;
@@ -33,6 +34,7 @@ public class ExtractPage implements Page {
 
     private StackPane mainPane = new StackPane();
 
+    private EditTransactionPopup editTransaction = new EditTransactionPopup();
     private NavigationBar navigationBar = new NavigationBar();
     private PopupComponent popupConfirmation = new PopupComponent();
     private PopupComponent errorPopup = new PopupComponent();
@@ -74,7 +76,8 @@ public class ExtractPage implements Page {
                 mainContainer,
                 errorPopup.getComponent(),
                 popupConfirmation.getComponent(),
-                filterPopup.getComponent()
+                filterPopup.getComponent(),
+                editTransaction.getComponent()
             );
 
         mainContainer
@@ -162,6 +165,8 @@ public class ExtractPage implements Page {
         return outputs;
     }
 
+    
+
     private VBox compilingTransactionPreview(ITransaction t) {
         boolean isNegative = t.getValue() < 0;
 
@@ -241,11 +246,15 @@ public class ExtractPage implements Page {
     }
 
     private void getTransactionPopup() {
+
         setOnMouseClicked(transaction -> {
             TransactionViewComponent transactionView = new TransactionViewComponent(
                 transaction
             );
             mainPane.getChildren().add(transactionView.getComponent());
+
+            transactionView.getPopup().showPopup();
+
             transactionView.setOnDelete(transactionToDelete -> {
                 transactionView.getPopup().hidePopup();
                 popupRemoveTransactionConfirmation(
@@ -253,7 +262,15 @@ public class ExtractPage implements Page {
                     transactionToDelete.getValue()
                 );
             });
-            transactionView.getPopup().showPopup();
+
+            transactionView.setOnEdit(transactionToEdit -> {
+                transactionView.getPopup().hidePopup();
+                editTransaction.setTransaction(transaction);
+                editTransaction.getPopup().showPopup();
+                editTransaction.setOnConfirm(() -> {
+                    reloadExtract();
+                });
+            });
         });
     }
 
