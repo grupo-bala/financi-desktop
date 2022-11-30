@@ -56,7 +56,6 @@
 .entry-percentage {
     -fx-max-width: 250px;
     -fx-max-height: 250px;
-    -fx-alignment: left;
     -fx-border-width: 0px 0px 0px 4px;
     -fx-border-color: #49AD5A;
     -fx-padding: 10px 20px 10px 20px;
@@ -171,11 +170,11 @@
 }
 
 .charts-container{
-    -fx-max-width: 945px;
-    -fx-max-height: 945px;
+    -fx-max-width: 1200px;
+    -fx-max-height: 1200px;
     -fx-alignment: center;
     -fx-background-color: #121512;
-    -fx-padding: 30px 0px 30px 0px;
+    -fx-padding: 30px;
 
 }
 
