@@ -167,8 +167,6 @@ public class ExtractPage implements Page {
         return outputs;
     }
 
-    
-
     private VBox compilingTransactionPreview(ITransaction t) {
         boolean isNegative = t.getValue() < 0;
 
@@ -248,7 +246,6 @@ public class ExtractPage implements Page {
     }
 
     private void getTransactionPopup() {
-
         setOnMouseClicked(transaction -> {
             TransactionViewComponent transactionView = new TransactionViewComponent(
                 transaction
