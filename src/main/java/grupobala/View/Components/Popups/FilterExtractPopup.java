@@ -3,7 +3,6 @@ package grupobala.View.Components.Popups;
 import grupobala.Entities.Extract.Filter.DateFilter;
 import grupobala.Entities.Extract.Filter.IFilter.IFilter;
 import grupobala.View.Components.Component.Component;
-import grupobala.View.Components.ExtractList.ExtractLambda;
 import grupobala.View.Components.Popup.PopupComponent;
 import java.time.LocalDate;
 import java.time.ZoneId;
