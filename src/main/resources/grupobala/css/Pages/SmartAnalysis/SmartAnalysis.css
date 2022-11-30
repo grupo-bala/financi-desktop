@@ -12,11 +12,12 @@
 .container {
     -fx-background-color: #222622;
     -fx-alignment: top-center;
+    -fx-padding: 10px 0px 0px 0px;
 }
 
 .smart-analysis-title{
     -fx-font-size: 30px;
-    -fx-padding: 40px 0px 30px 0px;
+    -fx-padding: 20px 0px 20px 0px;
     -fx-font-weight: bold;
     -fx-fill: #ffffff;
     -fx-alignment: center;
@@ -49,23 +50,21 @@
     -fx-max-width: 250px;
     -fx-max-height: 250px;
     -fx-padding: 10px 20px 10px 20px;
-    -fx-background-radius: 5px;
 
 }
 
 .entry-percentage {
     -fx-max-width: 250px;
     -fx-max-height: 250px;
+    -fx-alignment: left;
     -fx-border-width: 0px 0px 0px 4px;
     -fx-border-color: #49AD5A;
     -fx-padding: 10px 20px 10px 20px;
     -fx-background-color: #121512;
-    -fx-background-radius: 5px;
 
 
 }
 .entry-output-container{
-    -fx-background-radius: 5px;
     -fx-background-color: #121512;
     -fx-padding: 20px;
     -fx-max-width: 500px;
@@ -124,4 +123,63 @@
     -fx-fill: #49AD5A;
     -fx-alignment: top;
     -fx-font-family: "Montserrat";
+}
+
+.chart-entry-vbox{
+    -fx-max-width: 700px;
+    -fx-max-height: 700px;
+    -fx-alignment: center;
+}
+
+.chart-output-vbox{
+
+    -fx-max-width: 700px;
+    -fx-max-height: 700px;
+    -fx-alignment: center;
+}
+
+.chart-entry{
+    -fx-background-color: #121512;
+}
+
+.chart-hbox{
+    -fx-background-radius: 5px;
+    -fx-alignment: center;
+    -fx-padding: 50px 0px 50px 0px;
+    -fx-background-color: #121512;
+}
+
+.entry-chart{
+    -fx-fill: #49AD5A;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+    -fx-font-family: "Montserrat";
+}
+
+.output-chart{
+    -fx-fill: #C54646;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+    -fx-font-family: "Montserrat";
+}
+
+.chart-title{
+    -fx-font-size: 20px;
+    -fx-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-font-family: "Montserrat";
+}
+
+.charts-container{
+    -fx-max-width: 945px;
+    -fx-max-height: 945px;
+    -fx-alignment: center;
+    -fx-background-color: #121512;
+    -fx-padding: 30px 0px 30px 0px;
+
+}
+
+.sub-container{
+    -fx-alignment: center;
+    -fx-padding: 30px 0px 30px 0px;
 }
