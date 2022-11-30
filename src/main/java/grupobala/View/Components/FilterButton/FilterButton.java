@@ -19,7 +19,8 @@ public class FilterButton implements Component {
             "file:src/main/resources/grupobala/images/FilterExtract.png"
         );
         ImageView filterIcon = new ImageView(filterImage);
-
+        
+        HBox.setStyle("-fx-cursor: hand;");
         HBox.getChildren().add(filterIcon);
 
         return this.HBox;

@@ -3,11 +3,7 @@
 }
 
 .filterButton_container {
-    -fx-cursor: hand;
-}
-
-.title-image-container {
-    -fx-spacing: 475px;
+    -fx-alignment: center-right;
 }
 
 .container {

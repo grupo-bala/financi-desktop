@@ -121,6 +121,8 @@ public class ExtractPage implements Page {
         HBox titleBox = new HBox();
         HBox filter = getFilterButton();
 
+        HBox.setHgrow(filter, Priority.ALWAYS);
+
         Text title = new Text("Histórico de Transações");
         title.getStyleClass().add("extract-title");
 
