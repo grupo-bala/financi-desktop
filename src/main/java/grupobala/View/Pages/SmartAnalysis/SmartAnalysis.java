@@ -1,22 +1,22 @@
 package grupobala.View.Pages.SmartAnalysis;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
+
 import grupobala.Controller.SmartAnalysis.SmartAnalysisController;
+import grupobala.Entities.Transaction.ITransaction.ITransaction;
 import grupobala.Entities.User.User;
 import grupobala.View.Components.NavigationBar.NavigationBar;
 import grupobala.View.Pages.Page.Page;
+import java.util.ArrayList;
 import javafx.geometry.Pos;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import java.util.ArrayList;
-import grupobala.Entities.Transaction.ITransaction.ITransaction;
 
-
-public class SmartAnalysis implements Page{
+public class SmartAnalysis implements Page {
 
     private StackPane mainPane = new StackPane();
     private NavigationBar navigationBar = new NavigationBar();
@@ -24,7 +24,6 @@ public class SmartAnalysis implements Page{
 
     @Override
     public StackPane getMainPane() {
-        
         LineCharts lineCharts = new LineCharts();
         VBox mainContainer = new VBox();
         VBox container = new VBox();
@@ -50,8 +49,8 @@ public class SmartAnalysis implements Page{
         VBox chartsContainer = new VBox();
         VBox subContainer = new VBox();
 
-        LineChart<Number,Number> entryLineChart = lineCharts.entrysLineChart();
-        LineChart<Number,Number> outputLineChart = lineCharts.outputLineChart();
+        LineChart<Number, Number> entryLineChart = lineCharts.entrysLineChart();
+        LineChart<Number, Number> outputLineChart = lineCharts.outputLineChart();
         try {
             hintString = smartAnalysisController.getHint(new User().getID());
         } catch (Exception error) {
@@ -74,7 +73,7 @@ public class SmartAnalysis implements Page{
         } catch (Exception error) {
             System.err.println("Erro na conversao para string");
         }
-    
+
         Text hintText = new Text(hintString);
         Text textOutput = new Text(stringOutput);
         Text textEntry = new Text(stringEntry);
@@ -118,8 +117,12 @@ public class SmartAnalysis implements Page{
             );
 
         chartsContainer.getChildren().addAll(chartTitle, chartHbox);
-        entryLineChartVBox.getChildren().addAll(entryChartTitle, entryLineChart);
-        outputLineChartVBox.getChildren().addAll(outputChartTitle, outputLineChart);
+        entryLineChartVBox
+            .getChildren()
+            .addAll(entryChartTitle, entryLineChart);
+        outputLineChartVBox
+            .getChildren()
+            .addAll(outputChartTitle, outputLineChart);
         chartHbox.getChildren().addAll(outputLineChartVBox, entryLineChartVBox);
         hint.getChildren().addAll(hintTitle, hintText);
         analysisTextVBox.getChildren().add(analysisText);
@@ -128,12 +131,18 @@ public class SmartAnalysis implements Page{
             .addAll(analysisTextVBox, analysisContainer, hint);
         holdHigherEntry.getChildren().add(higherEntryText);
         holdHigherOutput.getChildren().add(higherOutputText);
-        outputPercentage.getChildren().addAll(holdHigherOutput,textOutput);
-        entryPercentage.getChildren().addAll(holdHigherEntry,textEntry);
-        analysisContainer.getChildren().addAll(outputPercentage, entryPercentage);
-        container.getChildren().addAll(title, entryOutputcontainer, subContainer);
+        outputPercentage.getChildren().addAll(holdHigherOutput, textOutput);
+        entryPercentage.getChildren().addAll(holdHigherEntry, textEntry);
+        analysisContainer
+            .getChildren()
+            .addAll(outputPercentage, entryPercentage);
+        container
+            .getChildren()
+            .addAll(title, entryOutputcontainer, subContainer);
         subContainer.getChildren().add(chartsContainer);
-        mainContainer.getChildren().addAll(navigationBar.getComponent(), clipContainer);
+        mainContainer
+            .getChildren()
+            .addAll(navigationBar.getComponent(), clipContainer);
         mainPane.getChildren().add(mainContainer);
 
         clipContainer.setContent(container);
@@ -155,70 +164,73 @@ public class SmartAnalysis implements Page{
         return container;
     }
 
-    @SuppressWarnings({"unchecked", "rawtypes"})
-    
-    public class LineCharts{
- 
-        
-        public LineChart<Number,Number> entrysLineChart() {
-            
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+    public class LineCharts {
+
+        public LineChart<Number, Number> entrysLineChart() {
             final NumberAxis timexAxis = new NumberAxis();
             final NumberAxis entrysyAxis = new NumberAxis();
 
-            
-            final LineChart<Number,Number> lineChart = new LineChart<Number,Number>(timexAxis,entrysyAxis);
-                    
-            
-            XYChart.Series series = new XYChart.Series();
-            
-            SmartAnalysisController smartAnalysisController = new SmartAnalysisController();
-            
-            try{
-                ArrayList<ITransaction> entrys = smartAnalysisController.getEntrysArrayList(smartAnalysisController.getTransactions(new User().getID()));
-                for(ITransaction entry : entrys){
-                
-                    int mes = Integer.valueOf(smartAnalysisController.convertToMonth(entry.getDate()));
-                    series.getData().add(new XYChart.Data(mes, (entry.getValue())));
+            final LineChart<Number, Number> lineChart = new LineChart<Number, Number>(
+                timexAxis,
+                entrysyAxis
+            );
 
+            XYChart.Series series = new XYChart.Series();
+
+            SmartAnalysisController smartAnalysisController = new SmartAnalysisController();
+
+            try {
+                ArrayList<ITransaction> entrys = smartAnalysisController.getEntrysArrayList(
+                    smartAnalysisController.getTransactions(new User().getID())
+                );
+                for (ITransaction entry : entrys) {
+                    int mes = Integer.valueOf(
+                        smartAnalysisController.convertToMonth(entry.getDate())
+                    );
+                    series
+                        .getData()
+                        .add(new XYChart.Data(mes, (entry.getValue())));
                 }
-            }
-            catch (Exception error){
+            } catch (Exception error) {
                 System.out.println("Nao foi possivel pegar as transacoes");
             }
             lineChart.getData().add(series);
-            return lineChart; 
-            
+            return lineChart;
         }
 
-
-        public LineChart<Number,Number> outputLineChart() {
-            
+        public LineChart<Number, Number> outputLineChart() {
             final NumberAxis timexAxis = new NumberAxis();
             final NumberAxis outputsyAxis = new NumberAxis();
 
-            
-            final LineChart<Number,Number> lineChart = new LineChart<Number,Number>(timexAxis, outputsyAxis);
-                    
-            
-            XYChart.Series series = new XYChart.Series();
-        
-            SmartAnalysisController smartAnalysisController = new SmartAnalysisController();
-            
-            try{
-                ArrayList<ITransaction> outputs = smartAnalysisController.getOutputsArrayList(smartAnalysisController.getTransactions(new User().getID()));
-                for(ITransaction output : outputs){
-                
-                    int mes = Integer.valueOf(smartAnalysisController.convertToMonth(output.getDate()));
-                    series.getData().add(new XYChart.Data(mes, Math.abs((output.getValue()))));
+            final LineChart<Number, Number> lineChart = new LineChart<Number, Number>(
+                timexAxis,
+                outputsyAxis
+            );
 
+            XYChart.Series series = new XYChart.Series();
+
+            SmartAnalysisController smartAnalysisController = new SmartAnalysisController();
+
+            try {
+                ArrayList<ITransaction> outputs = smartAnalysisController.getOutputsArrayList(
+                    smartAnalysisController.getTransactions(new User().getID())
+                );
+                for (ITransaction output : outputs) {
+                    int mes = Integer.valueOf(
+                        smartAnalysisController.convertToMonth(output.getDate())
+                    );
+                    series
+                        .getData()
+                        .add(
+                            new XYChart.Data(mes, Math.abs((output.getValue())))
+                        );
                 }
-            }
-            catch (Exception error){
+            } catch (Exception error) {
                 System.out.println("Nao foi possivel pegar as transacoes");
             }
             lineChart.getData().add(series);
-            return lineChart; 
-            
+            return lineChart;
         }
     }
 }
