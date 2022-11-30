@@ -177,13 +177,13 @@ public class EditUserInfoPopup implements Component {
         feedbackError.getStyleClass().add("label-hide");
     }
 
-    private void handleConfirm() {
+    private void handleConfirm() throws Exception {
         try {
             editInfo();
             System.out.println("Dados editados");
             this.popup.hidePopup();
         } catch (Exception e) {
-            handleError(e.getMessage());
+            throw new Exception("Username já em uso");
         }
     }
 
