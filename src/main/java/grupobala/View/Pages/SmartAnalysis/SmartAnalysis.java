@@ -11,6 +11,7 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -27,7 +28,9 @@ public class SmartAnalysis implements Page {
         LineCharts lineCharts = new LineCharts();
         VBox mainContainer = new VBox();
         VBox container = new VBox();
+        VBox topContainer = new VBox();
         VBox entryOutputcontainer = new VBox();
+        HBox analysisHBox = new HBox();
         HBox analysisContainer = new HBox();
         VBox title = getTitlePage();
         VBox analysisTextVBox = new VBox();
@@ -47,8 +50,9 @@ public class SmartAnalysis implements Page {
         HBox chartHbox = new HBox();
         VBox outputLineChartVBox = new VBox();
         VBox chartsContainer = new VBox();
-        VBox subContainer = new VBox();
+        VBox botContainer = new VBox();
 
+        VBox.setVgrow(entryOutputcontainer, Priority.ALWAYS);
         LineChart<Number, Number> entryLineChart = lineCharts.entrysLineChart();
         LineChart<Number, Number> outputLineChart = lineCharts.outputLineChart();
         try {
@@ -82,7 +86,9 @@ public class SmartAnalysis implements Page {
         Text outputChartTitle = new Text("Gráfico de gastos");
         Text chartTitle = new Text("Gráficos");
 
-        subContainer.getStyleClass().add("sub-container");
+        container.getStyleClass().add("container");
+        analysisHBox.getStyleClass().add("analysis-hbox");
+        botContainer.getStyleClass().add("bot-container");
         chartTitle.getStyleClass().add("chart-title");
         chartsContainer.getStyleClass().add("charts-container");
         entryChartTitle.getStyleClass().add("entry-chart");
@@ -106,7 +112,7 @@ public class SmartAnalysis implements Page {
         title.getStyleClass().add("smart-analysis-title");
         mainContainer.getStyleClass().add("main-container");
         mainPane.getStyleClass().add("smart-analysis");
-        container.getStyleClass().add("container");
+        topContainer.getStyleClass().add("top-container");
         analysisContainer.getStyleClass().add("analysis-container");
         entryOutputcontainer.getStyleClass().add("entry-output-container");
 
@@ -116,6 +122,7 @@ public class SmartAnalysis implements Page {
                 "file:src/main/resources/grupobala/css/Pages/SmartAnalysis/SmartAnalysis.css"
             );
 
+        analysisHBox.getChildren().add(entryOutputcontainer);
         chartsContainer.getChildren().addAll(chartTitle, chartHbox);
         entryLineChartVBox
             .getChildren()
@@ -136,10 +143,11 @@ public class SmartAnalysis implements Page {
         analysisContainer
             .getChildren()
             .addAll(outputPercentage, entryPercentage);
-        container
+        topContainer
             .getChildren()
-            .addAll(title, entryOutputcontainer, subContainer);
-        subContainer.getChildren().add(chartsContainer);
+            .addAll(title, analysisHBox);
+        botContainer.getChildren().add(chartsContainer);
+        container.getChildren().addAll(topContainer, botContainer);
         mainContainer
             .getChildren()
             .addAll(navigationBar.getComponent(), clipContainer);
