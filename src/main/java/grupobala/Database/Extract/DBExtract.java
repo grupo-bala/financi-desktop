@@ -70,4 +70,48 @@ public class DBExtract implements IDBExtract {
 
         return transactions;
     }
+
+    @Override
+    public ArrayList<ITransaction> getCompleteExtract(
+        int userID
+    ) throws SQLException, ParseException {
+        DateFormat formateDate = new SimpleDateFormat("yyyy-MM-dd");
+
+        String query = String.format(
+            Locale.US,
+            "SELECT * FROM movimentacao WHERE idusuario = %d",
+            userID
+        );
+
+        ResultSet result = this.databaseConnection.executeQuery(query);
+
+        ArrayList<ITransaction> transactions = new ArrayList<>();
+
+        IDBCategory categoryDB = new DBCategory(this.databaseConnection);
+
+        while (result.next()) {
+            String title = result.getString("titulo");
+            double wage = result.getDouble("valor");
+            int ID = result.getInt("id");
+            Date date = formateDate.parse(result.getString("data"));
+            String categoryName = categoryDB.getCategoryName(
+                result.getInt("idcategoria")
+            );
+            CategoryEnum category = CategoryEnum.getCategory(categoryName);
+
+            ITransaction transaction = new Transaction(
+                ID,
+                wage,
+                title,
+                category,
+                date
+            );
+
+            transactions.add(transaction);
+        }
+
+        result.close();
+
+        return transactions;
+    }
 }

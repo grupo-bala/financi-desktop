@@ -111,7 +111,7 @@ public class ExtractPage implements Page {
     private void loadExtract() throws SQLException, ParseException {
         ExtractController extrato2 = new ExtractController();
 
-        IExtract extract = extrato2.getExtract();
+        IExtract extract = extrato2.getCompleteExtract();
         VBox transactions = getTransactionsPreview(extract);
         container.getChildren().addAll(getTitlePage(), transactions);
     }

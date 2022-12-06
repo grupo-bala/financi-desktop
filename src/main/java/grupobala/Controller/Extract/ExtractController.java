@@ -46,4 +46,9 @@ public class ExtractController implements IExtractController {
 
         return getExtract(dataBegin, dataEnd);
     }
+
+    @Override
+    public IExtract getCompleteExtract() throws SQLException, ParseException {
+        return new Extract(dbExtract.getCompleteExtract(new User().getID()));
+    }
 }
