@@ -31,7 +31,6 @@
 
 .analysis-container {
     -fx-padding: 0px 0px 20px 0px;
-    -fx-alignment: left;
     -fx-background-color: #121512;   
 }
 .text-output{
