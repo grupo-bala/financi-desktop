@@ -4,6 +4,7 @@ import grupobala.Entities.Extract.IExtract.IExtract;
 import grupobala.Entities.Extract.ReverseExtract.ReverseExtract;
 import grupobala.Entities.Transaction.ITransaction.ITransaction;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 
 public class Extract implements IExtract {
@@ -16,6 +17,19 @@ public class Extract implements IExtract {
         this.transactions = transactions;
         this.entry = 0;
         this.output = 0;
+
+        this.transactions.sort((t1, t2) -> {
+            Date date1 = t1.getDate();
+            Date date2 = t2.getDate();
+
+            if (date1.equals(date2)) {
+                return 0;
+            } else if (date1.before(date2)) {
+                return -1;
+            } else {
+                return 1;
+            }
+        });
 
         for (ITransaction x : this.transactions) {
             if (x.getValue() < 0) {
