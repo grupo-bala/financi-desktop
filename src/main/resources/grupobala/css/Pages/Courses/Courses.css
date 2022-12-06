@@ -1,0 +1,52 @@
+.courses, .courses-main-container, .courses-page-content {
+    -fx-background-color: #222622;
+}
+
+.courses-page-content {
+    -fx-padding: 20px 200px;
+    -fx-spacing: 25px;
+    -fx-font-family: "Montserrat";
+}
+
+.courses-card-content {
+    -fx-background-color: #121512;
+    -fx-alignment: center;
+    -fx-spacing: 20px;
+    -fx-padding: 10px 200px;
+}
+
+.courses-title {
+    -fx-fill: white;
+    -fx-font-size: 32px;
+    -fx-font-weight: bold;
+}
+
+.courses-course-card {
+    -fx-background-color: #202320;
+    -fx-alignment: center;
+    -fx-spacing: 20px;
+    -fx-padding: 20px;
+}
+
+.courses-card-text {
+    -fx-fill: white;
+}
+
+.courses-card-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-fill: white;
+}
+
+.courses-card-description {
+    -fx-fill: white;
+    -fx-text-alignment: center;
+}
+
+.courses-show-course {
+    -fx-background-color: #49AD5A;
+    -fx-border-radius: 15px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
