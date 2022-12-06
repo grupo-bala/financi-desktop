@@ -8,7 +8,6 @@ import grupobala.View.Components.Popup.PopupComponent;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
-
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
