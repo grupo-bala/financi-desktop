@@ -72,9 +72,8 @@ public class DBExtract implements IDBExtract {
     }
 
     @Override
-    public ArrayList<ITransaction> getCompleteExtract(
-        int userID
-    ) throws SQLException, ParseException {
+    public ArrayList<ITransaction> getCompleteExtract(int userID)
+        throws SQLException, ParseException {
         DateFormat formateDate = new SimpleDateFormat("yyyy-MM-dd");
 
         String query = String.format(

@@ -10,5 +10,6 @@ public interface IExtractController {
         throws SQLException, ParseException;
 
     public IExtract getExtract() throws SQLException, ParseException;
+
     public IExtract getCompleteExtract() throws SQLException, ParseException;
 }

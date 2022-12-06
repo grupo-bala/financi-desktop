@@ -13,7 +13,6 @@ public interface IDBExtract {
         Date end
     ) throws SQLException, ParseException;
 
-    public ArrayList<ITransaction> getCompleteExtract(
-        int userID
-    ) throws SQLException, ParseException;
+    public ArrayList<ITransaction> getCompleteExtract(int userID)
+        throws SQLException, ParseException;
 }
