@@ -2,6 +2,7 @@ package grupobala.View.Components.NavigationBar;
 
 import grupobala.View.Components.Component.Component;
 import grupobala.View.PageManager;
+import grupobala.View.Pages.Courses.Courses;
 import grupobala.View.Pages.Dashboard.Dashboard;
 import grupobala.View.Pages.ExtractPage.ExtractPage;
 import grupobala.View.Pages.Settings.Settings;
@@ -79,6 +80,10 @@ public class NavigationBar implements Component {
 
         extract.setOnMouseClicked(e -> {
             pageManager.setCurrentPage(new ExtractPage());
+        });
+
+        classes.setOnMouseClicked(e -> {
+            pageManager.setCurrentPage(new Courses());
         });
 
         analysis.setOnMouseClicked(e -> {
