@@ -1,8 +1,10 @@
 package grupobala.View.Components.Popups;
 
 import grupobala.Entities.Category.CategoryEnum;
-import grupobala.Entities.Extract.Filter.DateFilter;
+import grupobala.Entities.Extract.Filter.Filter;
+import grupobala.Entities.Extract.Filter.FilterBuilder;
 import grupobala.Entities.Extract.Filter.IFilter.IFilter;
+import grupobala.Entities.Extract.Filter.IFilter.IFilterBuilder;
 import grupobala.View.Components.Component.Component;
 import grupobala.View.Components.Popup.PopupComponent;
 import java.time.LocalDate;
@@ -66,18 +68,27 @@ public class FilterExtractPopup implements Component {
         confirm.setOnAction(e -> {
             try {
                 checkFieldMiss();
-                IFilter filter = new DateFilter(
-                    Date.from(
-                        this.dateFieldLeft.getValue()
-                            .atStartOfDay(ZoneId.systemDefault())
-                            .toInstant()
-                    ),
-                    Date.from(
-                        this.dateField.getValue()
-                            .atStartOfDay(ZoneId.systemDefault())
-                            .toInstant()
-                    )
+
+                Date initDate = this.dateFieldLeft.getValue() == null ? null : Date.from(
+                    this.dateFieldLeft.getValue()
+                        .atStartOfDay(ZoneId.systemDefault())
+                        .toInstant()
                 );
+
+                Date endDate = this.dateField.getValue() == null ? null : Date.from(
+                    this.dateField.getValue()
+                        .atStartOfDay(ZoneId.systemDefault())
+                        .toInstant()
+                );
+
+                CategoryEnum category = categoryField.getValue() == null ? null : CategoryEnum.getCategory(categoryField.getValue());
+
+                IFilterBuilder builder = new FilterBuilder();
+                IFilter filter = builder
+                    .fromDate(initDate)
+                    .toDate(endDate)
+                    .withCategory(category)
+                    .build();
 
                 this.popup.hidePopup();
                 callback.applyOperation(filter);
@@ -178,8 +189,8 @@ public class FilterExtractPopup implements Component {
         LocalDate leftDate = dateFieldLeft.getValue();
         String category = categoryField.getValue();
 
-        if (rightDate == null || leftDate == null || category == null) {
-            throw new Exception("Preencha todas as informações");
+        if (rightDate == null && leftDate == null && category == null) {
+            throw new Exception("Preencha pelo menos uma informação!");
         }
     }
 
