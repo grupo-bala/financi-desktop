@@ -1,5 +1,6 @@
 package grupobala.View.Components.Popups;
 
+import grupobala.Entities.Category.CategoryEnum;
 import grupobala.Entities.Extract.Filter.DateFilter;
 import grupobala.Entities.Extract.Filter.IFilter.IFilter;
 import grupobala.View.Components.Component.Component;
@@ -7,8 +8,10 @@ import grupobala.View.Components.Popup.PopupComponent;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
+
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -21,6 +24,7 @@ public class FilterExtractPopup implements Component {
     private PopupComponent popup = new PopupComponent();
     private DatePicker dateField = new DatePicker();
     private DatePicker dateFieldLeft = new DatePicker();
+    private ChoiceBox<String> categoryField = new ChoiceBox<>();
     private Text buttonLabel = new Text();
     Button confirm = new Button("Filtrar");
 
@@ -39,10 +43,12 @@ public class FilterExtractPopup implements Component {
         VBox components = new VBox();
         HBox titleExitButton = getTitleButton(title);
         HBox valueDate = getvalueDate();
+        VBox category = getLabelCategory();
 
         valueDate.getStyleClass().add("inputs");
         components.getStyleClass().add("op-container");
         confirm.getStyleClass().add("confirm-button");
+        category.getStyleClass().add("category-style");
 
         components
             .getStylesheets()
@@ -52,7 +58,7 @@ public class FilterExtractPopup implements Component {
 
         components
             .getChildren()
-            .addAll(titleExitButton, valueDate, buttonLabel, confirm);
+            .addAll(titleExitButton, valueDate, category, buttonLabel, confirm);
 
         return components;
     }
@@ -171,8 +177,10 @@ public class FilterExtractPopup implements Component {
     private void checkFieldMiss() throws Exception {
         LocalDate rightDate = dateField.getValue();
         LocalDate leftDate = dateFieldLeft.getValue();
-        if (rightDate == null || leftDate == null) {
-            throw new Exception("Preencha a data final e inicial");
+        String category = categoryField.getValue();
+
+        if (rightDate == null || leftDate == null || category == null) {
+            throw new Exception("Preencha todas as informações");
         }
     }
 
@@ -187,6 +195,42 @@ public class FilterExtractPopup implements Component {
         buttonLabel.setText("");
         buttonLabel.getStyleClass().clear();
         buttonLabel.getStyleClass().add("label-hide");
+    }
+
+    private ChoiceBox<String> getCategoryBox() {
+        categoryField
+            .getStylesheets()
+            .add(
+                "file:src/main/resources/grupobala/css/Components/OperationPopup/ChoiceBox.css"
+            );
+
+        categoryField
+            .getItems()
+            .addAll(
+                CategoryEnum.CLOTHING.displayedName,
+                CategoryEnum.ENTERTAINMENT.displayedName,
+                CategoryEnum.FOOD.displayedName,
+                CategoryEnum.HEALTH.displayedName,
+                CategoryEnum.PAYMENTS.displayedName,
+                CategoryEnum.OTHERS.displayedName
+            );
+
+        return categoryField;
+    }
+
+    private VBox getLabelCategory() {
+        VBox vBox = new VBox();
+        Text label = new Text("Categoria");
+        ChoiceBox<String> category = getCategoryBox();
+
+        category.getStyleClass().add("category-box");
+        label.getStyleClass().add("label-category");
+        vBox.getStyleClass().add("field-label");
+
+        vBox.getChildren().addAll(label, category);
+        vBox.alignmentProperty();
+
+        return vBox;
     }
 
     public PopupComponent getPopup() {

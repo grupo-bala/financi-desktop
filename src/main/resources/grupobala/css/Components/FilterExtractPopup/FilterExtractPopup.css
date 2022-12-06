@@ -88,3 +88,18 @@
     -fx-max-width: 163px;
     -fx-show-week-numbers: false;
 }
+
+.label-category {
+    -fx-font-size: 16px;
+    -fx-fill: white;
+
+}
+
+.category-box {
+    -fx-max-width: 375px;
+
+}
+
+.category-style {
+    -fx-padding: 0px 0px 0px 40px;
+}
