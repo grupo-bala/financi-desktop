@@ -20,10 +20,13 @@ public class Filter implements IFilter {
 
         if (this.fromDate != null) {
             result &= transactionDate.after(this.fromDate);
-        } if (this.toDate != null) {
+        }
+        if (this.toDate != null) {
             result &= transactionDate.before(this.toDate);
-        } if (this.category != null) {
-            result &= transCategory.databaseName.equals(this.category.databaseName);
+        }
+        if (this.category != null) {
+            result &=
+                transCategory.databaseName.equals(this.category.databaseName);
         }
 
         return result;

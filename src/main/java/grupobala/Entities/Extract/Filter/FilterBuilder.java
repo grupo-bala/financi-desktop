@@ -1,10 +1,9 @@
 package grupobala.Entities.Extract.Filter;
 
-import java.util.Date;
-
 import grupobala.Entities.Category.CategoryEnum;
 import grupobala.Entities.Extract.Filter.IFilter.IFilter;
 import grupobala.Entities.Extract.Filter.IFilter.IFilterBuilder;
+import java.util.Date;
 
 public class FilterBuilder implements IFilterBuilder {
 
@@ -37,7 +36,7 @@ public class FilterBuilder implements IFilterBuilder {
         if (category != null) {
             this.filter.setCategory(category);
         }
-        
+
         return this;
     }
 
@@ -50,5 +49,4 @@ public class FilterBuilder implements IFilterBuilder {
     public void reset() {
         this.filter = new Filter();
     }
-    
 }

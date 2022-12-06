@@ -69,19 +69,25 @@ public class FilterExtractPopup implements Component {
             try {
                 checkFieldMiss();
 
-                Date initDate = this.dateFieldLeft.getValue() == null ? null : Date.from(
-                    this.dateFieldLeft.getValue()
-                        .atStartOfDay(ZoneId.systemDefault())
-                        .toInstant()
-                );
+                Date initDate = this.dateFieldLeft.getValue() == null
+                    ? null
+                    : Date.from(
+                        this.dateFieldLeft.getValue()
+                            .atStartOfDay(ZoneId.systemDefault())
+                            .toInstant()
+                    );
 
-                Date endDate = this.dateField.getValue() == null ? null : Date.from(
-                    this.dateField.getValue()
-                        .atStartOfDay(ZoneId.systemDefault())
-                        .toInstant()
-                );
+                Date endDate = this.dateField.getValue() == null
+                    ? null
+                    : Date.from(
+                        this.dateField.getValue()
+                            .atStartOfDay(ZoneId.systemDefault())
+                            .toInstant()
+                    );
 
-                CategoryEnum category = categoryField.getValue() == null ? null : CategoryEnum.getCategory(categoryField.getValue());
+                CategoryEnum category = categoryField.getValue() == null
+                    ? null
+                    : CategoryEnum.getCategory(categoryField.getValue());
 
                 IFilterBuilder builder = new FilterBuilder();
                 IFilter filter = builder
