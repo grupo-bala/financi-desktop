@@ -25,8 +25,8 @@ public class SetupForTest {
             "TRUNCATE TABLE usuario CASCADE",
             "TRUNCATE TABLE meta CASCADE",
             "TRUNCATE TABLE aulaassistida CASCADE",
-            "TRUNCATE TABLE aula CASCADE",
             "TRUNCATE TABLE movimentacao CASCADE",
+            "ALTER SEQUENCE usuario_id_seq RESTART WITH 1"
         };
 
         for (String query : queries) {
