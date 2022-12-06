@@ -44,5 +44,7 @@ public class TestGenerateReportController {
         assertDoesNotThrow(() -> {
             reportController.generateReport();
         });
+
+        new User().close();
     }
 }
