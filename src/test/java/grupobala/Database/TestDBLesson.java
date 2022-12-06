@@ -3,23 +3,19 @@ package grupobala.Database;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Locale;
-
-import org.junit.jupiter.api.Test;
-
 import grupobala.Database.Connection.DBConnection;
 import grupobala.Database.Lesson.DBLesson;
 import grupobala.Database.Lesson.IDBLesson.IDBLesson;
 import grupobala.Entities.Lesson.ILesson.ILesson;
 import grupobala.SetupForTest.SetupForTest;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Locale;
+import org.junit.jupiter.api.Test;
 
 public class TestDBLesson {
 
-    private IDBLesson databaseLesson = new DBLesson(
-        new DBConnection()
-    );
+    private IDBLesson databaseLesson = new DBLesson(new DBConnection());
 
     @Test
     public void testGetAll() throws SQLException {
@@ -34,7 +30,6 @@ public class TestDBLesson {
     public void testUpdateWatchedAdd() throws SQLException {
         SetupForTest.truncateTables();
         int userId = SetupForTest.addFinanciUser();
-
 
         assertDoesNotThrow(() -> {
             this.databaseLesson.updateWatched(true, 1, userId);

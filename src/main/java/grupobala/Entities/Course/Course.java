@@ -3,6 +3,7 @@ package grupobala.Entities.Course;
 import grupobala.Entities.Course.ICourse.ICourse;
 
 public class Course implements ICourse {
+
     public int id;
     private String name;
     private String description;
@@ -27,5 +28,4 @@ public class Course implements ICourse {
     public int getId() {
         return this.id;
     }
-
 }

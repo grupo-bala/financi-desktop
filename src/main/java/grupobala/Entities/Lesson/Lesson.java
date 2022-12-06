@@ -3,13 +3,20 @@ package grupobala.Entities.Lesson;
 import grupobala.Entities.Lesson.ILesson.ILesson;
 
 public class Lesson implements ILesson {
+
     private int id;
     private String name;
     private int durationInSeconds;
     private String URL;
     private boolean isWatched;
 
-    public Lesson(int id, String name, int durationInSeconds, String URL, boolean isWatched) {
+    public Lesson(
+        int id,
+        String name,
+        int durationInSeconds,
+        String URL,
+        boolean isWatched
+    ) {
         this.id = id;
         this.name = name;
         this.durationInSeconds = durationInSeconds;

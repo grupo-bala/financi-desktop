@@ -1,16 +1,16 @@
 package grupobala.Database.Lesson;
 
+import grupobala.Database.Connection.IDBConnection.IDBConnection;
+import grupobala.Database.Lesson.IDBLesson.IDBLesson;
+import grupobala.Entities.Lesson.ILesson.ILesson;
+import grupobala.Entities.Lesson.Lesson;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Locale;
 
-import grupobala.Database.Connection.IDBConnection.IDBConnection;
-import grupobala.Database.Lesson.IDBLesson.IDBLesson;
-import grupobala.Entities.Lesson.Lesson;
-import grupobala.Entities.Lesson.ILesson.ILesson;
-
 public class DBLesson implements IDBLesson {
+
     private IDBConnection databaseConnection;
 
     public DBLesson(IDBConnection databaseConnection) {
@@ -42,13 +42,20 @@ public class DBLesson implements IDBLesson {
                 id
             );
 
-            ResultSet checkWatchedResult = this.databaseConnection.executeQuery(queryToCheckIfIsWatched);
+            ResultSet checkWatchedResult =
+                this.databaseConnection.executeQuery(queryToCheckIfIsWatched);
 
             if (!result.isBeforeFirst()) {
                 isWatched = false;
             }
 
-            ILesson lesson = new Lesson(id, name, durationInSeconds, videoURL, isWatched);
+            ILesson lesson = new Lesson(
+                id,
+                name,
+                durationInSeconds,
+                videoURL,
+                isWatched
+            );
 
             lessons.add(lesson);
 
@@ -61,7 +68,8 @@ public class DBLesson implements IDBLesson {
     }
 
     @Override
-    public void updateWatched(boolean status, int lessonId, int userId) throws SQLException {
+    public void updateWatched(boolean status, int lessonId, int userId)
+        throws SQLException {
         String query = String.format(
             Locale.US,
             "INSERT INTO aulaassistida(idusuario, idaula) VALUES (%d, %d)",
@@ -70,12 +78,13 @@ public class DBLesson implements IDBLesson {
         );
 
         if (!status) {
-            query = String.format(
-                Locale.US,
-                "DELETE FROM aulaassistida WHERE idaula = %d AND idusuario = %d",
-                lessonId,
-                userId
-            );
+            query =
+                String.format(
+                    Locale.US,
+                    "DELETE FROM aulaassistida WHERE idaula = %d AND idusuario = %d",
+                    lessonId,
+                    userId
+                );
         }
 
         int updateCount = this.databaseConnection.executeUpdate(query);
@@ -84,5 +93,4 @@ public class DBLesson implements IDBLesson {
             throw new SQLException("Aula ou usuário não existe!");
         }
     }
-    
 }

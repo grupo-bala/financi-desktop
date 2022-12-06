@@ -49,7 +49,7 @@ public class Setup {
             "CREATE TABLE movimentacao (id SERIAL PRIMARY KEY, idusuario INTEGER NOT NULL, valor FLOAT NOT NULL, data DATE NOT NULL, idcategoria INTEGER NOT NULL, titulo TEXT NOT NULL, entrada BOOLEAN NOT NULL, FOREIGN KEY (idusuario) REFERENCES usuario(id), FOREIGN KEY (idcategoria) REFERENCES categoria(id))",
             "INSERT INTO categoria(nome) VALUES ('comida'), ('roupa'), ('saúde'), ('entretenimento'), ('pagamentos'), ('outros')",
             "INSERT INTO curso (nome, descricao) VALUES ('Fundamentos de finanças', 'O curso Fundamentos de Finanças proporciona a você uma visão básica de finanças, abordando os objetivos e a estruturação da administração financeira bem como são tomadas as decisões financeiras ótimas.')",
-            "INSERT INTO aula (videourl, duracaosegundos, idcurso, nome) VALUES ('https://www.google.com', 1800, 1, 'Aula 1'), ('https://www.google.com', 2100, 1, 'Aula 2')"
+            "INSERT INTO aula (videourl, duracaosegundos, idcurso, nome) VALUES ('https://www.google.com', 1800, 1, 'Aula 1'), ('https://www.google.com', 2100, 1, 'Aula 2')",
         };
 
         for (String query : queries) {
