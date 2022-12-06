@@ -1,12 +1,13 @@
 package grupobala.View.Pages.Courses;
 
-import grupobala.View.Components.Button.ButtonComponent;
 import grupobala.View.Components.Card.CardVBoxComponent;
 import grupobala.View.Components.NavigationBar.NavigationBar;
+import grupobala.View.Components.Popup.PopupComponent;
 import grupobala.View.Pages.Page.Page;
+
+import javafx.scene.layout.Priority;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -18,14 +19,14 @@ public class Courses implements Page {
 
     private StackPane mainPane = new StackPane();
     private NavigationBar navigationBar = new NavigationBar();
-
+    private PopupComponent coursePopup = new PopupComponent();
     @Override
     public Pane getMainPane() {
         VBox mainContainer = new VBox();
         VBox pageContent = new VBox();
         ScrollPane clipContainer = new ScrollPane();
 
-        mainPane.getChildren().addAll(mainContainer);
+        mainPane.getChildren().addAll(mainContainer, coursePopup.getComponent());
         mainContainer
             .getChildren()
             .addAll(navigationBar.getComponent(), clipContainer);
@@ -77,7 +78,9 @@ public class Courses implements Page {
         );
         HBox info = getCardInfo(5, 10, 30);
         Button showCourse = new Button("Ver curso");
-
+        showCourse.setOnMouseClicked(course -> {
+            coursePopup.showPopup();;
+        });
         description.setWrappingWidth(400);
 
         card.getChildren().addAll(title, description, info, showCourse);
@@ -136,4 +139,35 @@ public class Courses implements Page {
 
         return infoItem;
     }
+    
+    public void coursePopup(){
+        VBox card = new CardVBoxComponent().getComponent();
+        Text popupTitle = new Text("Produtividade e gestão de custos");
+        VBox lessonsVbox = new VBox();
+        HBox lessonExample = new HBox();
+        Button watchLesson = new Button("ASSISTIR AULA");
+        Text lessonTitle = new Text("Aula 01");
+        HBox info = new HBox();
+
+        info
+            .getChildren()
+            .addAll(
+                getInfoItem(
+                    "file:src/main/resources/grupobala/images/Future.png","30 minutos",""));
+
+
+        lessonExample.getChildren().addAll(lessonTitle, info, watchLesson);
+        lessonsVbox.getChildren().addAll(lessonExample, lessonExample, lessonExample, lessonExample
+        , lessonExample);
+        card.getChildren().addAll(popupTitle, lessonsVbox);
+
+        card.getStyleClass().add("card");
+        popupTitle.getStyleClass().add("popup-title");
+        lessonsVbox.getStyleClass().add("lessons-vbox");
+
+        VBox.setVgrow(popupTitle, Priority.ALWAYS);
+        coursePopup.getComponent().getChildren().addAll(card);
+        coursePopup.showPopup();
+    }
+    
 }
