@@ -1,8 +1,8 @@
 package grupobala.View.Pages.ExtractPage;
 
 import grupobala.Controller.Extract.ExtractController;
-import grupobala.Controller.Report.ReportController;
 import grupobala.Controller.Report.IReportController.IReportController;
+import grupobala.Controller.Report.ReportController;
 import grupobala.Controller.Transaction.TransactionController;
 import grupobala.Entities.Extract.Filter.IFilter.IFilter;
 import grupobala.Entities.Extract.IExtract.IExtract;
@@ -23,7 +23,6 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
-
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -174,7 +173,7 @@ public class ExtractPage implements Page {
                 } catch (Exception e1) {
                     System.out.println("Documento já foi gerado");
                     DocumentErrorPopUp();
-                };
+                }
             });
 
         return DocumentBox;
@@ -183,7 +182,9 @@ public class ExtractPage implements Page {
     private void DocumentConfirmationPopUp() {
         VBox card = new CardVBoxComponent().getComponent();
         Button closePopup = new Button("Concluir");
-        Text text = new Text("Relatório Gerado! Vá para o diretório raiz e acesse-o.");
+        Text text = new Text(
+            "Relatório Gerado! Vá para o diretório raiz e acesse-o."
+        );
         VBox textVBox = new VBox();
 
         HBox alertHBox = new HBox();
@@ -205,13 +206,14 @@ public class ExtractPage implements Page {
         closePopup.setOnAction(e -> {
             generateDocumentPopup.hidePopup();
         });
-
     }
 
     private void DocumentErrorPopUp() {
         VBox card = new CardVBoxComponent().getComponent();
         Button closePopup = new Button("Concluir");
-        Text text = new Text("Relatório já foi gerado! Vá para o diretório raiz e acesse-o.");
+        Text text = new Text(
+            "Relatório já foi gerado! Vá para o diretório raiz e acesse-o."
+        );
         VBox textVBox = new VBox();
 
         HBox alertHBox = new HBox();
@@ -233,7 +235,6 @@ public class ExtractPage implements Page {
         closePopup.setOnAction(e -> {
             generateDocumentPopup.hidePopup();
         });
-
     }
 
     private VBox getTransactionsPreview(IExtract extract) {
