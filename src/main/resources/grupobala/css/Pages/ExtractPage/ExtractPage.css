@@ -2,8 +2,13 @@
     -fx-background-color: #2B2E2B;
 }
 
+
 .filterButton_container {
     -fx-alignment: center-right;
+}
+
+.filter_Document_container {
+    -fx-padding: 0px 0px 0px 18px;
 }
 
 .container {
@@ -106,6 +111,7 @@
 
 .text-box {
     -fx-alignment: center;
+    -fx-padding: 45px 0 0 0;
 }
 
 .alert-box{
@@ -118,5 +124,32 @@
     -fx-max-width: 400px;
     -fx-max-height: 150px;
     -fx-background-color: #2B2F2B;
+    -fx-alignment: top-right;
+}
+
+.text-documento-pop {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-fill: #ffffff;
+    -fx-alignment: center;
+    -fx-font-family: "Montserrat";
+}
+
+.close-popup-documentConfirmation {
+
+    -fx-font-family: "Montserrat";
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+    -fx-border-radius: 10px;
+    -fx-background-color: green;
+    -fx-text-fill: white;
+
+}
+
+.document-card {
+    -fx-max-width: 550px;
+    -fx-max-height: 150px;
+    -fx-background-color: #2B2F2B;
+    -fx-spacing: 35px;
     -fx-alignment: top-right;
 }

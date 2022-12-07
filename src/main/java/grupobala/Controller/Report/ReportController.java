@@ -93,7 +93,7 @@ public class ReportController implements IReportController {
 
             PdfPTable table = this.getBodyTable();
             table.setWidthPercentage(90);
-            table.setWidths(new int[] { 40, 20, 18, 15 });
+            table.setWidths(new int[] { 40, 20, 20, 15 });
 
             for (ITransaction transaction : extract) {
                 String dateTransaction = this.dateFormated(transaction);
