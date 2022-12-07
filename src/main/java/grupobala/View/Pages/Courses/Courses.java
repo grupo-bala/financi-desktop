@@ -61,9 +61,6 @@ public class Courses implements Page {
             .getChildren()
             .addAll(
                 title,
-                getCourseCard(),
-                getCourseCard(),
-                getCourseCard(),
                 getCourseCard()
             );
 
