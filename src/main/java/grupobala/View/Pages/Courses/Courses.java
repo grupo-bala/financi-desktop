@@ -9,6 +9,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -78,8 +79,9 @@ public class Courses implements Page {
         );
         HBox info = getCardInfo(5, 10, 30);
         Button showCourse = new Button("Ver curso");
-        showCourse.setOnMouseClicked(course -> {
-            coursePopup.showPopup();;
+        getCoursePopup();
+        showCourse.setOnMouseClicked(e -> {
+            coursePopup.showPopup();
         });
         description.setWrappingWidth(400);
 
@@ -140,7 +142,7 @@ public class Courses implements Page {
         return infoItem;
     }
     
-    public void coursePopup(){
+    private void getCoursePopup(){
         VBox card = new CardVBoxComponent().getComponent();
         Text popupTitle = new Text("Produtividade e gestão de custos");
         VBox lessonsVbox = new VBox();
@@ -148,6 +150,20 @@ public class Courses implements Page {
         Button watchLesson = new Button("ASSISTIR AULA");
         Text lessonTitle = new Text("Aula 01");
         HBox info = new HBox();
+        VBox checkBoxVbox = new VBox();
+        Image checkBox = new Image(
+            "file:src/main/resources/grupobala/images/Checkbox.png"
+        );
+        ImageView checkBoxView = new ImageView(checkBox);
+        Image lessonsNumber = new Image(
+            "file:src/main/resources/grupobala/images/lessonsNumber.png"
+        );
+        ImageView lessonsNumberView = new ImageView(lessonsNumber);
+        VBox lessonsNumberVBox = new VBox();
+
+        checkBoxView.setFitHeight(40);
+        checkBoxView.setFitWidth(40);
+        checkBoxView.setPreserveRatio(true);
 
         info
             .getChildren()
@@ -156,18 +172,24 @@ public class Courses implements Page {
                     "file:src/main/resources/grupobala/images/Future.png","30 minutos",""));
 
 
-        lessonExample.getChildren().addAll(lessonTitle, info, watchLesson);
-        lessonsVbox.getChildren().addAll(lessonExample, lessonExample, lessonExample, lessonExample
-        , lessonExample);
-        card.getChildren().addAll(popupTitle, lessonsVbox);
+        lessonsNumberVBox.getChildren().add(lessonsNumberView);
+        checkBoxVbox.getChildren().add(checkBoxView);
+        lessonExample.getChildren().addAll(lessonTitle, info, watchLesson, checkBoxVbox);
+        lessonsVbox.getChildren().addAll(lessonExample, lessonExample, lessonExample);
+        card.getChildren().addAll(popupTitle,lessonsNumberVBox ,lessonsVbox);
 
+        lessonsNumberVBox.getStyleClass().add("lessons-number-vBox");
+        lessonExample.getStyleClass().add("lesson-example");
+        info.getStyleClass().add("info");
+        lessonTitle.getStyleClass().add("lesson-title");
+        watchLesson.getStyleClass().add("watch-lesson");
         card.getStyleClass().add("card");
         popupTitle.getStyleClass().add("popup-title");
         lessonsVbox.getStyleClass().add("lessons-vbox");
+        checkBoxVbox.getStyleClass().add("check-box");
 
         VBox.setVgrow(popupTitle, Priority.ALWAYS);
         coursePopup.getComponent().getChildren().addAll(card);
-        coursePopup.showPopup();
     }
     
 }

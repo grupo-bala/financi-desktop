@@ -1,7 +1,6 @@
 package grupobala.View.Components.Popups;
 
 import grupobala.Entities.Category.CategoryEnum;
-import grupobala.Entities.Extract.Filter.Filter;
 import grupobala.Entities.Extract.Filter.FilterBuilder;
 import grupobala.Entities.Extract.Filter.IFilter.IFilter;
 import grupobala.Entities.Extract.Filter.IFilter.IFilterBuilder;
