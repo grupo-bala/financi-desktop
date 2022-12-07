@@ -4,14 +4,13 @@ import grupobala.View.Components.Card.CardVBoxComponent;
 import grupobala.View.Components.NavigationBar.NavigationBar;
 import grupobala.View.Components.Popup.PopupComponent;
 import grupobala.View.Pages.Page.Page;
-
-import javafx.scene.layout.Priority;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -21,13 +20,16 @@ public class Courses implements Page {
     private StackPane mainPane = new StackPane();
     private NavigationBar navigationBar = new NavigationBar();
     private PopupComponent coursePopup = new PopupComponent();
+
     @Override
     public Pane getMainPane() {
         VBox mainContainer = new VBox();
         VBox pageContent = new VBox();
         ScrollPane clipContainer = new ScrollPane();
 
-        mainPane.getChildren().addAll(mainContainer, coursePopup.getComponent());
+        mainPane
+            .getChildren()
+            .addAll(mainContainer, coursePopup.getComponent());
         mainContainer
             .getChildren()
             .addAll(navigationBar.getComponent(), clipContainer);
@@ -141,23 +143,25 @@ public class Courses implements Page {
 
         return infoItem;
     }
-    
-    private void getCoursePopup(){
+
+    private void getCoursePopup() {
         VBox card = new CardVBoxComponent().getComponent();
         Text popupTitle = new Text("Produtividade e gestão de custos");
         VBox lessonsVbox = new VBox();
-        
-        lessonsVbox.getChildren().addAll(
-            createLessonExample("Aula 01", 30),
-            createEmptyVbox(),
-            createLessonExample("Aula 02", 30),
-            createEmptyVbox(),
-            createLessonExample("Aula 03", 30),
-            createEmptyVbox(),
-            createLessonExample("Aula 04", 30),
-            createEmptyVbox(),
-            createLessonExample("Aula 05", 30)
-        );
+
+        lessonsVbox
+            .getChildren()
+            .addAll(
+                createLessonExample("Aula 01", 30),
+                createEmptyVbox(),
+                createLessonExample("Aula 02", 30),
+                createEmptyVbox(),
+                createLessonExample("Aula 03", 30),
+                createEmptyVbox(),
+                createLessonExample("Aula 04", 30),
+                createEmptyVbox(),
+                createLessonExample("Aula 05", 30)
+            );
 
         card.getChildren().addAll(popupTitle, lessonsVbox);
 
@@ -168,7 +172,7 @@ public class Courses implements Page {
         VBox.setVgrow(popupTitle, Priority.ALWAYS);
         coursePopup.getComponent().getChildren().addAll(card);
     }
-    
+
     HBox createLessonExample(String title, int minutesDuration) {
         Button watchLesson = new Button("ASSISTIR AULA");
         Text lessonTitle = new Text(title);
@@ -183,7 +187,11 @@ public class Courses implements Page {
             .getChildren()
             .addAll(
                 getInfoItem(
-                    "file:src/main/resources/grupobala/images/Future.png",String.format("%d minutos", minutesDuration),""));
+                    "file:src/main/resources/grupobala/images/Future.png",
+                    String.format("%d minutos", minutesDuration),
+                    ""
+                )
+            );
 
         checkBoxView.setFitHeight(40);
         checkBoxView.setFitWidth(40);
@@ -197,13 +205,15 @@ public class Courses implements Page {
         lessonTitle.getStyleClass().add("lesson-title");
 
         HBox lessonExample = new HBox();
-        lessonExample.getChildren().addAll(lessonTitle, info, watchLesson, checkBoxVbox);
+        lessonExample
+            .getChildren()
+            .addAll(lessonTitle, info, watchLesson, checkBoxVbox);
         lessonExample.getStyleClass().add("lesson-example");
 
         return lessonExample;
     }
 
-    VBox createEmptyVbox(){
+    VBox createEmptyVbox() {
         VBox vbox = new VBox();
         vbox.getStyleClass().add("padding-vbox");
         return vbox;
