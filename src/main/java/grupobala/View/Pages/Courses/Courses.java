@@ -57,12 +57,7 @@ public class Courses implements Page {
         VBox card = new CardVBoxComponent().getComponent();
         Text title = new Text("Aprendizado");
 
-        card
-            .getChildren()
-            .addAll(
-                title,
-                getCourseCard()
-            );
+        card.getChildren().addAll(title, getCourseCard());
 
         card.getStyleClass().add("courses-card-content");
         title.getStyleClass().add("courses-title");
