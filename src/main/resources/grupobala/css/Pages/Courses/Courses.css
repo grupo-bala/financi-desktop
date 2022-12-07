@@ -50,3 +50,58 @@
     -fx-font-weight: bold;
     -fx-cursor: hand;
 }
+
+.card{
+    -fx-font-family: "Montserrat";
+    -fx-alignment: top-center;
+    -fx-max-width: 600px;
+    -fx-max-height: 600px;
+    -fx-padding: 50px;
+    -fx-background-color: #2B2F2B;
+}
+
+.popup-title{
+    -fx-font-weight: bold;
+    -fx-font-family: "Montserrat";
+    -fx-fill: #ffffff;
+    -fx-font-size: 24px;
+}
+
+.lessons-vbox{
+    -fx-padding: 30px 0px 0px 0px;
+    -fx-background-radius:10px;
+    -fx-alignment: top-center;
+    -fx-background-color: transparent;
+}
+
+.watch-lesson{
+    -fx-background-color: #49AD5A;
+    -fx-cursor: hand;
+}
+
+.lesson-title{
+    -fx-font-family: "Montserrat";
+    -fx-font-weight: bold;
+    -fx-fill: #ffffff;
+    -fx-font-size: 18px;
+}
+
+.info{
+    -fx-padding: 28px 60px 10px 4px;
+
+}
+
+.lesson-example{
+    -fx-background-radius: 10px;
+    -fx-alignment: center;
+    -fx-background-color: #121512;
+}
+
+.check-box{
+    -fx-alignment: center;
+    -fx-padding: 0px 0px 0px 20px;
+}
+
+.padding-vbox{
+    -fx-padding: 10px 0px 0px 0px;
+}
