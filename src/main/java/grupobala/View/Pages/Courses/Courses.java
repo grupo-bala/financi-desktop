@@ -146,51 +146,60 @@ public class Courses implements Page {
         VBox card = new CardVBoxComponent().getComponent();
         Text popupTitle = new Text("Produtividade e gestão de custos");
         VBox lessonsVbox = new VBox();
-        Button watchLesson = new Button("ASSISTIR AULA");
-        Text lessonTitle = new Text("Aula 01");
-        HBox info = new HBox();
-        VBox checkBoxVbox = new VBox();
-        Image checkBox = new Image(
-            "file:src/main/resources/grupobala/images/Checkbox.png"
-        );
-        ImageView checkBoxView = new ImageView(checkBox);
+        
         Image lessonsNumber = new Image(
             "file:src/main/resources/grupobala/images/lessonsNumber.png"
         );
         ImageView lessonsNumberView = new ImageView(lessonsNumber);
         VBox lessonsNumberVBox = new VBox();
 
-        checkBoxView.setFitHeight(40);
-        checkBoxView.setFitWidth(40);
-        checkBoxView.setPreserveRatio(true);
-
-        info
-            .getChildren()
-            .addAll(
-                getInfoItem(
-                    "file:src/main/resources/grupobala/images/Future.png","30 minutos",""));
-
-
         lessonsNumberVBox.getChildren().add(lessonsNumberView);
-        checkBoxVbox.getChildren().add(checkBoxView);
-        lessonsVbox.getChildren().addAll(createLessonExample(lessonTitle, info, watchLesson, checkBoxVbox),
-        createLessonExample(lessonTitle, info, watchLesson, checkBoxVbox), createLessonExample(lessonTitle, info, watchLesson, checkBoxVbox),
-        createLessonExample(lessonTitle, info, watchLesson, checkBoxVbox), createLessonExample(lessonTitle, info, watchLesson, checkBoxVbox));
-        card.getChildren().addAll(popupTitle,lessonsNumberVBox ,lessonsVbox);
+        
+        lessonsVbox.getChildren().addAll(
+            createLessonExample("Aula 01", 30),
+            createLessonExample("Aula 02", 30),
+            createLessonExample("Aula 03", 30),
+            createLessonExample("Aula 04", 30),
+            createLessonExample("Aula 05", 30)
+        );
+
+        card.getChildren().addAll(popupTitle,lessonsNumberVBox, lessonsVbox);
 
         lessonsNumberVBox.getStyleClass().add("lessons-number-vBox");
-        info.getStyleClass().add("info");
-        watchLesson.getStyleClass().add("watch-lesson");
+       
         card.getStyleClass().add("card");
         popupTitle.getStyleClass().add("popup-title");
         lessonsVbox.getStyleClass().add("lessons-vbox");
-        checkBoxVbox.getStyleClass().add("check-box");
 
         VBox.setVgrow(popupTitle, Priority.ALWAYS);
         coursePopup.getComponent().getChildren().addAll(card);
     }
     
-    HBox createLessonExample(Text lessonTitle, HBox info, Button watchLesson, VBox checkBoxVbox){
+    HBox createLessonExample(String title, int minutesDuration) {
+        Button watchLesson = new Button("ASSISTIR AULA");
+        Text lessonTitle = new Text(title);
+        HBox info = new HBox();
+        VBox checkBoxVbox = new VBox();
+        Image checkBox = new Image(
+            "file:src/main/resources/grupobala/images/Checkbox.png"
+        );
+        ImageView checkBoxView = new ImageView(checkBox);
+
+        info
+            .getChildren()
+            .addAll(
+                getInfoItem(
+                    "file:src/main/resources/grupobala/images/Future.png",String.format("%d minutos", minutesDuration),""));
+
+        checkBoxView.setFitHeight(40);
+        checkBoxView.setFitWidth(40);
+        checkBoxView.setPreserveRatio(true);
+
+        checkBoxVbox.getChildren().add(checkBoxView);
+
+        checkBoxVbox.getStyleClass().add("check-box");
+        watchLesson.getStyleClass().add("watch-lesson");
+        info.getStyleClass().add("info");
 
         HBox lessonExample = new HBox();
         lessonExample.getChildren().addAll(lessonTitle, info, watchLesson, checkBoxVbox);
