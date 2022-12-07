@@ -1,12 +1,15 @@
 package grupobala.View.Pages.ExtractPage;
 
 import grupobala.Controller.Extract.ExtractController;
+import grupobala.Controller.Report.ReportController;
+import grupobala.Controller.Report.IReportController.IReportController;
 import grupobala.Controller.Transaction.TransactionController;
 import grupobala.Entities.Extract.Filter.IFilter.IFilter;
 import grupobala.Entities.Extract.IExtract.IExtract;
 import grupobala.Entities.Transaction.ITransaction.ITransaction;
 import grupobala.Entities.User.User;
 import grupobala.View.Components.Card.CardVBoxComponent;
+import grupobala.View.Components.DocumentButton.DocumentButton;
 import grupobala.View.Components.ExtractList.ExtractLambda;
 import grupobala.View.Components.FilterButton.FilterButton;
 import grupobala.View.Components.NavigationBar.NavigationBar;
@@ -20,6 +23,8 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
+
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
@@ -39,6 +44,8 @@ public class ExtractPage implements Page {
     private PopupComponent popupConfirmation = new PopupComponent();
     private PopupComponent errorPopup = new PopupComponent();
     private FilterExtractPopup filterPopup = new FilterExtractPopup();
+    private IReportController documentReport = new ReportController();
+    private PopupComponent generateDocumentPopup = new PopupComponent();
     private Locale localeBR;
     private DateFormat dateFormat;
     private VBox mainContainer;
@@ -77,6 +84,7 @@ public class ExtractPage implements Page {
                 errorPopup.getComponent(),
                 popupConfirmation.getComponent(),
                 filterPopup.getComponent(),
+                generateDocumentPopup.getComponent(),
                 editTransaction.getComponent()
             );
 
@@ -120,6 +128,7 @@ public class ExtractPage implements Page {
         HBox titleContainer = new HBox();
         HBox titleBox = new HBox();
         HBox filter = getFilterButton();
+        HBox document = getDocumentButton();
 
         HBox.setHgrow(filter, Priority.ALWAYS);
 
@@ -127,7 +136,7 @@ public class ExtractPage implements Page {
         title.getStyleClass().add("extract-title");
 
         titleBox.getChildren().add(title);
-        titleContainer.getChildren().addAll(titleBox, filter);
+        titleContainer.getChildren().addAll(titleBox, document, filter);
         titleContainer.getStyleClass().add("title-image-container");
 
         return titleContainer;
@@ -147,6 +156,84 @@ public class ExtractPage implements Page {
             });
 
         return filterBox;
+    }
+
+    private HBox getDocumentButton() {
+        HBox DocumentBox = new HBox();
+        DocumentBox.getStyleClass().add("filter_Document_container");
+        DocumentButton documentButton = new DocumentButton();
+
+        DocumentBox.getChildren().add(documentButton.getComponentClick());
+
+        documentButton
+            .getComponent()
+            .setOnMouseClicked(e -> {
+                try {
+                    documentReport.generateReport();
+                    DocumentConfirmationPopUp();
+                } catch (Exception e1) {
+                    System.out.println("Documento já foi gerado");
+                    DocumentErrorPopUp();
+                };
+            });
+
+        return DocumentBox;
+    }
+
+    private void DocumentConfirmationPopUp() {
+        VBox card = new CardVBoxComponent().getComponent();
+        Button closePopup = new Button("Concluir");
+        Text text = new Text("Relatório Gerado! Vá para o diretório raiz e acesse-o.");
+        VBox textVBox = new VBox();
+
+        HBox alertHBox = new HBox();
+
+        card.getChildren().addAll(text, textVBox, alertHBox);
+        generateDocumentPopup.getComponent().getChildren().add(card);
+        textVBox.getChildren().add(text);
+        alertHBox.getChildren().addAll(closePopup);
+
+        alertHBox.setAlignment(Pos.BASELINE_CENTER);
+
+        textVBox.getStyleClass().add("text-box");
+
+        card.getStyleClass().add("document-card");
+        closePopup.getStyleClass().add("close-popup-documentConfirmation");
+        text.getStyleClass().add("text-documento-pop");
+
+        generateDocumentPopup.showPopup();
+        closePopup.setOnAction(e -> {
+            generateDocumentPopup.hidePopup();
+        });
+
+    }
+
+    private void DocumentErrorPopUp() {
+        VBox card = new CardVBoxComponent().getComponent();
+        Button closePopup = new Button("Concluir");
+        Text text = new Text("Relatório já foi gerado! Vá para o diretório raiz e acesse-o.");
+        VBox textVBox = new VBox();
+
+        HBox alertHBox = new HBox();
+
+        card.getChildren().addAll(text, textVBox, alertHBox);
+        generateDocumentPopup.getComponent().getChildren().add(card);
+        textVBox.getChildren().add(text);
+        alertHBox.getChildren().addAll(closePopup);
+
+        alertHBox.setAlignment(Pos.BASELINE_CENTER);
+
+        textVBox.getStyleClass().add("text-box");
+
+        card.getStyleClass().add("document-card");
+        closePopup.getStyleClass().add("close-popup-documentConfirmation");
+        text.getStyleClass().add("text-documento-pop");
+
+        generateDocumentPopup.showPopup();
+        closePopup.setOnAction(e -> {
+            generateDocumentPopup.hidePopup();
+        });
+
     }
 
     private VBox getTransactionsPreview(IExtract extract) {
