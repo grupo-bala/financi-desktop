@@ -147,26 +147,20 @@ public class Courses implements Page {
         Text popupTitle = new Text("Produtividade e gestão de custos");
         VBox lessonsVbox = new VBox();
         
-        Image lessonsNumber = new Image(
-            "file:src/main/resources/grupobala/images/lessonsNumber.png"
-        );
-        ImageView lessonsNumberView = new ImageView(lessonsNumber);
-        VBox lessonsNumberVBox = new VBox();
-
-        lessonsNumberVBox.getChildren().add(lessonsNumberView);
-        
         lessonsVbox.getChildren().addAll(
             createLessonExample("Aula 01", 30),
+            createEmptyVbox(),
             createLessonExample("Aula 02", 30),
+            createEmptyVbox(),
             createLessonExample("Aula 03", 30),
+            createEmptyVbox(),
             createLessonExample("Aula 04", 30),
+            createEmptyVbox(),
             createLessonExample("Aula 05", 30)
         );
 
-        card.getChildren().addAll(popupTitle,lessonsNumberVBox, lessonsVbox);
+        card.getChildren().addAll(popupTitle, lessonsVbox);
 
-        lessonsNumberVBox.getStyleClass().add("lessons-number-vBox");
-       
         card.getStyleClass().add("card");
         popupTitle.getStyleClass().add("popup-title");
         lessonsVbox.getStyleClass().add("lessons-vbox");
@@ -200,11 +194,18 @@ public class Courses implements Page {
         checkBoxVbox.getStyleClass().add("check-box");
         watchLesson.getStyleClass().add("watch-lesson");
         info.getStyleClass().add("info");
+        lessonTitle.getStyleClass().add("lesson-title");
 
         HBox lessonExample = new HBox();
         lessonExample.getChildren().addAll(lessonTitle, info, watchLesson, checkBoxVbox);
-        lessonTitle.getStyleClass().add("lesson-title");
+        lessonExample.getStyleClass().add("lesson-example");
 
         return lessonExample;
+    }
+
+    VBox createEmptyVbox(){
+        VBox vbox = new VBox();
+        vbox.getStyleClass().add("padding-vbox");
+        return vbox;
     }
 }
