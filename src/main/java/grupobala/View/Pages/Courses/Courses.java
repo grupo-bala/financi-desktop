@@ -146,7 +146,6 @@ public class Courses implements Page {
         VBox card = new CardVBoxComponent().getComponent();
         Text popupTitle = new Text("Produtividade e gestão de custos");
         VBox lessonsVbox = new VBox();
-        HBox lessonExample = new HBox();
         Button watchLesson = new Button("ASSISTIR AULA");
         Text lessonTitle = new Text("Aula 01");
         HBox info = new HBox();
@@ -174,14 +173,13 @@ public class Courses implements Page {
 
         lessonsNumberVBox.getChildren().add(lessonsNumberView);
         checkBoxVbox.getChildren().add(checkBoxView);
-        lessonExample.getChildren().addAll(lessonTitle, info, watchLesson, checkBoxVbox);
-        lessonsVbox.getChildren().addAll(lessonExample, lessonExample, lessonExample);
+        lessonsVbox.getChildren().addAll(createLessonExample(lessonTitle, info, watchLesson, checkBoxVbox),
+        createLessonExample(lessonTitle, info, watchLesson, checkBoxVbox), createLessonExample(lessonTitle, info, watchLesson, checkBoxVbox),
+        createLessonExample(lessonTitle, info, watchLesson, checkBoxVbox), createLessonExample(lessonTitle, info, watchLesson, checkBoxVbox));
         card.getChildren().addAll(popupTitle,lessonsNumberVBox ,lessonsVbox);
 
         lessonsNumberVBox.getStyleClass().add("lessons-number-vBox");
-        lessonExample.getStyleClass().add("lesson-example");
         info.getStyleClass().add("info");
-        lessonTitle.getStyleClass().add("lesson-title");
         watchLesson.getStyleClass().add("watch-lesson");
         card.getStyleClass().add("card");
         popupTitle.getStyleClass().add("popup-title");
@@ -192,4 +190,12 @@ public class Courses implements Page {
         coursePopup.getComponent().getChildren().addAll(card);
     }
     
+    HBox createLessonExample(Text lessonTitle, HBox info, Button watchLesson, VBox checkBoxVbox){
+
+        HBox lessonExample = new HBox();
+        lessonExample.getChildren().addAll(lessonTitle, info, watchLesson, checkBoxVbox);
+        lessonTitle.getStyleClass().add("lesson-title");
+
+        return lessonExample;
+    }
 }

@@ -75,6 +75,7 @@
 
 .watch-lesson{
     -fx-background-color: #49AD5A;
+    -fx-cursor: hand;
 }
 
 .lesson-title{
