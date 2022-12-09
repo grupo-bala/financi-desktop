@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import grupobala.Controller.Authentication.AuthenticationController;
 import grupobala.Controller.Authentication.IAuthenticationController.IAuthenticationController;
 import grupobala.Controller.Report.ReportController;
+import grupobala.Controller.Report.IReportController.IReportController;
 import grupobala.Controller.Transaction.ITransactionController.ITransactionController;
 import grupobala.Controller.Transaction.TransactionController;
 import grupobala.Entities.Category.CategoryEnum;
@@ -18,7 +19,7 @@ import org.junit.jupiter.api.Test;
 public class TestGenerateReportController {
 
     IAuthenticationController authenticationController = new AuthenticationController();
-    ReportController reportController = new ReportController();
+    IReportController reportController = new ReportController();
     ITransactionController transactionController = new TransactionController();
 
     @Test
