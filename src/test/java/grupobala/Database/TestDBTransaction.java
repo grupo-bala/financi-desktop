@@ -26,8 +26,8 @@ public class TestDBTransaction {
     public void testAddTransaction() throws Exception {
         SetupForTest.truncateTables();
         AuthenticationController authController = new AuthenticationController();
-        authController.signUp("financi", "1234", "Financi", 0);
-        authController.signIn("financi", "1234");
+        authController.signUp("financi", "Financi@123", "Financi", 0);
+        authController.signIn("financi", "Financi@123");
 
         Calendar calendar = Calendar.getInstance();
 

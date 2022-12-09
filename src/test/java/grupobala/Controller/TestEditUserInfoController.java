@@ -20,8 +20,8 @@ public class TestEditUserInfoController {
     public void testEditUserInfo() throws Exception {
         SetupForTest.truncateTables();
 
-        authenticationController.signUp("jose", "123", "jose", 500);
-        authenticationController.signIn("jose", "123");
+        authenticationController.signUp("jose", "Financi@123", "jose", 500);
+        authenticationController.signIn("jose", "Financi@123");
 
         assertDoesNotThrow(() -> {
             userController.editUserInfo("ze", "jose");
@@ -34,11 +34,11 @@ public class TestEditUserInfoController {
     public void testEditUserPassword() throws Exception {
         SetupForTest.truncateTables();
 
-        authenticationController.signUp("jose", "123", "jose", 500);
-        authenticationController.signIn("jose", "123");
+        authenticationController.signUp("jose", "Financi@123", "jose", 500);
+        authenticationController.signIn("jose", "Financi@123");
 
         assertDoesNotThrow(() -> {
-            userController.updatePassword("123", "teste");
+            userController.updatePassword("Financi@123", "teste");
         });
 
         new User().close();
@@ -48,8 +48,8 @@ public class TestEditUserInfoController {
     public void TestEditUserPasswordWithOldPasswordWrong() throws Exception {
         SetupForTest.truncateTables();
 
-        authenticationController.signUp("jose", "123", "jose", 500);
-        authenticationController.signIn("jose", "123");
+        authenticationController.signUp("jose", "Financi@123", "jose", 500);
+        authenticationController.signIn("jose", "Financi@123");
 
         assertThrows(
             Exception.class,

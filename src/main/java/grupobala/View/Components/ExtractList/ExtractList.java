@@ -2,6 +2,7 @@ package grupobala.View.Components.ExtractList;
 
 import grupobala.Controller.Extract.ExtractController;
 import grupobala.Entities.Extract.IExtract.IExtract;
+import grupobala.Entities.Iterator.IteratorInterface;
 import grupobala.Entities.Transaction.ITransaction.ITransaction;
 import grupobala.View.Components.Component.Component;
 import java.sql.SQLException;
@@ -74,12 +75,16 @@ public class ExtractList implements Component {
         VBox outputs = new VBox();
         int limit = 0;
 
-        for (ITransaction t : extract) {
+        IteratorInterface<ITransaction> extractIterator = extract.iterator();
+
+        while (extractIterator.hasNext()) {
+            ITransaction transaction = extractIterator.next();
+
             if (limit == 4) {
                 break;
             }
             limit++;
-            VBox tview = compilingTransactionPreview(t);
+            VBox tview = compilingTransactionPreview(transaction);
 
             outputs.getChildren().add(tview);
         }

@@ -15,6 +15,7 @@ import grupobala.Controller.Extract.ExtractController;
 import grupobala.Controller.Extract.IExtractController.IExtractController;
 import grupobala.Controller.Report.IReportController.IReportController;
 import grupobala.Entities.Extract.IExtract.IExtract;
+import grupobala.Entities.Iterator.IteratorInterface;
 import grupobala.Entities.Transaction.ITransaction.ITransaction;
 import grupobala.Entities.User.User;
 import java.io.FileOutputStream;
@@ -95,7 +96,11 @@ public class ReportController implements IReportController {
             table.setWidthPercentage(90);
             table.setWidths(new int[] { 40, 20, 20, 15 });
 
-            for (ITransaction transaction : extract) {
+            IteratorInterface<ITransaction> extractIterator = extract.iterator();
+
+            while (extractIterator.hasNext()) {
+                ITransaction transaction = extractIterator.next();
+
                 String dateTransaction = this.dateFormated(transaction);
 
                 PdfPCell description = new PdfPCell(
