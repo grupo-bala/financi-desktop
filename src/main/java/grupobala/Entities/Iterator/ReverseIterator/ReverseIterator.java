@@ -1,8 +1,7 @@
 package grupobala.Entities.Iterator.ReverseIterator;
 
-import java.util.ArrayList;
-
 import grupobala.Entities.Iterator.IteratorInterface.IteratorInterface;
+import java.util.ArrayList;
 
 public class ReverseIterator<T> implements IteratorInterface<T> {
 

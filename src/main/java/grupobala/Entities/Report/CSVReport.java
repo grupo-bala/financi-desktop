@@ -57,7 +57,9 @@ public class CSVReport implements IReport {
         };
         data.add(headers);
 
-        IteratorInterface<ITransaction> extractIterator = extract.iterator(IteratorEnum.REVERSE);
+        IteratorInterface<ITransaction> extractIterator = extract.iterator(
+            IteratorEnum.REVERSE
+        );
 
         while (extractIterator.hasNext()) {
             ITransaction transaction = extractIterator.next();

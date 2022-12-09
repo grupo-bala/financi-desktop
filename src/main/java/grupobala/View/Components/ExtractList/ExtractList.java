@@ -76,7 +76,9 @@ public class ExtractList implements Component {
         VBox outputs = new VBox();
         int limit = 0;
 
-        IteratorInterface<ITransaction> extractIterator = extract.iterator(IteratorEnum.REVERSE);
+        IteratorInterface<ITransaction> extractIterator = extract.iterator(
+            IteratorEnum.REVERSE
+        );
 
         while (extractIterator.hasNext()) {
             ITransaction transaction = extractIterator.next();

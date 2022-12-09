@@ -106,7 +106,9 @@ public class PDFReport implements IReport {
             table.setWidthPercentage(90);
             table.setWidths(new int[] { 40, 20, 20, 15 });
 
-            IteratorInterface<ITransaction> extractIterator = extract.iterator(IteratorEnum.REVERSE);
+            IteratorInterface<ITransaction> extractIterator = extract.iterator(
+                IteratorEnum.REVERSE
+            );
 
             while (extractIterator.hasNext()) {
                 ITransaction transaction = extractIterator.next();
