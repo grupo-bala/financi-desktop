@@ -1,13 +1,14 @@
 package grupobala.Controller.Authentication;
 
-import java.util.regex.Pattern;
-
 import grupobala.Controller.Authentication.AuthenticationHandler.AuthenticationHandler;
+import java.util.regex.Pattern;
 
 public class PasswordHandler implements AuthenticationHandler {
 
     private AuthenticationHandler next;
-    Pattern passwordPattern = Pattern.compile("^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9]).+$");
+    Pattern passwordPattern = Pattern.compile(
+        "^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9]).+$"
+    );
 
     @Override
     public void setNext(AuthenticationHandler handler) {
@@ -15,7 +16,12 @@ public class PasswordHandler implements AuthenticationHandler {
     }
 
     @Override
-    public void handle(String username, String password, String name, float wage) throws Exception {
+    public void handle(
+        String username,
+        String password,
+        String name,
+        float wage
+    ) throws Exception {
         boolean result = passwordPattern.matcher(password).find();
 
         if (!result) {

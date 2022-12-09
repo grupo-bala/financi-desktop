@@ -18,7 +18,12 @@ public class RegisterHandler implements AuthenticationHandler {
     }
 
     @Override
-    public void handle(String username, String password, String name, float wage) throws Exception {
+    public void handle(
+        String username,
+        String password,
+        String name,
+        float wage
+    ) throws Exception {
         String hashPassword = encryptor.encrypt(password);
 
         if (!dbAuthenticator.signUp(username, hashPassword, name, wage)) {
@@ -27,5 +32,4 @@ public class RegisterHandler implements AuthenticationHandler {
             this.next.handle(username, hashPassword, name, wage);
         }
     }
-    
 }

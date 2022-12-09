@@ -18,7 +18,7 @@ public class AuthenticationController implements IAuthenticationController {
     public AuthenticationController() {
         this.dbAuthenticator = new DBAuthenticator(new DBConnection());
         this.encryptor = new SHA256Encryptor();
-        
+
         AuthenticationHandler usernameHandler = new UsernameHandler();
         AuthenticationHandler passwordHandler = new PasswordHandler();
         AuthenticationHandler registerHandler = new RegisterHandler();
