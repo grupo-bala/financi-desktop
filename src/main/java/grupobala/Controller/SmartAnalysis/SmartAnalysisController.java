@@ -111,7 +111,6 @@ public class SmartAnalysisController implements ISmartAnalysisController {
     @Override
     public ArrayList<ITransaction> getTransactions(int userID)
         throws Exception {
-        
         try {
             ArrayList<ITransaction> transactions = dbExtract.getCompleteExtract(userID);
             return transactions;
