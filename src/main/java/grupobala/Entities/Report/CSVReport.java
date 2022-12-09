@@ -58,9 +58,9 @@ public class CSVReport implements IReport {
 
         IteratorInterface<ITransaction> extractIterator = extract.iterator();
 
-        while(extractIterator.hasNext()){
+        while (extractIterator.hasNext()) {
             ITransaction transaction = extractIterator.next();
-            
+
             String[] dataTransaction = {
                 transaction.getTitle(),
                 Double.toString(transaction.getValue()),
