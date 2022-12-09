@@ -262,7 +262,9 @@ public class ExtractPage implements Page {
     private VBox getTransactionsPreview(IExtract extract) {
         VBox outputs = new VBox();
 
-        IteratorInterface<ITransaction> extractIterator = extract.iterator(IteratorEnum.REVERSE);
+        IteratorInterface<ITransaction> extractIterator = extract.iterator(
+            IteratorEnum.REVERSE
+        );
         while (extractIterator.hasNext()) {
             ITransaction transaction = extractIterator.next();
             if (
