@@ -1,4 +1,4 @@
-package grupobala.Entities.Iterator;
+package grupobala.Entities.Iterator.IteratorInterface;
 
 public interface IteratorInterface<T> {
     public boolean hasNext();
