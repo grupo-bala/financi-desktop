@@ -242,8 +242,7 @@ public class ExtractPage implements Page {
         VBox outputs = new VBox();
 
         IteratorInterface<ITransaction> extractIterator = extract.iterator();
-        while(extractIterator.hasNext()){
-
+        while (extractIterator.hasNext()) {
             ITransaction transaction = extractIterator.next();
             if (
                 (

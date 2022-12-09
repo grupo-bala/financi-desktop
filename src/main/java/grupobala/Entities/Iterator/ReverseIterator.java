@@ -2,7 +2,7 @@ package grupobala.Entities.Iterator;
 
 import java.util.ArrayList;
 
-public class ReverseIterator <T> implements IteratorInterface <T> {
+public class ReverseIterator<T> implements IteratorInterface<T> {
 
     private ArrayList<T> list;
     private int position;

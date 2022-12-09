@@ -77,10 +77,9 @@ public class ExtractList implements Component {
 
         IteratorInterface<ITransaction> extractIterator = extract.iterator();
 
-        while(extractIterator.hasNext()) {
-
+        while (extractIterator.hasNext()) {
             ITransaction transaction = extractIterator.next();
-            
+
             if (limit == 4) {
                 break;
             }
@@ -88,7 +87,6 @@ public class ExtractList implements Component {
             VBox tview = compilingTransactionPreview(transaction);
 
             outputs.getChildren().add(tview);
-
         }
 
         return outputs;

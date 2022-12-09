@@ -98,8 +98,7 @@ public class ReportController implements IReportController {
 
             IteratorInterface<ITransaction> extractIterator = extract.iterator();
 
-            while(extractIterator.hasNext()){
-
+            while (extractIterator.hasNext()) {
                 ITransaction transaction = extractIterator.next();
 
                 String dateTransaction = this.dateFormated(transaction);
@@ -140,7 +139,6 @@ public class ReportController implements IReportController {
 
                 this.cellFormate(date);
                 table.addCell(date);
-
             }
 
             Paragraph entry = new Paragraph(
@@ -166,7 +164,6 @@ public class ReportController implements IReportController {
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
-
     }
 
     private void cellFormate(PdfPCell cell) {
