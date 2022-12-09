@@ -11,6 +11,7 @@ import grupobala.Controller.Transaction.ITransactionController.ITransactionContr
 import grupobala.Controller.Transaction.TransactionController;
 import grupobala.Entities.Category.CategoryEnum;
 import grupobala.Entities.Extract.IExtract.IExtract;
+import grupobala.Entities.Iterator.IteratorEnum.IteratorEnum;
 import grupobala.Entities.Transaction.ITransaction.ITransaction;
 import grupobala.Entities.User.IUser.IUser;
 import grupobala.Entities.User.User;
@@ -45,7 +46,7 @@ public class TestEditTransactionController {
         );
 
         IExtract extract = extractController.getExtract();
-        ITransaction transaction = extract.iterator().next();
+        ITransaction transaction = extract.iterator(IteratorEnum.REVERSE).next();
 
         transaction.setTitle("teste editado");
         transaction.setValue(20);
@@ -76,7 +77,7 @@ public class TestEditTransactionController {
         );
 
         IExtract extract = extractController.getExtract();
-        ITransaction transaction = extract.iterator().next();
+        ITransaction transaction = extract.iterator(IteratorEnum.REVERSE).next();
 
         transaction.setTitle("teste editado");
         transaction.setValue(20);
