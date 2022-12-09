@@ -112,7 +112,9 @@ public class SmartAnalysisController implements ISmartAnalysisController {
     public ArrayList<ITransaction> getTransactions(int userID)
         throws Exception {
         try {
-            ArrayList<ITransaction> transactions = dbExtract.getCompleteExtract(userID);
+            ArrayList<ITransaction> transactions = dbExtract.getCompleteExtract(
+                userID
+            );
             return transactions;
         } catch (SQLException error) {
             throw new Exception();

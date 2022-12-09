@@ -168,7 +168,9 @@ public class ExtractPage implements Page {
         DocumentButton exportPDF = new DocumentButton(IconType.PDF);
         DocumentButton exportCSV = new DocumentButton(IconType.CSV);
 
-        DocumentBox.getChildren().addAll(exportPDF.getComponent(), exportCSV.getComponent());
+        DocumentBox
+            .getChildren()
+            .addAll(exportPDF.getComponent(), exportCSV.getComponent());
 
         exportPDF
             .getComponent()

@@ -12,16 +12,14 @@ public class DocumentButton implements Component {
     public DocumentButton(IconType type) {
         this.setComponent(type);
     }
-    
+
     @Override
     public HBox getComponent() {
         return this.hBox;
     }
 
     private void setComponent(IconType type) {
-        Image filterImage = new Image(
-            type.path
-        );
+        Image filterImage = new Image(type.path);
         ImageView filterIcon = new ImageView(filterImage);
 
         this.hBox.setStyle("-fx-cursor: hand;");

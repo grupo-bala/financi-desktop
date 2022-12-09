@@ -1,10 +1,5 @@
 package grupobala.Entities.Report;
 
-import java.io.FileOutputStream;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Element;
@@ -16,21 +11,24 @@ import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
-
 import grupobala.Controller.Extract.ExtractController;
 import grupobala.Controller.Extract.IExtractController.IExtractController;
 import grupobala.Entities.Extract.IExtract.IExtract;
 import grupobala.Entities.Report.IReport.IReport;
 import grupobala.Entities.Transaction.ITransaction.ITransaction;
 import grupobala.Entities.User.User;
+import java.io.FileOutputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-public class PDFReport implements IReport{
+public class PDFReport implements IReport {
 
     Document report;
     IExtractController extractController;
     IExtract extract;
 
-    public PDFReport() throws Exception{
+    public PDFReport() throws Exception {
         this.report = new Document(PageSize.A4);
         this.extractController = new ExtractController();
         try {
@@ -107,7 +105,8 @@ public class PDFReport implements IReport{
             table.setWidths(new int[] { 40, 20, 20, 15 });
 
             for (ITransaction transaction : extract) {
-                String dateTransaction = this.dateFormated(transaction.getDate());
+                String dateTransaction =
+                    this.dateFormated(transaction.getDate());
 
                 PdfPCell description = new PdfPCell(
                     new Phrase(
@@ -156,27 +155,27 @@ public class PDFReport implements IReport{
 
     private void setBottomContent() throws Exception {
         Paragraph entry = new Paragraph(
-                new Phrase(
-                    "Total de entradas: " + extract.getEntry(),
-                    FontFactory.getFont(FontFactory.HELVETICA, 11)
-                )
-            );
-            Paragraph output = new Paragraph(
-                new Phrase(
-                    "Total de saídas: " + extract.getOutput(),
-                    FontFactory.getFont(FontFactory.HELVETICA, 11)
-                )
-            );
-            entry.setAlignment(Element.ALIGN_CENTER);
-            output.setAlignment(Element.ALIGN_CENTER);
+            new Phrase(
+                "Total de entradas: " + extract.getEntry(),
+                FontFactory.getFont(FontFactory.HELVETICA, 11)
+            )
+        );
+        Paragraph output = new Paragraph(
+            new Phrase(
+                "Total de saídas: " + extract.getOutput(),
+                FontFactory.getFont(FontFactory.HELVETICA, 11)
+            )
+        );
+        entry.setAlignment(Element.ALIGN_CENTER);
+        output.setAlignment(Element.ALIGN_CENTER);
 
-            try {
-                this.report.add(entry);
-                this.report.add(output);
-                this.report.close();
-            } catch (Exception e) {
-                throw new Exception(e.getMessage());
-            }
+        try {
+            this.report.add(entry);
+            this.report.add(output);
+            this.report.close();
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
     }
 
     private void cellFormate(PdfPCell cell) {
