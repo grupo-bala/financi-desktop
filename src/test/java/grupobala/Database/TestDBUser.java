@@ -25,8 +25,8 @@ public class TestDBUser {
     public void testSetUserBalance() throws Exception {
         SetupForTest.truncateTables();
         AuthenticationController authController = new AuthenticationController();
-        authController.signUp("financi", "1234", "Financi", 0);
-        authController.signIn("financi", "1234");
+        authController.signUp("financi", "Financi@123", "Financi", 0);
+        authController.signIn("financi", "Financi@123");
 
         this.userDB.setUserBalance(new User().getID(), 2000);
 
@@ -75,7 +75,7 @@ public class TestDBUser {
         new User("financi", "Financi", 1000, financiUserID);
 
         String result = this.userDB.getPassword();
-        String expected = "1234";
+        String expected = "Financi@123";
 
         assertEquals(expected, result);
 

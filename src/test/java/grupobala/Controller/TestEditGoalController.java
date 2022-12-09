@@ -22,8 +22,8 @@ public class TestEditGoalController {
         SetupForTest.truncateTables();
         IAuthenticationController authController = new AuthenticationController();
 
-        authController.signUp("goal", "1234", "financi", 0);
-        authController.signIn("goal", "1234");
+        authController.signUp("goal", "Financi@123", "financi", 0);
+        authController.signIn("goal", "Financi@123");
 
         User user = new User();
 
@@ -48,8 +48,8 @@ public class TestEditGoalController {
         SetupForTest.truncateTables();
         IAuthenticationController authController = new AuthenticationController();
 
-        authController.signUp("goal", "1234", "financi", 0);
-        authController.signIn("goal", "1234");
+        authController.signUp("goal", "Financi@123", "financi", 0);
+        authController.signIn("goal", "Financi@123");
 
         User user = new User();
 

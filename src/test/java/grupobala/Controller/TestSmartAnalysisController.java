@@ -40,8 +40,8 @@ public class TestSmartAnalysisController {
         IAuthenticationController authController = new AuthenticationController();
         SmartAnalysisController smartAnalysisController = new SmartAnalysisController();
 
-        authController.signUp("smart-analysis", "1234", "Financi", 0);
-        authController.signIn("smart-analysis", "1234");
+        authController.signUp("smart-analysis", "Financi@123", "Financi", 0);
+        authController.signIn("smart-analysis", "Financi@123");
         User user = new User();
 
         float transactionValueO = 1000;
@@ -77,8 +77,8 @@ public class TestSmartAnalysisController {
         IAuthenticationController authController = new AuthenticationController();
         SmartAnalysisController smartAnalysisController = new SmartAnalysisController();
 
-        authController.signUp("smart-analysis", "1234", "Financi", 0);
-        authController.signIn("smart-analysis", "1234");
+        authController.signUp("smart-analysis", "Financi@123", "Financi", 0);
+        authController.signIn("smart-analysis", "Financi@123");
         User user = new User();
 
         float transactionValueO = -1000;
@@ -115,8 +115,8 @@ public class TestSmartAnalysisController {
         IAuthenticationController authController = new AuthenticationController();
         SmartAnalysisController smartAnalysisController = new SmartAnalysisController();
 
-        authController.signUp("smart-analysis", "1234", "Financi", 0);
-        authController.signIn("smart-analysis", "1234");
+        authController.signUp("smart-analysis", "Financi@123", "Financi", 0);
+        authController.signIn("smart-analysis", "Financi@123");
         User user = new User();
 
         float transactionValueO = 3000;
@@ -157,8 +157,8 @@ public class TestSmartAnalysisController {
         IAuthenticationController authController = new AuthenticationController();
         SmartAnalysisController smartAnalysisController = new SmartAnalysisController();
 
-        authController.signUp("smart-analysis", "1234", "Financi", 0);
-        authController.signIn("smart-analysis", "1234");
+        authController.signUp("smart-analysis", "Financi@123", "Financi", 0);
+        authController.signIn("smart-analysis", "Financi@123");
         User user = new User();
 
         float transactionValueO = -1000;
@@ -198,8 +198,8 @@ public class TestSmartAnalysisController {
         IAuthenticationController authController = new AuthenticationController();
         SmartAnalysisController smartAnalysisController = new SmartAnalysisController();
 
-        authController.signUp("smart-analysis", "1234", "Financi", 0);
-        authController.signIn("smart-analysis", "1234");
+        authController.signUp("smart-analysis", "Financi@123", "Financi", 0);
+        authController.signIn("smart-analysis", "Financi@123");
         User user = new User();
 
         float transactionValueO = 1000;
@@ -241,8 +241,8 @@ public class TestSmartAnalysisController {
         IAuthenticationController authController = new AuthenticationController();
         SmartAnalysisController smartAnalysisController = new SmartAnalysisController();
 
-        authController.signUp("smart-analysis", "1234", "Financi", 0);
-        authController.signIn("smart-analysis", "1234");
+        authController.signUp("smart-analysis", "Financi@123", "Financi", 0);
+        authController.signIn("smart-analysis", "Financi@123");
         User user = new User();
 
         float transactionValueO = 998;
@@ -283,8 +283,8 @@ public class TestSmartAnalysisController {
         IAuthenticationController authController = new AuthenticationController();
         SmartAnalysisController smartAnalysisController = new SmartAnalysisController();
 
-        authController.signUp("smart-analysis", "1234", "Financi", 0);
-        authController.signIn("smart-analysis", "1234");
+        authController.signUp("smart-analysis", "Financi@123", "Financi", 0);
+        authController.signIn("smart-analysis", "Financi@123");
         User user = new User();
 
         float transactionValue = -3000;
@@ -322,8 +322,8 @@ public class TestSmartAnalysisController {
         IAuthenticationController authController = new AuthenticationController();
         SmartAnalysisController smartAnalysisController = new SmartAnalysisController();
 
-        authController.signUp("smart-analysis", "1234", "Financi", 0);
-        authController.signIn("smart-analysis", "1234");
+        authController.signUp("smart-analysis", "Financi@123", "Financi", 0);
+        authController.signIn("smart-analysis", "Financi@123");
         User user = new User();
 
         float transactionValueO = 3000;

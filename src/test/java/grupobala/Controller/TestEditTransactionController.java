@@ -31,8 +31,8 @@ public class TestEditTransactionController {
     public void testEditTransaction() throws Exception {
         SetupForTest.truncateTables();
 
-        authenticationController.signUp("jose", "123", "jose", 500);
-        authenticationController.signIn("jose", "123");
+        authenticationController.signUp("jose", "Financi@123", "jose", 500);
+        authenticationController.signIn("jose", "Financi@123");
 
         IUser user = new User();
 
@@ -62,8 +62,8 @@ public class TestEditTransactionController {
     public void testShouldFailEditGoalUserIDNoneExistent() throws Exception {
         SetupForTest.truncateTables();
 
-        authenticationController.signUp("jose", "123", "jose", 500);
-        authenticationController.signIn("jose", "123");
+        authenticationController.signUp("jose", "Financi@123", "jose", 500);
+        authenticationController.signIn("jose", "Financi@123");
 
         IUser user = new User();
 

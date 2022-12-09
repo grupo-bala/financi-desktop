@@ -20,8 +20,8 @@ public class TestGetExtractController {
         SetupForTest.truncateTables();
         IAuthenticationController authController = new AuthenticationController();
 
-        authController.signUp("extract", "1234", "Financi", 0);
-        authController.signIn("extract", "1234");
+        authController.signUp("extract", "Financi@123", "Financi", 0);
+        authController.signIn("extract", "Financi@123");
 
         User user = new User();
 
@@ -47,8 +47,8 @@ public class TestGetExtractController {
         SetupForTest.truncateTables();
         IAuthenticationController authController = new AuthenticationController();
 
-        authController.signUp("extract", "1234", "Financi", 0);
-        authController.signIn("extract", "1234");
+        authController.signUp("extract", "Financi@123", "Financi", 0);
+        authController.signIn("extract", "Financi@123");
 
         User user = new User();
 
@@ -74,8 +74,8 @@ public class TestGetExtractController {
         SetupForTest.truncateTables();
         IAuthenticationController authController = new AuthenticationController();
 
-        authController.signUp("extract", "1234", "Financi", 0);
-        authController.signIn("extract", "1234");
+        authController.signUp("extract", "Financi@123", "Financi", 0);
+        authController.signIn("extract", "Financi@123");
 
         User user = new User();
         String transactionTitle = "teste";
@@ -100,8 +100,8 @@ public class TestGetExtractController {
     public void checkCategory() throws Exception {
         SetupForTest.truncateTables();
         IAuthenticationController authController = new AuthenticationController();
-        authController.signUp("extract", "1234", "Financi", 0);
-        authController.signIn("extract", "1234");
+        authController.signUp("extract", "Financi@123", "Financi", 0);
+        authController.signIn("extract", "Financi@123");
 
         User user = new User();
         CategoryEnum category = CategoryEnum.ENTERTAINMENT;

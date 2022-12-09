@@ -20,8 +20,8 @@ public class TestGenerateReportController {
         SetupForTest.truncateTables();
         AuthenticationController authenticationController = new AuthenticationController();
 
-        authenticationController.signUp("financi12", "123", "financi", 100);
-        authenticationController.signIn("financi12", "123");
+        authenticationController.signUp("financi12", "Financi@123", "financi", 100);
+        authenticationController.signIn("financi12", "Financi@123");
 
         IReportController reportController = new ReportController();
         ITransactionController transactionController = new TransactionController();
