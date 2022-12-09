@@ -15,8 +15,8 @@ public class TestGoalController {
 
         Assertions.assertDoesNotThrow(() -> {
             AuthenticationController authenticationController = new AuthenticationController();
-            authenticationController.signUp("financi", "123", "Financi", 0);
-            authenticationController.signIn("financi", "123");
+            authenticationController.signUp("financi", "Financi@123", "Financi", 0);
+            authenticationController.signIn("financi", "Financi@123");
 
             GoalController goalController = new GoalController();
             goalController.getGoals();

@@ -24,7 +24,7 @@ public class TestDBAuthenticator {
         SetupForTest.truncateTables();
 
         boolean result =
-            this.databaseAuthenticator.signUp("financi", "1234", "Financi", 0);
+            this.databaseAuthenticator.signUp("financi", "Financi@123", "Financi", 0);
 
         assertTrue(result);
     }
@@ -33,10 +33,10 @@ public class TestDBAuthenticator {
     public void testLogin() throws SQLException {
         SetupForTest.truncateTables();
 
-        this.databaseAuthenticator.signUp("testLogin", "1234", "Login", 0);
+        this.databaseAuthenticator.signUp("testLogin", "Financi@123", "Login", 0);
 
         String expectedName = "Login";
-        IUser result = this.databaseAuthenticator.login("testLogin", "1234");
+        IUser result = this.databaseAuthenticator.login("testLogin", "Financi@123");
 
         assertEquals(expectedName, result.getName());
 
@@ -49,7 +49,7 @@ public class TestDBAuthenticator {
 
         this.databaseAuthenticator.signUp(
                 "testRegistrationShouldFail",
-                "1234",
+                "Financi@123",
                 "testRegistrationShouldFail",
                 0
             );
@@ -57,7 +57,7 @@ public class TestDBAuthenticator {
         boolean result =
             this.databaseAuthenticator.signUp(
                     "testRegistrationShouldFail",
-                    "1234",
+                    "Financi@123",
                     "Financi",
                     0
                 );
@@ -74,7 +74,7 @@ public class TestDBAuthenticator {
             () -> {
                 this.databaseAuthenticator.login(
                         "usuarioNaoCadastrado",
-                        "1234"
+                        "Financi@123"
                     );
             }
         );

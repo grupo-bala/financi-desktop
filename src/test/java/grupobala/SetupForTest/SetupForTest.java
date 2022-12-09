@@ -60,7 +60,7 @@ public class SetupForTest {
         Statement statement = connection.createStatement();
 
         String query =
-            "INSERT INTO usuario(nome, nomeusuario, senha, saldo) VALUES ('Financi', 'financi', '1234', 1000)";
+            "INSERT INTO usuario(nome, nomeusuario, senha, saldo) VALUES ('Financi', 'financi', 'Financi@123', 1000)";
 
         statement.executeUpdate(query);
 
