@@ -1,8 +1,10 @@
 package grupobala.Entities.Extract;
 
 import grupobala.Entities.Extract.IExtract.IExtract;
-import grupobala.Entities.Iterator.IteratorInterface;
-import grupobala.Entities.Iterator.ReverseIterator;
+import grupobala.Entities.Iterator.IteratorEnum.IteratorEnum;
+import grupobala.Entities.Iterator.IteratorInterface.IteratorInterface;
+import grupobala.Entities.Iterator.NormalIterator.NormalIterator;
+import grupobala.Entities.Iterator.ReverseIterator.ReverseIterator;
 import grupobala.Entities.Transaction.ITransaction.ITransaction;
 import java.util.ArrayList;
 import java.util.Date;
@@ -51,7 +53,11 @@ public class Extract implements IExtract {
     }
 
     @Override
-    public IteratorInterface<ITransaction> iterator() {
-        return new ReverseIterator<ITransaction>(this.transactions);
+    public IteratorInterface<ITransaction> iterator(IteratorEnum iteratorEnum) {
+        if (iteratorEnum == IteratorEnum.REVERSE) {
+            return new ReverseIterator<ITransaction>(this.transactions);
+        }
+
+        return new NormalIterator<ITransaction>(this.transactions);
     }
 }
