@@ -17,6 +17,7 @@ public class ReportController implements IReportController {
         }
     }
 
+    @Override
     public void setReporter(IReport reporter) {
         this.reporter = reporter;
     }
