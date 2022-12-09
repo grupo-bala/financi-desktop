@@ -304,7 +304,7 @@ public class EditTransactionPopup implements Component {
 
         try {
             editTransaction(description, value, date, category);
-            System.out.println("Meta editada");
+            System.out.println("Transação editada");
             clearInputs();
             popup.hidePopup();
         } catch (Exception error) {
