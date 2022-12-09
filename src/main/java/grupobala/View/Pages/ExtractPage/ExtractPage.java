@@ -6,7 +6,8 @@ import grupobala.Controller.Report.ReportController;
 import grupobala.Controller.Transaction.TransactionController;
 import grupobala.Entities.Extract.Filter.IFilter.IFilter;
 import grupobala.Entities.Extract.IExtract.IExtract;
-import grupobala.Entities.Iterator.IteratorInterface;
+import grupobala.Entities.Iterator.IteratorEnum.IteratorEnum;
+import grupobala.Entities.Iterator.IteratorInterface.IteratorInterface;
 import grupobala.Entities.Report.CSVReport;
 import grupobala.Entities.Report.PDFReport;
 import grupobala.Entities.Transaction.ITransaction.ITransaction;
@@ -261,7 +262,7 @@ public class ExtractPage implements Page {
     private VBox getTransactionsPreview(IExtract extract) {
         VBox outputs = new VBox();
 
-        IteratorInterface<ITransaction> extractIterator = extract.iterator();
+        IteratorInterface<ITransaction> extractIterator = extract.iterator(IteratorEnum.REVERSE);
         while (extractIterator.hasNext()) {
             ITransaction transaction = extractIterator.next();
             if (

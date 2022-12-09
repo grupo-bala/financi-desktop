@@ -4,7 +4,8 @@ import com.opencsv.CSVWriter;
 import grupobala.Controller.Extract.ExtractController;
 import grupobala.Controller.Extract.IExtractController.IExtractController;
 import grupobala.Entities.Extract.IExtract.IExtract;
-import grupobala.Entities.Iterator.IteratorInterface;
+import grupobala.Entities.Iterator.IteratorEnum.IteratorEnum;
+import grupobala.Entities.Iterator.IteratorInterface.IteratorInterface;
 import grupobala.Entities.Report.IReport.IReport;
 import grupobala.Entities.Transaction.ITransaction.ITransaction;
 import grupobala.Entities.User.User;
@@ -56,7 +57,7 @@ public class CSVReport implements IReport {
         };
         data.add(headers);
 
-        IteratorInterface<ITransaction> extractIterator = extract.iterator();
+        IteratorInterface<ITransaction> extractIterator = extract.iterator(IteratorEnum.REVERSE);
 
         while (extractIterator.hasNext()) {
             ITransaction transaction = extractIterator.next();
