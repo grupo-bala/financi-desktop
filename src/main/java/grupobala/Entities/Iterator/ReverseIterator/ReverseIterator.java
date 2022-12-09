@@ -1,15 +1,17 @@
-package grupobala.Entities.Iterator;
+package grupobala.Entities.Iterator.ReverseIterator;
 
 import java.util.ArrayList;
+
+import grupobala.Entities.Iterator.IteratorInterface.IteratorInterface;
 
 public class ReverseIterator<T> implements IteratorInterface<T> {
 
     private ArrayList<T> list;
     private int position;
 
-    public ReverseIterator(ArrayList<T> new_list) {
-        this.list = new_list;
-        this.position = new_list.size() - 1;
+    public ReverseIterator(ArrayList<T> newList) {
+        this.list = newList;
+        this.position = newList.size() - 1;
     }
 
     @Override
