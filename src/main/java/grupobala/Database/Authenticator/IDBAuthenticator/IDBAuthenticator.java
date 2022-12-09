@@ -12,4 +12,6 @@ public interface IDBAuthenticator {
         String name,
         double balance
     ) throws SQLException;
+
+    public boolean hasUsername(String username);
 }
