@@ -61,8 +61,8 @@ public class TestGenerateReportController {
     public void testGenerateCSVReport() throws Exception {
         SetupForTest.truncateTables();
 
-        authenticationController.signUp("financi12", "123", "financi", 100);
-        authenticationController.signIn("financi12", "123");
+        authenticationController.signUp("financi12", "Financi@123", "financi", 100);
+        authenticationController.signIn("financi12", "Financi@123");
 
         transactionController.addTransaction(
             new User().getID(),
