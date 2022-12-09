@@ -6,9 +6,9 @@ import grupobala.Controller.Report.ReportController;
 import grupobala.Controller.Transaction.TransactionController;
 import grupobala.Entities.Extract.Filter.IFilter.IFilter;
 import grupobala.Entities.Extract.IExtract.IExtract;
+import grupobala.Entities.Iterator.IteratorInterface;
 import grupobala.Entities.Report.CSVReport;
 import grupobala.Entities.Report.PDFReport;
-import grupobala.Entities.Iterator.IteratorInterface;
 import grupobala.Entities.Transaction.ITransaction.ITransaction;
 import grupobala.Entities.User.User;
 import grupobala.View.Components.Card.CardVBoxComponent;
@@ -167,7 +167,9 @@ public class ExtractPage implements Page {
         DocumentButton exportPDF = new DocumentButton(IconType.PDF);
         DocumentButton exportCSV = new DocumentButton(IconType.CSV);
 
-        DocumentBox.getChildren().addAll(exportPDF.getComponent(), exportCSV.getComponent());
+        DocumentBox
+            .getChildren()
+            .addAll(exportPDF.getComponent(), exportCSV.getComponent());
 
         exportPDF
             .getComponent()

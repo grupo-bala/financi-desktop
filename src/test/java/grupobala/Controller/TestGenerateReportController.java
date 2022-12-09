@@ -4,8 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 import grupobala.Controller.Authentication.AuthenticationController;
 import grupobala.Controller.Authentication.IAuthenticationController.IAuthenticationController;
-import grupobala.Controller.Report.ReportController;
 import grupobala.Controller.Report.IReportController.IReportController;
+import grupobala.Controller.Report.ReportController;
 import grupobala.Controller.Transaction.ITransactionController.ITransactionController;
 import grupobala.Controller.Transaction.TransactionController;
 import grupobala.Entities.Category.CategoryEnum;
@@ -25,7 +25,6 @@ public class TestGenerateReportController {
     @Test
     public void testGeneratePDFReport() throws Exception {
         SetupForTest.truncateTables();
-        
 
         authenticationController.signUp(
             "financi12",
@@ -50,7 +49,6 @@ public class TestGenerateReportController {
             Calendar.getInstance().getTime()
         );
 
-        
         assertDoesNotThrow(() -> {
             reportController.setReporter(new PDFReport());
             reportController.generateReport();
@@ -80,7 +78,7 @@ public class TestGenerateReportController {
             CategoryEnum.CLOTHING,
             Calendar.getInstance().getTime()
         );
-        
+
         assertDoesNotThrow(() -> {
             reportController.setReporter(new CSVReport());
             reportController.generateReport();
