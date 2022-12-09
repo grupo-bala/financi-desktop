@@ -1,9 +1,14 @@
 package grupobala.View.Pages.Courses;
 
+import java.util.ArrayList;
+
+import grupobala.Controller.Lesson.LessonController;
 import grupobala.View.Components.Card.CardVBoxComponent;
 import grupobala.View.Components.NavigationBar.NavigationBar;
 import grupobala.View.Components.Popup.PopupComponent;
 import grupobala.View.Pages.Page.Page;
+import grupobala.Entities.Course.ICourse.ICourse;
+import grupobala.Entities.Lesson.ILesson.ILesson;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
@@ -15,8 +20,9 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-public class Courses implements Page {
 
+public class Courses implements Page {
+    private LessonController lessonController= new LessonController();
     private StackPane mainPane = new StackPane();
     private NavigationBar navigationBar = new NavigationBar();
     private PopupComponent coursePopup = new PopupComponent();
@@ -73,7 +79,7 @@ public class Courses implements Page {
         );
         HBox info = getCardInfo(5, 10, 30);
         Button showCourse = new Button("Ver curso");
-        getCoursePopup();
+        //getCoursePopup();
         showCourse.setOnMouseClicked(e -> {
             coursePopup.showPopup();
         });
@@ -136,24 +142,44 @@ public class Courses implements Page {
         return infoItem;
     }
 
-    private void getCoursePopup() {
-        VBox card = new CardVBoxComponent().getComponent();
-        Text popupTitle = new Text("Produtividade e gestão de custos");
-        VBox lessonsVbox = new VBox();
+    private void getCoursePopup(int courseId) {
+        ArrayList<ICourse> courses = new ArrayList<>();
+        try { 
+            lessonController.getCourses();
+        }
+        catch(Exception error){
+            //error popup
+        }
+        Text popupTitle = new Text();
+        for(ICourse course : courses){
+            if(courseId == course.getId()){
+                popupTitle = new Text(course.getName());
+            }
+        }
 
-        lessonsVbox
+        VBox card = new CardVBoxComponent().getComponent();
+    
+        VBox lessonsVbox = new VBox();
+        ArrayList<ILesson> lessons = new ArrayList<>();
+        try{
+            lessons = lessonController.getLessons(courseId);
+        }
+        catch(Exception error){
+            //error popup
+        }
+        
+        for(ILesson lesson : lessons){
+            HBox lessonHBox = new HBox();
+            try{
+                lessonHBox = createLesson(lessonController.getLesson(courseId, lesson.getId()));
+            }
+            catch(Exception error){
+                //erro popup
+            }
+            lessonsVbox
             .getChildren()
-            .addAll(
-                createLessonExample("Aula 01", 30),
-                createEmptyVbox(),
-                createLessonExample("Aula 02", 30),
-                createEmptyVbox(),
-                createLessonExample("Aula 03", 30),
-                createEmptyVbox(),
-                createLessonExample("Aula 04", 30),
-                createEmptyVbox(),
-                createLessonExample("Aula 05", 30)
-            );
+            .addAll(lessonHBox, createEmptyVbox());
+        }
 
         card.getChildren().addAll(popupTitle, lessonsVbox);
 
@@ -165,9 +191,9 @@ public class Courses implements Page {
         coursePopup.getComponent().getChildren().addAll(card);
     }
 
-    HBox createLessonExample(String title, int minutesDuration) {
+    HBox createLesson(ILesson lesson) {
         Button watchLesson = new Button("ASSISTIR AULA");
-        Text lessonTitle = new Text(title);
+        Text lessonTitle = new Text(lesson.getName());
         HBox info = new HBox();
         VBox checkBoxVbox = new VBox();
         Image checkBox = new Image(
@@ -180,7 +206,7 @@ public class Courses implements Page {
             .addAll(
                 getInfoItem(
                     "file:src/main/resources/grupobala/images/Future.png",
-                    String.format("%d minutos", minutesDuration),
+                    String.format("%d segundos", lesson.getDurationInSeconds()),
                     ""
                 )
             );
@@ -191,7 +217,7 @@ public class Courses implements Page {
 
         checkBoxVbox.getChildren().add(checkBoxView);
 
-        checkBoxVbox.getStyleClass().add("check-box");
+        checkBoxVbox.getStyleClass().add("checked-check-box");
         watchLesson.getStyleClass().add("watch-lesson");
         info.getStyleClass().add("info");
         lessonTitle.getStyleClass().add("lesson-title");
