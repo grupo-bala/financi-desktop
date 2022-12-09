@@ -2,7 +2,8 @@ package grupobala.View.Components.ExtractList;
 
 import grupobala.Controller.Extract.ExtractController;
 import grupobala.Entities.Extract.IExtract.IExtract;
-import grupobala.Entities.Iterator.IteratorInterface;
+import grupobala.Entities.Iterator.IteratorEnum.IteratorEnum;
+import grupobala.Entities.Iterator.IteratorInterface.IteratorInterface;
 import grupobala.Entities.Transaction.ITransaction.ITransaction;
 import grupobala.View.Components.Component.Component;
 import java.sql.SQLException;
@@ -75,7 +76,7 @@ public class ExtractList implements Component {
         VBox outputs = new VBox();
         int limit = 0;
 
-        IteratorInterface<ITransaction> extractIterator = extract.iterator();
+        IteratorInterface<ITransaction> extractIterator = extract.iterator(IteratorEnum.REVERSE);
 
         while (extractIterator.hasNext()) {
             ITransaction transaction = extractIterator.next();
