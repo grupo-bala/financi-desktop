@@ -24,7 +24,7 @@ public class LessonController implements ILessonController{
             return cursos;
         }
         catch(SQLException error){
-            throw new Exception("Não foi possivel pegar os cursos");
+            throw new Exception(error.getMessage());
         }
     }
 
@@ -36,7 +36,7 @@ public class LessonController implements ILessonController{
             return lessons;
         }
         catch(SQLException error){
-            throw new Exception("Não foi possivel pegar as aulas");
+            throw new Exception(error.getMessage());
         }     
     }
 
@@ -46,7 +46,7 @@ public class LessonController implements ILessonController{
             dbLesson.updateWatched(status, lessonId, userId);
         }
         catch(SQLException error){
-            throw new Exception("Não foi possivel atualizar o status da aula");
+            throw new Exception(error.getMessage());
         }     
     }
 
