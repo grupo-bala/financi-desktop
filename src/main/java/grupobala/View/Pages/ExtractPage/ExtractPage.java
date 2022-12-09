@@ -8,10 +8,13 @@ import grupobala.Entities.Extract.Filter.IFilter.IFilter;
 import grupobala.Entities.Extract.IExtract.IExtract;
 import grupobala.Entities.Iterator.IteratorEnum.IteratorEnum;
 import grupobala.Entities.Iterator.IteratorInterface.IteratorInterface;
+import grupobala.Entities.Report.CSVReport;
+import grupobala.Entities.Report.PDFReport;
 import grupobala.Entities.Transaction.ITransaction.ITransaction;
 import grupobala.Entities.User.User;
 import grupobala.View.Components.Card.CardVBoxComponent;
 import grupobala.View.Components.DocumentButton.DocumentButton;
+import grupobala.View.Components.DocumentButton.DocumentButton.IconType;
 import grupobala.View.Components.ExtractList.ExtractLambda;
 import grupobala.View.Components.FilterButton.FilterButton;
 import grupobala.View.Components.NavigationBar.NavigationBar;
@@ -162,14 +165,31 @@ public class ExtractPage implements Page {
     private HBox getDocumentButton() {
         HBox DocumentBox = new HBox();
         DocumentBox.getStyleClass().add("filter_Document_container");
-        DocumentButton documentButton = new DocumentButton();
+        DocumentButton exportPDF = new DocumentButton(IconType.PDF);
+        DocumentButton exportCSV = new DocumentButton(IconType.CSV);
 
-        DocumentBox.getChildren().add(documentButton.getComponentClick());
+        DocumentBox
+            .getChildren()
+            .addAll(exportPDF.getComponent(), exportCSV.getComponent());
 
-        documentButton
+        exportPDF
             .getComponent()
             .setOnMouseClicked(e -> {
                 try {
+                    documentReport.setReporter(new PDFReport());
+                    documentReport.generateReport();
+                    DocumentConfirmationPopUp();
+                } catch (Exception e1) {
+                    System.out.println("Documento já foi gerado");
+                    DocumentErrorPopUp();
+                }
+            });
+
+        exportCSV
+            .getComponent()
+            .setOnMouseClicked(e -> {
+                try {
+                    documentReport.setReporter(new CSVReport());
                     documentReport.generateReport();
                     DocumentConfirmationPopUp();
                 } catch (Exception e1) {

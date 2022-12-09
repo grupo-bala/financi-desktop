@@ -3,6 +3,7 @@ module grupobala {
     requires java.sql;
     requires javafx.fxml;
     requires itextpdf;
+    requires com.opencsv;
 
     opens grupobala to javafx.fxml;
     exports grupobala;
