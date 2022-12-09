@@ -1,18 +1,18 @@
 package grupobala.View.Pages.Courses;
 
-import java.util.ArrayList;
-
 import grupobala.App;
-import grupobala.Controller.Lesson.LessonController;
 import grupobala.Controller.Lesson.ILessonController.ILessonController;
+import grupobala.Controller.Lesson.LessonController;
+import grupobala.Entities.Course.ICourse.ICourse;
+import grupobala.Entities.Lesson.ILesson.ILesson;
+import grupobala.Entities.User.User;
 import grupobala.View.Components.Card.CardVBoxComponent;
 import grupobala.View.Components.NavigationBar.NavigationBar;
 import grupobala.View.Components.Popup.PopupComponent;
 import grupobala.View.Pages.Page.Page;
-import grupobala.Entities.Course.ICourse.ICourse;
-import grupobala.Entities.Lesson.ILesson.ILesson;
-import grupobala.Entities.User.User;
+import java.util.ArrayList;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -20,12 +20,11 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.control.CheckBox;
 import javafx.scene.text.Text;
 
 public class Courses implements Page {
 
-    private LessonController lessonController= new LessonController();
+    private LessonController lessonController = new LessonController();
     private StackPane mainPane = new StackPane();
     private NavigationBar navigationBar = new NavigationBar();
     private PopupComponent coursePopup = new PopupComponent();
@@ -162,29 +161,25 @@ public class Courses implements Page {
         Text popupTitle = new Text(this.currentCourse.getName());
 
         VBox card = new CardVBoxComponent().getComponent();
-    
+
         VBox lessonsVbox = new VBox();
         ArrayList<ILesson> lessons = new ArrayList<>();
 
         try {
             lessons = lessonController.getLessons(this.currentCourse.getId());
-        } catch(Exception error){
+        } catch (Exception error) {
             System.out.println(error.getMessage());
         }
 
-        
-        for(ILesson lesson : lessons){
+        for (ILesson lesson : lessons) {
             HBox lessonHBox = new HBox();
-            try{
+            try {
                 lessonHBox = createLesson(lesson);
-            }
-            catch(Exception error){
+            } catch (Exception error) {
                 System.out.println(error.getMessage());
             }
 
-            lessonsVbox
-                .getChildren()
-                .addAll(lessonHBox, createEmptyVbox());
+            lessonsVbox.getChildren().addAll(lessonHBox, createEmptyVbox());
         }
 
         card.getChildren().addAll(popupTitle, lessonsVbox);
@@ -204,15 +199,17 @@ public class Courses implements Page {
         VBox checkBoxVbox = new VBox();
         CheckBox checkBox = new CheckBox();
         checkBox.setSelected(lesson.getIsWatched());
-        checkBox.setOnAction( e -> {  
-            try{
-                lessonController.updateWatched(checkBox.isSelected(), lesson.getId(), new User().getID());
+        checkBox.setOnAction(e -> {
+            try {
+                lessonController.updateWatched(
+                    checkBox.isSelected(),
+                    lesson.getId(),
+                    new User().getID()
+                );
                 lesson.setIsWatched(checkBox.isSelected());
-            }
-            catch (Exception error){
+            } catch (Exception error) {
                 System.out.println(error.getMessage());
             }
-            
         });
 
         watchLesson.setOnAction(e -> {
@@ -223,7 +220,10 @@ public class Courses implements Page {
             .addAll(
                 getInfoItem(
                     "file:src/main/resources/grupobala/images/Future.png",
-                    String.format("%d minutos", (lesson.getDurationInSeconds())/60),
+                    String.format(
+                        "%d minutos",
+                        (lesson.getDurationInSeconds()) / 60
+                    ),
                     ""
                 )
             );
@@ -239,7 +239,7 @@ public class Courses implements Page {
         lessonHBox
             .getChildren()
             .addAll(lessonTitle, info, watchLesson, checkBoxVbox);
-            lessonHBox.getStyleClass().add("lesson-hbox");
+        lessonHBox.getStyleClass().add("lesson-hbox");
 
         return lessonHBox;
     }

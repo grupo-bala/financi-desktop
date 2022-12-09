@@ -3,8 +3,8 @@ package grupobala.Database.Lesson;
 import grupobala.Database.Connection.IDBConnection.IDBConnection;
 import grupobala.Database.Lesson.IDBLesson.IDBLesson;
 import grupobala.Entities.Lesson.ILesson.ILesson;
-import grupobala.Entities.User.User;
 import grupobala.Entities.Lesson.Lesson;
+import grupobala.Entities.User.User;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -40,7 +40,8 @@ public class DBLesson implements IDBLesson {
             String queryToCheckIfIsWatched = String.format(
                 Locale.US,
                 "SELECT * FROM aulaassistida WHERE idaula = %d AND idusuario = %d",
-                id,new User().getID()
+                id,
+                new User().getID()
             );
 
             ResultSet checkWatchedResult =

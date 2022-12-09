@@ -10,7 +10,7 @@ public class App extends Application {
 
     private static App instance;
 
-    public static App getInstance(){
+    public static App getInstance() {
         return App.instance;
     }
 
