@@ -13,15 +13,15 @@ public class TestAuthenticationController {
     public void testSignInUser() throws Exception {
         SetupForTest.truncateTables();
 
-        authController.signUp("financi", "1234", "Financi", 0);
-        authController.signIn("financi", "1234").close();
+        authController.signUp("financi", "Financi@123", "Financi", 0);
+        authController.signIn("financi", "Financi@123").close();
     }
 
     @Test
     public void testSignUpUser() throws Exception {
         SetupForTest.truncateTables();
 
-        authController.signUp("financi", "1234", "Financi", 0);
+        authController.signUp("financi", "Financi@123", "Financi", 0);
     }
 
     @Test
@@ -40,12 +40,12 @@ public class TestAuthenticationController {
     public void testSignUpShouldFail() throws Exception {
         SetupForTest.truncateTables();
 
-        authController.signUp("financi", "1234", "Financi", 0);
+        authController.signUp("financi", "Financi@123", "Financi", 0);
 
         Assertions.assertThrows(
             Exception.class,
             () -> {
-                authController.signUp("financi", "1234", "Financi", 0);
+                authController.signUp("financi", "Financi@123", "Financi", 0);
             }
         );
     }

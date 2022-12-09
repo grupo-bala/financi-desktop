@@ -67,4 +67,26 @@ public class DBAuthenticator implements IDBAuthenticator {
 
         return true;
     }
+
+    @Override
+    public boolean hasUsername(String username) {
+        try {
+            String query = String.format(
+                Locale.US,
+                "SELECT COUNT(*) AS existe FROM usuario WHERE nomeusuario = '%s'",
+                username
+            );
+
+            ResultSet result = this.databaseConnection.executeQuery(query);
+            result.next();
+
+            if (result.getInt("existe") == 1) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (SQLException e) {
+            return false;
+        }
+    }
 }

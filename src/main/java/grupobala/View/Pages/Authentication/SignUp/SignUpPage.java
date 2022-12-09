@@ -114,15 +114,13 @@ public class SignUpPage implements Page {
         try {
             authController.signUp(username, password, name, wage);
             new PageManager().setCurrentPage(new SignInPage());
-            System.out.println("Registrado");
         } catch (Exception e) {
-            System.out.println(e.getMessage());
-            handleSignUpError();
+            handleSignUpError(e.getMessage());
         }
     }
 
-    private void handleSignUpError() {
-        buttonLabel.setText("Nome de usuário em uso");
+    private void handleSignUpError(String error) {
+        buttonLabel.setText(error);
         buttonLabel.getStyleClass().clear();
         buttonLabel.getStyleClass().add("label-wrong");
     }

@@ -8,6 +8,7 @@ import grupobala.Entities.Extract.Filter.IFilter.IFilter;
 import grupobala.Entities.Extract.IExtract.IExtract;
 import grupobala.Entities.Report.CSVReport;
 import grupobala.Entities.Report.PDFReport;
+import grupobala.Entities.Iterator.IteratorInterface;
 import grupobala.Entities.Transaction.ITransaction.ITransaction;
 import grupobala.Entities.User.User;
 import grupobala.View.Components.Card.CardVBoxComponent;
@@ -257,15 +258,18 @@ public class ExtractPage implements Page {
 
     private VBox getTransactionsPreview(IExtract extract) {
         VBox outputs = new VBox();
-        for (ITransaction t : extract) {
+
+        IteratorInterface<ITransaction> extractIterator = extract.iterator();
+        while (extractIterator.hasNext()) {
+            ITransaction transaction = extractIterator.next();
             if (
                 (
                     this.currentFilter != null &&
-                    this.currentFilter.matchesFilter(t)
+                    this.currentFilter.matchesFilter(transaction)
                 ) ||
                 (this.currentFilter == null)
             ) {
-                VBox tview = compilingTransactionPreview(t);
+                VBox tview = compilingTransactionPreview(transaction);
                 outputs.getChildren().add(tview);
             }
         }
