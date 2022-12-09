@@ -50,6 +50,16 @@ public class LessonController implements ILessonController{
         }     
     }
 
+    public ICourse getCourse(int courseId) throws SQLException, Exception {
+        ArrayList<ICourse> courses =  getCourses();
+        for(ICourse course : courses){
+            if(courseId == course.getId()){
+                return course;
+            }
+        }
+        throw new Exception("Curso não existe");
+    }
+
     public ILesson getLesson(int courseId, int lessonId) throws SQLException, Exception {
         ArrayList<ILesson> lessons =  getLessons(courseId);
         for(ILesson lesson : lessons){
