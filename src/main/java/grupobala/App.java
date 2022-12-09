@@ -8,6 +8,12 @@ import javafx.stage.Stage;
 
 public class App extends Application {
 
+    private static App instance;
+
+    public static App getInstance(){
+        return App.instance;
+    }
+
     @Override
     public void start(Stage stage) throws IOException {
         SignInPage signInPage = new SignInPage();
@@ -15,6 +21,7 @@ public class App extends Application {
     }
 
     public static void uiMain(String[] args) {
-        launch();
+        App.instance = new App();
+        App.launch();
     }
 }

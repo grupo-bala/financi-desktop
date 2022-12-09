@@ -91,13 +91,14 @@
 
 }
 
-.lesson-example{
+.lesson-hbox{
     -fx-background-radius: 10px;
     -fx-alignment: center;
     -fx-background-color: #121512;
 }
 
-.check-box{
+.checked-check-box{
+    -fx-cursor: hand;
     -fx-alignment: center;
     -fx-padding: 0px 0px 0px 20px;
 }
@@ -105,3 +106,22 @@
 .padding-vbox{
     -fx-padding: 10px 0px 0px 0px;
 }
+
+.check-box .box {
+
+    -fx-background-color: white;
+    -fx-border-color:grey;
+    -fx-border-radius:3px; 
+    
+    }
+    
+    .check-box:selected .mark {
+    
+    -fx-background-color: white;
+    
+    }
+    
+    .check-box:selected .box {
+    
+    -fx-background-color: #49AD5A;
+    }
