@@ -3,6 +3,7 @@ package grupobala.View.Pages.Courses;
 import java.util.ArrayList;
 
 import grupobala.Controller.Lesson.LessonController;
+import grupobala.Controller.Lesson.ILessonController.ILessonController;
 import grupobala.View.Components.Card.CardVBoxComponent;
 import grupobala.View.Components.NavigationBar.NavigationBar;
 import grupobala.View.Components.Popup.PopupComponent;
@@ -20,12 +21,13 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-
 public class Courses implements Page {
+
     private LessonController lessonController= new LessonController();
     private StackPane mainPane = new StackPane();
     private NavigationBar navigationBar = new NavigationBar();
     private PopupComponent coursePopup = new PopupComponent();
+    private ICourse currentCourse;
 
     @Override
     public Pane getMainPane() {
@@ -60,10 +62,23 @@ public class Courses implements Page {
     }
 
     private VBox getMainContent() {
+        ILessonController lessonController = new LessonController();
         VBox card = new CardVBoxComponent().getComponent();
         Text title = new Text("Aprendizado");
 
-        card.getChildren().addAll(title, getCourseCard());
+        ArrayList<ICourse> courses = new ArrayList<>();
+
+        try {
+            courses = lessonController.getCourses();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        card.getChildren().add(title);
+
+        for (ICourse course : courses) {
+            card.getChildren().add(getCourseCard(course));
+        }
 
         card.getStyleClass().add("courses-card-content");
         title.getStyleClass().add("courses-title");
@@ -71,16 +86,15 @@ public class Courses implements Page {
         return card;
     }
 
-    private VBox getCourseCard() {
+    private VBox getCourseCard(ICourse course) {
         VBox card = new CardVBoxComponent().getComponent();
-        Text title = new Text("Fundamentos de finanças");
-        Text description = new Text(
-            "O curso Fundamentos de Finanças proporciona  a você uma visão básica de finanças, abordando  os objetivos e a estruturação da administração financeira bem como são tomadas as decisões financeiras ótimas."
-        );
+        Text title = new Text(course.getName());
+        Text description = new Text(course.getDescription());
         HBox info = getCardInfo(5, 10, 30);
         Button showCourse = new Button("Ver curso");
         //getCoursePopup();
         showCourse.setOnMouseClicked(e -> {
+            this.currentCourse = course;
             coursePopup.showPopup();
         });
         description.setWrappingWidth(400);
@@ -142,43 +156,31 @@ public class Courses implements Page {
         return infoItem;
     }
 
-    private void getCoursePopup(int courseId) {
-        ArrayList<ICourse> courses = new ArrayList<>();
-        try { 
-            lessonController.getCourses();
-        }
-        catch(Exception error){
-            //error popup
-        }
-        Text popupTitle = new Text();
-        for(ICourse course : courses){
-            if(courseId == course.getId()){
-                popupTitle = new Text(course.getName());
-            }
-        }
-
+    private void getCoursePopup() {
+        Text popupTitle = new Text(this.currentCourse.getName());
         VBox card = new CardVBoxComponent().getComponent();
     
         VBox lessonsVbox = new VBox();
         ArrayList<ILesson> lessons = new ArrayList<>();
-        try{
-            lessons = lessonController.getLessons(courseId);
-        }
-        catch(Exception error){
+
+        try {
+            lessons = lessonController.getLessons(this.currentCourse.getId());
+        } catch(Exception error){
             //error popup
         }
         
         for(ILesson lesson : lessons){
             HBox lessonHBox = new HBox();
             try{
-                lessonHBox = createLesson(lessonController.getLesson(courseId, lesson.getId()));
+                lessonHBox = createLesson(lessonController.getLesson(this.currentCourse.getId(), lesson.getId()));
             }
             catch(Exception error){
                 //erro popup
             }
+
             lessonsVbox
-            .getChildren()
-            .addAll(lessonHBox, createEmptyVbox());
+                .getChildren()
+                .addAll(lessonHBox, createEmptyVbox());
         }
 
         card.getChildren().addAll(popupTitle, lessonsVbox);
