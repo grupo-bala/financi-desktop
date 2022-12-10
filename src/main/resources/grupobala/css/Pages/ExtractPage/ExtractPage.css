@@ -5,6 +5,7 @@
 
 .filterButton_container {
     -fx-alignment: center-right;
+    -fx-spacing: 10px;
 }
 
 .filter_Document_container {
