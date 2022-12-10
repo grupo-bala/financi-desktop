@@ -171,13 +171,7 @@ public class ExtractPage implements Page {
         orderButton
             .getComponent()
             .setOnMouseClicked(e -> {
-                System.out.println("BOTAO RODADO");
                 changeIterator();
-                if (enumerador == IteratorEnum.REVERSE) System.out.println(
-                    "MODO REVERSE"
-                ); else if (
-                    enumerador == IteratorEnum.NORMAL
-                ) System.out.println("MODO NORMAL");
                 reloadExtract();
             });
 

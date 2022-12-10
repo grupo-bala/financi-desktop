@@ -102,7 +102,6 @@ public class SignInPage implements Page {
         try {
             authController.signIn(username, password);
             new PageManager().setCurrentPage(new Dashboard());
-            System.out.println("Logado");
         } catch (Exception e) {
             System.out.println(e.getMessage());
             handleLoginError();

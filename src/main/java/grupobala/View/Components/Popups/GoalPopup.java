@@ -228,7 +228,6 @@ public class GoalPopup implements Component {
 
         try {
             addGoal(description, value, date);
-            System.out.println("Meta adicionada");
             clearInputs();
             popup.hidePopup();
         } catch (Exception error) {
