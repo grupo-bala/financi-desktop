@@ -11,12 +11,12 @@ public class NormalIterator<T> implements IteratorInterface<T> {
 
     public NormalIterator(ArrayList<T> newList) {
         this.list = newList;
-        this.position = -1;
+        this.position = 0;
     }
 
     @Override
     public boolean hasNext() {
-        return this.position < this.list.size() - 1;
+        return this.position <= this.list.size() - 1;
     }
 
     @Override
