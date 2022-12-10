@@ -65,7 +65,7 @@ public class ExtractPage implements Page {
         dateFormat = new SimpleDateFormat("dd 'de' MMM yyyy", localeBR);
 
         ScrollPane clipContainer = new ScrollPane();
-        
+
         mainContainer = new VBox();
         container = new VBox();
 
@@ -125,7 +125,7 @@ public class ExtractPage implements Page {
 
     private void loadExtract() throws SQLException, ParseException {
         ExtractController extrato2 = new ExtractController();
-        
+
         IExtract extract = extrato2.getCompleteExtract();
         VBox transactions = getTransactionsPreview(extract);
         container.getChildren().addAll(getTitlePage(), transactions);
@@ -155,7 +155,12 @@ public class ExtractPage implements Page {
         FilterButton filterButton = new FilterButton();
         FilterOrderButton orderButton = new FilterOrderButton();
 
-        filterBox.getChildren().addAll(orderButton.getComponentClick(), filterButton.getComponentClick());
+        filterBox
+            .getChildren()
+            .addAll(
+                orderButton.getComponentClick(),
+                filterButton.getComponentClick()
+            );
 
         filterButton
             .getComponent()
@@ -163,14 +168,16 @@ public class ExtractPage implements Page {
                 filterPopup.getPopup().showPopup();
             });
 
-
         orderButton
             .getComponent()
             .setOnMouseClicked(e -> {
                 System.out.println("BOTAO RODADO");
                 changeIterator();
-                if(enumerador == IteratorEnum.REVERSE) System.out.println("MODO REVERSE");
-                else if(enumerador == IteratorEnum.NORMAL) System.out.println("MODO NORMAL");
+                if (enumerador == IteratorEnum.REVERSE) System.out.println(
+                    "MODO REVERSE"
+                ); else if (
+                    enumerador == IteratorEnum.NORMAL
+                ) System.out.println("MODO NORMAL");
                 reloadExtract();
             });
 
@@ -244,15 +251,14 @@ public class ExtractPage implements Page {
             generateDocumentPopup.hidePopup();
         });
     }
-    
-    private void changeIterator(){
-        if(enumerador == IteratorEnum.REVERSE) {
+
+    private void changeIterator() {
+        if (enumerador == IteratorEnum.REVERSE) {
             enumerador = IteratorEnum.NORMAL;
-        } else { 
+        } else {
             enumerador = IteratorEnum.REVERSE;
         }
     }
-
 
     private void DocumentErrorPopUp() {
         VBox card = new CardVBoxComponent().getComponent();
@@ -286,7 +292,9 @@ public class ExtractPage implements Page {
     private VBox getTransactionsPreview(IExtract extract) {
         VBox outputs = new VBox();
 
-        IteratorInterface<ITransaction> extractIterator = extract.iterator(enumerador);
+        IteratorInterface<ITransaction> extractIterator = extract.iterator(
+            enumerador
+        );
 
         while (extractIterator.hasNext()) {
             ITransaction transaction = extractIterator.next();

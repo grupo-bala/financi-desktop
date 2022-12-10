@@ -1,7 +1,5 @@
 package grupobala.View.Components.FilterButton;
 
-
-
 import grupobala.View.Components.Component.Component;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
