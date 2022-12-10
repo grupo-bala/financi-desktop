@@ -6,12 +6,10 @@ import grupobala.Controller.Authentication.AuthenticationController;
 import grupobala.Controller.Transaction.ITransactionController.ITransactionController;
 import grupobala.Controller.Transaction.TransactionController;
 import grupobala.Entities.Category.CategoryEnum;
-import grupobala.Entities.Transaction.ITransaction.ITransaction;
 import grupobala.Entities.User.User;
 import grupobala.SetupForTest.SetupForTest;
 import java.util.Calendar;
 import java.util.Date;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class TestAddTransactionController {
@@ -27,8 +25,13 @@ public class TestAddTransactionController {
     @Test
     public void testAddTransaction() throws Exception {
         SetupForTest.truncateTables();
-        authenticationController.signUp("financi12", "123", "financi", 100);
-        authenticationController.signIn("financi12", "123");
+        authenticationController.signUp(
+            "financi12",
+            "Financi@123",
+            "financi",
+            100
+        );
+        authenticationController.signIn("financi12", "Financi@123");
 
         transactionController.addTransaction(
             new User().getID(),

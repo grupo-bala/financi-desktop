@@ -1,5 +1,6 @@
 package grupobala.Controller.Authentication;
 
+import grupobala.Controller.Authentication.AuthenticationHandler.AuthenticationHandler;
 import grupobala.Controller.Authentication.IAuthenticationController.IAuthenticationController;
 import grupobala.Crypt.Encryptor.Encryptor;
 import grupobala.Crypt.Implementations.SHA256Encryptor;
@@ -12,10 +13,19 @@ public class AuthenticationController implements IAuthenticationController {
 
     DBAuthenticator dbAuthenticator;
     Encryptor encryptor;
+    AuthenticationHandler authenticationHandler;
 
     public AuthenticationController() {
         this.dbAuthenticator = new DBAuthenticator(new DBConnection());
         this.encryptor = new SHA256Encryptor();
+
+        AuthenticationHandler usernameHandler = new UsernameHandler();
+        AuthenticationHandler passwordHandler = new PasswordHandler();
+        AuthenticationHandler registerHandler = new RegisterHandler();
+
+        usernameHandler.setNext(passwordHandler);
+        passwordHandler.setNext(registerHandler);
+        this.authenticationHandler = usernameHandler;
     }
 
     @Override
@@ -36,9 +46,6 @@ public class AuthenticationController implements IAuthenticationController {
         String name,
         float wage
     ) throws Exception {
-        String hashPassword = encryptor.encrypt(password);
-        if (!dbAuthenticator.signUp(username, hashPassword, name, wage)) {
-            throw new Exception("Nome de usuário já em uso");
-        }
+        this.authenticationHandler.handle(username, password, name, wage);
     }
 }

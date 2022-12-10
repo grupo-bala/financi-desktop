@@ -8,7 +8,7 @@ import grupobala.Controller.Extract.ExtractController;
 import grupobala.Controller.Transaction.TransactionController;
 import grupobala.Entities.Category.CategoryEnum;
 import grupobala.Entities.Extract.IExtract.IExtract;
-import grupobala.Entities.Transaction.ITransaction.ITransaction;
+import grupobala.Entities.Iterator.IteratorEnum.IteratorEnum;
 import grupobala.Entities.User.User;
 import grupobala.SetupForTest.SetupForTest;
 import java.util.Date;
@@ -21,8 +21,8 @@ public class TestGetExtractController {
         SetupForTest.truncateTables();
         IAuthenticationController authController = new AuthenticationController();
 
-        authController.signUp("extract", "1234", "Financi", 0);
-        authController.signIn("extract", "1234");
+        authController.signUp("extract", "Financi@123", "Financi", 0);
+        authController.signIn("extract", "Financi@123");
 
         User user = new User();
 
@@ -48,8 +48,8 @@ public class TestGetExtractController {
         SetupForTest.truncateTables();
         IAuthenticationController authController = new AuthenticationController();
 
-        authController.signUp("extract", "1234", "Financi", 0);
-        authController.signIn("extract", "1234");
+        authController.signUp("extract", "Financi@123", "Financi", 0);
+        authController.signIn("extract", "Financi@123");
 
         User user = new User();
 
@@ -75,8 +75,8 @@ public class TestGetExtractController {
         SetupForTest.truncateTables();
         IAuthenticationController authController = new AuthenticationController();
 
-        authController.signUp("extract", "1234", "Financi", 0);
-        authController.signIn("extract", "1234");
+        authController.signUp("extract", "Financi@123", "Financi", 0);
+        authController.signIn("extract", "Financi@123");
 
         User user = new User();
         String transactionTitle = "teste";
@@ -92,7 +92,10 @@ public class TestGetExtractController {
         ExtractController controler = new ExtractController();
         IExtract teste = controler.getExtract();
 
-        assertEquals(transactionTitle, teste.iterator().next().getTitle());
+        assertEquals(
+            transactionTitle,
+            teste.iterator(IteratorEnum.REVERSE).next().getTitle()
+        );
 
         new User().close();
     }
@@ -101,8 +104,8 @@ public class TestGetExtractController {
     public void checkCategory() throws Exception {
         SetupForTest.truncateTables();
         IAuthenticationController authController = new AuthenticationController();
-        authController.signUp("extract", "1234", "Financi", 0);
-        authController.signIn("extract", "1234");
+        authController.signUp("extract", "Financi@123", "Financi", 0);
+        authController.signIn("extract", "Financi@123");
 
         User user = new User();
         CategoryEnum category = CategoryEnum.ENTERTAINMENT;
@@ -112,7 +115,10 @@ public class TestGetExtractController {
         ExtractController controler = new ExtractController();
         IExtract teste = controler.getExtract();
 
-        assertEquals(category, teste.iterator().next().getCategory());
+        assertEquals(
+            category,
+            teste.iterator(IteratorEnum.REVERSE).next().getCategory()
+        );
 
         new User().close();
     }

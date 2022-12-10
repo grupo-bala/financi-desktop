@@ -1,0 +1,37 @@
+.goal-view-container {
+    -fx-font-family: "Montserrat";
+    -fx-background-color: #2B2F2B;
+    -fx-max-width: 400px;
+    -fx-max-height: 200px;
+    -fx-padding: 20px;
+    -fx-spacing: 20px;
+}
+
+.top-box {
+    -fx-alignment: center;
+}
+
+.top-box-titlebox {
+    -fx-alignment: center;
+}
+
+.top-box-title {
+    -fx-fill: #ffffff;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+}
+
+.top-box-trash {
+    -fx-translate-x: 20px;
+    -fx-translate-y: -3px;
+    -fx-cursor: hand;
+}
+
+.top-box-value {
+    -fx-font-size: 18px;
+    -fx-fill: #168CC0;
+}
+
+.bot-box-side {
+    -fx-spacing: 30px;
+}

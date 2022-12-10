@@ -1,10 +1,13 @@
 package grupobala.Entities.Extract;
 
 import grupobala.Entities.Extract.IExtract.IExtract;
-import grupobala.Entities.Extract.ReverseExtract.ReverseExtract;
+import grupobala.Entities.Iterator.IteratorEnum.IteratorEnum;
+import grupobala.Entities.Iterator.IteratorInterface.IteratorInterface;
+import grupobala.Entities.Iterator.NormalIterator.NormalIterator;
+import grupobala.Entities.Iterator.ReverseIterator.ReverseIterator;
 import grupobala.Entities.Transaction.ITransaction.ITransaction;
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.Date;
 
 public class Extract implements IExtract {
 
@@ -16,6 +19,19 @@ public class Extract implements IExtract {
         this.transactions = transactions;
         this.entry = 0;
         this.output = 0;
+
+        this.transactions.sort((t1, t2) -> {
+                Date date1 = t1.getDate();
+                Date date2 = t2.getDate();
+
+                if (date1.equals(date2)) {
+                    return 0;
+                } else if (date1.before(date2)) {
+                    return -1;
+                } else {
+                    return 1;
+                }
+            });
 
         for (ITransaction x : this.transactions) {
             if (x.getValue() < 0) {
@@ -37,7 +53,11 @@ public class Extract implements IExtract {
     }
 
     @Override
-    public Iterator<ITransaction> iterator() {
-        return new ReverseExtract<ITransaction>(this.transactions);
+    public IteratorInterface<ITransaction> iterator(IteratorEnum iteratorEnum) {
+        if (iteratorEnum == IteratorEnum.REVERSE) {
+            return new ReverseIterator<ITransaction>(this.transactions);
+        }
+
+        return new NormalIterator<ITransaction>(this.transactions);
     }
 }

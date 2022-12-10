@@ -2,3 +2,5 @@ target/
 .vscode/
 *.jar
 *.class
+*.pdf
+*.csv

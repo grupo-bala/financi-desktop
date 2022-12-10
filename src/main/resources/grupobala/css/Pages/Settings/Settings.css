@@ -1,0 +1,65 @@
+.mainPane, .mainContainer {
+    -fx-background-color: #222622;
+}
+
+.mainContainer {
+    -fx-spacing: 40px;
+    -fx-alignment: top-center;
+}
+
+.container {
+    -fx-font-family: "Montserrat";
+    -fx-max-width: 1100px;
+    -fx-background-color: #121512;
+    -fx-padding: 40px;
+    -fx-alignment: center;
+    -fx-spacing: 30px;
+}
+
+.user-info {
+    -fx-alignment: center;
+    -fx-spacing: 15px;
+}
+
+.infoName {
+    -fx-alignment: center;
+    -fx-spacing: 5px;
+}
+
+.avatar-icon {
+    -fx-stroke: #65A644;
+    -fx-stroke-width: 3px;
+}
+
+.username {
+    -fx-font-size: 22px;
+    -fx-fill: white;
+}
+
+.name {
+    -fx-font-size: 17px;
+    -fx-fill: rgb(223, 223, 223);
+}
+
+.buttons {
+    -fx-alignment: center;
+    -fx-spacing: 22px;
+}
+
+.edit-button {
+    -fx-font-size: 16px;
+    -fx-background-color: #49AD5A;
+    -fx-background-radius: 5px;
+    -fx-padding: 10px 30px 10px 30px;
+    -fx-cursor: hand; 
+    -fx-effect: dropshadow(gaussian, #0000003F, 4, 0, 0, 4);
+}
+
+.logout-button {
+    -fx-font-size: 16px;
+    -fx-background-color: #EF5350;
+    -fx-background-radius: 5px;
+    -fx-padding: 10px 30px 10px 30px;
+    -fx-cursor: hand; 
+    -fx-effect: dropshadow(gaussian, #0000003F, 4, 0, 0, 4);
+}

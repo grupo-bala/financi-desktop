@@ -34,7 +34,8 @@ public class TestSetup {
                 "usuario",
                 "meta",
                 "aulaassistida",
-                "aula"
+                "aula",
+                "curso"
             )
         );
 

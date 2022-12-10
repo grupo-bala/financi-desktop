@@ -1,6 +1,8 @@
 package grupobala.SetupForTest;
 
 import grupobala.Entities.Category.CategoryEnum;
+import grupobala.Entities.Goal.Goal;
+import grupobala.Entities.Goal.IGoal.IGoal;
 import grupobala.Entities.Transaction.ITransaction.ITransaction;
 import grupobala.Entities.Transaction.Transaction;
 import java.sql.*;
@@ -23,8 +25,8 @@ public class SetupForTest {
             "TRUNCATE TABLE usuario CASCADE",
             "TRUNCATE TABLE meta CASCADE",
             "TRUNCATE TABLE aulaassistida CASCADE",
-            "TRUNCATE TABLE aula CASCADE",
             "TRUNCATE TABLE movimentacao CASCADE",
+            "ALTER SEQUENCE usuario_id_seq RESTART WITH 1",
         };
 
         for (String query : queries) {
@@ -58,7 +60,7 @@ public class SetupForTest {
         Statement statement = connection.createStatement();
 
         String query =
-            "INSERT INTO usuario(nome, nomeusuario, senha, saldo) VALUES ('Financi', 'financi', '1234', 1000)";
+            "INSERT INTO usuario(nome, nomeusuario, senha, saldo) VALUES ('Financi', 'financi', 'Financi@123', 1000)";
 
         statement.executeUpdate(query);
 
@@ -130,5 +132,66 @@ public class SetupForTest {
         );
 
         return transaction;
+    }
+
+    public static IGoal addDefaultGoal(int financiUserID) throws SQLException {
+        Connection connection = DriverManager.getConnection(
+            "jdbc:postgresql://localhost:5432/financi?user=postgres&password=postgres"
+        );
+
+        Statement statement = connection.createStatement();
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2022, 9, 21);
+
+        Date date = calendar.getTime();
+        String title = "Teste";
+        double objective = 1000;
+        double idealValuePerMonth = 123;
+
+        DateFormat formateDate = new SimpleDateFormat("yyyy-MM-dd");
+
+        String query = String.format(
+            Locale.US,
+            "INSERT INTO meta(titulo, idusuario, valormeta, valoratual, datalimite, valoridealpormes) VALUES ('%s', %d, %f, %f, '%s', %f)",
+            title,
+            financiUserID,
+            objective,
+            0.0,
+            formateDate.format(date),
+            idealValuePerMonth
+        );
+
+        int updates = statement.executeUpdate(query);
+
+        if (updates == 0) {
+            throw new SQLException("Something goes wrong");
+        }
+
+        query =
+            String.format(
+                Locale.US,
+                "SELECT id FROM meta WHERE idusuario = %d AND titulo = '%s'",
+                financiUserID,
+                title
+            );
+
+        ResultSet result = statement.executeQuery(query);
+
+        result.next();
+
+        int goalID = result.getInt("id");
+
+        connection.close();
+
+        IGoal goal = new Goal(
+            goalID,
+            title,
+            objective,
+            calendar.getTime(),
+            idealValuePerMonth
+        );
+
+        return goal;
     }
 }

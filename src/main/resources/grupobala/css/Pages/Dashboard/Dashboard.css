@@ -1,4 +1,4 @@
-.dashboard {
+.dashboard, .main-container {
     -fx-background-color: #222622;
 }
 
@@ -96,7 +96,6 @@
     -fx-background-color: transparent;
     -fx-cursor: hand;
     -fx-border-radius: 10px;
-    -fx-background-color: transparent;
     -fx-text-fill: #C54646;
 }
 
@@ -148,8 +147,4 @@
     -fx-background-color: #C54646;
     -fx-font-size: 14px;
     -fx-text-fill: #ffffff;
-}
-
-.main-container {
-    -fx-spacing: 35px;
 }

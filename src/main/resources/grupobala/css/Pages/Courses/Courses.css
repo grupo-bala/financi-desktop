@@ -1,0 +1,127 @@
+.courses, .courses-main-container, .courses-page-content {
+    -fx-background-color: #222622;
+}
+
+.courses-page-content {
+    -fx-padding: 20px 200px;
+    -fx-spacing: 25px;
+    -fx-font-family: "Montserrat";
+}
+
+.courses-card-content {
+    -fx-background-color: #121512;
+    -fx-alignment: center;
+    -fx-spacing: 20px;
+    -fx-padding: 10px 200px;
+}
+
+.courses-title {
+    -fx-fill: white;
+    -fx-font-size: 32px;
+    -fx-font-weight: bold;
+}
+
+.courses-course-card {
+    -fx-background-color: #202320;
+    -fx-alignment: center;
+    -fx-spacing: 20px;
+    -fx-padding: 20px;
+}
+
+.courses-card-text {
+    -fx-fill: white;
+}
+
+.courses-card-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-fill: white;
+}
+
+.courses-card-description {
+    -fx-fill: white;
+    -fx-text-alignment: center;
+}
+
+.courses-show-course {
+    -fx-background-color: #49AD5A;
+    -fx-border-radius: 15px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.card{
+    -fx-font-family: "Montserrat";
+    -fx-alignment: top-center;
+    -fx-max-width: 600px;
+    -fx-max-height: 600px;
+    -fx-padding: 50px;
+    -fx-background-color: #2B2F2B;
+}
+
+.popup-title{
+    -fx-font-weight: bold;
+    -fx-font-family: "Montserrat";
+    -fx-fill: #ffffff;
+    -fx-font-size: 24px;
+}
+
+.lessons-vbox{
+    -fx-padding: 30px 0px 0px 0px;
+    -fx-background-radius:10px;
+    -fx-alignment: top-center;
+    -fx-background-color: transparent;
+}
+
+.watch-lesson{
+    -fx-background-color: #49AD5A;
+    -fx-cursor: hand;
+}
+
+.lesson-title{
+    -fx-font-family: "Montserrat";
+    -fx-font-weight: bold;
+    -fx-fill: #ffffff;
+    -fx-font-size: 18px;
+}
+
+.info{
+    -fx-padding: 28px 60px 10px 4px;
+
+}
+
+.lesson-hbox{
+    -fx-background-radius: 10px;
+    -fx-alignment: center;
+    -fx-background-color: #121512;
+}
+
+.checked-check-box{
+    -fx-cursor: hand;
+    -fx-alignment: center;
+    -fx-padding: 0px 0px 0px 20px;
+}
+
+.padding-vbox{
+    -fx-padding: 10px 0px 0px 0px;
+}
+
+.check-box .box {
+
+    -fx-background-color: white;
+    -fx-border-color:grey;
+    -fx-border-radius:3px; 
+    
+    }
+    
+    .check-box:selected .mark {
+    
+    -fx-background-color: white;
+    
+    }
+    
+    .check-box:selected .box {
+    
+    -fx-background-color: #49AD5A;
+    }

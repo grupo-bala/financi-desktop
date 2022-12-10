@@ -1,7 +1,6 @@
 package grupobala.View.Components.OperationButton;
 
 import grupobala.View.Components.Component.Component;
-import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
@@ -29,8 +28,8 @@ public class OperationButton implements Component {
     }
 
     public VBox getComponent(String buttonText, IconEnum iconEnum) {
-        Image incoming = new Image(iconEnum.pathIcon);
-        ImageView incomingIcon = new ImageView(incoming);
+        Image operation = new Image(iconEnum.pathIcon);
+        ImageView operationIcon = new ImageView(operation);
         Text buttonLabel = new Text(buttonText);
 
         vBox.getStyleClass().add("container");
@@ -41,7 +40,7 @@ public class OperationButton implements Component {
                 "file:src/main/resources/grupobala/css/Components/OperationButton/OperationButton.css"
             );
 
-        vBox.getChildren().addAll(incomingIcon, buttonLabel);
+        vBox.getChildren().addAll(operationIcon, buttonLabel);
 
         return this.vBox;
     }

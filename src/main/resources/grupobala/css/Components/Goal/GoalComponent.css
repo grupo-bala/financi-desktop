@@ -1,0 +1,55 @@
+.financi-goal-container {
+    -fx-background-color: #2B2E2B;
+    -fx-padding: 25px;
+    -fx-cursor: hand;
+}
+
+.financi-goal-left {
+    -fx-spacing: 20px;
+}
+
+.financi-goal-title {
+    -fx-font-family: "Montserrat";
+    -fx-font-size: 24px;
+    -fx-fill: #ffffff;
+    -fx-font-weight: bold;
+}
+
+.financi-goal-info {
+    -fx-spacing: 30px;
+}
+
+.financi-goal-info-unit {
+    -fx-alignment: center;
+}
+
+.financi-goal-right {
+    -fx-alignment: center;
+    -fx-spacing: 10px;
+}
+
+.financi-goal-progress {
+    -fx-min-width: 200px;
+    -fx-min-height: 8px;
+    -fx-background-color: white;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+.financi-goal-inner {
+    -fx-background-color: #168CC0;
+    -fx-min-height: 8px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+.progress-bar {
+    -fx-min-width: 200px;
+    -fx-box-border: red;
+}
+
+.progress-bar > .bar {
+    -fx-background-insets: 0;
+    -fx-padding: 0.30em;
+    -fx-background-color: #168CC0;
+}

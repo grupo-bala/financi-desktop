@@ -1,22 +1,28 @@
 package grupobala.View.Pages.Dashboard;
 
 import grupobala.Controller.Extract.ExtractController;
+import grupobala.Controller.Goal.GoalController;
 import grupobala.Controller.Transaction.TransactionController;
 import grupobala.Entities.Extract.IExtract.IExtract;
-import grupobala.Entities.Transaction.Transaction;
 import grupobala.Entities.User.User;
 import grupobala.View.Components.AvatarCard.AvatarCardComponent;
-import grupobala.View.Components.Card.CardHBoxComponent;
 import grupobala.View.Components.Card.CardVBoxComponent;
+import grupobala.View.Components.DepositGoal.DepositGoal;
 import grupobala.View.Components.ExtractList.ExtractList;
+import grupobala.View.Components.GoalList.GoalListComponent;
+import grupobala.View.Components.GoalView.GoalViewComponent;
 import grupobala.View.Components.NavigationBar.NavigationBar;
 import grupobala.View.Components.OperationButton.OperationButton;
 import grupobala.View.Components.OperationButton.OperationButton.IconEnum;
-import grupobala.View.Components.OperationPopup.OperationPopup;
 import grupobala.View.Components.Popup.PopupComponent;
+import grupobala.View.Components.Popups.EditGoalPopup;
+import grupobala.View.Components.Popups.EditTransactionPopup;
+import grupobala.View.Components.Popups.GoalPopup;
+import grupobala.View.Components.Popups.TransactionPopup;
 import grupobala.View.Components.TransactionView.TransactionViewComponent;
 import grupobala.View.Pages.Page.Page;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -28,8 +34,16 @@ import javafx.scene.text.Text;
 public class Dashboard implements Page {
 
     private StackPane mainPane = new StackPane();
-    private OperationPopup incomingPopup = new OperationPopup("Nova entrada");
-    private OperationPopup outputPopup = new OperationPopup("Nova saída    ");
+    private TransactionPopup incomingPopup = new TransactionPopup(
+        "Nova entrada"
+    );
+    private TransactionPopup outputPopup = new TransactionPopup(
+        "Nova saída    "
+    );
+    private EditTransactionPopup editTransaction = new EditTransactionPopup();
+    private GoalPopup goalPopup = new GoalPopup();
+    private DepositGoal depositGoal = new DepositGoal();
+    private EditGoalPopup editGoal = new EditGoalPopup();
 
     private PopupComponent popupConfirmation = new PopupComponent();
     private PopupComponent errorPopup = new PopupComponent();
@@ -37,12 +51,15 @@ public class Dashboard implements Page {
 
     private ExtractList extract = new ExtractList();
 
+    private GoalListComponent goalsList = getGoalsList();
+
     private NavigationBar navigationBar = new NavigationBar();
 
     @Override
     public StackPane getMainPane() {
         VBox mainContainer = new VBox();
         VBox container = new VBox();
+        ScrollPane clipContainer = new ScrollPane();
         VBox extractList = getExtractList();
 
         incomingPopup.setOnConfirm(() -> {
@@ -51,6 +68,10 @@ public class Dashboard implements Page {
 
         outputPopup.setOnConfirm(() -> {
             updateValues();
+        });
+
+        goalPopup.setOnConfirm(() -> {
+            updateGoals();
         });
 
         extractList.getStyleClass().add("extract-list");
@@ -68,15 +89,25 @@ public class Dashboard implements Page {
                 mainContainer,
                 incomingPopup.getComponent(),
                 outputPopup.getComponent(),
+                goalPopup.getComponent(),
                 errorPopup.getComponent(),
-                popupConfirmation.getComponent()
+                popupConfirmation.getComponent(),
+                depositGoal.getComponent(),
+                editGoal.getComponent(),
+                editTransaction.getComponent()
             );
 
         setSummaryCard();
         mainContainer
             .getChildren()
-            .addAll(navigationBar.getComponent(), container);
-        container.getChildren().addAll(summaryCard, extractList);
+            .addAll(navigationBar.getComponent(), clipContainer);
+        container
+            .getChildren()
+            .addAll(summaryCard, extractList, goalsList.getComponent());
+        clipContainer.setContent(container);
+        clipContainer.setStyle("-fx-background-color: transparent;");
+        clipContainer.setFitToHeight(true);
+        clipContainer.setFitToWidth(true);
 
         return mainPane;
     }
@@ -86,6 +117,10 @@ public class Dashboard implements Page {
 
         summaryCard.getChildren().clear();
         setSummaryCard();
+    }
+
+    private void updateGoals() {
+        goalsList.reloadGoals();
     }
 
     private void setSummaryCard() {
@@ -226,6 +261,11 @@ public class Dashboard implements Page {
                 outputPopup.getPopup().showPopup();
             });
 
+        goalButton
+            .getComponent()
+            .setOnMouseClicked(e -> {
+                goalPopup.getPopup().showPopup();
+            });
         return quickActions;
     }
 
@@ -238,6 +278,9 @@ public class Dashboard implements Page {
                 transaction
             );
             mainPane.getChildren().add(transactionView.getComponent());
+
+            transactionView.getPopup().showPopup();
+
             transactionView.setOnDelete(transactionToDelete -> {
                 transactionView.getPopup().hidePopup();
                 popupRemoveTransactionConfirmation(
@@ -245,12 +288,61 @@ public class Dashboard implements Page {
                     transactionToDelete.getValue()
                 );
             });
-            transactionView.getPopup().showPopup();
+
+            transactionView.setOnEdit(transactionToEdit -> {
+                transactionView.getPopup().hidePopup();
+                editTransaction.setTransaction(transaction);
+                editTransaction.getPopup().showPopup();
+                editTransaction.setOnConfirm(() -> {
+                    updateValues();
+                });
+            });
         });
 
         extractContainer.getChildren().add(extract.getComponent());
 
         return extractContainer;
+    }
+
+    private GoalListComponent getGoalsList() {
+        GoalListComponent goalsList = new GoalListComponent();
+
+        goalsList.setOnClick(goal -> {
+            GoalViewComponent goalView = new GoalViewComponent(goal);
+
+            mainPane.getChildren().add(goalView.getComponent());
+
+            goalView.getPopup().showPopup();
+
+            goalView.setOnDelete(goalToDelete -> {
+                goalView.getPopup().hidePopup();
+                popupRemoveGoalConfirmation(
+                    goalToDelete.getID(),
+                    goalToDelete.getAmountDeposited()
+                );
+            });
+
+            goalView.setOnDeposite(deposite -> {
+                goalView.getPopup().hidePopup();
+                depositGoal.setGoal(goal);
+                depositGoal.getPopup().showPopup();
+                depositGoal.setOnConfirm(() -> {
+                    updateGoals();
+                    updateValues();
+                });
+            });
+
+            goalView.setOnEdit(edit -> {
+                goalView.getPopup().hidePopup();
+                editGoal.editGoal(goal);
+                editGoal.getPopup().showPopup();
+                editGoal.setOnConfirm(() -> {
+                    updateGoals();
+                });
+            });
+        });
+
+        return goalsList;
     }
 
     private void popupRemoveTransactionError(
@@ -327,12 +419,94 @@ public class Dashboard implements Page {
         popupConfirmation.showPopup();
 
         confirmation.setOnAction(e -> {
-            popupConfirmation.hidePopup();
             popupRemoveTransactionError(idTransaction, transactionValue);
+            updateGoals();
+            popupConfirmation.hidePopup();
         });
 
         closePopup.setOnAction(e -> {
             popupConfirmation.hidePopup();
         });
+    }
+
+    private void popupRemoveGoalConfirmation(
+        int idGoal,
+        double amountDeposited
+    ) {
+        VBox card = new CardVBoxComponent().getComponent();
+        Button confirmation = new Button("Confirmar");
+        Button closePopup = new Button("X");
+        Text text = new Text("Deseja apagar esta meta?");
+        VBox vbox = new VBox();
+
+        vbox.getChildren().add(closePopup);
+        card.getChildren().addAll(vbox, text, confirmation);
+        popupConfirmation.getComponent().getChildren().addAll(card);
+
+        vbox.getStyleClass().add("confirmation-box");
+        card.getStyleClass().add("confirmation-card");
+        closePopup.getStyleClass().add("close-popup");
+        text.getStyleClass().add("confirmation-text");
+        confirmation.getStyleClass().add("confirmation-button");
+
+        popupConfirmation.showPopup();
+
+        confirmation.setOnAction(e -> {
+            popupConfirmation.hidePopup();
+            popupRemoveGoalError(idGoal, amountDeposited);
+        });
+
+        closePopup.setOnAction(e -> {
+            popupConfirmation.hidePopup();
+        });
+    }
+
+    private void popupRemoveGoalError(int idGoal, double amountDeposited) {
+        VBox card = new CardVBoxComponent().getComponent();
+        Button closePopup = new Button("X");
+        Text text = new Text("Não foi possível remover a meta");
+        VBox textVBox = new VBox();
+        Image alertImg = new Image(
+            "file:src/main/resources/grupobala/images/alert.png"
+        );
+        ImageView alert = new ImageView(alertImg);
+        HBox alertHBox = new HBox();
+
+        VBox.setVgrow(textVBox, Priority.ALWAYS);
+        card.getChildren().addAll(alertHBox, text, textVBox);
+        errorPopup.getComponent().getChildren().add(card);
+        textVBox.getChildren().add(text);
+        alertHBox.getChildren().addAll(alert, closePopup);
+
+        textVBox.getStyleClass().add("text-box");
+
+        alert.setFitHeight(25);
+        alert.setFitWidth(25);
+        alert.setPreserveRatio(true);
+
+        alertHBox.getStyleClass().add("alert-box");
+        textVBox.getStyleClass().add("text-box");
+
+        card.getStyleClass().add("remove-card");
+        closePopup.getStyleClass().add("close-popup-error");
+        text.getStyleClass().add("text-error");
+
+        try {
+            GoalController goalController = new GoalController();
+            goalController.removeGoal(
+                new User().getID(),
+                idGoal,
+                amountDeposited,
+                new User().getValue()
+            );
+            updateValues();
+            updateGoals();
+        } catch (Exception error) {
+            errorPopup.showPopup();
+
+            closePopup.setOnAction(e -> {
+                errorPopup.hidePopup();
+            });
+        }
     }
 }

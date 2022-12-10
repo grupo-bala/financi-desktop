@@ -2,6 +2,8 @@ package grupobala.View.Components.ExtractList;
 
 import grupobala.Controller.Extract.ExtractController;
 import grupobala.Entities.Extract.IExtract.IExtract;
+import grupobala.Entities.Iterator.IteratorEnum.IteratorEnum;
+import grupobala.Entities.Iterator.IteratorInterface.IteratorInterface;
 import grupobala.Entities.Transaction.ITransaction.ITransaction;
 import grupobala.View.Components.Component.Component;
 import java.sql.SQLException;
@@ -9,11 +11,9 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -41,7 +41,7 @@ public class ExtractList implements Component {
         mainPane
             .getStylesheets()
             .add(
-                "file:src/main/resources/grupobala/css/Pages/ExtractPage/ExtractPage.css"
+                "file:src/main/resources/grupobala/css/Components/ExtractList/ExtractList.css"
             );
 
         mainPane.getChildren().addAll(extractTitle, mainContainer);
@@ -74,12 +74,24 @@ public class ExtractList implements Component {
 
     private VBox getTransactionsPreview(IExtract extract) {
         VBox outputs = new VBox();
+        int limit = 0;
 
-        for (ITransaction t : extract) {
-            VBox tview = compilingTransactionPreview(t);
+        IteratorInterface<ITransaction> extractIterator = extract.iterator(
+            IteratorEnum.REVERSE
+        );
+
+        while (extractIterator.hasNext()) {
+            ITransaction transaction = extractIterator.next();
+
+            if (limit == 4) {
+                break;
+            }
+            limit++;
+            VBox tview = compilingTransactionPreview(transaction);
 
             outputs.getChildren().add(tview);
         }
+
         return outputs;
     }
 
@@ -88,10 +100,7 @@ public class ExtractList implements Component {
 
         Text title = new Text(t.getTitle());
         Text date = new Text(dateFormat.format(t.getDate()));
-        Text value = new Text(
-            (isNegative ? "-" : "") +
-            String.format("R$ %.2f", Math.abs(t.getValue()))
-        );
+        Text value = new Text(String.format("R$ %.2f", Math.abs(t.getValue())));
 
         VBox left = new VBox(title, date);
         HBox right = new HBox(value);
@@ -118,11 +127,12 @@ public class ExtractList implements Component {
 
     private VBox getTitlePage() {
         VBox container = new VBox();
-        Text title = new Text("Atividade Recente");
+        Text title = new Text("Movimentações recentes");
         title.getStyleClass().add("extract-title");
+        container.getStyleClass().add("container-title");
 
         container.getChildren().add(title);
-        container.setAlignment(Pos.TOP_LEFT);
+        container.setAlignment(Pos.CENTER);
 
         return container;
     }
@@ -169,6 +179,7 @@ public class ExtractList implements Component {
         }
         ImageView image = new ImageView(imageLocation);
         HBox container = new HBox(image);
+        container.getStyleClass().add("icon-container");
 
         return container;
     }
