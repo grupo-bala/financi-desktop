@@ -3,6 +3,7 @@ package grupobala.Database;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
+import grupobala.Controller.Authentication.AuthenticationController;
 import grupobala.Database.Connection.DBConnection;
 import grupobala.Database.Lesson.DBLesson;
 import grupobala.Database.Lesson.IDBLesson.IDBLesson;
@@ -18,8 +19,11 @@ public class TestDBLesson {
     private IDBLesson databaseLesson = new DBLesson(new DBConnection());
 
     @Test
-    public void testGetAll() throws SQLException {
+    public void testGetAll() throws SQLException, Exception {
         SetupForTest.truncateTables();
+        AuthenticationController authController = new AuthenticationController();
+        authController.signUp("financi", "Financi@123", "Financi", 0);
+        authController.signIn("financi", "Financi@123");
 
         ArrayList<ILesson> lessons = this.databaseLesson.getAll(1);
 
