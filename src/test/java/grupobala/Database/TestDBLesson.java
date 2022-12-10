@@ -8,6 +8,7 @@ import grupobala.Database.Connection.DBConnection;
 import grupobala.Database.Lesson.DBLesson;
 import grupobala.Database.Lesson.IDBLesson.IDBLesson;
 import grupobala.Entities.Lesson.ILesson.ILesson;
+import grupobala.Entities.User.User;
 import grupobala.SetupForTest.SetupForTest;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ public class TestDBLesson {
         ArrayList<ILesson> lessons = this.databaseLesson.getAll(1);
 
         assertNotEquals(0, lessons.size());
+        new User().close();
     }
 
     @Test
