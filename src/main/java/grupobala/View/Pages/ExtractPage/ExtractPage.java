@@ -17,6 +17,7 @@ import grupobala.View.Components.DocumentButton.DocumentButton;
 import grupobala.View.Components.DocumentButton.DocumentButton.IconType;
 import grupobala.View.Components.ExtractList.ExtractLambda;
 import grupobala.View.Components.FilterButton.FilterButton;
+import grupobala.View.Components.FilterButton.FilterOrderButton;
 import grupobala.View.Components.NavigationBar.NavigationBar;
 import grupobala.View.Components.Popup.PopupComponent;
 import grupobala.View.Components.Popups.EditTransactionPopup;
@@ -44,6 +45,7 @@ public class ExtractPage implements Page {
     private StackPane mainPane = new StackPane();
 
     private EditTransactionPopup editTransaction = new EditTransactionPopup();
+    private IteratorEnum enumerador = IteratorEnum.REVERSE;
     private NavigationBar navigationBar = new NavigationBar();
     private PopupComponent popupConfirmation = new PopupComponent();
     private PopupComponent errorPopup = new PopupComponent();
@@ -63,6 +65,7 @@ public class ExtractPage implements Page {
         dateFormat = new SimpleDateFormat("dd 'de' MMM yyyy", localeBR);
 
         ScrollPane clipContainer = new ScrollPane();
+        
         mainContainer = new VBox();
         container = new VBox();
 
@@ -122,7 +125,7 @@ public class ExtractPage implements Page {
 
     private void loadExtract() throws SQLException, ParseException {
         ExtractController extrato2 = new ExtractController();
-
+        
         IExtract extract = extrato2.getCompleteExtract();
         VBox transactions = getTransactionsPreview(extract);
         container.getChildren().addAll(getTitlePage(), transactions);
@@ -150,13 +153,25 @@ public class ExtractPage implements Page {
         HBox filterBox = new HBox();
         filterBox.getStyleClass().add("filterButton_container");
         FilterButton filterButton = new FilterButton();
+        FilterOrderButton orderButton = new FilterOrderButton();
 
-        filterBox.getChildren().add(filterButton.getComponentClick());
+        filterBox.getChildren().addAll(orderButton.getComponentClick(), filterButton.getComponentClick());
 
         filterButton
             .getComponent()
             .setOnMouseClicked(e -> {
                 filterPopup.getPopup().showPopup();
+            });
+
+
+        orderButton
+            .getComponent()
+            .setOnMouseClicked(e -> {
+                System.out.println("BOTAO RODADO");
+                changeIterator();
+                if(enumerador == IteratorEnum.REVERSE) System.out.println("MODO REVERSE");
+                else if(enumerador == IteratorEnum.NORMAL) System.out.println("MODO NORMAL");
+                reloadExtract();
             });
 
         return filterBox;
@@ -229,6 +244,15 @@ public class ExtractPage implements Page {
             generateDocumentPopup.hidePopup();
         });
     }
+    
+    private void changeIterator(){
+        if(enumerador == IteratorEnum.REVERSE) {
+            enumerador = IteratorEnum.NORMAL;
+        } else { 
+            enumerador = IteratorEnum.REVERSE;
+        }
+    }
+
 
     private void DocumentErrorPopUp() {
         VBox card = new CardVBoxComponent().getComponent();
@@ -262,9 +286,8 @@ public class ExtractPage implements Page {
     private VBox getTransactionsPreview(IExtract extract) {
         VBox outputs = new VBox();
 
-        IteratorInterface<ITransaction> extractIterator = extract.iterator(
-            IteratorEnum.REVERSE
-        );
+        IteratorInterface<ITransaction> extractIterator = extract.iterator(enumerador);
+
         while (extractIterator.hasNext()) {
             ITransaction transaction = extractIterator.next();
             if (
