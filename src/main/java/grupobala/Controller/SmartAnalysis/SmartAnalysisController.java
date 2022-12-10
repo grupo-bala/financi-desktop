@@ -10,7 +10,6 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -112,17 +111,9 @@ public class SmartAnalysisController implements ISmartAnalysisController {
     @Override
     public ArrayList<ITransaction> getTransactions(int userID)
         throws Exception {
-        Calendar calendarBegin = Calendar.getInstance();
-        calendarBegin.set(Calendar.DAY_OF_MONTH, 1);
-        Date dataBegin = calendarBegin.getTime();
-
-        Calendar calendarEnd = Calendar.getInstance();
-        Date dataEnd = calendarEnd.getTime();
         try {
-            ArrayList<ITransaction> transactions = dbExtract.getExtract(
-                userID,
-                dataBegin,
-                dataEnd
+            ArrayList<ITransaction> transactions = dbExtract.getCompleteExtract(
+                userID
             );
             return transactions;
         } catch (SQLException error) {

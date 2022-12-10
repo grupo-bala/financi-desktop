@@ -10,6 +10,7 @@
 
 .filter_Document_container {
     -fx-padding: 0px 0px 0px 18px;
+    -fx-spacing: 10px;
 }
 
 .container {

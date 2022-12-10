@@ -46,7 +46,9 @@ public class TestEditTransactionController {
         );
 
         IExtract extract = extractController.getExtract();
-        ITransaction transaction = extract.iterator(IteratorEnum.REVERSE).next();
+        ITransaction transaction = extract
+            .iterator(IteratorEnum.REVERSE)
+            .next();
 
         transaction.setTitle("teste editado");
         transaction.setValue(20);
@@ -77,7 +79,9 @@ public class TestEditTransactionController {
         );
 
         IExtract extract = extractController.getExtract();
-        ITransaction transaction = extract.iterator(IteratorEnum.REVERSE).next();
+        ITransaction transaction = extract
+            .iterator(IteratorEnum.REVERSE)
+            .next();
 
         transaction.setTitle("teste editado");
         transaction.setValue(20);

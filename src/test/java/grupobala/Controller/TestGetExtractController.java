@@ -92,7 +92,10 @@ public class TestGetExtractController {
         ExtractController controler = new ExtractController();
         IExtract teste = controler.getExtract();
 
-        assertEquals(transactionTitle, teste.iterator(IteratorEnum.REVERSE).next().getTitle());
+        assertEquals(
+            transactionTitle,
+            teste.iterator(IteratorEnum.REVERSE).next().getTitle()
+        );
 
         new User().close();
     }
@@ -112,7 +115,10 @@ public class TestGetExtractController {
         ExtractController controler = new ExtractController();
         IExtract teste = controler.getExtract();
 
-        assertEquals(category, teste.iterator(IteratorEnum.REVERSE).next().getCategory());
+        assertEquals(
+            category,
+            teste.iterator(IteratorEnum.REVERSE).next().getCategory()
+        );
 
         new User().close();
     }

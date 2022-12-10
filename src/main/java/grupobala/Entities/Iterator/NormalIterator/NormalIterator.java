@@ -1,11 +1,10 @@
 package grupobala.Entities.Iterator.NormalIterator;
 
+import grupobala.Entities.Iterator.IteratorInterface.IteratorInterface;
 import java.util.ArrayList;
 
-import grupobala.Entities.Iterator.IteratorInterface.IteratorInterface;
-
 public class NormalIterator<T> implements IteratorInterface<T> {
-    
+
     private ArrayList<T> list;
     private int position;
 

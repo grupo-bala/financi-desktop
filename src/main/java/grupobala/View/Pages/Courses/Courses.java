@@ -1,12 +1,19 @@
 package grupobala.View.Pages.Courses;
 
+import grupobala.App;
+import grupobala.Controller.Lesson.ILessonController.ILessonController;
+import grupobala.Controller.Lesson.LessonController;
+import grupobala.Entities.Course.ICourse.ICourse;
+import grupobala.Entities.Lesson.ILesson.ILesson;
+import grupobala.Entities.User.User;
 import grupobala.View.Components.Card.CardVBoxComponent;
 import grupobala.View.Components.NavigationBar.NavigationBar;
 import grupobala.View.Components.Popup.PopupComponent;
 import grupobala.View.Pages.Page.Page;
+import java.util.ArrayList;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -17,9 +24,11 @@ import javafx.scene.text.Text;
 
 public class Courses implements Page {
 
+    private LessonController lessonController = new LessonController();
     private StackPane mainPane = new StackPane();
     private NavigationBar navigationBar = new NavigationBar();
     private PopupComponent coursePopup = new PopupComponent();
+    private ICourse currentCourse;
 
     @Override
     public Pane getMainPane() {
@@ -54,10 +63,23 @@ public class Courses implements Page {
     }
 
     private VBox getMainContent() {
+        ILessonController lessonController = new LessonController();
         VBox card = new CardVBoxComponent().getComponent();
         Text title = new Text("Aprendizado");
 
-        card.getChildren().addAll(title, getCourseCard());
+        ArrayList<ICourse> courses = new ArrayList<>();
+
+        try {
+            courses = lessonController.getCourses();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        card.getChildren().add(title);
+
+        for (ICourse course : courses) {
+            card.getChildren().add(getCourseCard(course));
+        }
 
         card.getStyleClass().add("courses-card-content");
         title.getStyleClass().add("courses-title");
@@ -65,16 +87,15 @@ public class Courses implements Page {
         return card;
     }
 
-    private VBox getCourseCard() {
+    private VBox getCourseCard(ICourse course) {
         VBox card = new CardVBoxComponent().getComponent();
-        Text title = new Text("Fundamentos de finanças");
-        Text description = new Text(
-            "O curso Fundamentos de Finanças proporciona  a você uma visão básica de finanças, abordando  os objetivos e a estruturação da administração financeira bem como são tomadas as decisões financeiras ótimas."
-        );
+        Text title = new Text(course.getName());
+        Text description = new Text(course.getDescription());
         HBox info = getCardInfo(5, 10, 30);
         Button showCourse = new Button("Ver curso");
-        getCoursePopup();
         showCourse.setOnMouseClicked(e -> {
+            this.currentCourse = course;
+            getCoursePopup();
             coursePopup.showPopup();
         });
         description.setWrappingWidth(400);
@@ -137,23 +158,29 @@ public class Courses implements Page {
     }
 
     private void getCoursePopup() {
-        VBox card = new CardVBoxComponent().getComponent();
-        Text popupTitle = new Text("Produtividade e gestão de custos");
-        VBox lessonsVbox = new VBox();
+        Text popupTitle = new Text(this.currentCourse.getName());
 
-        lessonsVbox
-            .getChildren()
-            .addAll(
-                createLessonExample("Aula 01", 30),
-                createEmptyVbox(),
-                createLessonExample("Aula 02", 30),
-                createEmptyVbox(),
-                createLessonExample("Aula 03", 30),
-                createEmptyVbox(),
-                createLessonExample("Aula 04", 30),
-                createEmptyVbox(),
-                createLessonExample("Aula 05", 30)
-            );
+        VBox card = new CardVBoxComponent().getComponent();
+
+        VBox lessonsVbox = new VBox();
+        ArrayList<ILesson> lessons = new ArrayList<>();
+
+        try {
+            lessons = lessonController.getLessons(this.currentCourse.getId());
+        } catch (Exception error) {
+            System.out.println(error.getMessage());
+        }
+
+        for (ILesson lesson : lessons) {
+            HBox lessonHBox = new HBox();
+            try {
+                lessonHBox = createLesson(lesson);
+            } catch (Exception error) {
+                System.out.println(error.getMessage());
+            }
+
+            lessonsVbox.getChildren().addAll(lessonHBox, createEmptyVbox());
+        }
 
         card.getChildren().addAll(popupTitle, lessonsVbox);
 
@@ -165,44 +192,56 @@ public class Courses implements Page {
         coursePopup.getComponent().getChildren().addAll(card);
     }
 
-    HBox createLessonExample(String title, int minutesDuration) {
+    HBox createLesson(ILesson lesson) {
         Button watchLesson = new Button("ASSISTIR AULA");
-        Text lessonTitle = new Text(title);
+        Text lessonTitle = new Text(lesson.getName());
         HBox info = new HBox();
         VBox checkBoxVbox = new VBox();
-        Image checkBox = new Image(
-            "file:src/main/resources/grupobala/images/Checkbox.png"
-        );
-        ImageView checkBoxView = new ImageView(checkBox);
+        CheckBox checkBox = new CheckBox();
+        checkBox.setSelected(lesson.getIsWatched());
+        checkBox.setOnAction(e -> {
+            try {
+                lessonController.updateWatched(
+                    checkBox.isSelected(),
+                    lesson.getId(),
+                    new User().getID()
+                );
+                lesson.setIsWatched(checkBox.isSelected());
+            } catch (Exception error) {
+                System.out.println(error.getMessage());
+            }
+        });
 
+        watchLesson.setOnAction(e -> {
+            App.getInstance().getHostServices().showDocument(lesson.getURL());
+        });
         info
             .getChildren()
             .addAll(
                 getInfoItem(
                     "file:src/main/resources/grupobala/images/Future.png",
-                    String.format("%d minutos", minutesDuration),
+                    String.format(
+                        "%d minutos",
+                        (lesson.getDurationInSeconds()) / 60
+                    ),
                     ""
                 )
             );
 
-        checkBoxView.setFitHeight(40);
-        checkBoxView.setFitWidth(40);
-        checkBoxView.setPreserveRatio(true);
-
-        checkBoxVbox.getChildren().add(checkBoxView);
-
-        checkBoxVbox.getStyleClass().add("check-box");
+        checkBoxVbox.getChildren().add(checkBox);
+        checkBox.getStyleClass().add("check-box");
+        checkBoxVbox.getStyleClass().add("checked-check-box");
         watchLesson.getStyleClass().add("watch-lesson");
         info.getStyleClass().add("info");
         lessonTitle.getStyleClass().add("lesson-title");
 
-        HBox lessonExample = new HBox();
-        lessonExample
+        HBox lessonHBox = new HBox();
+        lessonHBox
             .getChildren()
             .addAll(lessonTitle, info, watchLesson, checkBoxVbox);
-        lessonExample.getStyleClass().add("lesson-example");
+        lessonHBox.getStyleClass().add("lesson-hbox");
 
-        return lessonExample;
+        return lessonHBox;
     }
 
     VBox createEmptyVbox() {
